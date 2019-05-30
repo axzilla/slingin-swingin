@@ -34,8 +34,6 @@ mongoose
 
 app.use('/public', express.static(__dirname + '../www/public'))
 
-console.log(process.env.NODE_ENV)
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../www/build'))
 
