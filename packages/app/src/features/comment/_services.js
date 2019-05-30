@@ -1,28 +1,27 @@
 import axios from 'axios'
-const apiURL = process.env.REACT_APP_API_URL
 
 export const createComment = async commentData => {
-  return await axios.post(`${apiURL}/comments`, commentData)
+  return await axios.post(`/comments`, commentData)
 }
 
 export const getCommentsByPostRef = async postRef => {
-  return await axios.get(`${apiURL}/comments/${postRef}`)
+  return await axios.get(`/comments/${postRef}`)
 }
 
 export const getCommentsByUserId = async userId => {
-  return await axios.get(`${apiURL}/comments/getByUserId/${userId}`)
+  return await axios.get(`/comments/getByUserId/${userId}`)
 }
 
 export const updateComment = async commentData => {
-  return await axios.post(`${apiURL}/comments/update`, commentData)
+  return await axios.post(`/comments/update`, commentData)
 }
 
 export const deleteComment = async commentId => {
-  return await axios.post(`${apiURL}/comments/delete`, { commentId })
+  return await axios.post(`/comments/delete`, { commentId })
 }
 
 export const updateCommentlikes = async commentId => {
-  return await axios.post(`${apiURL}/comments/likes/${commentId}`)
+  return await axios.post(`/comments/likes/${commentId}`)
 }
 
 export default {
