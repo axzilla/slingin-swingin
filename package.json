@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "npm start --prefix packages/api",
+    "start": "npm start --prefix packages/api",
+    "server": "npm run dev --prefix packages/api",
     "client": "npm start --prefix packages/www",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/www && npm run build --prefix packages/www"
