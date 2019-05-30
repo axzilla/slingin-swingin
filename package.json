@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js --prefix packages/api",
     "server": "npm run dev --prefix packages/api",
     "client": "npm start --prefix packages/www",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -12,7 +11,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "concurrently": "4.1.0"
   }
 }
