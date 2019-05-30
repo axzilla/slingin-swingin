@@ -100,7 +100,6 @@ router.get('/getposts/tag/:tag', (req, res) => {
 // @desc    Get All Posts Tag Once With Count
 // @access  Public
 router.get('/getAllTags', (req, res) => {
-  console.log('xxx')
   Post.distinct('tags')
   Post.aggregate([
     { $unwind: '$tags' },
