@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const slugify = require('../helpers/slugify')
-const keys = require('../config/keys')
 const multer = require('multer')
 const cloudinary = require('../config/cloudinary')
 

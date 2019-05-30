@@ -34,11 +34,12 @@ mongoose
 
 app.use('/public', express.static(__dirname + '../www/public'))
 
+console.log(process.env.NODE_ENV)
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(enforce.HTTPS({ trustProtoHeader: true }))
-  app.use(express.static('client/build'))
+  app.use(express.static('../www/build'))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'www', 'build', 'index.html'))
   })
 }

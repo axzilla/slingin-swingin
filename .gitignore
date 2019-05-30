@@ -8,6 +8,9 @@ yarn-error.log*
 #.DS_Store
 .DS_Store
 
+#Build
+build
+
 # Runtime data
 pids
 *.pid

@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const keys = require('../config/keys')
 const nodemailer = require('nodemailer')
 const passport = require('passport')
 const isEmpty = require('../validation/is-empty')
@@ -32,19 +31,18 @@ const upload = multer({
   limits: { fileSize: '10MB' }
 })
 
-const { nodemailerService, nodemailerUser, nodemailerPass } = keys
 let transporter = nodemailer.createTransport({
-  service: nodemailerService,
+  service: process.env.NODEMAILER_SERVICE,
   auth: {
-    user: nodemailerUser,
-    pass: nodemailerPass
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS
   }
 })
 
 cloudinary.config({
-  cloud_name: keys.cloudinary_cloud_name,
-  api_key: keys.cloudinary_api_key,
-  api_secret: keys.cloudinary_api_secret
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
 const validateRegisterInput = require('../validation/register')
@@ -242,7 +240,7 @@ router.post('/register', (req, res) => {
                     (err, token) => {
                       // Send info to User
                       const mailOptions = {
-                        from: nodemailerUser,
+                        from: process.env.NODEMAILER_USER,
                         to: newUser.email,
                         subject: 'Willkommen zu codehustla!',
                         html: `
@@ -264,7 +262,7 @@ router.post('/register', (req, res) => {
 
                       // Send info to Admin
                       const adminMailOptions = {
-                        from: nodemailerUser,
+                        from: process.env.NODEMAILER_USER,
                         to: 'office@codehustla.io',
                         subject: 'Neuer Benutzer!',
                         html: `
@@ -392,7 +390,7 @@ router.post('/verify/send-email', (req, res) => {
         { expiresIn: sessionTime },
         (err, token) => {
           const mailOptions = {
-            from: nodemailerUser,
+            from: process.env.NODEMAILER_USER,
             to: user.email,
             subject: 'Willkommen zu codehustla!',
             html: `
@@ -511,7 +509,7 @@ router.post('/forgot-password', (req, res) => {
       { expiresIn: sessionTime },
       (err, token) => {
         const mailOptions = {
-          from: nodemailerUser,
+          from: process.env.NODEMAILER_USER,
           to: user.email,
           subject: '[codehustla.io] Passwort zurücksetzen!',
           html: `
@@ -575,7 +573,7 @@ router.post('/reset-password', (req, res) => {
                 { expiresIn: sessionTime },
                 (err, token) => {
                   const mailOptions = {
-                    from: nodemailerUser,
+                    from: process.env.NODEMAILER_USER,
                     to: user.email,
                     subject: '[codehustla.io] Passwort zurückgesetzt!',
                     html: `
@@ -642,7 +640,7 @@ router.post('/change-username', (req, res) => {
             { expiresIn: sessionTime },
             (err, token) => {
               const mailOptions = {
-                from: nodemailerUser,
+                from: process.env.NODEMAILER_USER,
                 to: [user.email],
                 subject: '[codehustla.io] Username geändert!',
                 html: `
@@ -713,7 +711,7 @@ router.post('/change-password', (req, res) => {
                     { expiresIn: sessionTime },
                     (err, token) => {
                       const mailOptions = {
-                        from: nodemailerUser,
+                        from: process.env.NODEMAILER_USER,
                         to: user.email,
                         subject: '[codehustla.io] Passwort geändert!',
                         html: `
@@ -783,7 +781,7 @@ router.post('/change-email', (req, res) => {
             { expiresIn: sessionTime },
             (err, token) => {
               const mailOptions = {
-                from: nodemailerUser,
+                from: process.env.NODEMAILER_USER,
                 to: [user.email, oldEmail],
                 subject: '[codehustla.io] E-Mail Adresse geändert!',
                 html: `

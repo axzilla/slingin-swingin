@@ -1,9 +1,8 @@
 const transporter = require('../transporter')
-const keys = require('../../config/keys')
 
 module.exports = mtuPostNew = (post, user) => {
   const mailOptions = {
-    from: keys.nodemailerUser,
+    from: process.env.NODEMAILER_USER,
     to: user.email,
     subject: '[codehustla.io] Neuigkeiten im Forum!',
     html: `
