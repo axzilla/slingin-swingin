@@ -1,56 +1,55 @@
 import axios from 'axios'
-const apiURL = process.env.REACT_APP_API_URL
 
 const addPost = postData => {
-  return axios.post(`${apiURL}/posts/create`, postData)
+  return axios.post(`/posts/create`, postData)
 }
 
 const editPost = postData => {
-  return axios.post(`${apiURL}/posts/edit`, postData)
+  return axios.post(`/posts/edit`, postData)
 }
 
 const getPost = postId => {
-  return axios.get(`${apiURL}/posts/${postId}`)
+  return axios.get(`/posts/${postId}`)
 }
 
 const getPosts = () => {
-  return axios.get(`${apiURL}/posts`)
+  return axios.get(`/posts`)
 }
 
 const getPostByShortId = postId => {
-  return axios.get(`${apiURL}/posts/short/${postId}`)
+  return axios.get(`/posts/short/${postId}`)
 }
 
 const getPostsByUserId = id => {
-  return axios.get(`${apiURL}/posts/getPosts/published/userId/${id}`)
+  return axios.get(`/posts/getPosts/published/userId/${id}`)
 }
 
 const getDraftPostsByUserId = id => {
-  return axios.get(`${apiURL}/posts/getPosts/draft/userId/${id}`)
+  return axios.get(`/posts/getPosts/draft/userId/${id}`)
 }
 
 const getPostsByUserBookmark = userId => {
-  return axios.get(`${apiURL}/posts/getposts/bookmark/${userId}`)
+  return axios.get(`/posts/getposts/bookmark/${userId}`)
 }
 
 const getPostsByTag = tag => {
-  return axios.get(`${apiURL}/posts/getposts/tag/${tag}`)
+  return axios.get(`/posts/getposts/tag/${tag}`)
 }
 
 const deletePost = (id, history) => {
-  return axios.delete(`${apiURL}/posts/${id}`)
+  return axios.delete(`/posts/${id}`)
 }
 
 const handlePostLikes = postId => {
-  return axios.post(`${apiURL}/posts/like/${postId}`)
+  return axios.post(`/posts/like/${postId}`)
 }
 
 const handlePostBookmarks = postId => {
-  return axios.post(`${apiURL}/posts/bookmark/${postId}`)
+  return axios.post(`/posts/bookmark/${postId}`)
 }
 
 const getPostsTags = () => {
-  return axios.get(`${apiURL}/posts/getAllTags/`)
+  return axios.get(`/posts/getAllTags/`)
 }
 
 export default {

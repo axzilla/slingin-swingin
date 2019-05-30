@@ -1,32 +1,31 @@
 import axios from 'axios'
-const apiURL = process.env.REACT_APP_API_URL
 
 export const getCurrentProfile = () => {
-  return axios.get(`${apiURL}/profile`)
+  return axios.get(`/profile`)
 }
 
 export const getProfiles = () => {
-  return axios.get(`${apiURL}/profile/all`)
+  return axios.get(`/profile/all`)
 }
 
 export const getProfileByHandle = async handle => {
-  return await axios.get(`${apiURL}/profile/handle/${handle}`)
+  return await axios.get(`/profile/handle/${handle}`)
 }
 
 export const getProfilesByFollowingId = id => {
-  return axios.get(`${apiURL}/profile/following/${id}`)
+  return axios.get(`/profile/following/${id}`)
 }
 
 export const getProfilesByFollowerId = id => {
-  return axios.get(`${apiURL}/profile/follower/${id}`)
+  return axios.get(`/profile/follower/${id}`)
 }
 
 export const createProfile = profileData => {
-  return axios.post(`${apiURL}/profile`, profileData)
+  return axios.post(`/profile`, profileData)
 }
 
 export const handleUserFollower = followedUserId => {
-  return axios.post(`${apiURL}/users/follower/${followedUserId}`)
+  return axios.post(`/users/follower/${followedUserId}`)
 }
 
 export default {
