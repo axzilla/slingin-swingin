@@ -1,0 +1,36 @@
+a {
+  text-decoration: none;
+}
+
+.ql-syntax {
+  background: #000;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  overflow-y: scroll;
+  color: white !important;
+}
+
+.post-content img {
+  max-width: 100%;
+}
+
+.post-content p {
+  margin: 0;
+}
+
+.post-content a {
+  color: #2196f3;
+}
+
+.post-content img {
+  font-size: 100px;
+}
+
+.post-content ul {
+  padding-left: 40px;
+}
+
+.post-content ol {
+  padding-left: 40px;
+}
