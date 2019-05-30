@@ -110,7 +110,7 @@ router.get('/getAllTags', (req, res) => {
     .catch(err => res.status(404).json({ notagsfound: 'Keine Tags gefunden' }))
 })
 
-// @route   GET api/posts/short/:post_id
+// @route   GET api/posts/short/:post_iD
 // @desc    Get Post By Short ID
 // @access  Public
 router.get('/short/:post_id', (req, res) => {
