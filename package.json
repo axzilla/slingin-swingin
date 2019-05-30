@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm start --prefix packages/api",
+    "start": "node server.js --prefix packages/api",
     "server": "npm run dev --prefix packages/api",
     "client": "npm start --prefix packages/www",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
