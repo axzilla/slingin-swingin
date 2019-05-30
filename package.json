@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "npm run dev --prefix packages/api",
-    "client": "npm start --prefix packages/www",
+    "client": "npm start --prefix packages/app",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/www && npm run build --prefix packages/www"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/app && npm run build --prefix packages/app"
   },
   "author": "",
   "license": "ISC",

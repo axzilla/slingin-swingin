@@ -32,14 +32,14 @@ mongoose
   })
   .catch(err => console.log(err))
 
-app.use('/public', express.static(__dirname + '../www/public'))
+app.use('/public', express.static(__dirname + '../app/public'))
 
 console.log(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../www/build'))
+  app.use(express.static('../app/build'))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'www', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'app', 'build', 'index.html'))
   })
 }
