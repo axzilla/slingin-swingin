@@ -33,7 +33,8 @@ mongoose
   })
   .catch(err => console.log(err))
 
-app.use('/public', express.static(__dirname + '../app/public'))
+app.use('../app/public', express.static(__dirname + '../app/public'))
+console.log(__dirname)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../app/build'))
