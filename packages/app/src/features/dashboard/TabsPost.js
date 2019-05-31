@@ -23,7 +23,13 @@ const useStyles = makeStyles({
   }
 })
 
-function TabsPost({ post, profile, comments }) {
+function TabsPost({
+  postsByUserId,
+  postsDraftsByUserId,
+  postsByUserBookmark,
+  commentsByUserId,
+  currentUserId
+}) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
@@ -43,32 +49,45 @@ function TabsPost({ post, profile, comments }) {
         >
           <Tab
             label={`Veröffentlicht (${
-              post.postsByUserId ? post.postsByUserId.length : 0
+              postsByUserId ? postsByUserId.length : 0
             })`}
           />
           <Tab
             label={`Entwürfe (${
-              post.postsDraftsByUserId ? post.postsDraftsByUserId.length : 0
+              postsDraftsByUserId ? postsDraftsByUserId.length : 0
             })`}
           />
           <Tab
             label={`Lesezeichen (${
-              post.postsByUserBookmark ? post.postsByUserBookmark.length : 0
+              postsByUserBookmark ? postsByUserBookmark.length : 0
             })`}
           />
           <Tab
             label={`Kommentare (${
-              comments.commentsByUserId ? comments.commentsByUserId.length : 0
+              commentsByUserId ? commentsByUserId.length : 0
             })`}
           />
         </Tabs>
       </AppBar>
-      {value === 0 && <TabsPostPosts post={post} profile={profile} />}
-      {value === 1 && <TabsPostDrafts post={post} profile={profile} />}
-      {value === 2 && <TabsPostBookmarks post={post} profile={profile} />}
-      {value === 3 && (
-        <TabsPostComments comments={comments} profile={profile} />
+      {value === 0 && (
+        <TabsPostPosts
+          postsByUserId={postsByUserId}
+          currentUserId={currentUserId}
+        />
       )}
+      {value === 1 && (
+        <TabsPostDrafts
+          postsDraftsByUserId={postsDraftsByUserId}
+          currentUserId={currentUserId}
+        />
+      )}
+      {value === 2 && (
+        <TabsPostBookmarks
+          postsByUserBookmark={postsByUserBookmark}
+          currentUserId={currentUserId}
+        />
+      )}
+      {value === 3 && <TabsPostComments commentsByUserId={commentsByUserId} />}
     </div>
   )
 }

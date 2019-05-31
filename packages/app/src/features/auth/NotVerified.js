@@ -5,20 +5,22 @@ import ReactGA from 'react-ga'
 // Utils
 import isEmpty from '../../utils/isEmpty'
 
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { sendVerificationEmail } from './_services'
+import { getCurrentProfile } from '../profile/_services'
+
 // Components
 import Alert from '../common/Alert'
 
 // Material Core
 import { Grid, Typography, Card, CardContent, Button } from '@material-ui/core'
 
-const NotVerified = ({
-  auth,
-  history,
-  getCurrentProfile,
-  logoutUser,
-  sendVerificationEmail,
-  clearCurrentProfile
-}) => {
+const NotVerified = ({ history }) => {
+  const { auth } = useAuth()
+
   const { user } = auth
   const { alerts } = auth
 
@@ -47,8 +49,7 @@ const NotVerified = ({
   const onLogoutClick = e => {
     e.preventDefault()
     if (window.confirm('Bist du sicher, dass du dich ausloggen möchtest?')) {
-      clearCurrentProfile()
-      logoutUser()
+      // logoutUser()
       history.push('/login')
     }
   }

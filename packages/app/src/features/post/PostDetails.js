@@ -6,12 +6,11 @@ import { connect } from 'react-redux'
 // Actions
 import {
   getPostByShortId,
-  setPostLoading,
   deletePost,
   handlePostLikes,
   handlePostBookmarks
-} from './_actions'
-import { getCommentsByPostRef } from './../comment/_actions'
+} from './_services'
+import { getCommentsByPostRef } from './../comment/_services'
 
 // Features
 import Spinner from '../common/Spinner'
@@ -60,7 +59,6 @@ const PostDetails = props => {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    props.setPostLoading(true)
     props.getPostByShortId(props.match.params.postId)
     props.getCommentsByPostRef(props.match.params.postId)
   }, [])
@@ -156,7 +154,6 @@ const mapStateToProps = ({ auth, post, comments }) => ({ auth, post, comments })
 const mapDispatchToProps = {
   getPostByShortId,
   getCommentsByPostRef,
-  setPostLoading,
   deletePost,
   handlePostLikes,
   handlePostBookmarks

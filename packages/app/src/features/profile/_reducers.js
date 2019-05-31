@@ -41,9 +41,9 @@ const setCurrentProfile = (state, { payload }) => {
   state.currentProfile = payload
 }
 
-const clearCurrentProfile = (state, { payload }) => {
-  state.currentProfile = null
-}
+// const clearCurrentProfile = (state, { payload }) => {
+//   state.currentProfile = null
+// }
 
 const setProfileErrors = (state, { payload }) => {
   state.errors = payload
@@ -60,7 +60,7 @@ export default createReducer(initialState, {
   setProfiles,
   setProfilesByFollowingId,
   setProfilesByFollowerId,
-  clearCurrentProfile,
+  // clearCurrentProfile,
   setCurrentProfile,
   setProfileErrors,
   clearProfileErrors

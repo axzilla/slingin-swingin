@@ -47,18 +47,3 @@ export const changeEmail = emailData => {
 export const updateSettings = settingData => {
   return axios.post(`/users/change-settings`, settingData)
 }
-
-export default {
-  registerUser,
-  loginUser,
-  uploadAvatar,
-  deleteAvatar,
-  verifyUser,
-  sendVerificationEmail,
-  forgotPassword,
-  setNewPassword,
-  changeUsername,
-  changePassword,
-  changeEmail,
-  updateSettings
-}

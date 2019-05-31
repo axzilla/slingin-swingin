@@ -7,7 +7,7 @@ import ReactGA from 'react-ga'
 import Spinner from '../common/Spinner'
 
 // Actions
-import { getPostsByUserId } from '../post/_actions'
+import { getPostsByUserId } from '../post/_services'
 import {
   getProfileByHandle,
   getProfilesByFollowingId,

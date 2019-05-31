@@ -3,6 +3,12 @@ import React, { useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
+// Services
+import { verifyUser } from './_services'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
 
@@ -29,7 +35,8 @@ const useStyles = makeStyles({
   }
 })
 
-const Verify = ({ auth, match, verifyUser }) => {
+const Verify = ({ match }) => {
+  const { auth } = useAuth()
   const classes = useStyles()
   const { errors } = auth
 

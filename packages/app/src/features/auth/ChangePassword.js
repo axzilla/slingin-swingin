@@ -2,6 +2,12 @@
 import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { changePassword } from './_actions'
+
 // Material Style
 import { makeStyles } from '@material-ui/styles'
 
@@ -39,7 +45,8 @@ const useStyles = makeStyles({
   }
 })
 
-const ChangePassword = ({ auth, changePassword, history }) => {
+const ChangePassword = ({ history }) => {
+  const { auth } = useAuth()
   const classes = useStyles()
 
   const { errors } = auth

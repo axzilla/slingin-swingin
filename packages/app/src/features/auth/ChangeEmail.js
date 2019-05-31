@@ -1,6 +1,13 @@
 // Packages
 import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
+import jwtDecode from 'jwt-decode'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { changeEmail } from './_services'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
@@ -39,8 +46,9 @@ const useStyles = makeStyles({
   }
 })
 
-const ChangeEmail = ({ auth, changeEmail }) => {
+const ChangeEmail = () => {
   const classes = useStyles()
+  const { auth, setAuth } = useAuth()
   const { errors } = auth
 
   const [email, setEmail] = useState(auth.user.email)
@@ -63,7 +71,15 @@ const ChangeEmail = ({ auth, changeEmail }) => {
       email
     }
 
-    changeEmail(emailData)
+    try {
+      const res = await changeEmail(emailData)
+      const { token } = res.data
+      const decoded = jwtDecode(token)
+      setAuth({ isAuthenticated: true, user: decoded })
+      localStorage.setItem('jwtToken', token)
+    } catch (err) {
+      setAuth({ ...auth, errors: err.response.data })
+    }
   }
 
   return (
@@ -75,7 +91,7 @@ const ChangeEmail = ({ auth, changeEmail }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="email"
-                error={errors.email ? true : false}
+                error={errors && errors.email ? true : false}
                 placeholder="E-Mail Adress"
                 label="E-Mail Adresse"
                 margin="normal"
@@ -84,7 +100,7 @@ const ChangeEmail = ({ auth, changeEmail }) => {
                 value={email}
                 onChange={onChange}
               />
-              {errors.email ? (
+              {errors && errors.email ? (
                 <FormHelperText className={classes.error}>
                   {errors.email}
                 </FormHelperText>

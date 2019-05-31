@@ -2,6 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { setNewPassword } from './_services'
+
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
 
@@ -40,7 +47,8 @@ const useStyles = makeStyles({
   }
 })
 
-const ResetPassword = ({ auth, setNewPassword, history, match }) => {
+const ResetPassword = ({ history, match }) => {
+  const { auth } = useAuth()
   const classes = useStyles()
 
   const { errors } = auth

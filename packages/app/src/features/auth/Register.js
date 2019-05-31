@@ -2,6 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import ReactGA from 'react-ga'
 import { Link } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { registerUser } from './_services'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
@@ -42,9 +49,9 @@ const useStyles = makeStyles({
   }
 })
 
-const Register = ({ auth, history, registerUser }) => {
+const Register = ({ history }) => {
   const classes = useStyles()
-
+  const { auth, setAuth } = useAuth()
   const { errors } = auth
 
   const [registerData, setRegisterData] = useState({
@@ -58,9 +65,9 @@ const Register = ({ auth, history, registerUser }) => {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    if (auth.isAuthenticated) {
-      history.push('/dashboard')
-    }
+    // if (auth.isAuthenticated) {
+    //   history.push('/dashboard')
+    // }
   }, [])
 
   const onChange = e => {
@@ -70,7 +77,7 @@ const Register = ({ auth, history, registerUser }) => {
     })
   }
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
 
     const newUser = {
@@ -79,7 +86,16 @@ const Register = ({ auth, history, registerUser }) => {
       password: registerData.password
     }
 
-    registerUser(newUser, history)
+    try {
+      const res = await registerUser(newUser)
+      const { token } = res.data
+      const decoded = jwtDecode(token)
+      setAuth({ isAuthenticated: true, user: decoded })
+      localStorage.setItem('jwtToken', token)
+      history.push('/')
+    } catch (err) {
+      setAuth({ ...auth, errors: err.response.data })
+    }
   }
 
   return (
@@ -93,7 +109,7 @@ const Register = ({ auth, history, registerUser }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="text"
-                error={errors.username ? true : false}
+                error={errors && errors.username ? true : false}
                 label="Benutzername"
                 margin="normal"
                 variant="outlined"
@@ -101,7 +117,7 @@ const Register = ({ auth, history, registerUser }) => {
                 value={registerData.username}
                 onChange={onChange}
               />
-              {errors.username ? (
+              {errors && errors.username ? (
                 <FormHelperText className={classes.error}>
                   {errors.username}
                 </FormHelperText>
@@ -110,7 +126,7 @@ const Register = ({ auth, history, registerUser }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="email"
-                error={errors.email ? true : false}
+                error={errors && errors.email ? true : false}
                 label="E-Mail"
                 margin="normal"
                 variant="outlined"
@@ -118,7 +134,7 @@ const Register = ({ auth, history, registerUser }) => {
                 value={registerData.email}
                 onChange={onChange}
               />
-              {errors.email ? (
+              {errors && errors.email ? (
                 <FormHelperText className={classes.error}>
                   {errors.email}
                 </FormHelperText>
@@ -127,7 +143,7 @@ const Register = ({ auth, history, registerUser }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="password"
-                error={errors.password ? true : false}
+                error={errors && errors.password ? true : false}
                 label="Passwort"
                 margin="normal"
                 variant="outlined"
@@ -135,7 +151,7 @@ const Register = ({ auth, history, registerUser }) => {
                 value={registerData.password}
                 onChange={onChange}
               />
-              {errors.password ? (
+              {errors && errors.password ? (
                 <FormHelperText className={classes.error}>
                   {errors.password}
                 </FormHelperText>

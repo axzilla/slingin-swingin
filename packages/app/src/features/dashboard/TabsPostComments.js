@@ -9,55 +9,50 @@ import Link from '../../components/Link'
 // Material Core
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
-const TabsPostComments = ({ comments }) => {
+const TabsPostComments = ({ commentsByUserId }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
     setLimit(limit + 10)
   }
 
-  const content = comments.commentsByUserId
-    .slice(0, limit)
-    .map((comment, i) => {
-      const { shortId, urlSlug } = comment.refPostId
+  const content = commentsByUserId.slice(0, limit).map((comment, i) => {
+    const { shortId, urlSlug } = comment.refPostId
 
-      return (
-        <Card key={i} style={{ marginBottom: '20px' }}>
-          <CardContent>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '10px'
-              }}
-            >
-              <div>
-                <Link to={`/post/${shortId}/${urlSlug}`}>
-                  <Typography variant="h6">
-                    {comment.refPostId.title}
-                  </Typography>
-                </Link>
-                <Typography variant="caption" style={{ fontWeight: '300' }}>
-                  <Moment format="D MMM YYYY" locale="de">
-                    {comment.dateCreated}
-                  </Moment>
-                </Typography>
-              </div>
+    return (
+      <Card key={i} style={{ marginBottom: '20px' }}>
+        <CardContent>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px'
+            }}
+          >
+            <div>
+              <Link to={`/post/${shortId}/${urlSlug}`}>
+                <Typography variant="h6">{comment.refPostId.title}</Typography>
+              </Link>
+              <Typography variant="caption" style={{ fontWeight: '300' }}>
+                <Moment format="D MMM YYYY" locale="de">
+                  {comment.dateCreated}
+                </Moment>
+              </Typography>
             </div>
+          </div>
 
-            <Typography
-              dangerouslySetInnerHTML={{ __html: comment.text }}
-              className="post-content"
-            />
-          </CardContent>
-        </Card>
-      )
-    })
+          <Typography
+            dangerouslySetInnerHTML={{ __html: comment.text }}
+            className="post-content"
+          />
+        </CardContent>
+      </Card>
+    )
+  })
   return (
     <Grid>
       {content}
-      {comments.commentsByUserId &&
-      content.length === comments.commentsByUserId.length ? null : (
+      {commentsByUserId && content.length === commentsByUserId.length ? null : (
         <Button onClick={loadMore} variant="outlined" color="primary">
           Mehr...
         </Button>
