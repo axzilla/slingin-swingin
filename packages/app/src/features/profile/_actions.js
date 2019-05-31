@@ -12,7 +12,7 @@ export const setUpdatedProfile = createAction('setUpdatedProfile')
 export const setProfilesByFollowerId = createAction('setProfilesByFollowerId')
 export const setProfilesByFollowingId = createAction('setProfilesByFollowingId')
 export const profileLoading = createAction('profileLoading')
-export const clearCurrentProfile = createAction('clearCurrentProfile')
+// export const clearCurrentProfile = createAction('clearCurrentProfile')
 export const setProfileErrors = createAction('setProfileErrors')
 export const clearProfileErrors = createAction('clearProfileErrors')
 

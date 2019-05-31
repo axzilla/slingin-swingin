@@ -6,7 +6,7 @@ import ReactQuill from 'react-quill'
 import { connect } from 'react-redux'
 
 // Actions
-import { editPost, getPost } from './_actions'
+import { editPost, getPost } from './_services'
 
 // Utils
 import isEmpty from '../../utils/isEmpty'

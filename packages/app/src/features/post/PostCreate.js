@@ -3,10 +3,9 @@ import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 import '../../utils/highlight'
 import ReactQuill from 'react-quill'
-import { connect } from 'react-redux'
 
 // Actions
-import { addPost } from './_actions'
+import { addPost } from './_services'
 
 // Assets
 import placeholder from '../../assets/img/post-title-placeholder.png'
@@ -103,7 +102,7 @@ const PostCreate = props => {
     setErrors(props.post.errors)
   }, [props.post.errors])
 
-  const onSubmit = ({ published }) => {
+  const onSubmit = async ({ published }) => {
     const formData = new FormData()
     formData.append('titleImage', titleImage)
     formData.append('title', postData.title)
@@ -111,7 +110,8 @@ const PostCreate = props => {
     formData.append('type', postData.type)
     formData.append('tags', postData.tags)
     formData.append('published', published)
-    props.addPost(formData, props.history)
+    await addPost(formData, props.history)
+    props.history.push('/posts')
   }
 
   const onPostTitleImageChange = e => {
@@ -327,13 +327,4 @@ const PostCreate = props => {
   )
 }
 
-const mapStateToProps = ({ post }) => ({ post })
-
-const mapDispatchToProps = {
-  addPost
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostCreate)
+export default PostCreate

@@ -1,8 +1,13 @@
+// Packages
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 
-const PrivateRoute = ({ component: Component, auth, ...rest }) => {
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { auth } = useAuth()
+
   if (auth.isAuthenticated && auth.user.isVerified) {
     return <Route {...rest} render={props => <Component {...props} />} />
   } else if (auth.isAuthenticated && !auth.user.isVerified) {
@@ -12,8 +17,4 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
-
-export default connect(mapStateToProps)(PrivateRoute)
+export default PrivateRoute

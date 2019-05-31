@@ -2,6 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ReactGA from 'react-ga'
+import jwtDecode from 'jwt-decode'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { loginUser } from './_services'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
@@ -42,9 +49,9 @@ const useStyles = makeStyles({
   }
 })
 
-const Login = ({ auth, loginUser, history }) => {
+const Login = ({ history }) => {
   const classes = useStyles()
-
+  const { auth, setAuth } = useAuth()
   const { errors } = auth
 
   const [loginData, setLoginData] = useState({
@@ -57,12 +64,19 @@ const Login = ({ auth, loginUser, history }) => {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    if (auth.isAuthenticated) {
-      history.push('/dashboard')
-    }
+    // if (auth.isAuthenticated) {
+    //   history.push('/dashboard')
+    // }
   }, [])
 
-  const onSubmit = e => {
+  const onChange = e => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const onSubmit = async e => {
     e.preventDefault()
 
     const userData = {
@@ -70,14 +84,16 @@ const Login = ({ auth, loginUser, history }) => {
       password: loginData.password
     }
 
-    loginUser(userData, history)
-  }
-
-  const onChange = e => {
-    setLoginData({
-      ...loginData,
-      [e.target.name]: e.target.value
-    })
+    try {
+      const res = await loginUser(userData)
+      const { token } = res.data
+      const decoded = jwtDecode(token)
+      setAuth({ isAuthenticated: true, user: decoded })
+      localStorage.setItem('jwtToken', token)
+      history.push('/')
+    } catch (err) {
+      setAuth({ ...auth, errors: err.response.data })
+    }
   }
 
   return (
@@ -91,7 +107,7 @@ const Login = ({ auth, loginUser, history }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="text"
-                error={errors.login ? true : false}
+                error={errors && errors.login ? true : false}
                 label="Benutzername oder E-Mail"
                 margin="normal"
                 variant="outlined"
@@ -99,7 +115,7 @@ const Login = ({ auth, loginUser, history }) => {
                 value={loginData.login}
                 onChange={onChange}
               />
-              {errors.login ? (
+              {errors && errors.login ? (
                 <FormHelperText className={classes.error}>
                   {errors.login}
                 </FormHelperText>
@@ -108,7 +124,7 @@ const Login = ({ auth, loginUser, history }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="password"
-                error={errors.password ? true : false}
+                error={errors && errors.password ? true : false}
                 label="Passwort"
                 margin="normal"
                 variant="outlined"
@@ -116,7 +132,7 @@ const Login = ({ auth, loginUser, history }) => {
                 value={loginData.password}
                 onChange={onChange}
               />
-              {errors.password ? (
+              {errors && errors.password ? (
                 <FormHelperText className={classes.error}>
                   {errors.password}
                 </FormHelperText>

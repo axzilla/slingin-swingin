@@ -1,8 +1,11 @@
 // Packages
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
 
 // Components
 import Link from '../../components/Link'
@@ -163,12 +166,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const ToolbarApp = ({
-  auth,
   searchFunc,
   history,
   isLightTheme,
   onThemeToggleClick
 }) => {
+  const { auth } = useAuth()
   const [toolbarData, setToolbarData] = useState({
     searchText: ''
   })

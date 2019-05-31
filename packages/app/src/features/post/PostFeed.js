@@ -4,7 +4,7 @@ import ReactGA from 'react-ga'
 import { connect } from 'react-redux'
 
 // Actions
-import { getPosts, setPostLoading } from '../_actions'
+import { getPosts } from './__services'
 
 // Features
 import PostFeedItem from './PostFeedItem'
@@ -18,7 +18,7 @@ import CardLanding from '../../components/cards/CardLanding'
 import { Button, Grid, Hidden } from '@material-ui/core'
 
 const PostFeed = props => {
-  const { history, posts, getPosts, setPostLoading } = props
+  const { history, posts, getPosts } = props
 
   const [limit, setLimit] = useState(10)
 
@@ -26,7 +26,6 @@ const PostFeed = props => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    setPostLoading(true)
     getPosts()
   }, [])
 

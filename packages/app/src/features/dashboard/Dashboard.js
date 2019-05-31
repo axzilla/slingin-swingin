@@ -1,7 +1,25 @@
 // Packages
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import ReactGA from 'react-ga'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
+// Services
+import { logoutUser } from '../auth/_services'
+import {
+  // getCurrentProfile,
+  getProfilesByFollowingId,
+  getProfilesByFollowerId
+  // clearCurrentProfile
+} from '../profile/_services'
+import { getCommentsByUserId } from '../comment/_services'
+import {
+  getPostsByUserBookmark,
+  getPostsByUserId,
+  getDraftPostsByUserId
+} from '../post/_services'
 
 // Components
 import Link from '../../components/Link'
@@ -82,35 +100,59 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function MiniDrawer(props) {
+function MiniDrawer() {
   const classes = useStyles()
-  const { loading, post, profile, comments } = props
+  const { auth } = useAuth()
+  const [postsByUserId, setPostsByUserId] = useState()
+  const [postsDraftsByUserId, setPostsDraftsByUserId] = useState()
+  const [postsByUserBookmark, setPostsByUserBookmark] = useState()
+  const [commentsByUserId, setCommentsByUserId] = useState()
+  const [profilesByFollowerId, setProfilesByFollowerId] = useState()
+  const [profilesByFollowingId, setProfilesByFollowingId] = useState()
+  // const { loading, post, profile, comments }
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    props.getCurrentProfile()
-    props.getPostsByUserId(props.auth.user.id)
-    props.getDraftPostsByUserId(props.auth.user.id)
-    props.getPostsByUserBookmark(props.auth.user.id)
-    props.getProfilesByFollowingId(props.auth.user.id)
-    props.getProfilesByFollowerId(props.auth.user.id)
-    props.getCommentsByUserId(props.auth.user.id)
+    // getCurrentProfile()
+    getPostsByUserId(auth.user.id).then(res => {
+      setPostsByUserId(res.data)
+    })
+
+    getDraftPostsByUserId(auth.user.id).then(res => {
+      setPostsDraftsByUserId(res.data)
+    })
+
+    getPostsByUserBookmark(auth.user.id).then(res => {
+      setPostsByUserBookmark(res.data)
+    })
+
+    getProfilesByFollowingId(auth.user.id).then(res => {
+      setProfilesByFollowingId(res.data)
+    })
+
+    getProfilesByFollowerId(auth.user.id).then(res => {
+      setProfilesByFollowerId(res.data)
+    })
+
+    getCommentsByUserId(auth.user.id).then(res => {
+      setCommentsByUserId(res.data)
+    })
   }, [])
 
   let dashboardContent
 
   if (
-    props.post === null ||
-    props.post.postsByUserId === null ||
-    props.post.postsDraftsByUserId === null ||
-    props.post.postsByUserBookmark === null ||
-    props.profile === null ||
-    props.profile.currentProfile === null ||
-    props.profile.profilesByFollowingId === null ||
-    props.profile.profilesByFollowerId === null ||
-    loading
+    postsByUserId === null ||
+    postsDraftsByUserId === null ||
+    postsByUserBookmark === null ||
+    profilesByFollowingId === null ||
+    profilesByFollowerId === null ||
+    commentsByUserId === null
+    // profile === null ||
+    // profile.currentProfile === null ||
+    // loading
   ) {
     dashboardContent = <Spinner />
   } else {
@@ -125,13 +167,25 @@ function MiniDrawer(props) {
           exact
           path="/dashboard/posts"
           render={() => (
-            <TabsPost post={post} profile={profile} comments={comments} />
+            <TabsPost
+              postsByUserId={postsByUserId}
+              postsDraftsByUserId={postsDraftsByUserId}
+              postsByUserBookmark={postsByUserBookmark}
+              commentsByUserId={commentsByUserId}
+              currentUserId={auth.user.id}
+            />
           )}
         />
         <Route
           exact
           path="/dashboard/member"
-          render={() => <TabsMember profile={profile} />}
+          render={() => (
+            <TabsMember
+              profilesByFollowerId={profilesByFollowerId}
+              profilesByFollowingId={profilesByFollowingId}
+              currentUserId={auth.user.id}
+            />
+          )}
         />
         <Route exact path="/dashboard/profile" render={() => <ProfileEdit />} />
         <Route

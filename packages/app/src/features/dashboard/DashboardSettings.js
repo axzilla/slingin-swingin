@@ -8,10 +8,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 
 // Components
-import ChangeEmailContainer from '../auth/container/ChangeEmailContainer'
-import ChangePasswordContainer from '../auth/container/ChangePasswordContainer'
-import ChangeUsernameContainer from '../auth/container/ChangeUsernameContainer'
-import SettingsContainer from '../auth/container/SettingsContainer'
+import ChangeEmail from '../auth/ChangeEmail'
+import ChangePassword from '../auth/ChangePassword'
+import ChangeUsername from '../auth/ChangeUsername'
+import Settings from '../auth/Settings'
 
 const useStyles = makeStyles({
   container: {
@@ -19,25 +19,25 @@ const useStyles = makeStyles({
   }
 })
 
-function Settings() {
+function DashboardSettings() {
   const classes = useStyles()
 
   return (
     <Grid container>
       <Grid item xs={12} className={classes.container}>
-        <ChangeEmailContainer />
+        <ChangeEmail />
       </Grid>
       <Grid item xs={12} className={classes.container}>
-        <ChangePasswordContainer />
+        <ChangePassword />
       </Grid>
       <Grid item xs={12} className={classes.container}>
-        <ChangeUsernameContainer />
+        <ChangeUsername />
       </Grid>
       <Grid item xs={12} className={classes.container}>
-        <SettingsContainer />
+        <Settings />
       </Grid>
     </Grid>
   )
 }
 
-export default Settings
+export default DashboardSettings

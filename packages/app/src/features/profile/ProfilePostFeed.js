@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
 
 // Actions
-import { getPostsByUserId } from '../../features/post/_actions'
+import { getPostsByUserId } from '../../features/post/_services'
 
 // Features
 import PostFeedItem from '../post/PostFeedItem'

@@ -3,10 +3,9 @@ import React from 'react'
 import Link from '../../components/Link'
 import { HashLink } from 'react-router-hash-link'
 import Moment from 'react-moment'
-import { connect } from 'react-redux'
 
 // Actions
-import { handlePostLikes, handlePostBookmarks } from './_actions'
+import { handlePostLikes, handlePostBookmarks } from './_services'
 
 // Assets
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
@@ -67,20 +66,16 @@ const useStyles = makeStyles({
   }
 })
 
-const PostFeedItem = props => {
+const PostFeedItem = ({
+  history,
+  post,
+  auth,
+  clickLocation,
+  userPostsId,
+  searchString,
+  currentUserId
+}) => {
   const classes = useStyles()
-
-  const {
-    history,
-    post,
-    auth,
-    clickLocation,
-    userPostsId,
-    searchString,
-    profileBookmarkedUserId,
-    handlePostLikes,
-    handlePostBookmarks
-  } = props
 
   let color
 
@@ -108,7 +103,7 @@ const PostFeedItem = props => {
         post._id,
         userPostsId,
         searchString,
-        profileBookmarkedUserId
+        currentUserId
       )
     } else {
       history.push('/login')
@@ -122,7 +117,7 @@ const PostFeedItem = props => {
         post._id,
         userPostsId,
         searchString,
-        profileBookmarkedUserId
+        currentUserId
       )
     } else {
       history.push('/login')
@@ -257,14 +252,4 @@ const PostFeedItem = props => {
   )
 }
 
-const mapStateToProps = ({ auth }) => ({ auth })
-
-const mapDispatchToProps = {
-  handlePostLikes,
-  handlePostBookmarks
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostFeedItem)
+export default PostFeedItem

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Link from '../../components/Link'
 
-import { getPostsTags } from '../../features/post/_actions'
+import { getPostsTags } from '../../features/post/_services'
 
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 

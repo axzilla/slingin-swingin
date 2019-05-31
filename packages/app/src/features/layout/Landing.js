@@ -1,11 +1,15 @@
 // Packages
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
+
+// Services
+import { getPosts } from '../post/_services'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
 
 // Features
 import PostFeedItem from '../post/PostFeedItem'
-import { getPosts } from '../post/_actions'
 
 // Components
 import CardPostsTopHashtags from '../../components/cards/CardPostsTopHashtags'
@@ -16,15 +20,19 @@ import CardUserLatest from '../../components/cards/CardUserLatest'
 // Material Core
 import { Button, Grid, Hidden } from '@material-ui/core'
 
-const Landing = ({ auth, history, posts, getPosts }) => {
+const Landing = ({ history }) => {
+  const { auth } = useAuth()
   const [limit, setLimit] = useState(10)
+  const [posts, setPosts] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    getPosts()
+    getPosts().then(res => {
+      setPosts(res.data)
+    })
   }, [])
 
   const loadMore = () => {
@@ -47,14 +55,18 @@ const Landing = ({ auth, history, posts, getPosts }) => {
       <Grid item xs={12} md={6}>
         {!auth.isAuthenticated ? <CardLanding /> : null}
         <Grid item xs={12}>
-          {posts.slice(0, limit).map((post, i) => (
-            <PostFeedItem
-              clickLocation={'allPosts'}
-              key={i}
-              post={post}
-              history={history}
-            />
-          ))}
+          {posts &&
+            posts
+              .slice(0, limit)
+              .map((post, i) => (
+                <PostFeedItem
+                  clickLocation={'allPosts'}
+                  key={i}
+                  post={post}
+                  history={history}
+                  auth={auth}
+                />
+              ))}
           {posts && posts.slice(0, limit).length === posts.length ? null : (
             <Button onClick={loadMore} variant="outlined" color="primary">
               Mehr...
@@ -72,18 +84,4 @@ const Landing = ({ auth, history, posts, getPosts }) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth,
-    posts: state.post.posts
-  }
-}
-
-const mapDispatchToProps = {
-  getPosts
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Landing)
+export default Landing
