@@ -13,7 +13,7 @@ import Layout from './features/layout/Layout'
 import Landing from './features/layout/Landing'
 import Login from './features/auth/Login'
 import Register from './features/auth/Register'
-import VerifyContainer from './features/auth/container/VerifyContainer'
+import Verify from './features/auth/Verify'
 import NotVerified from './features/auth/NotVerified'
 import ForgotPassword from './features/auth/ForgotPassword'
 import ResetPassword from './features/auth/ResetPassword'
@@ -54,7 +54,7 @@ const App = props => {
             <Route exact path="/" component={Landing} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/verify/:token" component={VerifyContainer} />
+            <Route exact path="/verify/:token" component={Verify} />
             <Route exact path="/not-verified" component={NotVerified} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
