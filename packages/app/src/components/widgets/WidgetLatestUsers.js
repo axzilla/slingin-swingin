@@ -1,13 +1,9 @@
 // Packages
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 // Components
-import Link from '../../components/Link'
-import CharAvatar from '../../components/avatars/CharAvatar'
-
-// Redux
-import { getProfiles } from '../../features/profile/_actions'
+import Link from '../Link'
+import CharAvatar from '../avatars/CharAvatar'
 
 // Material Core
 import { makeStyles } from '@material-ui/core/styles'
@@ -31,12 +27,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const TopHashTagCard = props => {
+const WidgetLatestUsers = ({ profiles }) => {
   const classes = useStyles()
-
-  useEffect(() => {
-    props.getProfiles()
-  }, [])
 
   return (
     <Card className={classes.card}>
@@ -46,8 +38,8 @@ const TopHashTagCard = props => {
             @neue mitglieder
           </Box>
         </Typography>
-        {props.profiles &&
-          props.profiles.slice(0, 5).map((profile, i) => {
+        {profiles &&
+          profiles.slice(0, 5).map((profile, i) => {
             return (
               <Link key={i} to={`${profile.handle}`}>
                 <Grid
@@ -89,17 +81,4 @@ const TopHashTagCard = props => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    profiles: state.profile.profiles
-  }
-}
-
-const mapDispatchToProps = {
-  getProfiles
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TopHashTagCard)
+export default WidgetLatestUsers

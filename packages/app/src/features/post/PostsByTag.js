@@ -1,10 +1,12 @@
 // Packages
 import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
-import { connect } from 'react-redux'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
 
 // Actions
-import { getPostsByTag } from './_actions'
+import { getPostsByTag, getPostsTags } from './_services'
 
 // Features
 import PostFeedItem from './PostFeedItem'
@@ -12,22 +14,29 @@ import PostsByTagHeaderCard from './PostsByTagHeaderCard'
 
 // Components
 import Spinner from '../common/Spinner'
-import CardPostsTopHashtags from '../../components/cards/CardPostsTopHashtags'
-import CardSponsors from '../../components/cards/CardSponsors'
+import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
 
 // Material Core
 import { Button, Grid, Hidden } from '@material-ui/core'
 
 const PostsByTag = props => {
-  const { history, posts, getPostsByTag, isLoading } = props
-
+  const { auth } = useAuth()
+  const { history, isLoading } = props
+  const [posts, setPosts] = useState()
+  const [postTags, setPostTags] = useState()
   const [limit, setLimit] = useState(10)
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    getPostsByTag(props.match.params.tag)
+    getPostsByTag(props.match.params.tag).then(res => {
+      setPosts(res.data)
+    })
+
+    getPostsTags().then(res => {
+      setPostTags(res.data)
+    })
   }, [])
 
   useEffect(() => {
@@ -43,16 +52,19 @@ const PostsByTag = props => {
   if (isLoading) {
     postContent = <Spinner />
   } else {
-    postContent = posts
-      .slice(0, limit)
-      .map((post, i) => (
-        <PostFeedItem
-          clickLocation={'allPosts'}
-          key={i}
-          post={post}
-          history={history}
-        />
-      ))
+    postContent =
+      posts &&
+      posts
+        .slice(0, limit)
+        .map((post, i) => (
+          <PostFeedItem
+            clickLocation={'allPosts'}
+            key={i}
+            post={post}
+            history={history}
+            auth={auth}
+          />
+        ))
   }
 
   return (
@@ -69,7 +81,7 @@ const PostsByTag = props => {
       >
         <Hidden smDown>
           <Grid item xs={3}>
-            <CardPostsTopHashtags />
+            <WidgetTopPostsTags postTags={postTags} />
           </Grid>
         </Hidden>
         <Grid item xs={12} md={6}>
@@ -81,27 +93,11 @@ const PostsByTag = props => {
           )}
         </Grid>
         <Hidden smDown>
-          <Grid item xs={3}>
-            <CardSponsors />
-          </Grid>
+          <Grid item xs={3} />
         </Hidden>
       </Grid>
     </Grid>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth,
-    posts: state.post.postsByTag
-  }
-}
-
-const mapDispatchToProps = {
-  getPostsByTag
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostsByTag)
+export default PostsByTag

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 
 // Services
-import { getPosts } from '../post/_services'
+import { getPosts, getPostsTags } from '../post/_services'
+import { getProfiles } from '../profile/_services'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -12,10 +13,9 @@ import { useAuth } from '../../contexts/auth'
 import PostFeedItem from '../post/PostFeedItem'
 
 // Components
-import CardPostsTopHashtags from '../../components/cards/CardPostsTopHashtags'
-import CardSponsors from '../../components/cards/CardSponsors'
 import CardLanding from '../../components/cards/CardLanding'
-import CardUserLatest from '../../components/cards/CardUserLatest'
+import LandingWidgetPostTags from './LandingWidgetPostTags'
+import LandingWidgetUsers from './LandingWidgetUsers'
 
 // Material Core
 import { Button, Grid, Hidden } from '@material-ui/core'
@@ -24,6 +24,8 @@ const Landing = ({ history }) => {
   const { auth } = useAuth()
   const [limit, setLimit] = useState(10)
   const [posts, setPosts] = useState()
+  const [postTags, setPostTags] = useState()
+  const [profiles, setProfiles] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -32,6 +34,14 @@ const Landing = ({ history }) => {
 
     getPosts().then(res => {
       setPosts(res.data)
+    })
+
+    getPostsTags().then(res => {
+      setPostTags(res.data)
+    })
+
+    getProfiles().then(res => {
+      setProfiles(res.data)
     })
   }, [])
 
@@ -49,7 +59,7 @@ const Landing = ({ history }) => {
     >
       <Hidden smDown>
         <Grid item xs={3}>
-          <CardPostsTopHashtags />
+          <LandingWidgetPostTags postTags={postTags} />
         </Grid>
       </Hidden>
       <Grid item xs={12} md={6}>
@@ -76,8 +86,7 @@ const Landing = ({ history }) => {
       </Grid>
       <Hidden smDown>
         <Grid item xs={3}>
-          <CardUserLatest />
-          <CardSponsors />
+          <LandingWidgetUsers profiles={profiles} />
         </Grid>
       </Hidden>
     </Grid>
