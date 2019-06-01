@@ -1,7 +1,9 @@
 // Packages
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
-import { connect } from 'react-redux'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
 
 // Actions
 import {
@@ -10,7 +12,7 @@ import {
   handlePostLikes,
   handlePostBookmarks
 } from './_services'
-import { getCommentsByPostRef } from './../comment/_services'
+import { getCommentsByPostRef } from '../comment/_services'
 
 // Features
 import Spinner from '../common/Spinner'
@@ -41,27 +43,56 @@ const useStyles = makeStyles({
   }
 })
 
-const PostDetails = props => {
+const PostDetails = ({ match, history }) => {
+  const { auth } = useAuth()
   const classes = useStyles()
-
-  const { isLoading, post } = props.post
-  const { commentsByPostRef } = props.comments
-  const {
-    auth,
-    deletePost,
-    handlePostBookmarks,
-    handlePostLikes,
-    history
-  } = props
-
+  const [isLoading, setIsloading] = useState(false)
+  const [post, setPost] = useState([])
+  const [commentsByPostRef, setCommentsByPostRef] = useState([])
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    props.getPostByShortId(props.match.params.postId)
-    props.getCommentsByPostRef(props.match.params.postId)
+    getInitialProps()
   }, [])
+
+  const getInitialProps = async () => {
+    setIsloading(true)
+    await getPostByShortId(match.params.postId).then(res => {
+      setPost(res.data)
+    })
+
+    await getCommentsByPostRef(match.params.postId).then(res => {
+      setCommentsByPostRef(res.data)
+    })
+
+    setIsloading(false)
+  }
+
+  const onLikeClick = id => {
+    if (auth.isAuthenticated) {
+      handlePostLikes(id).then(() => {
+        getPostByShortId(match.params.postId).then(res => {
+          setPost(res.data)
+        })
+      })
+    } else {
+      history.push('/login')
+    }
+  }
+
+  const onBookmarkClick = id => {
+    if (auth.isAuthenticated) {
+      handlePostBookmarks(id).then(() => {
+        getPostByShortId(match.params.postId).then(res => {
+          setPost(res.data)
+        })
+      })
+    } else {
+      history.push('/login')
+    }
+  }
 
   let postContent
 
@@ -89,12 +120,12 @@ const PostDetails = props => {
                   <PostDetailsLikes
                     post={post}
                     auth={auth}
-                    handlePostLikes={handlePostLikes}
+                    onLikeClick={onLikeClick}
                   />
                   <PostDetailsBookmarks
                     post={post}
                     auth={auth}
-                    handlePostBookmarks={handlePostBookmarks}
+                    onBookmarkClick={onBookmarkClick}
                   />
                 </div>
               </div>
@@ -103,7 +134,7 @@ const PostDetails = props => {
               post={post}
               auth={auth}
               deletePost={deletePost}
-              history={history}
+              // history={history}
             />
           </Card>
         </Grid>
@@ -119,7 +150,11 @@ const PostDetails = props => {
           return (
             <React.Fragment key={mainComment._id}>
               {!mainComment.refCommentId ? (
-                <CommentFeedItem key={i} post={post} comment={mainComment} />
+                <CommentFeedItem
+                  key={i}
+                  post={post}
+                  commentItem={mainComment}
+                />
               ) : null}
               {commentsByPostRef
                 .filter(subComment => {
@@ -130,7 +165,7 @@ const PostDetails = props => {
                     <CommentFeedItem
                       key={i}
                       post={post}
-                      comment={subComment}
+                      commentItem={subComment}
                       isSubcomment={true}
                     />
                   )
@@ -149,17 +184,4 @@ const PostDetails = props => {
   )
 }
 
-const mapStateToProps = ({ auth, post, comments }) => ({ auth, post, comments })
-
-const mapDispatchToProps = {
-  getPostByShortId,
-  getCommentsByPostRef,
-  deletePost,
-  handlePostLikes,
-  handlePostBookmarks
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostDetails)
+export default PostDetails
