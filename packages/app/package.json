@@ -26,6 +26,7 @@
     "react-router-hash-link": "^1.2.1",
     "react-scripts": "2.1.8",
     "redux-starter-kit": "^0.4.3",
+    "socket.io-client": "2.2.0",
     "validator": "10.11.0"
   },
   "scripts": {
