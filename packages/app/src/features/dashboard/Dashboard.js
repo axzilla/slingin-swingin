@@ -172,7 +172,7 @@ function MiniDrawer() {
               postsDraftsByUserId={postsDraftsByUserId}
               postsByUserBookmark={postsByUserBookmark}
               commentsByUserId={commentsByUserId}
-              currentUserId={auth.user.id}
+              auth={auth}
             />
           )}
         />
@@ -183,7 +183,7 @@ function MiniDrawer() {
             <TabsMember
               profilesByFollowerId={profilesByFollowerId}
               profilesByFollowingId={profilesByFollowingId}
-              currentUserId={auth.user.id}
+              auth={auth}
             />
           )}
         />

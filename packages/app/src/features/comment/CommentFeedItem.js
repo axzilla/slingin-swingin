@@ -1,12 +1,14 @@
 // Packages
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
+// Contexts
+import { useAuth } from '../../contexts/auth'
+
 // Actions
-import { updateComment, deleteComment, updateCommentlikes } from './_actions'
+import { updateComment, deleteComment, updateCommentlikes } from './_services'
 
 // Component
 import CommentEditContainer from './container/CommentEditContainer'
@@ -37,17 +39,18 @@ import {
 import { AddBox, Edit, Delete } from '@material-ui/icons'
 
 const CommentFeedItem = ({
-  deleteComment,
-  updateComment,
-  updateCommentlikes,
   post,
-  comment,
-  auth,
+  commentItem,
   history,
-  isSubcomment
+  isSubcomment,
+  setComments,
+  comments
 }) => {
+  const [comment, setComment] = useState(commentItem)
+  const { auth } = useAuth()
   const [isEditMode, setIsEditMode] = useState(false)
   const [isAnswer, setIsAnswer] = useState(false)
+
   const onEditClick = () => {
     setIsEditMode(!isEditMode)
   }
@@ -78,7 +81,9 @@ const CommentFeedItem = ({
     const { isAuthenticated } = auth
 
     if (isAuthenticated) {
-      updateCommentlikes(comment)
+      updateCommentlikes(comment._id).then(res => {
+        setComment(res.data)
+      })
     } else {
       history.push('/login')
     }
@@ -207,15 +212,4 @@ const CommentFeedItem = ({
   )
 }
 
-const mapStateToProps = ({ comments, auth }) => ({ comments, auth })
-
-const mapDispatchToProps = {
-  updateComment,
-  deleteComment,
-  updateCommentlikes
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CommentFeedItem)
+export default CommentFeedItem

@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 })
 
-const TabsMember = ({ profile }) => {
+const TabsMember = ({ profilesByFollowerId, profilesByFollowingId }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
@@ -41,22 +41,22 @@ const TabsMember = ({ profile }) => {
         >
           <Tab
             label={`Abonnenten (${
-              profile.profilesByFollowerId
-                ? profile.profilesByFollowerId.length
-                : 0
+              profilesByFollowerId ? profilesByFollowerId.length : 0
             })`}
           />
           <Tab
             label={`Abonniert (${
-              profile.profilesByFollowingId
-                ? profile.profilesByFollowingId.length
-                : 0
+              profilesByFollowingId ? profilesByFollowingId.length : 0
             })`}
           />
         </Tabs>
       </AppBar>
-      {value === 0 && <TabsMemberFollower profile={profile} />}
-      {value === 1 && <TabsMemberFollowing profile={profile} />}
+      {value === 0 && (
+        <TabsMemberFollower profilesByFollowerId={profilesByFollowerId} />
+      )}
+      {value === 1 && (
+        <TabsMemberFollowing profilesByFollowingId={profilesByFollowingId} />
+      )}
     </div>
   )
 }

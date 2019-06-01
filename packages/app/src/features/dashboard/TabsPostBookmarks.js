@@ -7,7 +7,7 @@ import PostFeedItem from '../post/PostFeedItem'
 // Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const TabsPostBookmarks = ({ postsByUserBookmark, currentUserId }) => {
+const TabsPostBookmarks = ({ postsByUserBookmark, auth }) => {
   const clickLocation = 'postsByUserBookmark'
 
   const [limit, setLimit] = useState(10)
@@ -22,7 +22,7 @@ const TabsPostBookmarks = ({ postsByUserBookmark, currentUserId }) => {
       <PostFeedItem
         key={i}
         post={post}
-        currentUserId={currentUserId}
+        auth={auth}
         clickLocation={clickLocation}
       />
     ))

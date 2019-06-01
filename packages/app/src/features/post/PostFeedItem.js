@@ -76,7 +76,6 @@ const PostFeedItem = ({
   currentUserId
 }) => {
   const classes = useStyles()
-
   let color
 
   // https://materialuicolors.co/ Level 200
@@ -99,11 +98,11 @@ const PostFeedItem = ({
   const toggleIsPostLiked = () => {
     if (auth.isAuthenticated) {
       handlePostLikes(
-        clickLocation,
+        // clickLocation,
         post._id,
         userPostsId,
         searchString,
-        currentUserId
+        auth.user.id
       )
     } else {
       history.push('/login')
@@ -117,7 +116,7 @@ const PostFeedItem = ({
         post._id,
         userPostsId,
         searchString,
-        currentUserId
+        auth.user.id
       )
     } else {
       history.push('/login')

@@ -28,7 +28,7 @@ function TabsPost({
   postsDraftsByUserId,
   postsByUserBookmark,
   commentsByUserId,
-  currentUserId
+  auth
 }) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
@@ -70,21 +70,15 @@ function TabsPost({
         </Tabs>
       </AppBar>
       {value === 0 && (
-        <TabsPostPosts
-          postsByUserId={postsByUserId}
-          currentUserId={currentUserId}
-        />
+        <TabsPostPosts postsByUserId={postsByUserId} auth={auth} />
       )}
       {value === 1 && (
-        <TabsPostDrafts
-          postsDraftsByUserId={postsDraftsByUserId}
-          currentUserId={currentUserId}
-        />
+        <TabsPostDrafts postsDraftsByUserId={postsDraftsByUserId} auth={auth} />
       )}
       {value === 2 && (
         <TabsPostBookmarks
           postsByUserBookmark={postsByUserBookmark}
-          currentUserId={currentUserId}
+          auth={auth}
         />
       )}
       {value === 3 && <TabsPostComments commentsByUserId={commentsByUserId} />}

@@ -7,7 +7,7 @@ import PostFeedItem from '../post/PostFeedItem'
 // Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const TabsPostDrafts = ({ postsDraftsByUserId, currentUserId }) => {
+const TabsPostDrafts = ({ postsDraftsByUserId, auth }) => {
   const clickLocation = 'postsByUserId'
 
   const [limit, setLimit] = useState(10)
@@ -22,7 +22,7 @@ const TabsPostDrafts = ({ postsDraftsByUserId, currentUserId }) => {
       <PostFeedItem
         key={i}
         post={post}
-        currentUserId={currentUserId}
+        auth={auth}
         clickLocation={clickLocation}
       />
     ))
