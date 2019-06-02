@@ -1,13 +1,12 @@
 // Packages
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import ReactQuill from 'react-quill'
 
 // Utils
 import '../../utils/highlight'
 
 // Actions
-import { createComment } from './_actions'
+import { createComment } from './_services'
 
 // Assets
 import { modules, formats } from '../quill/quill'
@@ -45,18 +44,17 @@ const useStyles = makeStyles({
 })
 
 const CommentCreate = ({
-  comments,
   postId,
   postShortId,
-  createComment,
   onCommentId,
-  toggleAnswerMode
+  toggleAnswerMode,
+  commentsByPostRef,
+  setCommentsByPostRef
 }) => {
   const classes = useStyles()
 
   const [text, setText] = useState('')
-
-  const { errors } = comments
+  const [errors, setErrors] = useState()
 
   const onSubmit = async e => {
     e.preventDefault()
@@ -64,13 +62,22 @@ const CommentCreate = ({
     const commentData = {
       text,
       refPostId: postId,
-      refPostShortId: postShortId,
-      refCommentId: onCommentId
+      refPostShortId: postShortId
     }
 
-    await createComment(commentData)
-    toggleAnswerMode && toggleAnswerMode()
-    setText('')
+    try {
+      await createComment(commentData).then(res => {
+        const createdComment = res.data
+        console.log(createdComment)
+        setCommentsByPostRef([createdComment, ...commentsByPostRef])
+      })
+
+      toggleAnswerMode && toggleAnswerMode()
+
+      setText('')
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   const onReactQuillChange = e => {
@@ -87,9 +94,9 @@ const CommentCreate = ({
             formats={formats}
             value={text}
             onChange={onReactQuillChange}
-            error={errors.text}
+            error={errors && errors.text}
           />
-          {errors.text ? (
+          {errors && errors.text ? (
             <FormHelperText className={classes.error}>
               {errors.text}
             </FormHelperText>
@@ -104,13 +111,4 @@ const CommentCreate = ({
   )
 }
 
-const mapStateToProps = ({ comments }) => ({ comments })
-
-const mapDispatchToProps = {
-  createComment
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CommentCreate)
+export default CommentCreate

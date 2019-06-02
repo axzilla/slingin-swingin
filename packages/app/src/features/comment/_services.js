@@ -21,15 +21,5 @@ export const deleteComment = async commentId => {
 }
 
 export const updateCommentlikes = async commentId => {
-  console.log(commentId)
   return await axios.post(`/comments/likes/${commentId}`)
-}
-
-export default {
-  createComment,
-  getCommentsByPostRef,
-  getCommentsByUserId,
-  updateComment,
-  deleteComment,
-  updateCommentlikes
 }

@@ -18,6 +18,7 @@ app.use('/users', require('./routes/users'))
 app.use('/profile', require('./routes/profile'))
 app.use('/posts', require('./routes/posts'))
 app.use('/comments', require('./routes/comments'))
+app.use('/subComments', require('./routes/subComments'))
 app.use('/search', require('./routes/search'))
 
 require('./config/passport')(passport)
@@ -29,11 +30,18 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => {
     console.log('MongoDB Connected')
-    app.listen(port, () => console.log(`Server running on port ${port}`))
+
+    const server = app.listen(port, () =>
+      console.log(`Server running on port ${port}`)
+    )
+
+    const io = require('./socket').init(server)
+
+    io.on('connection', socket => {
+      console.log('Client connected')
+    })
   })
   .catch(err => console.log(err))
-
-// app.use('/public', express.static(__dirname + '/public'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../app/build'))
