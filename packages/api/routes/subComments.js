@@ -24,17 +24,13 @@ router.post(
   }
 )
 
-router.get(
-  '/:commentId',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    SubComment.find({ commentRef: req.params.commentId })
-      .populate('user')
-      .then(foundSubComments => {
-        res.json(foundSubComments)
-      })
-  }
-)
+router.get('/:commentId', (req, res) => {
+  SubComment.find({ commentRef: req.params.commentId })
+    .populate('user')
+    .then(foundSubComments => {
+      res.json(foundSubComments)
+    })
+})
 
 router.put(
   '/',
