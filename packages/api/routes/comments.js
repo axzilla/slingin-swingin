@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const io = require('../socket')
 
 const Post = require('../models/Post')
 const Comment = require('../models/Comment')
@@ -116,13 +117,21 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { commentId, text } = req.body
-    Comment.findById(commentId).then(comment => {
-      comment.text = text
-      comment.save()
-      Comment.find().then(comments => {
-        res.json(comments)
+    Comment.findById(commentId)
+      .populate('user', ['name', 'username', 'avatar'])
+      .then(comment => {
+        comment.text = text
+        comment.save().then(comment => {
+          // io.getIO().emit('comments', { action: 'update', comment })
+          res.json(comment)
+        })
+
+        // Comment.find().then(comments => {
+        //   console.log(comments)
+        //   io.getIO().emit('comments', { action: 'update', comments })
+        //   res.json(comments)
+        // })
       })
-    })
   }
 )
 
@@ -140,7 +149,8 @@ router.post(
         commentIndex = post.comments.indexOf(comment._id)
         post.comments.splice(commentIndex, 1)
         post.save()
-        res.json(post)
+        // res.json(post)
+        res.json(comment)
       })
     })
   }

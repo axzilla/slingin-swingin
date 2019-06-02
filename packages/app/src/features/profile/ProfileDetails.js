@@ -13,7 +13,7 @@ import {
   getProfilesByFollowingId,
   getProfilesByFollowerId
 } from './_actions'
-import { getCommentsByUserId } from '../comment/_actions'
+// import { getCommentsByUserId } from '../comment/_actions'
 
 // Features
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
@@ -97,8 +97,8 @@ const mapDispatchToProps = {
   getProfileByHandle,
   getPostsByUserId,
   getProfilesByFollowerId,
-  getProfilesByFollowingId,
-  getCommentsByUserId
+  getProfilesByFollowingId
+  // getCommentsByUserId
 }
 
 export default connect(

@@ -17,10 +17,6 @@ const CommentSchema = new Schema({
     type: String,
     required: true
   },
-  refCommentId: {
-    type: Schema.Types.ObjectId,
-    ref: 'comment'
-  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users'
@@ -29,11 +25,33 @@ const CommentSchema = new Schema({
     type: String,
     required: true
   },
-  likes: [
+  votes: {
+    downvotes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'users'
+        }
+      }
+    ],
+    upvotes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'users'
+        }
+      }
+    ]
+  },
+  subComments: [
     {
       user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
+      },
+      subComment: {
+        type: Schema.Types.ObjectId,
+        ref: 'subComments'
       }
     }
   ],

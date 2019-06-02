@@ -1,6 +1,7 @@
 // Packages
 import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
+import openSocket from 'socket.io-client'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -57,8 +58,18 @@ const PostDetails = ({ match, history }) => {
     getInitialProps()
   }, [])
 
+  // useEffect(() => {
+  //   const socket = openSocket('http://localhost:5000')
+  //   socket.on('comments', data => {
+  //     if (data.action === 'create') {
+  //       setCommentsByPostRef([data.comment, ...commentsByPostRef])
+  //     }
+  //   })
+  // }, [commentsByPostRef])
+
   const getInitialProps = async () => {
     setIsloading(true)
+
     await getPostByShortId(match.params.postId).then(res => {
       setPost(res.data)
     })
@@ -140,39 +151,29 @@ const PostDetails = ({ match, history }) => {
         </Grid>
         <Grid style={{ marginBottom: '50px' }}>
           {auth.isAuthenticated && auth.user.isVerified ? (
-            <CommentCreate postId={post._id} postShortId={post.shortId} />
+            <CommentCreate
+              postId={post._id}
+              postShortId={post.shortId}
+              setCommentsByPostRef={setCommentsByPostRef}
+              commentsByPostRef={commentsByPostRef}
+            />
           ) : null}
         </Grid>
         <Typography variant="subtitle1" gutterBottom>
           Kommentare ({commentsByPostRef.length})
         </Typography>
-        {commentsByPostRef.map((mainComment, i) => {
-          return (
-            <React.Fragment key={mainComment._id}>
-              {!mainComment.refCommentId ? (
-                <CommentFeedItem
-                  key={i}
-                  post={post}
-                  commentItem={mainComment}
-                />
-              ) : null}
-              {commentsByPostRef
-                .filter(subComment => {
-                  return subComment.refCommentId === mainComment._id
-                })
-                .map(subComment => {
-                  return (
-                    <CommentFeedItem
-                      key={i}
-                      post={post}
-                      commentItem={subComment}
-                      isSubcomment={true}
-                    />
-                  )
-                })}
-            </React.Fragment>
-          )
-        })}
+        {commentsByPostRef &&
+          commentsByPostRef.map((comment, i) => {
+            return (
+              <CommentFeedItem
+                key={i}
+                post={post}
+                comment={comment}
+                setCommentsByPostRef={setCommentsByPostRef}
+                commentsByPostRef={commentsByPostRef}
+              />
+            )
+          })}
       </Grid>
     )
   }

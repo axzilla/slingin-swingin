@@ -1,8 +1,9 @@
 // Packages
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ReactGA from 'react-ga'
+// import openSocket from 'socket.io-client'
 
 // Store
 import store from './store'
@@ -40,6 +41,10 @@ const ScrollToTop = () => {
 }
 
 const App = props => {
+  // useEffect(() => {
+  //   openSocket('http://localhost:5000')
+  // }, [])
+
   return (
     <Provider store={store}>
       <Router>
