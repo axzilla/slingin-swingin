@@ -305,8 +305,6 @@ router.post(
   '/like/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log(req.params.id)
-    console.log(req.user.id)
     Post.findById(req.params.id)
       .populate('user', ['name', 'username', 'avatar'])
       .then(post => {

@@ -46,7 +46,6 @@ const useStyles = makeStyles({
 const CommentCreate = ({
   postId,
   postShortId,
-  onCommentId,
   toggleAnswerMode,
   commentsByPostRef,
   setCommentsByPostRef
@@ -68,7 +67,6 @@ const CommentCreate = ({
     try {
       await createComment(commentData).then(res => {
         const createdComment = res.data
-        console.log(createdComment)
         setCommentsByPostRef([createdComment, ...commentsByPostRef])
       })
 
