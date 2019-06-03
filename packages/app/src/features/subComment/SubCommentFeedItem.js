@@ -1,7 +1,5 @@
 // Packages
-import React, { useState, useEffect } from 'react'
-import Moment from 'react-moment'
-import 'moment/locale/de'
+import React, { useState } from 'react'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -10,7 +8,6 @@ import { useAuth } from '../../contexts/auth'
 import { deleteSubComment } from './_services'
 
 // Components
-import Link from '../../components/Link'
 import SubCommentEdit from './SubCommentEdit'
 import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
 import SubCommentFeedItemCreator from './SubCommentFeedItemCreator'
@@ -22,10 +19,7 @@ import SubCommentFeedItemButtons from './SubCommentFeedItemButtons'
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import { Grid, Typography, IconButton } from '@material-ui/core'
-
-// Material Icons
-import { Edit, Delete } from '@material-ui/icons'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   header: {
