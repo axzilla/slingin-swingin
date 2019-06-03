@@ -8,30 +8,29 @@ import { useAuth } from '../../contexts/auth'
 
 // Services
 import { deleteSubComment } from './_services'
-import SubCommentEdit from './SubCommentEdit'
 
 // Components
 import Link from '../../components/Link'
+import SubCommentEdit from './SubCommentEdit'
+import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
+import SubCommentFeedItemCreator from './SubCommentFeedItemCreator'
+import SubCommentFeedItemDate from './SubCommentFeedItemDate'
+import SubCommentFeedItemText from './SubCommentFeedItemText'
+import SubCommentFeedItemButtons from './SubCommentFeedItemButtons'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import {
-  Grid,
-  Button,
-  Avatar,
-  Typography,
-  IconButton,
-  TextField,
-  FormControl,
-  Divider
-} from '@material-ui/core'
+import { Grid, Typography, IconButton } from '@material-ui/core'
 
 // Material Icons
 import { Edit, Delete } from '@material-ui/icons'
 
 const useStyles = makeStyles({
+  header: {
+    marginBottom: '20px'
+  },
   text: {
     marginBottom: '10px'
   },
@@ -69,33 +68,43 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments }) => {
   }
 
   return (
-    <Grid>
+    <>
       {!isEditMode ? (
-        <>
-          <Typography className={classes.text}>{subComment.text}</Typography>
-          <Link to={`/${subComment.user.username}`}>
-            <Typography variant="caption" className={classes.inlineTypo}>
-              {subComment.user.username}
-            </Typography>
-          </Link>
-          <Typography variant="caption" className={classes.inlineTypo}>
-            <Moment format="D MMM YYYY" locale="de">
-              {subComment.dateCreated}
-            </Moment>
-          </Typography>
-          <Grid item>
-            {auth.isAuthenticated && subComment.user._id === auth.user.id ? (
-              <React.Fragment>
-                <IconButton onClick={onEditClick}>
-                  <Edit />
-                </IconButton>
-                <IconButton onClick={() => onDeleteClick(subComment._id)}>
-                  <Delete />
-                </IconButton>
-              </React.Fragment>
-            ) : null}
+        <Grid>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            className={classes.header}
+          >
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <SubCommentFeedItemAvatar subComment={subComment} />
+                <Grid>
+                  <SubCommentFeedItemCreator subComment={subComment} />
+                  <SubCommentFeedItemDate subComment={subComment} />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item>
+              {auth.isAuthenticated && subComment.user._id === auth.user.id ? (
+                <SubCommentFeedItemButtons
+                  subComment={subComment}
+                  onDeleteClick={onDeleteClick}
+                  onEditClick={onEditClick}
+                />
+              ) : null}
+            </Grid>
           </Grid>
-        </>
+          <SubCommentFeedItemText subComment={subComment} />
+        </Grid>
       ) : (
         <SubCommentEdit
           subComment={subComment}
@@ -104,7 +113,7 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments }) => {
           setIsEditMode={setIsEditMode}
         />
       )}
-    </Grid>
+    </>
   )
 }
 

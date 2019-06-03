@@ -1,6 +1,8 @@
 // Packages
 import React from 'react'
-import { Link } from 'react-router-dom'
+
+// Components
+import Link from '../../components/Link'
 
 // Assets
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
@@ -20,21 +22,21 @@ const useStyles = makeStyles({
   }
 })
 
-const CommentFeedItemAvatar = ({ comment }) => {
+const SubCommentFeedItemAvatar = ({ subComment }) => {
   const classes = useStyles()
 
   return (
-    <Link to={`/${comment.user.username}`}>
+    <Link to={`/${subComment.user.username}`}>
       <Avatar
         className={classes.avatar}
         src={
-          isEmpty(comment.user.avatar)
+          isEmpty(subComment.user.avatar)
             ? avatarPlaceholder
-            : comment.user.avatar.secure_url
+            : subComment.user.avatar.secure_url
         }
       />
     </Link>
   )
 }
 
-export default CommentFeedItemAvatar
+export default SubCommentFeedItemAvatar
