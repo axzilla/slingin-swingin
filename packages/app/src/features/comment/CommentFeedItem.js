@@ -6,14 +6,10 @@ import { useAuth } from '../../contexts/auth'
 
 // Services
 import { updateComment, deleteComment } from './_services'
-import {
-  getSubCommentByCommentId,
-  createSubComment
-} from '../subComment/_services'
+import { getSubCommentByCommentId } from '../subComment/_services'
 
 // Component
 import CommentEditContainer from './container/CommentEditContainer'
-import CommentCreate from './CommentCreate'
 import CommentFeedItemAvatar from './CommentFeedItemAvatar'
 import CommentFeedItemCreator from './CommentFeedItemCreator'
 import CommentFeedItemDate from './CommentFeedItemDate'
@@ -27,15 +23,7 @@ import SubCommentCreate from '../subComment/SubCommentCreate'
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import {
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  TextField,
-  FormControl,
-  Divider
-} from '@material-ui/core'
+import { Grid, Card, CardContent, Divider } from '@material-ui/core'
 
 const useStyles = makeStyles({
   card: { marginBottom: '20px' },
@@ -54,7 +42,6 @@ const CommentFeedItem = ({
   const classes = useStyles()
   const { auth } = useAuth()
   const [isEditMode, setIsEditMode] = useState(false)
-  const [isAnswer, setIsAnswer] = useState(false)
   const [subComments, setSubComments] = useState([])
 
   useEffect(() => {
