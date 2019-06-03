@@ -1,5 +1,7 @@
 // Packages
 import React, { useState } from 'react'
+import Moment from 'react-moment'
+import 'moment/locale/de'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -7,33 +9,53 @@ import { useAuth } from '../../contexts/auth'
 // Services
 import { deleteSubComment } from './_services'
 
+// Assets
+import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
+
+// Utils
+import isEmpty from '../../utils/isEmpty'
+
 // Components
-import SubCommentEdit from './SubCommentEdit'
-import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
-import SubCommentFeedItemCreator from './SubCommentFeedItemCreator'
-import SubCommentFeedItemDate from './SubCommentFeedItemDate'
-import SubCommentFeedItemText from './SubCommentFeedItemText'
-import SubCommentFeedItemButtons from './SubCommentFeedItemButtons'
+import Link from '../../components/Link'
+// import SubCommentEdit from './SubCommentEdit'
+// import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
+// import SubCommentFeedItemCreator from './SubCommentFeedItemCreator'
+// import SubCommentFeedItemDate from './SubCommentFeedItemDate'
+// import SubCommentFeedItemText from './SubCommentFeedItemText'
+// import SubCommentFeedItemButtons from './SubCommentFeedItemButtons'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
 
+// // Material Colors
+// import { blue } from '@material-ui/core/colors'
+
 // Material Core
-import { Grid } from '@material-ui/core'
+import {
+  // List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Typography,
+  Divider
+} from '@material-ui/core'
 
-const useStyles = makeStyles({
-  header: {
-    marginBottom: '20px'
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper
   },
-  text: {
-    marginBottom: '10px'
-  },
-  inlineTypo: {
-    display: 'block'
+  inline: {
+    display: 'inline'
   }
-})
+}))
 
-const SubCommentFeedItem = ({ subComment, subComments, setSubComments }) => {
+const SubCommentFeedItem = ({
+  subComment,
+  subComments,
+  setSubComments,
+  index
+}) => {
   const { auth } = useAuth()
   const classes = useStyles()
   const [isEditMode, setIsEditMode] = useState(false)
@@ -62,52 +84,46 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments }) => {
   }
 
   return (
-    <>
-      {!isEditMode ? (
-        <Grid>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            className={classes.header}
-          >
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <SubCommentFeedItemAvatar subComment={subComment} />
-                <Grid>
-                  <SubCommentFeedItemCreator subComment={subComment} />
-                  <SubCommentFeedItemDate subComment={subComment} />
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid item>
-              {auth.isAuthenticated && subComment.user._id === auth.user.id ? (
-                <SubCommentFeedItemButtons
-                  subComment={subComment}
-                  onDeleteClick={onDeleteClick}
-                  onEditClick={onEditClick}
-                />
-              ) : null}
-            </Grid>
-          </Grid>
-          <SubCommentFeedItemText subComment={subComment} />
-        </Grid>
-      ) : (
-        <SubCommentEdit
-          subComment={subComment}
-          subComments={subComments}
-          setSubComments={setSubComments}
-          setIsEditMode={setIsEditMode}
+    // <List className={classes.root}>
+    <React.Fragment>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Link to={`/${subComment.user.username}`}>
+            <Avatar
+              alt={subComment.user.username}
+              src={
+                isEmpty(subComment.user.avatar)
+                  ? avatarPlaceholder
+                  : subComment.user.avatar.secure_url
+              }
+            />
+          </Link>
+        </ListItemAvatar>
+        <ListItemText
+          primary={subComment.text}
+          secondary={
+            <React.Fragment>
+              <Link to={`/${subComment.user.username}`}>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                >
+                  {subComment.user.username}
+                </Typography>
+              </Link>
+              {' — '}
+              <Moment fromNow locale="de">
+                {subComment.dateCreated}
+              </Moment>
+            </React.Fragment>
+          }
         />
-      )}
-    </>
+      </ListItem>
+      {subComments.length !== index + 1 ? (
+        <Divider variant="inset" component="li" />
+      ) : null}
+    </React.Fragment>
   )
 }
 
