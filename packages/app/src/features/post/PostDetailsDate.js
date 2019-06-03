@@ -10,7 +10,7 @@ const PostDetailsDate = props => {
 
   return (
     <Typography style={{ display: 'inline' }}>
-      <Moment format="D MMM YYYY" locale="de">
+      <Moment fromNow locale="de">
         {post.dateCreated}
       </Moment>
     </Typography>

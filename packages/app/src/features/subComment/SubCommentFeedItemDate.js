@@ -12,7 +12,7 @@ import { Typography } from '@material-ui/core'
 const SubCommentFeedItemDate = ({ subComment }) => {
   return (
     <Typography variant="caption" style={{ fontWeight: '300' }}>
-      <Moment format="D MMM YYYY" locale="de">
+      <Moment fromNow locale="de">
         {subComment.dateCreated}
       </Moment>
     </Typography>
