@@ -34,7 +34,7 @@ const ProfileDetailsComments = props => {
                 <Typography variant="h6">{comment.refPostId.title}</Typography>
               </Link>
               <Typography variant="caption" style={{ fontWeight: '300' }}>
-                <Moment format="D MMM YYYY" locale="de">
+                <Moment fromNow locale="de">
                   {comment.dateCreated}
                 </Moment>
               </Typography>

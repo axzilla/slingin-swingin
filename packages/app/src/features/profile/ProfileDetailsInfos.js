@@ -66,7 +66,7 @@ const ProfileDetailsInfos = props => {
           beigetreten
         </Typography>
         <Typography variant="subtitle1" className={classes.infoValue}>
-          <Moment format="D MMM YYYY" locale="de">
+          <Moment fromNow locale="de">
             {profile.dateCreated}
           </Moment>
         </Typography>

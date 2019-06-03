@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core'
 const CommentFeedItemDate = ({ comment }) => {
   return (
     <Typography variant="caption" style={{ fontWeight: '300' }}>
-      <Moment format="D MMM YYYY" locale="de">
+      <Moment fromNow locale="de">
         {comment.dateCreated}
       </Moment>
     </Typography>

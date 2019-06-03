@@ -195,7 +195,7 @@ const PostFeedItem = ({
             >
               {' '}
               -{' '}
-              <Moment format="D MMM YYYY" locale="de">
+              <Moment fromNow locale="de">
                 {post.dateCreated}
               </Moment>
             </Typography>
