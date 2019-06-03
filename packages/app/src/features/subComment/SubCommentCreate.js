@@ -1,41 +1,11 @@
 // Packages
 import React, { useState } from 'react'
 
-// Contexts
-import { useAuth } from '../../contexts/auth'
-
 // Services
 import { createSubComment } from './_services'
 
-// Components
-import Link from '../../components/Link'
-
-// Material Styles
-import { makeStyles } from '@material-ui/styles'
-
 // Material Core
-import {
-  Grid,
-  Button,
-  Avatar,
-  Typography,
-  IconButton,
-  TextField,
-  FormControl,
-  Divider
-} from '@material-ui/core'
-
-// Material Icons
-import { Edit, Delete } from '@material-ui/icons'
-
-const useStyles = makeStyles({
-  text: {
-    marginBottom: '10px'
-  },
-  inlineTypo: {
-    display: 'block'
-  }
-})
+import { Grid, Button, TextField, FormControl } from '@material-ui/core'
 
 const SubCommentCreate = ({ comment, subComments, setSubComments }) => {
   const [subComment, setSubComment] = useState('')
