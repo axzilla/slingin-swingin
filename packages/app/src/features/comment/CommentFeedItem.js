@@ -120,101 +120,99 @@ const CommentFeedItem = ({
   }
 
   return (
-    <React.Fragment>
-      <Card className={classes.card}>
-        {!isEditMode ? (
-          <CardContent>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="flex-start"
-            >
-              <Grid item xs={1}>
-                <CommentFeedItemVote
-                  comment={comment}
-                  commentsByPostRef={commentsByPostRef}
-                  setCommentsByPostRef={setCommentsByPostRef}
-                />
-              </Grid>
-              <Grid item xs={11}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                  className={classes.header}
-                >
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="space-between"
-                      alignItems="center"
-                    >
-                      <CommentFeedItemAvatar comment={comment} />
-                      <Grid>
-                        <CommentFeedItemCreator comment={comment} />
-                        <CommentFeedItemDate comment={comment} />
-                      </Grid>
+    <Card className={classes.card}>
+      {!isEditMode ? (
+        <CardContent>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="flex-start"
+          >
+            <Grid item xs={1}>
+              <CommentFeedItemVote
+                comment={comment}
+                commentsByPostRef={commentsByPostRef}
+                setCommentsByPostRef={setCommentsByPostRef}
+              />
+            </Grid>
+            <Grid item xs={11}>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                className={classes.header}
+              >
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                  >
+                    <CommentFeedItemAvatar comment={comment} />
+                    <Grid>
+                      <CommentFeedItemCreator comment={comment} />
+                      <CommentFeedItemDate comment={comment} />
                     </Grid>
                   </Grid>
-
-                  <Grid item>
-                    {comment.user._id === auth.user.id ? (
-                      <CommentFeedItemButtons
-                        comment={comment}
-                        onDeleteClick={onDeleteClick}
-                        onEditClick={onEditClick}
-                      />
-                    ) : null}
-                  </Grid>
                 </Grid>
-                <CommentFeedItemText comment={comment} />
+
+                <Grid item>
+                  {comment.user._id === auth.user.id ? (
+                    <CommentFeedItemButtons
+                      comment={comment}
+                      onDeleteClick={onDeleteClick}
+                      onEditClick={onEditClick}
+                    />
+                  ) : null}
+                </Grid>
               </Grid>
+              <CommentFeedItemText comment={comment} />
             </Grid>
-          </CardContent>
-        ) : (
-          <CardContent>
-            <CommentEditContainer comment={comment} onSaveClick={onSaveClick} />
-          </CardContent>
-        )}
+          </Grid>
+        </CardContent>
+      ) : (
+        <CardContent>
+          <CommentEditContainer comment={comment} onSaveClick={onSaveClick} />
+        </CardContent>
+      )}
 
-        <Divider style={{ height: '2px' }} />
+      <Divider style={{ height: '2px' }} />
 
-        {subComments.length ? (
-          <CardContent>
-            {subComments.map((subComment, index) => {
-              return (
-                <>
-                  <SubCommentFeedItem
-                    subComment={subComment}
-                    subComments={subComments}
-                    setSubComments={setSubComments}
-                    key={index}
-                  />
-                  {subComments.length === index + 1 ? null : (
-                    <Divider style={{ margin: '10px 0' }} />
-                  )}
-                </>
-              )
-            })}
-          </CardContent>
-        ) : null}
+      {subComments.length ? (
+        <CardContent>
+          {subComments.map((subComment, index) => {
+            return (
+              <>
+                <SubCommentFeedItem
+                  subComment={subComment}
+                  subComments={subComments}
+                  setSubComments={setSubComments}
+                  key={index}
+                />
+                {subComments.length === index + 1 ? null : (
+                  <Divider style={{ margin: '10px 0' }} />
+                )}
+              </>
+            )
+          })}
+        </CardContent>
+      ) : null}
 
-        {subComments.length ? <Divider style={{ height: '2px' }} /> : null}
+      {subComments.length ? <Divider style={{ height: '2px' }} /> : null}
 
-        {auth.isAuthenticated ? (
-          <CardContent>
-            <SubCommentCreate
-              comment={comment}
-              subComments={subComments}
-              setSubComments={setSubComments}
-            />
-          </CardContent>
-        ) : null}
-      </Card>
-    </React.Fragment>
+      {auth.isAuthenticated ? (
+        <CardContent>
+          <SubCommentCreate
+            comment={comment}
+            subComments={subComments}
+            setSubComments={setSubComments}
+          />
+        </CardContent>
+      ) : null}
+    </Card>
   )
 }
 
