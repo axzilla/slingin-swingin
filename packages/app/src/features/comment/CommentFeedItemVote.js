@@ -11,20 +11,24 @@ import { upvoteComment, downvoteComment } from './_services'
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography, Button } from '@material-ui/core'
 
 // Material Colors
 import { red, green } from '@material-ui/core/colors'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   iconContainer: {
     marginRight: '50px',
     marginLeft: '-10px'
   },
   icon: {
     margin: '5px 0 5px'
+  },
+  button: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1.5)
   }
-})
+}))
 
 const CommentFeedItemVote = ({
   comment,
@@ -83,25 +87,26 @@ const CommentFeedItemVote = ({
     .includes(auth.user.id)
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      className={classes.iconContainer}
-    >
-      <i
-        className={`fas fa-caret-square-up fa-lg ${classes.icon}`}
-        onClick={() => onUpvoteClick()}
-        style={{ color: isUpvoted ? green[400] : null }}
-      />
-      <Typography>{votes} </Typography>
-      <i
-        className={`fas fa-caret-square-down fa-lg ${classes.icon}`}
-        onClick={() => onDownvoteClick()}
-        style={{ color: isDownvoted ? red[400] : null }}
-      />
+    <Grid container justify="flex-start">
+      <Grid item>
+        <Grid container alignItems="center">
+          <Button onClick={onUpvoteClick} className={classes.button}>
+            <i
+              class="fas fa-heart fa-lg"
+              style={{ color: isUpvoted ? red[400] : null }}
+            />
+          </Button>
+          <Typography>{votes}</Typography>
+          <Button onClick={onDownvoteClick} className={classes.button}>
+            <i
+              class="fas fa-poop fa-lg"
+              style={{ color: isDownvoted ? red[400] : null }}
+            />
+          </Button>
+        </Grid>
+      </Grid>
     </Grid>
+    // </Grid>
   )
 }
 

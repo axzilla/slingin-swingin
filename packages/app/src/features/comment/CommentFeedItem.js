@@ -23,14 +23,29 @@ import SubCommentCreate from '../subComment/SubCommentCreate'
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import { Grid, Card, CardContent, Divider } from '@material-ui/core'
+import {
+  Grid,
+  Card,
+  CardContent,
+  Divider,
+  List,
+  Button,
+  Typography
+} from '@material-ui/core'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: { marginBottom: '20px' },
   header: {
     marginBottom: '20px'
+  },
+  buttonContainer: {
+    margin: '-20px auto'
+  },
+  button: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1.5)
   }
-})
+}))
 
 const CommentFeedItem = ({
   post,
@@ -116,14 +131,7 @@ const CommentFeedItem = ({
             justify="center"
             alignItems="flex-start"
           >
-            <Grid item xs={1}>
-              <CommentFeedItemVote
-                comment={comment}
-                commentsByPostRef={commentsByPostRef}
-                setCommentsByPostRef={setCommentsByPostRef}
-              />
-            </Grid>
-            <Grid item xs={11}>
+            <Grid item>
               <Grid
                 container
                 direction="row"
@@ -165,30 +173,30 @@ const CommentFeedItem = ({
           <CommentEditContainer comment={comment} onSaveClick={onSaveClick} />
         </CardContent>
       )}
-
-      <Divider style={{ height: '2px' }} />
-
+      <Divider />
+      <CardContent className={classes.buttonContainer}>
+        <CommentFeedItemVote
+          comment={comment}
+          commentsByPostRef={commentsByPostRef}
+          setCommentsByPostRef={setCommentsByPostRef}
+        />
+      </CardContent>
+      <Divider />
       {subComments.length ? (
-        <CardContent>
+        <List className={classes.root}>
           {subComments.map((subComment, index) => {
             return (
-              <>
-                <SubCommentFeedItem
-                  subComment={subComment}
-                  subComments={subComments}
-                  setSubComments={setSubComments}
-                  key={index}
-                />
-                {subComments.length === index + 1 ? null : (
-                  <Divider style={{ margin: '10px 0' }} />
-                )}
-              </>
+              <SubCommentFeedItem
+                index={index}
+                subComment={subComment}
+                subComments={subComments}
+                setSubComments={setSubComments}
+                key={index}
+              />
             )
           })}
-        </CardContent>
+        </List>
       ) : null}
-
-      {subComments.length ? <Divider style={{ height: '2px' }} /> : null}
 
       {auth.isAuthenticated ? (
         <CardContent>
