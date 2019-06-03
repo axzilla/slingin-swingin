@@ -20,6 +20,10 @@ export const deleteComment = async commentId => {
   return await axios.post(`/comments/delete`, { commentId })
 }
 
-export const updateCommentlikes = async commentId => {
-  return await axios.post(`/comments/likes/${commentId}`)
+export const upvoteComment = async commentId => {
+  return await axios.post(`/comments/upvote/${commentId}`)
+}
+
+export const downvoteComment = async commentId => {
+  return await axios.post(`/comments/downvote/${commentId}`)
 }

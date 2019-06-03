@@ -19,6 +19,7 @@ import CommentFeedItemCreator from './CommentFeedItemCreator'
 import CommentFeedItemDate from './CommentFeedItemDate'
 import CommentFeedItemText from './CommentFeedItemText'
 import CommentFeedItemButtons from './CommentFeedItemButtons'
+import CommentFeedItemVote from './CommentFeedItemVote'
 import SubCommentFeedItem from '../subComment/SubCommentFeedItem'
 import SubCommentCreate from '../subComment/SubCommentCreate'
 
@@ -118,18 +119,6 @@ const CommentFeedItem = ({
     })
   }
 
-  // const onCommentLikeClick = () => {
-  //   const { isAuthenticated } = auth
-
-  //   if (isAuthenticated) {
-  //     // updateCommentlikes(comment._id).then(res => {
-  //     //   setComment(res.data)
-  //     // })
-  //   } else {
-  //     history.push('/login')
-  //   }
-  // }
-
   return (
     <React.Fragment>
       <Card className={classes.card}>
@@ -138,36 +127,52 @@ const CommentFeedItem = ({
             <Grid
               container
               direction="row"
-              justify="space-between"
-              alignItems="center"
-              className={classes.header}
+              justify="center"
+              alignItems="flex-start"
             >
-              <Grid item>
+              <Grid item xs={1}>
+                <CommentFeedItemVote
+                  comment={comment}
+                  commentsByPostRef={commentsByPostRef}
+                  setCommentsByPostRef={setCommentsByPostRef}
+                />
+              </Grid>
+              <Grid item xs={11}>
                 <Grid
                   container
                   direction="row"
                   justify="space-between"
                   alignItems="center"
+                  className={classes.header}
                 >
-                  <CommentFeedItemAvatar comment={comment} />
-                  <Grid>
-                    <CommentFeedItemCreator comment={comment} />
-                    <CommentFeedItemDate comment={comment} />
+                  <Grid item>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="space-between"
+                      alignItems="center"
+                    >
+                      <CommentFeedItemAvatar comment={comment} />
+                      <Grid>
+                        <CommentFeedItemCreator comment={comment} />
+                        <CommentFeedItemDate comment={comment} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item>
+                    {comment.user._id === auth.user.id ? (
+                      <CommentFeedItemButtons
+                        comment={comment}
+                        onDeleteClick={onDeleteClick}
+                        onEditClick={onEditClick}
+                      />
+                    ) : null}
                   </Grid>
                 </Grid>
-              </Grid>
-
-              <Grid item>
-                {comment.user._id === auth.user.id ? (
-                  <CommentFeedItemButtons
-                    comment={comment}
-                    onDeleteClick={onDeleteClick}
-                    onEditClick={onEditClick}
-                  />
-                ) : null}
+                <CommentFeedItemText comment={comment} />
               </Grid>
             </Grid>
-            <CommentFeedItemText comment={comment} />
           </CardContent>
         ) : (
           <CardContent>

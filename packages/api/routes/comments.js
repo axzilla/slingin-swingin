@@ -187,4 +187,98 @@ router.post(
   }
 )
 
+// Upvote Comment
+router.post(
+  '/upvote/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Comment.findById(req.params.commentId)
+      .populate('user')
+      .then(comment => {
+        if (
+          comment.votes.upvotes.filter(upvote => {
+            return upvote.user.toString() === req.user.id
+          }).length > 0
+        ) {
+          const removeIndex = comment.votes.upvotes
+            .map(item => item.user.toString())
+            .indexOf(req.user.id)
+
+          comment.votes.upvotes.splice(removeIndex, 1)
+          comment.save().then(comment => res.json(comment))
+        } else if (
+          comment.votes.upvotes.filter(upvote => {
+            upvote.user.toString() === req.user.id
+          }).length === 0
+        ) {
+          if (
+            comment.votes.downvotes.filter(
+              downvote => downvote.user.toString() === req.user.id
+            ).length > 0
+          ) {
+            const downvoteRemoveIndex = comment.votes.downvotes
+              .map(downvote => downvote.user.toString())
+              .indexOf(req.user.id)
+
+            comment.votes.downvotes.splice(downvoteRemoveIndex, 1)
+          }
+
+          comment.votes.upvotes.unshift({ user: req.user.id })
+          comment.save().then(comment => res.json(comment))
+        }
+      })
+      .catch(err =>
+        res.status(404).json({ commentnotfound: 'Keinen Kommentar gefunden' })
+      )
+  }
+)
+
+// Downvote Comment
+router.post(
+  '/downvote/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Comment.findById(req.params.commentId)
+      .populate('user')
+      .then(comment => {
+        if (
+          comment.votes.downvotes.filter(
+            downvote => downvote.user.toString() === req.user.id
+          ).length > 0
+        ) {
+          const downvoteRemoveIndex = comment.votes.downvotes
+            .map(downvote => downvote.user.toString())
+            .indexOf(req.user.id)
+
+          comment.votes.downvotes.splice(downvoteRemoveIndex, 1)
+
+          comment.save().then(comment => res.json(comment))
+        } else if (
+          comment.votes.downvotes.filter(
+            downvote => downvote.user.toString() === req.user.id
+          ).length === 0
+        ) {
+          if (
+            comment.votes.upvotes.filter(
+              upvote => upvote.user.toString() === req.user.id
+            ).length > 0
+          ) {
+            const upvoteRemoveIndex = comment.votes.upvotes
+              .map(upvote => upvote.user.toString())
+              .indexOf(req.user.id)
+
+            comment.votes.upvotes.splice(upvoteRemoveIndex, 1)
+          }
+
+          comment.votes.downvotes.unshift({ user: req.user.id })
+
+          comment.save().then(comment => res.json(comment))
+        }
+      })
+      .catch(err =>
+        res.status(404).json({ commentnotfound: 'Keinen Beitrag gefunden' })
+      )
+  }
+)
+
 module.exports = router
