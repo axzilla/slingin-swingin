@@ -14,18 +14,14 @@ import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button } from '@material-ui/core'
 
 // Material Colors
-import { red, green } from '@material-ui/core/colors'
+import { red, blue } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
-  iconContainer: {
-    marginRight: '50px',
-    marginLeft: '-10px'
-  },
   icon: {
     margin: '5px 0 5px'
   },
   button: {
-    margin: theme.spacing(1),
+    // margin: `0 ${theme.spacing(1)}px`,
     padding: theme.spacing(1.5)
   }
 }))
@@ -87,7 +83,7 @@ const CommentFeedItemVote = ({
     .includes(auth.user.id)
 
   return (
-    <Grid container justify="flex-start">
+    <Grid container justify="center">
       <Grid item>
         <Grid container alignItems="center">
           <Button onClick={onUpvoteClick} className={classes.button}>
@@ -100,7 +96,7 @@ const CommentFeedItemVote = ({
           <Button onClick={onDownvoteClick} className={classes.button}>
             <i
               class="fas fa-poop fa-lg"
-              style={{ color: isDownvoted ? red[400] : null }}
+              style={{ color: isDownvoted ? blue[400] : null }}
             />
           </Button>
         </Grid>

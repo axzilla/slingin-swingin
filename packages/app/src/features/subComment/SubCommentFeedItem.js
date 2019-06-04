@@ -84,7 +84,6 @@ const SubCommentFeedItem = ({
   }
 
   return (
-    // <List className={classes.root}>
     <React.Fragment>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
