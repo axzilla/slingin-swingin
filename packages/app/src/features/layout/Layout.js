@@ -47,6 +47,10 @@ const Layout = ({ children, history }) => {
     control: {
       padding: theme.spacing(2),
 
+      [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(0)
+      },
+
       [theme.breakpoints.up('md')]: {
         padding: !isDashboardUrl
           ? `${theme.spacing(2)}px ${theme.spacing(18)}px`
