@@ -1,17 +1,11 @@
 const mongoose = require('mongoose')
-const shortid = require('shortid')
 
 const Schema = mongoose.Schema
 
 const SubCommentSchema = new Schema({
-  commentRef: {
+  refComment: {
     type: Schema.Types.ObjectId,
     ref: 'comment'
-  },
-  shortId: {
-    type: String,
-    default: shortid.generate,
-    unique: true
   },
   user: {
     type: Schema.Types.ObjectId,

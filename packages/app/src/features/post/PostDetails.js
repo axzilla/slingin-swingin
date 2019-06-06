@@ -7,12 +7,7 @@ import openSocket from 'socket.io-client'
 import { useAuth } from '../../contexts/auth'
 
 // Actions
-import {
-  getPostByShortId,
-  deletePost,
-  handlePostLikes,
-  handlePostBookmarks
-} from './_services'
+import { getPostByShortId, deletePost, handlePostLikes, handlePostBookmarks } from './_services'
 import { getCommentsByPostRef } from '../comment/_services'
 
 // Features
@@ -70,13 +65,11 @@ const PostDetails = ({ match, history }) => {
   const getInitialProps = async () => {
     setIsloading(true)
 
-    await getPostByShortId(match.params.postId).then(res => {
-      setPost(res.data)
-    })
+    const postByShortId = await getPostByShortId(match.params.postId).then(res => res.data)
+    setPost(postByShortId)
 
-    await getCommentsByPostRef(match.params.postId).then(res => {
-      setCommentsByPostRef(res.data)
-    })
+    const commentsByPostRef = await getCommentsByPostRef(postByShortId._id).then(res => res.data)
+    setCommentsByPostRef(commentsByPostRef)
 
     setIsloading(false)
   }
@@ -113,7 +106,7 @@ const PostDetails = ({ match, history }) => {
     postContent = (
       <Grid item xs={12} sm={8}>
         <Grid>
-          <Card style={{ marginBottom: '20px' }}>
+          <Card>
             <PostDetailsTitleImage post={post} />
             <CardContent>
               <div style={{ width: '100%' }}>
@@ -128,16 +121,8 @@ const PostDetails = ({ match, history }) => {
                 </div>
                 <PostDetailsContent post={post} />
                 <div style={{ display: 'flex' }}>
-                  <PostDetailsLikes
-                    post={post}
-                    auth={auth}
-                    onLikeClick={onLikeClick}
-                  />
-                  <PostDetailsBookmarks
-                    post={post}
-                    auth={auth}
-                    onBookmarkClick={onBookmarkClick}
-                  />
+                  <PostDetailsLikes post={post} auth={auth} onLikeClick={onLikeClick} />
+                  <PostDetailsBookmarks post={post} auth={auth} onBookmarkClick={onBookmarkClick} />
                 </div>
               </div>
             </CardContent>

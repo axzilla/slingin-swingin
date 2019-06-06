@@ -8,11 +8,7 @@ import Toolbar from './Toolbar'
 import Alert from '../common/Alert'
 
 // Material Styles
-import {
-  makeStyles,
-  MuiThemeProvider,
-  createMuiTheme
-} from '@material-ui/core/styles'
+import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 // Material Core
 import { CssBaseline, Grid } from '@material-ui/core'
@@ -47,14 +43,8 @@ const Layout = ({ children, history }) => {
     control: {
       padding: theme.spacing(2),
 
-      [theme.breakpoints.down('md')]: {
-        padding: theme.spacing(0)
-      },
-
       [theme.breakpoints.up('md')]: {
-        padding: !isDashboardUrl
-          ? `${theme.spacing(2)}px ${theme.spacing(18)}px`
-          : null
+        padding: !isDashboardUrl ? `${theme.spacing(2)}px ${theme.spacing(18)}px` : null
       }
     }
   }))
@@ -91,10 +81,7 @@ const Layout = ({ children, history }) => {
     <MuiThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
       <CssBaseline />
       <Grid container className={classes.control}>
-        <Toolbar
-          onThemeToggleClick={onThemeToggleClick}
-          isLightTheme={isLightTheme}
-        />
+        <Toolbar onThemeToggleClick={onThemeToggleClick} isLightTheme={isLightTheme} />
         <div className={classes.toolbar} />
         {children}
         {isDashboardUrl ? null : <Footer />}

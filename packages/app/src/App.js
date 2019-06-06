@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -63,16 +63,8 @@ const App = props => {
             <Route exact path="/not-verified" component={NotVerified} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
-            <Route
-              exact
-              path="/reset-password/:token"
-              component={ResetPassword}
-            />
-            <Route
-              exact
-              path="/post/:postId/:urlSlug"
-              component={PostDetails}
-            />
+            <Route exact path="/reset-password/:token" component={ResetPassword} />
+            <Route exact path="/post/:postId/:urlSlug" component={PostDetails} />
             <Route exact path="/posts/t/:tag" component={PostsByTag} />
             <Route exact path="/not-found" component={NotFound} />
             <Route exact path="/imprint" component={Imprint} />

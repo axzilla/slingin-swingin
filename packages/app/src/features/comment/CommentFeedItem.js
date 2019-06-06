@@ -24,13 +24,7 @@ import SubCommentCreate from '../subComment/SubCommentCreate'
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Divider,
-  List
-} from '@material-ui/core'
+import { Card, CardContent, CardActions, Divider, List } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   card: { marginBottom: '20px' },
@@ -40,11 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const CommentFeedItem = ({
-  comment,
-  commentsByPostRef,
-  setCommentsByPostRef
-}) => {
+const CommentFeedItem = ({ comment, commentsByPostRef, setCommentsByPostRef }) => {
   const classes = useStyles()
   const { auth } = useAuth()
   const [isEditMode, setIsEditMode] = useState(false)
@@ -125,10 +115,7 @@ const CommentFeedItem = ({
     <Card className={classes.card}>
       {!isEditMode ? (
         <>
-          <CommentFeedItemHeader
-            comment={comment}
-            handleMenuClick={handleMenuClick}
-          />
+          <CommentFeedItemHeader comment={comment} handleMenuClick={handleMenuClick} />
 
           <CommentFeedItemMenu
             comment={comment}
@@ -177,11 +164,13 @@ const CommentFeedItem = ({
       ) : null}
 
       {auth.isAuthenticated ? (
-        <SubCommentCreate
-          comment={comment}
-          subComments={subComments}
-          setSubComments={setSubComments}
-        />
+        <CardContent>
+          <SubCommentCreate
+            comment={comment}
+            subComments={subComments}
+            setSubComments={setSubComments}
+          />
+        </CardContent>
       ) : null}
     </Card>
   )

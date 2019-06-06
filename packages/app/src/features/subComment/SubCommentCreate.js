@@ -4,6 +4,10 @@ import React, { useState } from 'react'
 // Services
 import { createSubComment } from './_services'
 
+// Components
+// Components
+import MarkdownEditor from '../common/MarkdownEditor'
+
 // Contexts
 import { useAuth } from '../../contexts/auth'
 
@@ -12,6 +16,8 @@ import { makeStyles } from '@material-ui/core/styles'
 
 // Material Core
 import {
+  Card,
+  CardContent,
   Grid,
   Button,
   TextField,
@@ -56,7 +62,7 @@ const SubCommentCreate = ({ comment, subComments, setSubComments }) => {
 
     const subCommentData = {
       text: subComment,
-      commentRef: comment._id
+      refComment: comment._id
     }
 
     createSubComment(subCommentData).then(res => {
@@ -69,45 +75,18 @@ const SubCommentCreate = ({ comment, subComments, setSubComments }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Grid item xs>
-        <List>
-          <ListItem>
-            <ListItemAvatar>
-              {auth.user.avatar ? (
-                <Avatar
-                  src={auth.user.avatar.secure_url}
-                  aria-label="Recipe"
-                  className={classes.avatar}
-                />
-              ) : (
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  {comment.user.username.substring(0, 1)}
-                </Avatar>
-              )}
-            </ListItemAvatar>
-            <ListItemText
-              primary={
-                <FormControl fullWidth error>
-                  <TextField
-                    label="Kommentieren ..."
-                    margin="normal"
-                    multiline
-                    rowsMax="4"
-                    variant="outlined"
-                    value={subComment}
-                    onChange={onChange}
-                  />
-                </FormControl>
-              }
-            />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" type="submit">
-                <AddBoxIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </List>
-      </Grid>
+      <MarkdownEditor
+        withPreview
+        text={subComment}
+        setText={setSubComment}
+        onChange={onChange}
+        value={subComment}
+      />
+
+      <Button type="submit" variant="outlined" color="primary">
+        Kommentar &nbsp;
+        <i className="fas fa-plus-circle" />
+      </Button>
     </form>
   )
 }
