@@ -1,16 +1,11 @@
 // Packages
 import React, { useState } from 'react'
-import ReactQuill from 'react-quill'
 
-// Utils
-import '../../utils/highlight'
+// Components
+import MarkdownEditor from '../common/MarkdownEditor'
 
 // Actions
 import { createComment } from './_services'
-
-// Assets
-import { modules, formats } from '../quill/quill'
-import '../../assets/css/quill.snow.css'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
@@ -35,11 +30,12 @@ const useStyles = makeStyles({
   divider: {
     marginBottom: '10px'
   },
-  quill: {
-    marginTop: '20px'
-  },
   button: {
     margin: '20px 0'
+  },
+  cardPreview: {
+    background: 'transparent',
+    marginBottom: '20px'
   }
 })
 
@@ -51,7 +47,6 @@ const CommentCreate = ({
   setCommentsByPostRef
 }) => {
   const classes = useStyles()
-
   const [text, setText] = useState('')
   const [errors, setErrors] = useState()
 
@@ -60,8 +55,7 @@ const CommentCreate = ({
 
     const commentData = {
       text,
-      refPostId: postId,
-      refPostShortId: postShortId
+      refPost: postId
     }
 
     try {
@@ -78,26 +72,24 @@ const CommentCreate = ({
     }
   }
 
-  const onReactQuillChange = e => {
-    setText(e)
+  const onChange = e => {
+    setText(e.target.value)
   }
 
   return (
     <Grid className={classes.root} container justify="center">
       <FormControl className={classes.formControl} error>
         <form onSubmit={onSubmit}>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            formats={formats}
+          <MarkdownEditor
+            withPreview
+            text={text}
+            setText={setText}
+            onChange={onChange}
             value={text}
-            onChange={onReactQuillChange}
-            error={errors && errors.text}
           />
+
           {errors && errors.text ? (
-            <FormHelperText className={classes.error}>
-              {errors.text}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
           ) : null}
           <Button type="submit" variant="outlined" color="primary">
             Kommentar &nbsp;

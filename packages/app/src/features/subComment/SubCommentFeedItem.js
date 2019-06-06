@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import Moment from 'react-moment'
 import 'moment/locale/de'
+import CodeBlock from '../common/CodeBlock'
+import ReactMarkdown from 'react-markdown'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -50,12 +52,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const SubCommentFeedItem = ({
-  subComment,
-  subComments,
-  setSubComments,
-  index
-}) => {
+const SubCommentFeedItem = ({ subComment, subComments, setSubComments, index }) => {
   const { auth } = useAuth()
   const classes = useStyles()
   const [isEditMode, setIsEditMode] = useState(false)
@@ -71,10 +68,7 @@ const SubCommentFeedItem = ({
           })[0]
         )
 
-        setSubComments([
-          ...subComments.slice(0, index),
-          ...subComments.slice(index + 1)
-        ])
+        setSubComments([...subComments.slice(0, index), ...subComments.slice(index + 1)])
       })
     }
   }
@@ -99,15 +93,19 @@ const SubCommentFeedItem = ({
           </Link>
         </ListItemAvatar>
         <ListItemText
-          primary={subComment.text}
+          primary={
+            <Typography>
+              <ReactMarkdown
+                source={subComment.text}
+                escapeHtml={false}
+                renderers={{ code: CodeBlock }}
+              />
+            </Typography>
+          }
           secondary={
             <React.Fragment>
               <Link to={`/${subComment.user.username}`}>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  className={classes.inline}
-                >
+                <Typography component="span" variant="body2" className={classes.inline}>
                   {subComment.user.username}
                 </Typography>
               </Link>
@@ -119,9 +117,7 @@ const SubCommentFeedItem = ({
           }
         />
       </ListItem>
-      {subComments.length !== index + 1 ? (
-        <Divider variant="inset" component="li" />
-      ) : null}
+      {subComments.length !== index + 1 ? <Divider variant="inset" component="li" /> : null}
     </React.Fragment>
   )
 }

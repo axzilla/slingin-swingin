@@ -1,19 +1,23 @@
 // Packages
 import React, { useState, useEffect } from 'react'
-import ReactQuill from 'react-quill'
 
-// Utils
-import '../../utils/highlight'
-
-// Assets
-import { modules, formats } from '../quill/quill'
-import '../../assets/css/quill.snow.css'
+// Components
+import MarkdownEditor from '../common/MarkdownEditor'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import { Grid, FormControl, FormHelperText, Button } from '@material-ui/core'
+import {
+  Card,
+  CardContent,
+  Grid,
+  FormControl,
+  FormHelperText,
+  Button,
+  TextField,
+  Typography
+} from '@material-ui/core'
 
 const useStyles = makeStyles({
   formControl: {
@@ -37,6 +41,10 @@ const useStyles = makeStyles({
   },
   button: {
     margin: '20px 0'
+  },
+  cardPreview: {
+    background: 'transparent',
+    marginBottom: '20px'
   }
 })
 
@@ -50,32 +58,23 @@ const CommentEdit = ({ comments, comment, onSaveClick }) => {
     setText(comment.text)
   }, [])
 
-  const onReactQuillChange = e => {
-    setText(e)
+  const onChange = e => {
+    setText(e.target.value)
   }
 
   return (
     <Grid className={classes.root} container justify="center">
       <FormControl className={classes.formControl} error>
         <form>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            formats={formats}
+          <MarkdownEditor
+            withPreview
+            text={text}
+            setText={setText}
+            onChange={onChange}
             value={text}
-            onChange={onReactQuillChange}
-            error={errors.text}
           />
-          {errors.text ? (
-            <FormHelperText className={classes.error}>
-              {errors.text}
-            </FormHelperText>
-          ) : null}
-          <Button
-            onClick={() => onSaveClick(text)}
-            variant="outlined"
-            color="primary"
-          >
+
+          <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
             Speichern
           </Button>
         </form>
