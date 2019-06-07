@@ -7,14 +7,7 @@ import CharAvatar from '../avatars/CharAvatar'
 
 // Material Core
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Card,
-  CardContent,
-  Typography,
-  Avatar,
-  Grid,
-  Box
-} from '@material-ui/core'
+import { Card, CardContent, Typography, Avatar, Grid, Box } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -39,21 +32,13 @@ const WidgetLatestUsers = ({ profiles }) => {
           </Box>
         </Typography>
         {profiles &&
-          profiles.slice(0, 5).map((profile, i) => {
+          profiles.slice(0, 5).map(profile => {
             return (
-              <Link key={i} to={`${profile.handle}`}>
-                <Grid
-                  container
-                  justify="center"
-                  alignItems="center"
-                  direction="column"
-                >
+              <Link key={profile._id} to={`${profile.handle}`}>
+                <Grid container justify="center" alignItems="center" direction="column">
                   <Grid item xs>
                     {profile.user.avatar && profile.user.avatar.secure_url ? (
-                      <Avatar
-                        src={profile.user.avatar.secure_url}
-                        className={classes.avatar}
-                      />
+                      <Avatar src={profile.user.avatar.secure_url} className={classes.avatar} />
                     ) : (
                       <CharAvatar
                         size="75px"
@@ -64,11 +49,7 @@ const WidgetLatestUsers = ({ profiles }) => {
                     )}
                   </Grid>
                   <Grid item xs>
-                    <Typography
-                      variant="inherit"
-                      color="textSecondary"
-                      component="h3"
-                    >
+                    <Typography variant="inherit" color="textSecondary" component="h3">
                       {profile.user.username}
                     </Typography>
                   </Grid>

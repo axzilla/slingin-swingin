@@ -50,13 +50,7 @@ const Landing = ({ history }) => {
   }
 
   return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="flex-start"
-      spacing={3}
-    >
+    <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
       <Hidden smDown>
         <Grid item xs={3}>
           <LandingWidgetPostTags postTags={postTags} />
@@ -68,10 +62,10 @@ const Landing = ({ history }) => {
           {posts &&
             posts
               .slice(0, limit)
-              .map((post, i) => (
+              .map(post => (
                 <PostFeedItem
                   clickLocation={'allPosts'}
-                  key={i}
+                  key={post._id}
                   post={post}
                   history={history}
                   auth={auth}

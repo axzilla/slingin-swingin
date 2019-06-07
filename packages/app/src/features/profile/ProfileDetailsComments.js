@@ -20,7 +20,7 @@ const ProfileDetailsComments = props => {
     const { shortId, urlSlug } = comment.refPostId
 
     return (
-      <Card key={i} style={{ marginBottom: '20px' }}>
+      <Card key={comment._id} style={{ marginBottom: '20px' }}>
         <CardContent>
           <div
             style={{
@@ -41,10 +41,7 @@ const ProfileDetailsComments = props => {
             </div>
           </div>
 
-          <Typography
-            dangerouslySetInnerHTML={{ __html: comment.text }}
-            className="post-content"
-          />
+          <Typography dangerouslySetInnerHTML={{ __html: comment.text }} className="post-content" />
         </CardContent>
       </Card>
     )
@@ -54,8 +51,7 @@ const ProfileDetailsComments = props => {
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item xs={12} sm={8} md={6}>
         {commentsItem}
-        {commentsByUserId &&
-        commentsItem.length === commentsByUserId.length ? null : (
+        {commentsByUserId && commentsItem.length === commentsByUserId.length ? null : (
           <Button onClick={loadMore} variant="outlined" color="primary">
             Mehr...
           </Button>

@@ -24,10 +24,10 @@ const SearchPostFeed = props => {
     const clickLocation = 'getPostsBySearch'
     postContent = posts
       .slice(0, limit)
-      .map((post, i) => (
+      .map(post => (
         <PostFeedItem
           clickLocation={clickLocation}
-          key={i}
+          key={post._id}
           post={post}
           searchString={searchString}
         />

@@ -111,13 +111,7 @@ const PostFeedItem = ({
 
   const toggleIsPostBookmarked = () => {
     if (auth.isAuthenticated) {
-      handlePostBookmarks(
-        clickLocation,
-        post._id,
-        userPostsId,
-        searchString,
-        auth.user.id
-      )
+      handlePostBookmarks(clickLocation, post._id, userPostsId, searchString, auth.user.id)
     } else {
       history.push('/login')
     }
@@ -142,11 +136,7 @@ const PostFeedItem = ({
           <Grid item>
             <Link to={`/${post.user.username}`}>
               <Avatar
-                src={
-                  isEmpty(post.user.avatar)
-                    ? avatarPlaceholder
-                    : post.user.avatar.secure_url
-                }
+                src={isEmpty(post.user.avatar) ? avatarPlaceholder : post.user.avatar.secure_url}
                 className={classes.bigAvatar}
               />
             </Link>
@@ -165,13 +155,10 @@ const PostFeedItem = ({
               </Typography>
             </Link>
             <Grid container>
-              {post.tags.map((tag, i) => {
+              {post.tags.map(tag => {
                 return (
-                  <Link key={i} to={`/posts/t/${tag}`}>
-                    <Typography
-                      color="textSecondary"
-                      style={{ display: 'inline', margin: '5px' }}
-                    >
+                  <Link key={tag} to={`/posts/t/${tag}`}>
+                    <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
                       #{tag}
                     </Typography>
                   </Link>
@@ -188,11 +175,7 @@ const PostFeedItem = ({
                 {post.user.username}
               </Typography>
             </Link>
-            <Typography
-              variant="caption"
-              gutterBottom
-              className={classes.inlineText}
-            >
+            <Typography variant="caption" gutterBottom className={classes.inlineText}>
               {' '}
               -{' '}
               <Moment fromNow locale="de">
@@ -220,11 +203,7 @@ const PostFeedItem = ({
               <Typography>{post.likes.length}</Typography>
             </Button>
             <HashLink to={`/post/${post.shortId}/${post.urlSlug}#comments`}>
-              <Button
-                disableRipple
-                style={{ color: blue[500] }}
-                className={classes.button}
-              >
+              <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
                 <i className="far fa-comment fa-lg" /> &nbsp;
                 {post.comments.length}
               </Button>
@@ -236,9 +215,7 @@ const PostFeedItem = ({
             style={{ color: blue[500] }}
             className={classes.button}
           >
-            {post.bookmarks
-              .map(bookmark => bookmark.user)
-              .includes(auth.user.id) ? (
+            {post.bookmarks.map(bookmark => bookmark.user).includes(auth.user.id) ? (
               <i className="fas fa-bookmark fa-lg" />
             ) : (
               <i className="far fa-bookmark fa-lg" />

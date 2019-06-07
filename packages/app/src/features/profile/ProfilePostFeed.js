@@ -21,10 +21,10 @@ const ProfilePostFeed = props => {
 
   const clickLocation = 'postsByUserId'
 
-  const postContent = posts.map((post, i) => (
+  const postContent = posts.map(post => (
     <PostFeedItem
       clickLocation={clickLocation}
-      key={i}
+      key={post._id}
       post={post}
       userPostsId={props.profile.user._id}
     />

@@ -213,9 +213,7 @@ const PostEdit = props => {
                 onChange={onTitleChange}
               />
               {errors && errors.title ? (
-                <FormHelperText className={classes.error}>
-                  {errors.title}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.title}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -230,9 +228,7 @@ const PostEdit = props => {
                 error={errors && errors.text}
               />
               {errors && errors.text ? (
-                <FormHelperText className={classes.error}>
-                  {errors.text}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl
@@ -240,10 +236,7 @@ const PostEdit = props => {
               className={classes.formControl}
               error={errors && errors.type ? true : false}
             >
-              <InputLabel
-                error={errors && errors.type ? true : false}
-                htmlFor="filled-age-simple"
-              >
+              <InputLabel error={errors && errors.type ? true : false} htmlFor="filled-age-simple">
                 Beitragstyp
               </InputLabel>
               <Select
@@ -260,9 +253,7 @@ const PostEdit = props => {
                 <MenuItem value="Fun">Fun</MenuItem>
               </Select>
               {errors && errors.type ? (
-                <FormHelperText className={classes.error}>
-                  {errors.type}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.type}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -278,9 +269,7 @@ const PostEdit = props => {
                 onKeyDown={onTagsKeyPress}
               />
               {errors && errors.tags ? (
-                <FormHelperText className={classes.error}>
-                  {errors.tags}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.tags}</FormHelperText>
               ) : null}
             </FormControl>
             <Grid>
@@ -292,7 +281,7 @@ const PostEdit = props => {
                     className={classes.chip}
                     color="primary"
                     variant="outlined"
-                    key={i}
+                    key={tag}
                   />
                 )
               })}

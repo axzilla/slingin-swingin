@@ -12,13 +12,10 @@ const PostDetailsTags = props => {
 
   return (
     <Grid container>
-      {post.tags.map((tag, i) => {
+      {post.tags.map(tag => {
         return (
-          <Link key={i} to={`/posts/t/${tag}`}>
-            <Typography
-              color="textSecondary"
-              style={{ display: 'inline', margin: '5px' }}
-            >
+          <Link key={tag} to={`/posts/t/${tag}`}>
+            <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
               #{tag}
             </Typography>
           </Link>

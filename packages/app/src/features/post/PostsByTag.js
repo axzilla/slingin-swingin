@@ -59,7 +59,7 @@ const PostsByTag = props => {
         .map((post, i) => (
           <PostFeedItem
             clickLocation={'allPosts'}
-            key={i}
+            key={post._id}
             post={post}
             history={history}
             auth={auth}
@@ -72,13 +72,7 @@ const PostsByTag = props => {
       <Grid item xs>
         <PostsByTagHeaderCard {...props} />
       </Grid>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="flex-start"
-        spacing={3}
-      >
+      <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
         <Hidden smDown>
           <Grid item xs={3}>
             <WidgetTopPostsTags postTags={postTags} />
