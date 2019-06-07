@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
     background: 'transparent',
     marginBottom: '20px'
   },
-  menu: { marginBottom: '10px', padding: theme.spacing(1) }
+  menu: { marginBottom: '10px' },
+  button: { height: '40px' }
 }))
 
 function CodeBlock({ language, value }) {
@@ -142,35 +143,35 @@ function MarkdownEditor({ withPreview, text, setText, onChange, value }) {
         />
 
         <Card className={classes.menu}>
-          <Button onClick={onBoldClick}>
+          <Button className={classes.button} onClick={onBoldClick}>
             <i className="fas fa-bold fa-lg" />
           </Button>
 
-          <Button onClick={onItalicClick}>
+          <Button className={classes.button} onClick={onItalicClick}>
             <i className="fas fa-italic fa-lg" />
           </Button>
 
-          <Button onClick={onCodeClick}>
+          <Button className={classes.button} onClick={onCodeClick}>
             <i className="fas fa-code fa-lg" />
           </Button>
 
-          <Button onClick={onUlClick}>
+          <Button className={classes.button} onClick={onUlClick}>
             <i className="fas fa-list-ul fa-lg" />
           </Button>
 
-          <Button onClick={onOlClick}>
+          <Button className={classes.button} onClick={onOlClick}>
             <i className="fas fa-list-ol fa-lg" />
           </Button>
 
-          <Button onClick={onLinkClick}>
+          <Button className={classes.button} onClick={onLinkClick}>
             <i className="fas fa-link fa-lg" />
           </Button>
 
-          <Button onClick={onQuoteClick}>
+          <Button className={classes.button} onClick={onQuoteClick}>
             <i className="fas fa-quote-right fa-lg" />
           </Button>
 
-          <Button onClick={onImgClick}>
+          <Button className={classes.button} onClick={onImgClick}>
             <i className="far fa-image fa-lg" />
           </Button>
         </Card>
