@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '20px'
   },
   menu: { marginBottom: '10px' },
-  button: { height: '40px' }
+  button: { height: '40px', borderRadius: 0 }
 }))
 
 function CodeBlock({ language, value }) {
