@@ -148,10 +148,10 @@ const PostDetails = ({ match, history }) => {
           Kommentare ({commentsByPostRef.length})
         </Typography>
         {commentsByPostRef &&
-          commentsByPostRef.map((comment, i) => {
+          commentsByPostRef.map(comment => {
             return (
               <CommentFeedItem
-                key={i}
+                key={comment._id}
                 post={post}
                 comment={comment}
                 setCommentsByPostRef={setCommentsByPostRef}

@@ -156,7 +156,7 @@ const CommentFeedItem = ({ comment, commentsByPostRef, setCommentsByPostRef }) =
                 subComment={subComment}
                 subComments={subComments}
                 setSubComments={setSubComments}
-                key={index}
+                key={subComment._id}
               />
             )
           })}

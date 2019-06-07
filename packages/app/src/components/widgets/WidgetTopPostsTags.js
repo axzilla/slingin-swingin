@@ -15,7 +15,7 @@ const WidgetTopPostsTags = ({ postTags }) => {
         {postTags &&
           postTags.slice(0, 20).map((item, i) => {
             return (
-              <Link key={i} to={`/posts/t/${item._id}`}>
+              <Link key={item._id} to={`/posts/t/${item._id}`}>
                 <Typography color="textSecondary" component="h3">
                   #{item._id}
                 </Typography>

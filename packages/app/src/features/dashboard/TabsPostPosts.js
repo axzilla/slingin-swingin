@@ -20,13 +20,8 @@ const TabsPostPosts = ({ postsByUserId, auth }) => {
     postsByUserId &&
     postsByUserId
       .slice(0, limit)
-      .map((post, i) => (
-        <PostFeedItem
-          key={i}
-          post={post}
-          auth={auth}
-          clickLocation={clickLocation}
-        />
+      .map(post => (
+        <PostFeedItem key={post._id} post={post} auth={auth} clickLocation={clickLocation} />
       ))
 
   return (

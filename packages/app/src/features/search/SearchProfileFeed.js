@@ -24,10 +24,10 @@ const SearchProfileFeed = props => {
     const location = 'getProfilesBySearch'
     profileItems = profiles
       .slice(0, limit)
-      .map((profile, i) => (
+      .map(profile => (
         <ProfilesCard
           location={location}
-          key={i}
+          key={profile._id}
           profile={profile}
           searchString={searchString}
         />

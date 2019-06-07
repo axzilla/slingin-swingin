@@ -25,10 +25,10 @@ const Posts = props => {
   } else {
     postContent = postsByUserId
       .slice(0, limit)
-      .map((post, i) => (
+      .map(post => (
         <PostFeedItem
           clickLocation={clickLocation}
-          key={i}
+          key={post._id}
           userPostsId={props.profile.user._id}
           post={post}
         />

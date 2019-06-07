@@ -33,13 +33,7 @@ const Profiles = props => {
   const location = 'getProfiles'
 
   return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="flex-start"
-      spacing={3}
-    >
+    <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
       <Hidden smDown>
         <Grid item xs={3}>
           <CardUserLatest profiles={profiles} />
@@ -50,13 +44,12 @@ const Profiles = props => {
           Mitglieder ({profiles && profiles.length})
         </Typography>
         {profiles &&
-          profiles.slice(0, limit)((profile, i) => (
-            <Grid item xs={12} key={i}>
+          profiles.slice(0, limit)(profile => (
+            <Grid item xs={12} key={profile._id}>
               <ProfilesCard location={location} profile={profile} />
             </Grid>
           ))}
-        {profiles &&
-        profiles.slice(0, limit).length === profiles.length ? null : (
+        {profiles && profiles.slice(0, limit).length === profiles.length ? null : (
           <Button onClick={loadMore} variant="outlined" color="primary">
             Mehr...
           </Button>

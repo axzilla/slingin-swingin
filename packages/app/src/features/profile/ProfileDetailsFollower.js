@@ -23,8 +23,8 @@ const Profiles = props => {
     profileItems = <Spinner />
   } else {
     const location = 'getProfilesByFollowerId'
-    profileItems = profilesByFollowerId.slice(0, limit).map((profile, i) => (
-      <Grid item xs={12} key={i}>
+    profileItems = profilesByFollowerId.slice(0, limit).map(profile => (
+      <Grid item xs={12} key={profile._id}>
         <ProfilesCard profile={profile} location={location} />
       </Grid>
     ))
@@ -34,8 +34,7 @@ const Profiles = props => {
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item xs={12} sm={8} md={6}>
         {profileItems}
-        {profilesByFollowerId &&
-        profileItems.length === profilesByFollowerId.length ? null : (
+        {profilesByFollowerId && profileItems.length === profilesByFollowerId.length ? null : (
           <Button onClick={loadMore} variant="outlined" color="primary">
             Mehr...
           </Button>

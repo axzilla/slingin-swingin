@@ -18,19 +18,13 @@ const TabsPostBookmarks = ({ postsByUserBookmark, auth }) => {
 
   const content = postsByUserBookmark
     .slice(0, limit)
-    .map((post, i) => (
-      <PostFeedItem
-        key={i}
-        post={post}
-        auth={auth}
-        clickLocation={clickLocation}
-      />
+    .map(post => (
+      <PostFeedItem key={post._id} post={post} auth={auth} clickLocation={clickLocation} />
     ))
   return (
     <Grid>
       {content}
-      {postsByUserBookmark &&
-      content.length === postsByUserBookmark.length ? null : (
+      {postsByUserBookmark && content.length === postsByUserBookmark.length ? null : (
         <Button onClick={loadMore} variant="outlined" color="primary">
           Mehr...
         </Button>

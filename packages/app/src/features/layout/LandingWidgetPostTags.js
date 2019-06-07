@@ -13,9 +13,9 @@ const LandingWidgetPostTags = ({ postTags }) => {
           </Box>
         </Typography>
         {postTags &&
-          postTags.slice(0, 20).map((item, i) => {
+          postTags.slice(0, 20).map(item => {
             return (
-              <Link key={i} to={`/posts/t/${item._id}`}>
+              <Link key={item._id} to={`/posts/t/${item._id}`}>
                 <Typography color="textSecondary" component="h3">
                   #{item._id}
                 </Typography>

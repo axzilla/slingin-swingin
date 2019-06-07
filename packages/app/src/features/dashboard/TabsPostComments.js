@@ -16,11 +16,11 @@ const TabsPostComments = ({ commentsByUserId }) => {
     setLimit(limit + 10)
   }
 
-  const content = commentsByUserId.slice(0, limit).map((comment, i) => {
+  const content = commentsByUserId.slice(0, limit).map(comment => {
     const { shortId, urlSlug } = comment.refPostId
 
     return (
-      <Card key={i} style={{ marginBottom: '20px' }}>
+      <Card key={comment._id} style={{ marginBottom: '20px' }}>
         <CardContent>
           <div
             style={{
@@ -41,10 +41,7 @@ const TabsPostComments = ({ commentsByUserId }) => {
             </div>
           </div>
 
-          <Typography
-            dangerouslySetInnerHTML={{ __html: comment.text }}
-            className="post-content"
-          />
+          <Typography dangerouslySetInnerHTML={{ __html: comment.text }} className="post-content" />
         </CardContent>
       </Card>
     )

@@ -20,14 +20,11 @@ const TabsPostBookmarks = ({ profilesByFollowingId }) => {
     profilesByFollowingId &&
     profilesByFollowingId
       .slice(0, limit)
-      .map((profile, i) => (
-        <ProfilesCard key={i} profile={profile} location={location} />
-      ))
+      .map(profile => <ProfilesCard key={profile._id} profile={profile} location={location} />)
   return (
     <Grid>
       {content}
-      {profilesByFollowingId &&
-      content.length === profilesByFollowingId.length ? null : (
+      {profilesByFollowingId && content.length === profilesByFollowingId.length ? null : (
         <Button onClick={loadMore} variant="outlined" color="primary">
           Mehr...
         </Button>
