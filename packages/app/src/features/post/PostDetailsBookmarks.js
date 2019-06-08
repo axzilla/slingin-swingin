@@ -1,13 +1,10 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Material Core
 import Button from '@material-ui/core/Button'
-
-// Material Colors
 import { blue } from '@material-ui/core/colors'
 
-const PostDetailsLikes = ({ onBookmarkClick, post, auth }) => {
+function PostDetailsLikes({ onBookmarkClick, post, auth }) {
   return (
     <Button
       onClick={() => onBookmarkClick(post._id, post.shortId)}
@@ -22,6 +19,12 @@ const PostDetailsLikes = ({ onBookmarkClick, post, auth }) => {
       &nbsp;
     </Button>
   )
+}
+
+PostDetailsLikes.propTypes = {
+  onBookmarkClick: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default PostDetailsLikes

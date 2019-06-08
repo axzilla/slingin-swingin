@@ -1,16 +1,12 @@
-// Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-import openSocket from 'socket.io-client'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Actions
 import { getPostByShortId, deletePost, handlePostLikes, handlePostBookmarks } from './_services'
 import { getCommentsByPostRef } from '../comment/_services'
 
-// Features
 import Spinner from '../common/Spinner'
 import CommentCreate from '../comment/CommentCreate'
 import CommentFeedItem from '../comment/CommentFeedItem'
@@ -26,10 +22,8 @@ import PostDetailsBookmarks from './PostDetailsBookmarks'
 import PostDetailsAuthActions from './PostDetailsAuthActions'
 import PostDetailsContent from './PostDetailsContent'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Core
 import { Card, CardContent, Grid, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -39,12 +33,13 @@ const useStyles = makeStyles({
   }
 })
 
-const PostDetails = ({ match, history }) => {
+function PostDetails({ match, history }) {
   const { auth } = useAuth()
   const classes = useStyles()
   const [isLoading, setIsloading] = useState(false)
   const [post, setPost] = useState([])
   const [commentsByPostRef, setCommentsByPostRef] = useState([])
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
@@ -53,16 +48,7 @@ const PostDetails = ({ match, history }) => {
     getInitialProps()
   }, [])
 
-  // useEffect(() => {
-  //   const socket = openSocket('http://localhost:5000')
-  //   socket.on('comments', data => {
-  //     if (data.action === 'create') {
-  //       setCommentsByPostRef([data.comment, ...commentsByPostRef])
-  //     }
-  //   })
-  // }, [commentsByPostRef])
-
-  const getInitialProps = async () => {
+  async function getInitialProps() {
     setIsloading(true)
 
     const postByShortId = await getPostByShortId(match.params.postId).then(res => res.data)
@@ -74,7 +60,7 @@ const PostDetails = ({ match, history }) => {
     setIsloading(false)
   }
 
-  const onLikeClick = id => {
+  function onLikeClick(id) {
     if (auth.isAuthenticated) {
       handlePostLikes(id).then(() => {
         getPostByShortId(match.params.postId).then(res => {
@@ -86,7 +72,7 @@ const PostDetails = ({ match, history }) => {
     }
   }
 
-  const onBookmarkClick = id => {
+  function onBookmarkClick(id) {
     if (auth.isAuthenticated) {
       handlePostBookmarks(id).then(() => {
         getPostByShortId(match.params.postId).then(res => {
@@ -168,6 +154,11 @@ const PostDetails = ({ match, history }) => {
       {postContent}
     </Grid>
   )
+}
+
+PostDetails.propTypes = {
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 export default PostDetails

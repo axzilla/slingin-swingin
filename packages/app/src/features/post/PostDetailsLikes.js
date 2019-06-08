@@ -1,19 +1,13 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Material Core
 import { Typography, Button } from '@material-ui/core'
 
-// Material Colors
 import { red } from '@material-ui/core/colors'
 
-const PostDetailsLikes = ({ onLikeClick, post, auth }) => {
+function PostDetailsLikes({ onLikeClick, post, auth }) {
   return (
-    <Button
-      disableRipple
-      onClick={() => onLikeClick(post._id)}
-      style={{ color: red[500] }}
-    >
+    <Button disableRipple onClick={() => onLikeClick(post._id)} style={{ color: red[500] }}>
       {post.likes.map(like => like.user).includes(auth.user.id) ? (
         <i className="fas fa-heart fa-lg" />
       ) : (
@@ -23,6 +17,12 @@ const PostDetailsLikes = ({ onLikeClick, post, auth }) => {
       <Typography>{post.likes && post.likes.length}</Typography>
     </Button>
   )
+}
+
+PostDetailsLikes.propTypes = {
+  onLikeClick: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default PostDetailsLikes

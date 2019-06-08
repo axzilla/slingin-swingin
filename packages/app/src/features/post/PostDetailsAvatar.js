@@ -1,18 +1,14 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Assets
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
-// Material Core
 import { Avatar } from '@material-ui/core'
 
-const PostDetailsAvatar = props => {
-  const { post } = props
+function PostDetailsAvatar({ post }) {
   let content = {}
 
   if (post.user === null) {
@@ -20,18 +16,16 @@ const PostDetailsAvatar = props => {
   } else {
     content = (
       <Link to={`/${post.user.username}`}>
-        <Avatar
-          src={
-            isEmpty(post.user.avatar)
-              ? avatarPlaceholder
-              : post.user.avatar.secure_url
-          }
-        />
+        <Avatar src={isEmpty(post.user.avatar) ? avatarPlaceholder : post.user.avatar.secure_url} />
       </Link>
     )
   }
 
   return <React.Fragment>{content}</React.Fragment>
+}
+
+PostDetailsAvatar.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDetailsAvatar

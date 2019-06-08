@@ -1,25 +1,19 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import Link from '../../components/Link'
 import { HashLink } from 'react-router-hash-link'
 import Moment from 'react-moment'
 
-// Actions
 import { handlePostLikes, handlePostBookmarks } from './_services'
 
-// Assets
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Colors
 import { blue, red } from '@material-ui/core/colors'
 
-// Material Core
 import {
   Grid,
   Avatar,
@@ -50,7 +44,6 @@ const useStyles = makeStyles({
     width: '100%'
   },
   media: {
-    // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover'
   },
   bigAvatar: {
@@ -66,15 +59,7 @@ const useStyles = makeStyles({
   }
 })
 
-const PostFeedItem = ({
-  history,
-  post,
-  auth,
-  clickLocation,
-  userPostsId,
-  searchString,
-  currentUserId
-}) => {
+function PostFeedItem({ history, post, auth, userPostsId, searchString }) {
   const classes = useStyles()
   let color
 
@@ -95,23 +80,17 @@ const PostFeedItem = ({
     color = '#FFE082' // Amber 200
   }
 
-  const toggleIsPostLiked = () => {
+  function toggleIsPostLiked() {
     if (auth.isAuthenticated) {
-      handlePostLikes(
-        // clickLocation,
-        post._id,
-        userPostsId,
-        searchString,
-        auth.user.id
-      )
+      handlePostLikes(post._id, userPostsId, searchString, auth.user.id)
     } else {
       history.push('/login')
     }
   }
 
-  const toggleIsPostBookmarked = () => {
+  function toggleIsPostBookmarked() {
     if (auth.isAuthenticated) {
-      handlePostBookmarks(clickLocation, post._id, userPostsId, searchString, auth.user.id)
+      handlePostBookmarks(post._id, userPostsId, searchString, auth.user.id)
     } else {
       history.push('/login')
     }
@@ -226,6 +205,14 @@ const PostFeedItem = ({
       </CardActions>
     </Card>
   )
+}
+
+PostFeedItem.propTypes = {
+  history: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  userPostsId: PropTypes.string.isRequired,
+  searchString: PropTypes.string.isRequired
 }
 
 export default PostFeedItem

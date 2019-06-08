@@ -1,10 +1,8 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const PostDetailsTitleImage = props => {
-  const { post } = props
-
+function PostDetailsTitleImage({ post }) {
   return (
     <Link to={`/post/${post.shortId}/${post.urlSlug}`}>
       {post.titleImage ? (
@@ -21,6 +19,10 @@ const PostDetailsTitleImage = props => {
       ) : null}
     </Link>
   )
+}
+
+PostDetailsTitleImage.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDetailsTitleImage

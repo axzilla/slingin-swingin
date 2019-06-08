@@ -1,13 +1,10 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-//  Material Core
 import { Typography } from '@material-ui/core'
 
-const PostDetailsCreator = props => {
-  const { post } = props
-
+function PostDetailsCreator({ post }) {
   let content = {}
 
   if (post.user === null) {
@@ -23,6 +20,10 @@ const PostDetailsCreator = props => {
   }
 
   return <React.Fragment>{content}</React.Fragment>
+}
+
+PostDetailsCreator.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDetailsCreator

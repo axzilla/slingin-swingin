@@ -1,27 +1,21 @@
-// Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Actions
 import { getPostsByTag, getPostsTags } from './_services'
 
-// Features
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
 
-// Components
 import Spinner from '../common/Spinner'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
 
-// Material Core
 import { Button, Grid, Hidden } from '@material-ui/core'
 
-const PostsByTag = props => {
+const PostsByTag = ({ history, match }) => {
   const { auth } = useAuth()
-  const { history, isLoading } = props
   const [posts, setPosts] = useState()
   const [postTags, setPostTags] = useState()
   const [limit, setLimit] = useState(10)
@@ -30,7 +24,7 @@ const PostsByTag = props => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    getPostsByTag(props.match.params.tag).then(res => {
+    getPostsByTag(match.params.tag).then(res => {
       setPosts(res.data)
     })
 
@@ -40,31 +34,11 @@ const PostsByTag = props => {
   }, [])
 
   useEffect(() => {
-    getPostsByTag(props.match.params.tag)
-  }, [props.match.params.tag])
+    getPostsByTag(match.params.tag)
+  }, [match.params.tag])
 
   const loadMore = () => {
     setLimit(limit + 10)
-  }
-
-  let postContent
-
-  if (isLoading) {
-    postContent = <Spinner />
-  } else {
-    postContent =
-      posts &&
-      posts
-        .slice(0, limit)
-        .map((post, i) => (
-          <PostFeedItem
-            clickLocation={'allPosts'}
-            key={post._id}
-            post={post}
-            history={history}
-            auth={auth}
-          />
-        ))
   }
 
   return (
@@ -79,7 +53,18 @@ const PostsByTag = props => {
           </Grid>
         </Hidden>
         <Grid item xs={12} md={6}>
-          {postContent}
+          {posts &&
+            posts
+              .slice(0, limit)
+              .map((post, i) => (
+                <PostFeedItem
+                  clickLocation={'allPosts'}
+                  key={post._id}
+                  post={post}
+                  history={history}
+                  auth={auth}
+                />
+              ))}
           {posts && postContent.length === posts.length ? null : (
             <Button onClick={loadMore} variant="outlined" color="primary">
               Mehr...
@@ -92,6 +77,11 @@ const PostsByTag = props => {
       </Grid>
     </Grid>
   )
+}
+
+PostsByTag.propTypes = {
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 export default PostsByTag

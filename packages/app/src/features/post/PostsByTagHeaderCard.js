@@ -1,10 +1,7 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -13,7 +10,7 @@ const useStyles = makeStyles({
   }
 })
 
-const PostsByTagHeaderCard = props => {
+function PostsByTagHeaderCard({ match }) {
   const classes = useStyles()
 
   return (
@@ -21,12 +18,16 @@ const PostsByTagHeaderCard = props => {
       <CardContent>
         <Typography variant="h3" component="h1">
           <Box textAlign="center" fontWeight={500} fontFamily="Monospace">
-            #{props.match.params.tag}
+            #{match.params.tag}
           </Box>
         </Typography>
       </CardContent>
     </Card>
   )
+}
+
+PostsByTagHeaderCard.propTypes = {
+  match: PropTypes.object.isRequired
 }
 
 export default PostsByTagHeaderCard
