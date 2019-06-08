@@ -1,35 +1,29 @@
-// Packages
 import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 
-// Features
 import { getProfiles } from './_services'
 import ProfilesCard from './ProfilesCard'
 
-// Components
 import CardSponsors from '../../components/cards/CardSponsors'
 import CardUserLatest from '../../components/cards/CardUserLatest'
 
-// Material Core
 import { Grid, Hidden, Button, Typography } from '@material-ui/core'
 
-const Profiles = props => {
-  const { profiles } = props.profile
+const Profiles = () => {
   const [limit, setLimit] = useState(10)
+  const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    props.getProfiles()
+    getProfiles().then(res => setProfiles(res.data))
   }, [])
 
   const loadMore = () => {
     setLimit(limit + 10)
   }
-
-  const location = 'getProfiles'
 
   return (
     <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>

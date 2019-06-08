@@ -1,16 +1,10 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Colors
 import { grey } from '@material-ui/core/colors'
-
-// Material Core
 import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -22,9 +16,8 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsSocials = props => {
+const ProfileDetailsSocials = ({ profile, rgbaColor }) => {
   const classes = useStyles()
-  const { profile, rgbaColor } = props
 
   const checkForHttp = string => {
     if (string.includes('http')) {
@@ -168,6 +161,11 @@ const ProfileDetailsSocials = props => {
       )}
     </Grid>
   )
+}
+
+ProfileDetailsSocials.propTypes = {
+  profile: PropTypes.object.isRequired,
+  rgbaColor: PropTypes.string.isRequired
 }
 
 export default ProfileDetailsSocials

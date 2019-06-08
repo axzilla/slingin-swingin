@@ -1,13 +1,10 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
-// Material Styles
-import { makeStyles } from '@material-ui/styles'
 
-// Material Core
+import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -24,10 +21,8 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsInfos = props => {
+const ProfileDetailsInfos = ({ profile }) => {
   const classes = useStyles()
-
-  const { profile } = props
 
   return (
     <Grid container>
@@ -73,6 +68,10 @@ const ProfileDetailsInfos = props => {
       </Grid>
     </Grid>
   )
+}
+
+ProfileDetailsInfos.propTypes = {
+  profile: PropTypes.object.isRequired
 }
 
 export default ProfileDetailsInfos

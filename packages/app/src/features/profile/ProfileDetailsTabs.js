@@ -1,13 +1,9 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
 
-// Features
 import ProfileDetailsPostFeed from './ProfileDetailsPostFeed'
 import ProfileDetailsFollower from './ProfileDetailsFollower'
 import ProfileDetailsFollowing from './ProfileDetailsFollowing'
@@ -35,10 +31,19 @@ const useStyles = makeStyles({
   }
 })
 
-const CenteredTabs = props => {
-  const classes = useStyles()
-  const { profile, commentsByUserId } = props
+TabContainer.propTypes = {
+  children: PropTypes.object.isRequired,
+  dir: PropTypes.object.isRequired
+}
 
+const CenteredTabs = ({
+  profile,
+  commentsByUserId,
+  postsByUserId,
+  profilesByFollowerId,
+  profilesByFollowingId
+}) => {
+  const classes = useStyles()
   const [value, setValue] = useState(0)
 
   const handleChange = (event, value) => {
@@ -55,21 +60,13 @@ const CenteredTabs = props => {
         textColor="primary"
         centered
       >
-        <Tab label={`Beiträge ${props.postsByUserId ? props.postsByUserId.length : '0'}`} />
+        <Tab label={`Beiträge ${postsByUserId ? postsByUserId.length : '0'}`} />
 
-        <Tab label={`Kommentare ${props.commentsByUserId ? props.commentsByUserId.length : '0'}`} />
+        <Tab label={`Kommentare ${commentsByUserId ? commentsByUserId.length : '0'}`} />
 
-        <Tab
-          label={`Abonnenten  ${
-            props.profilesByFollowerId ? props.profilesByFollowerId.length : '0'
-          }`}
-        />
+        <Tab label={`Abonnenten  ${profilesByFollowerId ? profilesByFollowerId.length : '0'}`} />
 
-        <Tab
-          label={`Abonniert ${
-            props.profilesByFollowingId ? props.profilesByFollowingId.length : '0'
-          }`}
-        />
+        <Tab label={`Abonniert ${profilesByFollowingId ? profilesByFollowingId.length : '0'}`} />
       </Tabs>
       {value === 0 && (
         <TabContainer>
@@ -93,6 +90,14 @@ const CenteredTabs = props => {
       )}
     </Grid>
   )
+}
+
+CenteredTabs.propTypes = {
+  profile: PropTypes.object.isRequired,
+  commentsByUserId: PropTypes.array.isRequired,
+  postsByUserId: PropTypes.array.isRequired,
+  profilesByFollowerId: PropTypes.array.isRequired,
+  profilesByFollowingId: PropTypes.array.isRequired
 }
 
 export default CenteredTabs

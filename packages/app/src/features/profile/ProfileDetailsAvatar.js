@@ -1,19 +1,12 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Assets
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Colors
 import { grey } from '@material-ui/core/colors'
-
-// Material Core
 import { Avatar } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
@@ -31,9 +24,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ProfileDetailsAvatar = props => {
+const ProfileDetailsAvatar = ({ rgbaColor, profile }) => {
   const classes = useStyles()
-  const { rgbaColor, profile } = props
 
   return (
     <Avatar
@@ -41,14 +33,15 @@ const ProfileDetailsAvatar = props => {
         border: !isEmpty(profile.color) ? `3px ${rgbaColor} solid` : null
       }}
       className={classes.avatar}
-      src={
-        isEmpty(profile.user.avatar)
-          ? avatarPlaceholder
-          : profile.user.avatar.secure_url
-      }
+      src={isEmpty(profile.user.avatar) ? avatarPlaceholder : profile.user.avatar.secure_url}
       alt="profile-avatar"
     />
   )
+}
+
+ProfileDetailsAvatar.propTypes = {
+  rgbaColor: PropTypes.string.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 export default ProfileDetailsAvatar

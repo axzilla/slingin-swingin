@@ -1,19 +1,15 @@
-// Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+
 import { withRouter } from 'react-router-dom'
 import ReactGA from 'react-ga'
 
-// Actions
-import { createProfile, getCurrentProfile, clearProfileErrors } from './_services'
+import { createProfile, getCurrentProfile } from './_services'
 
-// Features
 import ProfileEditColorPicker from './ProfileEditColorPicker'
 import ProfileEditAvatar from './ProfileEditAvatar'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import {
   Grid,
   Card,
@@ -42,9 +38,10 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileEdit = props => {
+const ProfileEdit = ({ history }) => {
   const classes = useStyles()
-
+  const [profile, setProfile] = useState({})
+  const [errors, setErrors] = useState()
   const [state, setState] = useState({
     displayColorPicker: false,
     color: '',
@@ -72,33 +69,37 @@ const ProfileEdit = props => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    props.getCurrentProfile()
+
+    try {
+      getCurrentProfile().then(profile => setProfile(profile))
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }, [])
 
   useEffect(() => {
     setState({
       ...state,
-      color: props.profile.color,
-      name: props.profile.name,
-      company: props.profile.company,
-      website: props.profile.website,
-      location: props.profile.location,
-      status: props.profile.status,
-      github: props.profile.github,
-      gitlab: props.profile.gitlab,
-      bitbucket: props.profile.bitbucket,
-      bio: props.profile.bio,
+      color: profile.color,
+      name: profile.name,
+      company: profile.company,
+      website: profile.website,
+      location: profile.location,
+      status: profile.status,
+      github: profile.github,
+      gitlab: profile.gitlab,
+      bitbucket: profile.bitbucket,
+      bio: profile.bio,
 
-      twitter: props.profile.social && props.profile.social.twitter,
-      facebook: props.profile.social && props.profile.social.facebook,
-      linkedin: props.profile.social && props.profile.social.linkedin,
-      xing: props.profile.social && props.profile.social.xing,
-      youtube: props.profile.social && props.profile.social.youtube,
-      instagram: props.profile.social && props.profile.social.instagram
+      twitter: profile.social && profile.social.twitter,
+      facebook: profile.social && profile.social.facebook,
+      linkedin: profile.social && profile.social.linkedin,
+      xing: profile.social && profile.social.xing,
+      youtube: profile.social && profile.social.youtube,
+      instagram: profile.social && profile.social.instagram
     })
-  }, [props.profile])
+  }, [profile])
 
-  const { errors } = props
   const { displaySocialInputs, color } = state
   const rgbaColor = `rgba(${color && color.r}, ${color && color.g}, ${color && color.b}, ${color &&
     color.a})`
@@ -126,7 +127,7 @@ const ProfileEdit = props => {
       instagram: state.instagram
     }
 
-    props.createProfile(profileData, props.history)
+    createProfile(profileData, history)
   }
 
   const onChange = e => {
@@ -421,6 +422,10 @@ const ProfileEdit = props => {
       </Grid>
     </Grid>
   )
+}
+
+ProfileEdit.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default withRouter(ProfileEdit)

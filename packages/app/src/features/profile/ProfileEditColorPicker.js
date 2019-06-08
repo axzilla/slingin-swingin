@@ -1,5 +1,5 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
 import { ChromePicker } from 'react-color'
 
@@ -46,25 +46,26 @@ const ProfileEditColorPicker = props => {
   return (
     <div>
       <div>
-        <div
-          style={styles.swatch}
-          onClick={handleColorPickerClick}
-          className="cp-width"
-        >
+        <div style={styles.swatch} onClick={handleColorPickerClick} className="cp-width">
           <div style={styles.color} />
         </div>
         {displayColorPicker ? (
           <div style={styles.popover}>
             <div style={styles.cover} onClick={handleColorPickerClose} />
-            <ChromePicker
-              color={rgbaColor}
-              onChange={handleColorPickerChange}
-            />
+            <ChromePicker color={rgbaColor} onChange={handleColorPickerChange} />
           </div>
         ) : null}
       </div>
     </div>
   )
+}
+
+ProfileEditColorPicker.propTypes = {
+  handleColorPickerChange: PropTypes.func.isRequired,
+  handleColorPickerClick: PropTypes.func.isRequired,
+  handleColorPickerClose: PropTypes.func.isRequired,
+  displayColorPicker: PropTypes.func.isRequireds,
+  rgbaColor: PropTypes.string.isRequired
 }
 
 export default ProfileEditColorPicker

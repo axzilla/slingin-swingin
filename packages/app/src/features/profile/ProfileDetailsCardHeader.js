@@ -1,8 +1,7 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import isEmpty from '../../utils/isEmpty'
 
-// Features
 import Avatar from './ProfileDetailsAvatar'
 import ProfileDetailsName from './ProfileDetailsName'
 import ProfileDetailsUsername from './ProfileDetailsUsername'
@@ -12,13 +11,10 @@ import ProfileDetailsInfos from './ProfileDetailsInfos'
 import ProfileDetailsButtonEdit from './ProfileDetailsButtonEdit'
 import ProfileDetailsButtonFollow from './ProfileDetailsButtonFollow'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Colors
 import { grey } from '@material-ui/core/colors'
 
-// Material Core
 import { Grid, Card, CardContent } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -29,9 +25,8 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsCardHeader = props => {
+const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth }) => {
   const classes = useStyles()
-  const { rgbaColor, profile, auth } = props
 
   return (
     <Card
@@ -61,6 +56,12 @@ const ProfileDetailsCardHeader = props => {
       </CardContent>
     </Card>
   )
+}
+
+ProfileDetailsCardHeader.propTypes = {
+  rgbaColor: PropTypes.string.isRequired,
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default ProfileDetailsCardHeader

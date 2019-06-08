@@ -1,22 +1,18 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Actions
 import { handleUserFollower } from './_services'
 
-// Components
 import Button from '../button/Button'
 
-const ProfilesCardFollowButton = props => {
-  const { profile, auth } = props
-
+const ProfilesCardFollowButton = ({ profile, auth }) => {
   const onFollowButtonclick = () => {
-    if (props.profile.user.follower.map(follower => follower.user).includes(props.auth.user.id)) {
+    if (profile.user.follower.map(follower => follower.user).includes(auth.user.id)) {
       if (window.confirm('Nicht mehr folgen?')) {
-        props.handleUserFollower(props.profile.user._id, props.profile.handle)
+        handleUserFollower(profile.user._id, profile.handle)
       }
     } else {
-      props.handleUserFollower(props.profile.user._id, props.profile.handle)
+      handleUserFollower(profile.user._id, profile.handle)
     }
   }
 
@@ -24,7 +20,7 @@ const ProfilesCardFollowButton = props => {
     <React.Fragment>
       {auth.isAuthenticated && profile.user._id !== auth.user.id ? (
         <Button onClick={onFollowButtonclick}>
-          {profile.user.follower.map(follower => follower.user).includes(props.auth.user.id) ? (
+          {profile.user.follower.map(follower => follower.user).includes(auth.user.id) ? (
             <span key="followed">
               <i className="fas fa-user-check" /> Entfolgen
             </span>
@@ -37,6 +33,11 @@ const ProfilesCardFollowButton = props => {
       ) : null}
     </React.Fragment>
   )
+}
+
+ProfilesCardFollowButton.propTypes = {
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default ProfilesCardFollowButton
