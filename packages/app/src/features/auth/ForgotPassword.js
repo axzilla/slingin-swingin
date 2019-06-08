@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
 // Contexts
@@ -96,9 +97,7 @@ const ForgotPassword = ({ history }) => {
                 onChange={onChange}
               />
               {errors.email ? (
-                <FormHelperText className={classes.error}>
-                  {errors.email}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.email}</FormHelperText>
               ) : null}
             </FormControl>
             <Button
@@ -115,6 +114,10 @@ const ForgotPassword = ({ history }) => {
       </Card>
     </Grid>
   )
+}
+
+ForgotPassword.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default ForgotPassword

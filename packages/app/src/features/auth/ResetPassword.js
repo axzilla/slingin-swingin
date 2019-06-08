@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
@@ -106,9 +107,7 @@ const ResetPassword = ({ history, match }) => {
                 onChange={onChange}
               />
               {errors.password ? (
-                <FormHelperText className={classes.error}>
-                  {errors.password}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -123,9 +122,7 @@ const ResetPassword = ({ history, match }) => {
                 onChange={onChange}
               />
               {errors.password2 ? (
-                <FormHelperText className={classes.error}>
-                  {errors.password2}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.password2}</FormHelperText>
               ) : null}
             </FormControl>
             <Button
@@ -142,6 +139,11 @@ const ResetPassword = ({ history, match }) => {
       </Card>
     </Grid>
   )
+}
+
+ResetPassword.propTypes = {
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 export default ResetPassword

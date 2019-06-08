@@ -2,13 +2,9 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { connect } from 'react-redux'
 
 // Utils
 import isEmpty from '../../utils/isEmpty'
-
-// Actions
-import { setAlert } from '../common/_actions'
 
 // Material Styles
 import { makeStyles } from '@material-ui/core/styles'
@@ -79,12 +75,7 @@ function MySnackbarContentWrapper(props) {
         </span>
       }
       action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          onClick={onClose}
-        >
+        <IconButton key="close" aria-label="Close" color="inherit" onClick={onClose}>
           <CloseIcon className={classes.icon} />
         </IconButton>
       ]}
@@ -138,13 +129,9 @@ function CustomizedSnackbars(props) {
   )
 }
 
-const mapStateToProps = ({ alert }) => ({ alert })
-
-const mapDispatchToProps = {
-  setAlert
+CustomizedSnackbars.propTypes = {
+  alert: PropTypes.object.isRequired,
+  setAlert: PropTypes.func.isRequired
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CustomizedSnackbars)
+export default CustomizedSnackbars

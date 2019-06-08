@@ -1,5 +1,6 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 // Features
 import ProfilesCard from '../profile/ProfilesCard'
@@ -31,6 +32,10 @@ const TabsPostBookmarks = ({ profilesByFollowingId }) => {
       )}
     </Grid>
   )
+}
+
+TabsPostBookmarks.propTypes = {
+  profilesByFollowingId: PropTypes.array.isRequired
 }
 
 export default TabsPostBookmarks

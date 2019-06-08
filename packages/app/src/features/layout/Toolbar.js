@@ -14,7 +14,7 @@ import Link from '../../components/Link'
 import isEmpty from '../../utils/isEmpty'
 
 // Redux
-import { searchFunc } from '../../features/search/_actions'
+import { searchFunc } from '../search/_services'
 
 // Material Core
 import {
@@ -165,12 +165,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ToolbarApp = ({
-  searchFunc,
-  history,
-  isLightTheme,
-  onThemeToggleClick
-}) => {
+const ToolbarApp = ({ searchFunc, history, isLightTheme, onThemeToggleClick }) => {
   const { auth } = useAuth()
   const [toolbarData, setToolbarData] = useState({
     searchText: ''
@@ -207,9 +202,7 @@ const ToolbarApp = ({
         <Link to="/">
           <ListItem style={{ display: 'flex', justifyContent: 'space-around' }}>
             <Typography
-              className={classNames(
-                isLightTheme ? classes.logoLight : classes.logoDark
-              )}
+              className={classNames(isLightTheme ? classes.logoLight : classes.logoDark)}
               variant="h6"
               noWrap
             >
@@ -222,12 +215,7 @@ const ToolbarApp = ({
             <ListItem>
               <ListItemText>
                 <Link to="/register">
-                  <Button
-                    fullWidth
-                    className={classes.button}
-                    variant="outlined"
-                    color="secondary"
-                  >
+                  <Button fullWidth className={classes.button} variant="outlined" color="secondary">
                     Registrieren
                   </Button>
                 </Link>
@@ -236,12 +224,7 @@ const ToolbarApp = ({
             <ListItem>
               <ListItemText>
                 <Link to="/login">
-                  <Button
-                    color="primary"
-                    fullWidth
-                    className={classes.button}
-                    variant="outlined"
-                  >
+                  <Button color="primary" fullWidth className={classes.button} variant="outlined">
                     Einloggen
                   </Button>
                 </Link>
@@ -300,9 +283,7 @@ const ToolbarApp = ({
               CODEHUSTLA
             </Typography>
           </Link>
-          <div
-            className={isLightTheme ? classes.searchLight : classes.searchDark}
-          >
+          <div className={isLightTheme ? classes.searchLight : classes.searchDark}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -325,11 +306,7 @@ const ToolbarApp = ({
           {isAuthenticated ? (
             <div className={classes.sectionDesktop}>
               <Link to="/create-post">
-                <Button
-                  className={classes.button}
-                  variant="outlined"
-                  color="primary"
-                >
+                <Button className={classes.button} variant="outlined" color="primary">
                   Beitrag erstellen
                 </Button>
               </Link>
@@ -351,20 +328,12 @@ const ToolbarApp = ({
           ) : (
             <div className={classes.sectionDesktop}>
               <Link to="/register">
-                <Button
-                  className={classes.button}
-                  variant="outlined"
-                  color="secondary"
-                >
+                <Button className={classes.button} variant="outlined" color="secondary">
                   Registrieren
                 </Button>
               </Link>
               <Link to="/login">
-                <Button
-                  color="primary"
-                  className={classes.button}
-                  variant="outlined"
-                >
+                <Button color="primary" className={classes.button} variant="outlined">
                   Einloggen
                 </Button>
               </Link>
@@ -373,12 +342,7 @@ const ToolbarApp = ({
         </Toolbar>
       </AppBar>
       <Drawer open={toolbarData.drawerOpen} onClose={toggleDrawer}>
-        <div
-          tabIndex={0}
-          role="button"
-          onClick={toggleDrawer}
-          onKeyDown={toggleDrawer}
-        >
+        <div tabIndex={0} role="button" onClick={toggleDrawer} onKeyDown={toggleDrawer}>
           {sideList}
         </div>
       </Drawer>

@@ -12,7 +12,7 @@ import SearchTabs from './SearchTabs'
 import isEmpty from '../../utils/isEmpty'
 
 // Actions
-import { searchFunc } from '../search/_actions'
+import { searchFunc } from '../search/_'
 
 // Material Core
 import { Grid } from '@material-ui/core'

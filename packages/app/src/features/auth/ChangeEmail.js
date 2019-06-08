@@ -101,9 +101,7 @@ const ChangeEmail = () => {
                 onChange={onChange}
               />
               {errors && errors.email ? (
-                <FormHelperText className={classes.error}>
-                  {errors.email}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.email}</FormHelperText>
               ) : null}
             </FormControl>
             <Button type="submit" variant="outlined" color="primary">

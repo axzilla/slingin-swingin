@@ -1,5 +1,6 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
@@ -56,6 +57,10 @@ const TabsPostComments = ({ commentsByUserId }) => {
       )}
     </Grid>
   )
+}
+
+TabsPostComments.propTypes = {
+  commentsByUserId: PropTypes.array.isRequired
 }
 
 export default TabsPostComments

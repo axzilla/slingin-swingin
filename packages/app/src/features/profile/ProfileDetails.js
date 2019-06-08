@@ -8,7 +8,7 @@ import Spinner from '../common/Spinner'
 
 // Actions
 import { getPostsByUserId } from '../post/_services'
-import { getProfileByHandle, getProfilesByFollowingId, getProfilesByFollowerId } from './_actions'
+import { getProfileByHandle, getProfilesByFollowingId, getProfilesByFollowerId } from './_services'
 
 // Features
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'

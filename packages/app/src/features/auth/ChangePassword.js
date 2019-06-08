@@ -1,12 +1,13 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
 
 // Services
-import { changePassword } from './_actions'
+import { changePassword } from './_services'
 
 // Material Style
 import { makeStyles } from '@material-ui/styles'
@@ -101,9 +102,7 @@ const ChangePassword = ({ history }) => {
                 onChange={onChange}
               />
               {errors.oldPassword ? (
-                <FormHelperText className={classes.error}>
-                  {errors.oldPassword}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.oldPassword}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -119,9 +118,7 @@ const ChangePassword = ({ history }) => {
                 onChange={onChange}
               />
               {errors.newPassword ? (
-                <FormHelperText className={classes.error}>
-                  {errors.newPassword}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.newPassword}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -137,9 +134,7 @@ const ChangePassword = ({ history }) => {
                 onChange={onChange}
               />
               {errors.newPassword2 ? (
-                <FormHelperText className={classes.error}>
-                  {errors.newPassword2}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.newPassword2}</FormHelperText>
               ) : null}
             </FormControl>
             <Button type="submit" variant="outlined" color="primary">
@@ -150,6 +145,10 @@ const ChangePassword = ({ history }) => {
       </Card>
     </React.Fragment>
   )
+}
+
+ChangePassword.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default ChangePassword

@@ -5,11 +5,7 @@ import { withRouter } from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 // Actions
-import {
-  createProfile,
-  getCurrentProfile,
-  clearProfileErrors
-} from './_actions'
+import { createProfile, getCurrentProfile, clearProfileErrors } from './_services'
 
 // Features
 import ProfileEditColorPicker from './ProfileEditColorPicker'
@@ -105,8 +101,8 @@ const ProfileEdit = props => {
 
   const { errors } = props
   const { displaySocialInputs, color } = state
-  const rgbaColor = `rgba(${color && color.r}, ${color && color.g}, ${color &&
-    color.b}, ${color && color.a})`
+  const rgbaColor = `rgba(${color && color.r}, ${color && color.g}, ${color && color.b}, ${color &&
+    color.a})`
 
   const onSubmit = e => {
     e.preventDefault()
@@ -168,9 +164,7 @@ const ProfileEdit = props => {
             onChange={onChange}
           />
           {errors.twitter ? (
-            <FormHelperText className={classes.error}>
-              {errors.twitter}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.twitter}</FormHelperText>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
@@ -186,9 +180,7 @@ const ProfileEdit = props => {
             onChange={onChange}
           />
           {errors.facebook ? (
-            <FormHelperText className={classes.error}>
-              {errors.facebook}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.facebook}</FormHelperText>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
@@ -204,9 +196,7 @@ const ProfileEdit = props => {
             onChange={onChange}
           />
           {errors.instagram ? (
-            <FormHelperText className={classes.error}>
-              {errors.instagram}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.instagram}</FormHelperText>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
@@ -222,9 +212,7 @@ const ProfileEdit = props => {
             onChange={onChange}
           />
           {errors.linkedin ? (
-            <FormHelperText className={classes.error}>
-              {errors.linkedin}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.linkedin}</FormHelperText>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
@@ -240,9 +228,7 @@ const ProfileEdit = props => {
             onChange={onChange}
           />
           {errors.xing ? (
-            <FormHelperText className={classes.error}>
-              {errors.xing}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.xing}</FormHelperText>
           ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
@@ -258,9 +244,7 @@ const ProfileEdit = props => {
             onChange={onChange}
           />
           {errors.youtube ? (
-            <FormHelperText className={classes.error}>
-              {errors.youtube}
-            </FormHelperText>
+            <FormHelperText className={classes.error}>{errors.youtube}</FormHelperText>
           ) : null}
         </FormControl>
       </div>
@@ -287,9 +271,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.name ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.name}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.name}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -305,9 +287,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.status ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.status}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.status}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -323,9 +303,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.company ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.company}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.company}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -341,9 +319,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.website ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.website}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.website}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -359,9 +335,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.location ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.location}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.location}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -377,9 +351,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.github ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.github}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.github}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -395,9 +367,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.gitlab ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.gitlab}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.gitlab}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -413,9 +383,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.bitbucket ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.bitbucket}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.bitbucket}</FormHelperText>
                 ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
@@ -433,9 +401,7 @@ const ProfileEdit = props => {
                   onChange={onChange}
                 />
                 {errors.bio ? (
-                  <FormHelperText className={classes.error}>
-                    {errors.bio}
-                  </FormHelperText>
+                  <FormHelperText className={classes.error}>{errors.bio}</FormHelperText>
                 ) : null}
               </FormControl>
               <Typography>Profilfarbe</Typography>

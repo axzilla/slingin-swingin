@@ -1,5 +1,6 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 // Features
 import PostFeedItem from '../post/PostFeedItem'
@@ -32,6 +33,11 @@ const TabsPostDrafts = ({ postsDraftsByUserId, auth }) => {
       )}
     </Grid>
   )
+}
+
+TabsPostDrafts.propTypes = {
+  postsDraftsByUserId: PropTypes.array.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default TabsPostDrafts

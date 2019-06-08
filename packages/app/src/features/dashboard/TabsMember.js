@@ -1,5 +1,6 @@
 // Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // Material Styles
 import { makeStyles } from '@material-ui/core/styles'
@@ -39,26 +40,19 @@ const TabsMember = ({ profilesByFollowerId, profilesByFollowingId }) => {
           variant="scrollable"
           scrollButtons="off"
         >
-          <Tab
-            label={`Abonnenten (${
-              profilesByFollowerId ? profilesByFollowerId.length : 0
-            })`}
-          />
-          <Tab
-            label={`Abonniert (${
-              profilesByFollowingId ? profilesByFollowingId.length : 0
-            })`}
-          />
+          <Tab label={`Abonnenten (${profilesByFollowerId ? profilesByFollowerId.length : 0})`} />
+          <Tab label={`Abonniert (${profilesByFollowingId ? profilesByFollowingId.length : 0})`} />
         </Tabs>
       </AppBar>
-      {value === 0 && (
-        <TabsMemberFollower profilesByFollowerId={profilesByFollowerId} />
-      )}
-      {value === 1 && (
-        <TabsMemberFollowing profilesByFollowingId={profilesByFollowingId} />
-      )}
+      {value === 0 && <TabsMemberFollower profilesByFollowerId={profilesByFollowerId} />}
+      {value === 1 && <TabsMemberFollowing profilesByFollowingId={profilesByFollowingId} />}
     </div>
   )
+}
+
+TabsMember.propTypes = {
+  profilesByFollowerId: PropTypes.array.isRequired,
+  profilesByFollowingId: PropTypes.array.isRequired
 }
 
 export default TabsMember

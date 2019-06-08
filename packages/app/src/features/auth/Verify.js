@@ -1,5 +1,6 @@
 // Packages
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
@@ -62,6 +63,10 @@ const Verify = ({ match }) => {
       </Card>
     </Grid>
   )
+}
+
+Verify.propTypes = {
+  match: PropTypes.object.isRequired
 }
 
 export default Verify

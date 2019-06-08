@@ -11,14 +11,14 @@ import { makeStyles } from '@material-ui/styles'
 // Material Core
 import { Card, CardContent, FormControl, Button, TextField, Typography } from '@material-ui/core'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   cardPreview: {
     background: 'transparent',
     marginBottom: '20px'
   },
   menu: { marginBottom: '10px' },
   button: { height: '40px', borderRadius: 0 }
-}))
+})
 
 function CodeBlock({ language, value }) {
   return (
@@ -55,7 +55,7 @@ function MarkdownEditor({ withPreview, text, setText, onChange, value }) {
     setText(text + '  ')
   }
 
-  const onKeyDown = e => {
+  function onKeyDown(e) {
     if (e.keyCode === 13) {
       createBreakline()
     }

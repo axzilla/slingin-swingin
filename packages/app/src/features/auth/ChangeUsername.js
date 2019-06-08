@@ -92,17 +92,10 @@ const ChangeUsername = () => {
                 onChange={onChange}
               />
               {errors.username ? (
-                <FormHelperText className={classes.error}>
-                  {errors.username}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.username}</FormHelperText>
               ) : null}
             </FormControl>
-            <Button
-              variant="outlined"
-              color="primary"
-              type="submit"
-              className="register-button"
-            >
+            <Button variant="outlined" color="primary" type="submit" className="register-button">
               Speichern
             </Button>
           </form>

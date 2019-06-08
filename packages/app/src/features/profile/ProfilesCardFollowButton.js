@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // Actions
-import { handleUserFollower } from './_actions'
+import { handleUserFollower } from './_services'
 
 // Components
 import Button from '../button/Button'
@@ -12,11 +12,7 @@ const ProfilesCardFollowButton = props => {
   const { profile, auth } = props
 
   const onFollowButtonclick = () => {
-    if (
-      props.profile.user.follower
-        .map(follower => follower.user)
-        .includes(props.auth.user.id)
-    ) {
+    if (props.profile.user.follower.map(follower => follower.user).includes(props.auth.user.id)) {
       if (window.confirm('Nicht mehr folgen?')) {
         props.handleUserFollower(props.profile.user._id, props.profile.handle)
       }
@@ -29,9 +25,7 @@ const ProfilesCardFollowButton = props => {
     <React.Fragment>
       {auth.isAuthenticated && profile.user._id !== auth.user.id ? (
         <Button onClick={onFollowButtonclick}>
-          {profile.user.follower
-            .map(follower => follower.user)
-            .includes(props.auth.user.id) ? (
+          {profile.user.follower.map(follower => follower.user).includes(props.auth.user.id) ? (
             <span key="followed">
               <i className="fas fa-user-check" /> Entfolgen
             </span>

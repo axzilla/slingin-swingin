@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
 
 // Features
-import { getProfiles } from './_actions'
+import { getProfiles } from './_services'
 import ProfilesCard from './ProfilesCard'
 
 // Components

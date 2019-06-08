@@ -1,26 +1,23 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { tomorrowNightEighties, tomorrow } from 'react-syntax-highlighter/dist/styles/hljs'
+import { tomorrowNightEighties } from 'react-syntax-highlighter/dist/styles/hljs'
 
-class CodeBlock extends PureComponent {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    language: PropTypes.string
-  }
+function CodeBlock({ language, value }) {
+  return (
+    <SyntaxHighlighter language={language} showLineNumbers style={tomorrowNightEighties}>
+      {value}
+    </SyntaxHighlighter>
+  )
+}
 
-  static defaultProps = {
-    language: null
-  }
+CodeBlock.defaultProps = {
+  language: null
+}
 
-  render() {
-    const { language, value } = this.props
-    return (
-      <SyntaxHighlighter language={language} showLineNumbers style={tomorrowNightEighties}>
-        {value}
-      </SyntaxHighlighter>
-    )
-  }
+CodeBlock.propTypes = {
+  value: PropTypes.string.isRequired,
+  language: PropTypes.string
 }
 
 export default CodeBlock

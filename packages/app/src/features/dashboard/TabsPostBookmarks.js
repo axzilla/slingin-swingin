@@ -1,5 +1,6 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 // Features
 import PostFeedItem from '../post/PostFeedItem'
@@ -8,8 +9,6 @@ import PostFeedItem from '../post/PostFeedItem'
 import { Grid, Button } from '@material-ui/core'
 
 const TabsPostBookmarks = ({ postsByUserBookmark, auth }) => {
-  const clickLocation = 'postsByUserBookmark'
-
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -18,9 +17,7 @@ const TabsPostBookmarks = ({ postsByUserBookmark, auth }) => {
 
   const content = postsByUserBookmark
     .slice(0, limit)
-    .map(post => (
-      <PostFeedItem key={post._id} post={post} auth={auth} clickLocation={clickLocation} />
-    ))
+    .map(post => <PostFeedItem key={post._id} post={post} auth={auth} />)
   return (
     <Grid>
       {content}
@@ -31,6 +28,11 @@ const TabsPostBookmarks = ({ postsByUserBookmark, auth }) => {
       )}
     </Grid>
   )
+}
+
+TabsPostBookmarks.propTypes = {
+  postsByUserBookmark: PropTypes.array.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default TabsPostBookmarks
