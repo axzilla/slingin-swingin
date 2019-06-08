@@ -1,6 +1,5 @@
 // Packages
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import ReactGA from 'react-ga'
 
@@ -424,12 +423,4 @@ const ProfileEdit = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  profile: state.profile.currentProfile,
-  errors: state.profile.errors
-})
-
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile, clearProfileErrors }
-)(withRouter(ProfileEdit))
+export default withRouter(ProfileEdit)

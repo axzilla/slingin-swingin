@@ -1,6 +1,5 @@
 // Packages
 import React from 'react'
-import { connect } from 'react-redux'
 
 // Components
 import Link from '../../components/Link'
@@ -145,12 +144,4 @@ const ProfilesCard = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  profileDetails: state.profile.profile,
-  auth: state.auth
-})
-
-export default connect(
-  mapStateToProps,
-  { handleUserFollower }
-)(ProfilesCard)
+export default ProfilesCard

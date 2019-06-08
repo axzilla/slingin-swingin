@@ -1,6 +1,5 @@
 // Packages
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
 
 // Features
@@ -64,11 +63,4 @@ const Profiles = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  profile: state.profile
-})
-
-export default connect(
-  mapStateToProps,
-  { getProfiles }
-)(Profiles)
+export default Profiles

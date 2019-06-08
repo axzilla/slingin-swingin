@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 import '../../utils/highlight'
 import ReactQuill from 'react-quill'
-import { connect } from 'react-redux'
 
 // Actions
 import { editPost, getPost } from './_services'
@@ -321,14 +320,4 @@ const PostEdit = props => {
   return <React.Fragment>{content}</React.Fragment>
 }
 
-const mapStateToProps = ({ post }) => ({ post })
-
-const mapDispatchToProps = {
-  getPost,
-  editPost
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostEdit)
+export default PostEdit

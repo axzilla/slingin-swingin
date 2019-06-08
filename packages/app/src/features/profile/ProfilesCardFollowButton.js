@@ -1,6 +1,5 @@
 // Packages
 import React from 'react'
-import { connect } from 'react-redux'
 
 // Actions
 import { handleUserFollower } from './_services'
@@ -40,11 +39,4 @@ const ProfilesCardFollowButton = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
-
-export default connect(
-  mapStateToProps,
-  { handleUserFollower }
-)(ProfilesCardFollowButton)
+export default ProfilesCardFollowButton

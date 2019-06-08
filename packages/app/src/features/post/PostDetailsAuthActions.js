@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom'
 // Material Core
 import { CardActions, Button, Divider } from '@material-ui/core'
 
-const PostDetailsAuthActions = props => {
-  const { post, auth, history } = props
-
+const PostDetailsAuthActions = ({ post, auth, history }) => {
   const onDeleteClick = id => {
     if (
       window.confirm(
@@ -22,9 +20,7 @@ const PostDetailsAuthActions = props => {
     <React.Fragment>
       {auth.isAuthenticated ? (
         <span>
-          {post.user &&
-          auth.user.isVerified &&
-          post.user._id === auth.user.id ? (
+          {post.user && auth.user.isVerified && post.user._id === auth.user.id ? (
             <React.Fragment>
               <Divider />
               <CardActions>
@@ -32,10 +28,7 @@ const PostDetailsAuthActions = props => {
                   <Link to={`/edit-post/${post._id}`}>
                     <Button color="primary">Bearbeiten</Button>
                   </Link>
-                  <Button
-                    onClick={onDeleteClick.bind(this, post._id)}
-                    color="primary"
-                  >
+                  <Button onClick={onDeleteClick.bind(this, post._id)} color="primary">
                     Löschen
                   </Button>
                 </React.Fragment>

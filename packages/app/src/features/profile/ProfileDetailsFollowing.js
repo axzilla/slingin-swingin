@@ -1,6 +1,5 @@
 // Packages
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 
 // Features
 import Spinner from '../common/Spinner'
@@ -44,8 +43,4 @@ const Profiles = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  profile: state.profile
-})
-
-export default connect(mapStateToProps)(Profiles)
+export default Profiles

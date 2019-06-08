@@ -1,6 +1,5 @@
 // Packages
 import React from 'react'
-import { connect } from 'react-redux'
 
 // Utils
 import isEmpty from '../../utils/isEmpty'
@@ -75,13 +74,4 @@ const ProfileEditAvatar = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  profile: state.profile,
-  isLoading: state.isLoading
-})
-
-export default connect(
-  mapStateToProps,
-  { uploadAvatar, deleteAvatar }
-)(ProfileEditAvatar)
+export default ProfileEditAvatar

@@ -1,6 +1,5 @@
 // Packages
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 
 // Features
 import Spinner from '../common/Spinner'
@@ -49,9 +48,4 @@ const Posts = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  post: state.post,
-  errors: state.errors
-})
-
-export default connect(mapStateToProps)(Posts)
+export default Posts
