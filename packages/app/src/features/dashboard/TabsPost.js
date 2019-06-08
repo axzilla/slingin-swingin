@@ -1,17 +1,12 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Material Styles
 import { makeStyles } from '@material-ui/core/styles'
 
-// Material Core
 import { AppBar, Tabs, Tab } from '@material-ui/core'
 
-// Features
 import TabsPostPosts from './TabsPostPosts'
 import TabsPostDrafts from './TabsPostDrafts'
 import TabsPostBookmarks from './TabsPostBookmarks'

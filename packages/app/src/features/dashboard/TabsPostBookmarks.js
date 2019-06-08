@@ -1,17 +1,14 @@
-// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// Features
 import PostFeedItem from '../post/PostFeedItem'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const TabsPostBookmarks = ({ postsByUserBookmark, auth }) => {
+function TabsPostBookmarks({ postsByUserBookmark, auth }) {
   const [limit, setLimit] = useState(10)
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 

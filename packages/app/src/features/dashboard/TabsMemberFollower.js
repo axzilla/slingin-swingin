@@ -1,19 +1,14 @@
-// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// Components
 import ProfilesCard from '../profile/ProfilesCard'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const TabsPostBookmarks = ({ profilesByFollowerId }) => {
-  const location = 'getProfilesByFollowerId'
-
+function TabsPostBookmarks({ profilesByFollowerId }) {
   const [limit, setLimit] = useState(10)
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 

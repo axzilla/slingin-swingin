@@ -1,13 +1,10 @@
 // Packages
 import React from 'react'
 
-// Material Styles
 import { makeStyles } from '@material-ui/core/styles'
 
-// Material Core
 import { Grid } from '@material-ui/core'
 
-// Components
 import ChangeEmail from '../auth/ChangeEmail'
 import ChangePassword from '../auth/ChangePassword'
 import ChangeUsername from '../auth/ChangeUsername'
