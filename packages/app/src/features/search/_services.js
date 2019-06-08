@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-export const searchFuncService = searchString => {
+export function searchFunc(searchString) {
   return axios.get(`/search/${searchString}`)
 }
