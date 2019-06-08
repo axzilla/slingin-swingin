@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -8,11 +9,8 @@ import { useAuth } from '../../contexts/auth'
 import { updateComment, deleteComment } from './_services'
 import { getSubCommentByCommentId } from '../subComment/_services'
 
-// Component
+// Components
 import CommentEditContainer from './container/CommentEditContainer'
-// import CommentFeedItemAvatar from './CommentFeedItemAvatar'
-// import CommentFeedItemCreator from './CommentFeedItemCreator'
-// import CommentFeedItemDate from './CommentFeedItemDate'
 import CommentFeedItemHeader from './CommentFeedItemHeader'
 import CommentFeedItemText from './CommentFeedItemText'
 import CommentFeedItemMenu from './CommentFeedItemMenu'
@@ -34,14 +32,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const CommentFeedItem = ({ comment, commentsByPostRef, setCommentsByPostRef }) => {
+function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
   const classes = useStyles()
   const { auth } = useAuth()
   const [isEditMode, setIsEditMode] = useState(false)
   const [subComments, setSubComments] = useState([])
   const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const getInitialProps = async () => {
+  async function getInitialProps() {
     const res = await getSubCommentByCommentId(comment._id)
     setSubComments(res.data)
   }
@@ -58,34 +56,11 @@ const CommentFeedItem = ({ comment, commentsByPostRef, setCommentsByPostRef }) =
     setAnchorEl(null)
   }
 
-  const onDeleteClick = commentId => {
-    if (
-      window.confirm(
-        'Bist du sicher, dass du diese Antwort löschen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden!'
-      )
-    ) {
-      deleteComment(commentId).then(res => {
-        const deletedComment = res.data
-
-        const index = commentsByPostRef.indexOf(
-          commentsByPostRef.filter(comment => {
-            return comment._id === deletedComment._id
-          })[0]
-        )
-
-        setCommentsByPostRef([
-          ...commentsByPostRef.slice(0, index),
-          ...commentsByPostRef.slice(index + 1)
-        ])
-      })
-    }
-  }
-
   const onEditClick = () => {
     setIsEditMode(!isEditMode)
   }
 
-  const onSaveClick = async text => {
+  async function onSaveClick(text) {
     const commentData = {
       text,
       commentId: comment._id,
@@ -109,6 +84,25 @@ const CommentFeedItem = ({ comment, commentsByPostRef, setCommentsByPostRef }) =
         ...commentsByPostRef.slice(index + 1)
       ])
     })
+  }
+
+  function onDeleteClick(commentId) {
+    if (window.confirm('Kommentar löschen?')) {
+      deleteComment(commentId).then(res => {
+        const deletedComment = res.data
+
+        const index = commentsByPostRef.indexOf(
+          commentsByPostRef.filter(comment => {
+            return comment._id === deletedComment._id
+          })[0]
+        )
+
+        setCommentsByPostRef([
+          ...commentsByPostRef.slice(0, index),
+          ...commentsByPostRef.slice(index + 1)
+        ])
+      })
+    }
   }
 
   return (
@@ -174,6 +168,12 @@ const CommentFeedItem = ({ comment, commentsByPostRef, setCommentsByPostRef }) =
       ) : null}
     </Card>
   )
+}
+
+CommentFeedItem.propTypes = {
+  comment: PropTypes.string.isRequired,
+  commentsByPostRef: PropTypes.array.isRequired,
+  setCommentsByPostRef: PropTypes.func.isRequired
 }
 
 export default CommentFeedItem

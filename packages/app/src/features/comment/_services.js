@@ -1,29 +1,29 @@
 import axios from 'axios'
 
-export const createComment = async commentData => {
+export async function createComment(commentData) {
   return await axios.post(`/comments`, commentData)
 }
 
-export const getCommentsByPostRef = async postRef => {
+export async function getCommentsByPostRef(postRef) {
   return await axios.get(`/comments/${postRef}`)
 }
 
-export const getCommentsByUserId = async userId => {
+export async function getCommentsByUserId(userId) {
   return await axios.get(`/comments/getByUserId/${userId}`)
 }
 
-export const updateComment = async commentData => {
+export async function updateComment(commentData) {
   return await axios.post(`/comments/update`, commentData)
 }
 
-export const deleteComment = async commentId => {
+export async function deleteComment(commentId) {
   return await axios.post(`/comments/delete`, { commentId })
 }
 
-export const upvoteComment = async commentId => {
+export async function upvoteComment(commentId) {
   return await axios.post(`/comments/upvote/${commentId}`)
 }
 
-export const downvoteComment = async commentId => {
+export async function downvoteComment(commentId) {
   return await axios.post(`/comments/downvote/${commentId}`)
 }

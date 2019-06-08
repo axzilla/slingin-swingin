@@ -8,7 +8,13 @@ import { Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core'
 // Material Icons
 import { Edit, Delete } from '@material-ui/icons'
 
-function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuClose, anchorEl }) {
+function SubCommentFeedItemMenu({
+  subComment,
+  onEditClick,
+  onDeleteClick,
+  handleMenuClose,
+  anchorEl
+}) {
   function onMenuEditClick() {
     handleMenuClose()
     onEditClick()
@@ -42,7 +48,7 @@ function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuCl
         </ListItemIcon>
         <ListItemText primary="Bearbeiten" />
       </MenuItem>
-      <MenuItem onClick={() => onMenuDeleteClick(comment._id)}>
+      <MenuItem onClick={() => onMenuDeleteClick(subComment._id)}>
         <ListItemIcon>
           <Delete />
         </ListItemIcon>
@@ -52,12 +58,12 @@ function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuCl
   )
 }
 
-CommentFeedItemMenu.propTypes = {
-  comment: PropTypes.string.isRequired,
+SubCommentFeedItemMenu.propTypes = {
+  subComment: PropTypes.object.isRequired,
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   anchorEl: PropTypes.object.isRequired
 }
 
-export default CommentFeedItemMenu
+export default SubCommentFeedItemMenu

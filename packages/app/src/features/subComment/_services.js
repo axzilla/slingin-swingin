@@ -1,17 +1,17 @@
 import axios from 'axios'
 
-export const createSubComment = async subCommentData => {
+export async function createSubComment(subCommentData) {
   return await axios.post(`/subComments`, subCommentData)
 }
 
-export const getSubCommentByCommentId = async commentId => {
+export async function getSubCommentByCommentId(commentId) {
   return await axios.get(`/subComments/${commentId}`)
 }
 
-export const updateSubComment = async subCommentData => {
+export async function updateSubComment(subCommentData) {
   return await axios.put(`/subComments/`, subCommentData)
 }
 
-export const deleteSubComment = async subCommentId => {
+export async function deleteSubComment(subCommentId) {
   return await axios.delete(`/subComments/${subCommentId}`)
 }
