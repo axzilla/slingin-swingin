@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/styles'
 
@@ -57,8 +58,7 @@ const useStyles = makeStyles({
     height: ({ size }) => size,
     width: ({ size }) => size,
     borderRadius: '50%',
-    border: ({ profileColor, border }) =>
-      `${border} solid ${profileColor || randomColor}`
+    border: ({ profileColor, border }) => `${border} solid ${profileColor || randomColor}`
   },
   char: {
     textTransform: 'uppercase',
@@ -68,7 +68,7 @@ const useStyles = makeStyles({
   }
 })
 
-const CharAvatar = ({ size, fontSize, charString, profileColor, border }) => {
+function CharAvatar({ size, fontSize, charString, profileColor, border }) {
   const classes = useStyles({ size, fontSize, profileColor, border })
 
   return (
@@ -76,6 +76,14 @@ const CharAvatar = ({ size, fontSize, charString, profileColor, border }) => {
       <p className={classes.char}>{charString.substring(0, 1)}</p>
     </div>
   )
+}
+
+CharAvatar.propTypes = {
+  size: PropTypes.string.isRequired,
+  fontSize: PropTypes.string.isRequired,
+  charString: PropTypes.string.isRequired,
+  profileColor: PropTypes.string.isRequired,
+  border: PropTypes.string.isRequired
 }
 
 export default CharAvatar
