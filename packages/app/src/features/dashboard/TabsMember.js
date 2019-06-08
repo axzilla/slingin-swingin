@@ -1,14 +1,10 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// Material Styles
 import { makeStyles } from '@material-ui/core/styles'
 
-// Material Core
 import { AppBar, Tabs, Tab } from '@material-ui/core'
 
-// Components
 import TabsMemberFollower from './TabsMemberFollower'
 import TabsMemberFollowing from './TabsMemberFollowing'
 
@@ -22,7 +18,7 @@ const useStyles = makeStyles({
   }
 })
 
-const TabsMember = ({ profilesByFollowerId, profilesByFollowingId }) => {
+function TabsMember({ profilesByFollowerId, profilesByFollowingId }) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 

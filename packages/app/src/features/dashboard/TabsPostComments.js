@@ -1,19 +1,16 @@
-// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
-// Components
 import Link from '../../components/Link'
 
-// Material Core
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
-const TabsPostComments = ({ commentsByUserId }) => {
+function TabsPostComments({ commentsByUserId }) {
   const [limit, setLimit] = useState(10)
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 

@@ -1,21 +1,14 @@
-// Packages
 import React, { useState, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import clsx from 'clsx'
 import ReactGA from 'react-ga'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-import {
-  // getCurrentProfile,
-  getProfilesByFollowingId,
-  getProfilesByFollowerId
-  // clearCurrentProfile
-} from '../profile/_services'
+import { getProfilesByFollowingId, getProfilesByFollowerId } from '../profile/_services'
 import { getCommentsByUserId } from '../comment/_services'
 import { getPostsByUserBookmark, getPostsByUserId, getDraftPostsByUserId } from '../post/_services'
 
-// Components
 import Link from '../../components/Link'
 import Spinner from '../common/Spinner'
 import TabsPost from './TabsPost'
@@ -23,8 +16,7 @@ import TabsMember from './TabsMember'
 import ProfileEdit from '../profile/ProfileEdit'
 import DashboardSettings from './DashboardSettings'
 
-// Material Core
-import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
 import {
   Drawer,
   Grid,
@@ -36,10 +28,6 @@ import {
   ListItemText
 } from '@material-ui/core'
 
-// Material Styles
-import { makeStyles } from '@material-ui/core/styles'
-
-// Material Icons
 import { ViewComfy, SupervisedUserCircle, AccountBox, Settings } from '@material-ui/icons'
 
 const drawerWidth = 240
@@ -98,13 +86,12 @@ function Dashboard() {
   const [commentsByUserId, setCommentsByUserId] = useState()
   const [profilesByFollowerId, setProfilesByFollowerId] = useState()
   const [profilesByFollowingId, setProfilesByFollowingId] = useState()
-  // const { loading, post, profile, comments }
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    // getCurrentProfile()
+
     getPostsByUserId(auth.user.id).then(res => {
       setPostsByUserId(res.data)
     })
@@ -139,9 +126,6 @@ function Dashboard() {
     profilesByFollowingId === null ||
     profilesByFollowerId === null ||
     commentsByUserId === null
-    // profile === null ||
-    // profile.currentProfile === null ||
-    // loading
   ) {
     dashboardContent = <Spinner />
   } else {
