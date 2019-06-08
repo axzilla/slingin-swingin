@@ -1,26 +1,21 @@
-// Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
-// Services
 import { getPosts, getPostsTags } from '../post/_services'
 import { getProfiles } from '../profile/_services'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Features
 import PostFeedItem from '../post/PostFeedItem'
 
-// Components
 import CardLanding from '../../components/cards/CardLanding'
 import LandingWidgetPostTags from './LandingWidgetPostTags'
 import LandingWidgetUsers from './LandingWidgetUsers'
 
-// Material Core
 import { Button, Grid, Hidden } from '@material-ui/core'
 
-const Landing = ({ history }) => {
+function Landing({ history }) {
   const { auth } = useAuth()
   const [limit, setLimit] = useState(10)
   const [posts, setPosts] = useState()
@@ -45,7 +40,7 @@ const Landing = ({ history }) => {
     })
   }, [])
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 
@@ -85,6 +80,10 @@ const Landing = ({ history }) => {
       </Hidden>
     </Grid>
   )
+}
+
+Landing.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default Landing

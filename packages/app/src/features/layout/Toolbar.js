@@ -1,21 +1,15 @@
-// Packages
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import { withRouter } from 'react-router-dom'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Components
 import Link from '../../components/Link'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Redux
 import { searchFunc } from '../search/_services'
 
-// Material Core
 import {
   AppBar,
   Toolbar,
@@ -31,7 +25,6 @@ import {
   List
 } from '@material-ui/core'
 
-// Material Icons
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
@@ -40,10 +33,8 @@ import {
   InvertColors as InvertColorsIcon
 } from '@material-ui/icons'
 
-// Material Colors
 import { blue } from '@material-ui/core/colors'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
@@ -164,30 +155,29 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ToolbarApp = ({ history, isLightTheme, onThemeToggleClick }) => {
+function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
   const { auth } = useAuth()
+  const { isAuthenticated } = auth
+  const classes = useStyles()
   const [toolbarData, setToolbarData] = useState({
     searchText: ''
   })
 
-  const classes = useStyles()
-  const { isAuthenticated } = auth
-
-  const toggleDrawer = () => {
+  function toggleDrawer() {
     setToolbarData({
       ...toolbarData,
       drawerOpen: !toolbarData.drawerOpen
     })
   }
 
-  const onChange = e => {
+  function onChange(e) {
     setToolbarData({
       ...toolbarData,
       searchText: e.target.value
     })
   }
 
-  const onSubmit = e => {
+  function onSubmit(e) {
     e.preventDefault()
     if (!isEmpty(toolbarData.searchText)) {
       searchFunc(toolbarData.searchText)
