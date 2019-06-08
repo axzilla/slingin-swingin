@@ -35,7 +35,8 @@ const lightTheme = createMuiTheme({
 })
 
 function Layout({ children, history }) {
-  const classes = useStyles()
+  const [alert, setAlert] = useState()
+
   const [isDashboardUrl, setIsDashboardUrl] = useState(
     history.location.pathname.includes('dashboard')
   )
@@ -51,6 +52,8 @@ function Layout({ children, history }) {
       }
     }
   }))
+
+  const classes = useStyles()
 
   useEffect(() => {
     if (localStorage.theme === 'dark') {
@@ -81,7 +84,7 @@ function Layout({ children, history }) {
         {children}
         {isDashboardUrl ? null : <Footer />}
       </Grid>
-      <Alert />
+      <Alert alert={alert} setAlert={setAlert} />
     </MuiThemeProvider>
   )
 }

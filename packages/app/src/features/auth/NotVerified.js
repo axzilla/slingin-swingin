@@ -13,9 +13,6 @@ import { useAuth } from '../../contexts/auth'
 import { sendVerificationEmail } from './_services'
 import { getCurrentProfile } from '../profile/_services'
 
-// Components
-import Alert from '../common/Alert'
-
 // Material Core
 import { Grid, Typography, Card, CardContent, Button } from '@material-ui/core'
 
@@ -88,12 +85,12 @@ const NotVerified = ({ history }) => {
           </Button>
         </CardContent>
       </Card>
-      <Alert
+      {/* <Alert
         isOpen={!isEmpty(alerts) ? true : false}
         status="success"
         alerts={alert}
         message={alerts}
-      />
+      /> */}
     </Grid>
   )
 }

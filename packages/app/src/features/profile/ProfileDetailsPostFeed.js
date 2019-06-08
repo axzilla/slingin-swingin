@@ -6,7 +6,7 @@ import PostFeedItem from '../post/PostFeedItem'
 
 import { Grid, Button } from '@material-ui/core'
 
-const Posts = ({ postsByUserId }) => {
+const Posts = ({ postsByUserId, profile }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -46,7 +46,8 @@ const Posts = ({ postsByUserId }) => {
 }
 
 Posts.propTypes = {
-  postsByUserId: PropTypes.array.isRequired
+  postsByUserId: PropTypes.array.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 export default Posts

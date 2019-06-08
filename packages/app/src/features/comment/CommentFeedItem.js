@@ -10,7 +10,7 @@ import { updateComment, deleteComment } from './_services'
 import { getSubCommentByCommentId } from '../subComment/_services'
 
 // Components
-import CommentEditContainer from './container/CommentEditContainer'
+import CommentEdit from './CommentEdit'
 import CommentFeedItemHeader from './CommentFeedItemHeader'
 import CommentFeedItemText from './CommentFeedItemText'
 import CommentFeedItemMenu from './CommentFeedItemMenu'
@@ -126,7 +126,7 @@ function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
         </>
       ) : (
         <CardContent>
-          <CommentEditContainer comment={comment} onSaveClick={onSaveClick} />
+          <CommentEdit comment={comment} onSaveClick={onSaveClick} />
         </CardContent>
       )}
       <Divider />

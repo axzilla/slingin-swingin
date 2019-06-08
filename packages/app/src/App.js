@@ -23,8 +23,6 @@ import NotFound from './features/not-found/NotFound'
 import Imprint from './features/imprint/Imprint'
 import PrivacyPolicy from './features/privacy/PrivacyPolicy'
 
-import './App.css'
-
 ReactGA.initialize('UA-128112231-2')
 
 const ScrollToTop = () => {

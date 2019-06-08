@@ -65,7 +65,6 @@ const ProfilesCard = ({ profile, profileDetails }) => {
 
   const onFollowButtonclick = () => {
     handleUserFollower(
-      location,
       profile.user._id,
       profileDetails ? profileDetails.user._id : null,
       profile.handle

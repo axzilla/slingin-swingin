@@ -1,28 +1,21 @@
-// Packages
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Material Styles
 import { makeStyles } from '@material-ui/core/styles'
 
-// Material Core
 import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
-// import Button from '@material-ui/core/Button'
 
-// Material Icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
 import InfoIcon from '@material-ui/icons/Info'
 import CloseIcon from '@material-ui/icons/Close'
 import WarningIcon from '@material-ui/icons/Warning'
 
-// Material Color
 import green from '@material-ui/core/colors/green'
 import amber from '@material-ui/core/colors/amber'
 
@@ -91,12 +84,12 @@ MySnackbarContentWrapper.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired
 }
 
-function CustomizedSnackbars(props) {
+function CustomizedSnackbars({ alert, setAlert }) {
   useEffect(() => {
-    if (!isEmpty(props.alert.message)) {
+    if (!isEmpty(alert && alert.message)) {
       setOpen(true)
     }
-  }, [props.alert.message])
+  }, [alert && alert.message])
 
   const [open, setOpen] = React.useState(false)
 
@@ -104,7 +97,7 @@ function CustomizedSnackbars(props) {
     if (reason === 'clickaway') {
       return
     }
-    props.setAlert({ message: null, variant: null })
+    setAlert({ message: null, variant: null })
     setOpen(false)
   }
 
@@ -121,8 +114,8 @@ function CustomizedSnackbars(props) {
       >
         <MySnackbarContentWrapper
           onClose={handleClose}
-          variant={props.alert.variant || 'success'}
-          message={props.alert.message}
+          variant={(alert && alert.variant) || 'success'}
+          message={alert && alert.message}
         />
       </Snackbar>
     </div>
