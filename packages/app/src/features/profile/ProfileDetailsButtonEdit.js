@@ -1,13 +1,10 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const ProfileDetailsButtonEdit = props => {
-  const { profile, auth } = props
-
+const ProfileDetailsButtonEdit = ({ profile, auth }) => {
   return (
     <Grid container>
       {auth.isAuthenticated && profile.user._id === auth.user.id ? (
@@ -19,6 +16,11 @@ const ProfileDetailsButtonEdit = props => {
       ) : null}
     </Grid>
   )
+}
+
+ProfileDetailsButtonEdit.propTypes = {
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default ProfileDetailsButtonEdit

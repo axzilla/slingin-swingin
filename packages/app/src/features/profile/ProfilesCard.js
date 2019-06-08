@@ -1,25 +1,20 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Components
+import { useAuth } from '../../contexts/auth'
+
 import Link from '../../components/Link'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Assets
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
-// Actions
 import { handleUserFollower } from './_services'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Colors
 import { blue, red } from '@material-ui/core/colors'
 
-// Material Core
 import { Grid, Avatar, Card, CardContent, Typography, Button } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -51,7 +46,6 @@ const useStyles = makeStyles({
     width: '100%'
   },
   media: {
-    // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover'
   },
   avatar: {
@@ -64,18 +58,17 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfilesCard = props => {
-  const { profile, location, profileDetails, searchString, auth } = props
+const ProfilesCard = ({ profile, profileDetails }) => {
+  const { auth } = useAuth()
 
   const classes = useStyles()
 
   const onFollowButtonclick = () => {
-    props.handleUserFollower(
+    handleUserFollower(
       location,
       profile.user._id,
       profileDetails ? profileDetails.user._id : null,
-      profile.handle,
-      searchString
+      profile.handle
     )
   }
 
@@ -142,6 +135,11 @@ const ProfilesCard = props => {
       ) : null}
     </Card>
   )
+}
+
+ProfilesCard.propTypes = {
+  profile: PropTypes.object.isRequired,
+  profileDetails: PropTypes.object.isRequired
 }
 
 export default ProfilesCard

@@ -1,15 +1,11 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Material Core
 import { Typography } from '@material-ui/core'
 
-const ProfileDetailsBio = props => {
-  const { profile } = props
-
+const ProfileDetailsBio = ({ profile }) => {
   return (
     <Typography gutterBottom>
       {isEmpty(profile.bio) ? (
@@ -19,6 +15,10 @@ const ProfileDetailsBio = props => {
       )}
     </Typography>
   )
+}
+
+ProfileDetailsBio.propTypes = {
+  profile: PropTypes.object.isRequired
 }
 
 export default ProfileDetailsBio

@@ -1,32 +1,21 @@
-// Packages
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
-// Actions
 import { getPostsByUserId } from '../../features/post/_services'
 
-// Features
 import PostFeedItem from '../post/PostFeedItem'
 
-const ProfilePostFeed = props => {
-  const { posts } = props
-
+const ProfilePostFeed = ({ posts, profile }) => {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    props.getPostsByUserId(props.profile.user._id)
+    getPostsByUserId(profile.user._id)
   }, [])
 
-  const clickLocation = 'postsByUserId'
-
   const postContent = posts.map(post => (
-    <PostFeedItem
-      clickLocation={clickLocation}
-      key={post._id}
-      post={post}
-      userPostsId={props.profile.user._id}
-    />
+    <PostFeedItem key={post._id} post={post} userPostsId={profile.user._id} />
   ))
 
   return (
@@ -35,6 +24,11 @@ const ProfilePostFeed = props => {
       {postContent}
     </div>
   )
+}
+
+ProfilePostFeed.propTypes = {
+  posts: PropTypes.array.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 export default ProfilePostFeed

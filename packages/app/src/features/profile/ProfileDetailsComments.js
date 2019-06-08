@@ -1,22 +1,19 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import Link from '../../components/Link'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
-// Material Core
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
-const ProfileDetailsComments = props => {
-  const { commentsByUserId } = props
-
+const ProfileDetailsComments = ({ commentsByUserId }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
     setLimit(limit + 10)
   }
 
-  const commentsItem = commentsByUserId.slice(0, limit).map((comment, i) => {
+  const commentsItem = commentsByUserId.slice(0, limit).map(comment => {
     const { shortId, urlSlug } = comment.refPostId
 
     return (
@@ -59,6 +56,10 @@ const ProfileDetailsComments = props => {
       </Grid>
     </Grid>
   )
+}
+
+ProfileDetailsComments.propTypes = {
+  commentsByUserId: PropTypes.array.isRequired
 }
 
 export default ProfileDetailsComments

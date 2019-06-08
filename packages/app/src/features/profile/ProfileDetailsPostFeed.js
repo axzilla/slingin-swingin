@@ -1,15 +1,12 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// Features
 import Spinner from '../common/Spinner'
 import PostFeedItem from '../post/PostFeedItem'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const Posts = props => {
-  const { postsByUserId } = props.post
+const Posts = ({ postsByUserId }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -28,7 +25,7 @@ const Posts = props => {
         <PostFeedItem
           clickLocation={clickLocation}
           key={post._id}
-          userPostsId={props.profile.user._id}
+          userPostsId={profile.user._id}
           post={post}
         />
       ))
@@ -46,6 +43,10 @@ const Posts = props => {
       </Grid>
     </Grid>
   )
+}
+
+Posts.propTypes = {
+  postsByUserId: PropTypes.array.isRequired
 }
 
 export default Posts

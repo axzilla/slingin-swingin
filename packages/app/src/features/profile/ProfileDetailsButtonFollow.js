@@ -1,19 +1,15 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Actions
 import { handleUserFollower } from './_services'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const ProfileDetailsButtonFollow = props => {
-  const { auth, profile } = props
-
+const ProfileDetailsButtonFollow = ({ auth, profile }) => {
   const onFollowButtonclick = () => {
     const location = 'profileDetails'
 
-    props.handleUserFollower(location, profile.user._id, profile.user._id, profile.handle)
+    handleUserFollower(location, profile.user._id, profile.user._id, profile.handle)
   }
 
   return (
@@ -35,4 +31,9 @@ const ProfileDetailsButtonFollow = props => {
   )
 }
 
-export default ProfileDetails
+ProfileDetailsButtonFollow.propTypes = {
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
+}
+
+export default ProfileDetailsButtonFollow

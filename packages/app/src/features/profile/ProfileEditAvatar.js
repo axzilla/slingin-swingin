@@ -1,19 +1,18 @@
-// Packages
 import React from 'react'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Assets
+import { useAuth } from '../../contexts/auth'
+
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
-// Actions
 import { uploadAvatar, deleteAvatar } from '../auth/_services'
 
-// Material Core
-import { CircularProgress, Button, Typography, Avatar, Grid } from '@material-ui/core'
+import { Button, Typography, Avatar, Grid } from '@material-ui/core'
 
-const ProfileEditAvatar = props => {
+const ProfileEditAvatar = () => {
+  const { auth } = useAuth()
+
   const onChange = e => {
     e.preventDefault()
 
@@ -26,31 +25,23 @@ const ProfileEditAvatar = props => {
       }
     }
 
-    props.uploadAvatar(formData, config)
+    uploadAvatar(formData, config)
   }
 
   const onDeleteAvatarClick = e => {
     e.preventDefault()
     if (window.confirm('Profilbild löschen?')) {
-      props.deleteAvatar()
+      deleteAvatar()
     }
   }
 
   return (
     <Grid container direction="column" alignItems="center">
-      {props.isLoading ? (
-        <div className="loading">
-          <CircularProgress />
-        </div>
-      ) : (
-        <Avatar
-          style={{ height: '150px', width: '150px' }}
-          src={
-            isEmpty(props.auth.user.avatar) ? avatarPlaceholder : props.auth.user.avatar.secure_url
-          }
-          alt="user-avatar"
-        />
-      )}
+      <Avatar
+        style={{ height: '150px', width: '150px' }}
+        src={isEmpty(auth.user.avatar) ? avatarPlaceholder : auth.user.avatar.secure_url}
+        alt="user-avatar"
+      />
       <Typography>*max 10MB</Typography>
       <input onChange={onChange} style={{ display: 'none' }} id="raised-button-file" type="file" />
       <Grid className="icons">
@@ -60,10 +51,9 @@ const ProfileEditAvatar = props => {
           </Button>
         </label>
         <Button
-          disabled={props.isLoading}
           disableRipple
           style={{
-            display: isEmpty(props.auth.user.avatar) ? 'none' : 'inline'
+            display: isEmpty(auth.user.avatar) ? 'none' : 'inline'
           }}
           onClick={onDeleteAvatarClick}
         >

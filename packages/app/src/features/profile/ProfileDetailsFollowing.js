@@ -1,15 +1,12 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// Features
 import Spinner from '../common/Spinner'
 import ProfilesCard from './ProfilesCard'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const Profiles = props => {
-  const { profilesByFollowingId, loading } = props.profile
+const ProfileDetailsFollowing = ({ profilesByFollowingId }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -18,7 +15,7 @@ const Profiles = props => {
 
   let profileItems
 
-  if (profilesByFollowingId === null || loading) {
+  if (profilesByFollowingId === null) {
     profileItems = <Spinner />
   } else {
     const location = 'getProfilesByFollowingId'
@@ -43,4 +40,8 @@ const Profiles = props => {
   )
 }
 
-export default Profiles
+ProfileDetailsFollowing.propTypes = {
+  profilesByFollowingId: PropTypes.array.isRequired
+}
+
+export default ProfileDetailsFollowing

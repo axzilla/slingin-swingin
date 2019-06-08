@@ -1,13 +1,9 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
@@ -20,9 +16,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ProfileDetailsName = props => {
+const ProfileDetailsName = ({ profile, rgbaColor }) => {
   const classes = useStyles()
-  const { profile, rgbaColor } = props
 
   return (
     <Typography
@@ -35,6 +30,11 @@ const ProfileDetailsName = props => {
       {profile.name}
     </Typography>
   )
+}
+
+ProfileDetailsName.propTypes = {
+  profile: PropTypes.object.isRequired,
+  rgbaColor: PropTypes.string.isRequired
 }
 
 export default ProfileDetailsName
