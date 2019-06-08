@@ -1,10 +1,7 @@
-// Packages
 import React from 'react'
-import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ReactGA from 'react-ga'
 
-// Features
 import PrivateRoute from './features/common/PrivateRoute'
 import Layout from './features/layout/Layout'
 import Landing from './features/layout/Landing'
@@ -39,7 +36,6 @@ const App = props => {
   return (
     <Router>
       <Route component={ScrollToTop} />
-
       <Layout {...props}>
         <Switch>
           <PrivateRoute path="/dashboard" component={Dashboard} />
