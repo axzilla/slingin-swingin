@@ -1,6 +1,5 @@
 // Packages
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
 import qs from 'query-string'
 
@@ -50,11 +49,4 @@ const Posts = props => {
   return <Grid container>{content}</Grid>
 }
 
-const mapStateToProps = state => ({
-  searchResult: state.searchResult
-})
-
-export default connect(
-  mapStateToProps,
-  { searchFunc }
-)(Posts)
+export default Posts

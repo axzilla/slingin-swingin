@@ -1,6 +1,5 @@
 // Packages
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
@@ -56,17 +55,9 @@ const CenteredTabs = props => {
         textColor="primary"
         centered
       >
-        <Tab
-          label={`Beiträge ${
-            props.postsByUserId ? props.postsByUserId.length : '0'
-          }`}
-        />
+        <Tab label={`Beiträge ${props.postsByUserId ? props.postsByUserId.length : '0'}`} />
 
-        <Tab
-          label={`Kommentare ${
-            props.commentsByUserId ? props.commentsByUserId.length : '0'
-          }`}
-        />
+        <Tab label={`Kommentare ${props.commentsByUserId ? props.commentsByUserId.length : '0'}`} />
 
         <Tab
           label={`Abonnenten  ${
@@ -76,9 +67,7 @@ const CenteredTabs = props => {
 
         <Tab
           label={`Abonniert ${
-            props.profilesByFollowingId
-              ? props.profilesByFollowingId.length
-              : '0'
+            props.profilesByFollowingId ? props.profilesByFollowingId.length : '0'
           }`}
         />
       </Tabs>
@@ -106,13 +95,4 @@ const CenteredTabs = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  postsByUserId: state.post.postsByUserId,
-  post: state.post,
-  profilesByFollowerId: state.profile.profilesByFollowerId,
-  profilesByFollowingId: state.profile.profilesByFollowingId,
-  commentsByUserId: state.comments.commentsByUserId,
-  errors: state.errors
-})
-
-export default connect(mapStateToProps)(CenteredTabs)
+export default CenteredTabs

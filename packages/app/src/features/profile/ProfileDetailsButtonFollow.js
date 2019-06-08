@@ -1,6 +1,5 @@
 // Packages
 import React from 'react'
-import { connect } from 'react-redux'
 
 // Actions
 import { handleUserFollower } from './_services'
@@ -8,7 +7,7 @@ import { handleUserFollower } from './_services'
 // Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const ProfileDetails = props => {
+const ProfileDetailsButtonFollow = props => {
   const { auth, profile } = props
 
   const onFollowButtonclick = () => {
@@ -35,11 +34,5 @@ const ProfileDetails = props => {
     </Grid>
   )
 }
-const mapDispatchToProps = {
-  handleUserFollower
-}
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ProfileDetails)
+export default ProfileDetails

@@ -1,6 +1,5 @@
 // Packages
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
 
 // Actions
@@ -38,12 +37,4 @@ const ProfilePostFeed = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  post: state.post,
-  errors: state.errors
-})
-
-export default connect(
-  mapStateToProps,
-  { getPostsByUserId }
-)(ProfilePostFeed)
+export default ProfilePostFeed

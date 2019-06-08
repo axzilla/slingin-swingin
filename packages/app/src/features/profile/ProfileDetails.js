@@ -1,7 +1,9 @@
 // Packages
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
+
+// Contexts
+import { useAuth } from '../../contexts/auth'
 
 // Components
 import Spinner from '../common/Spinner'
@@ -26,27 +28,27 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetails = props => {
-  const [params] = useState(props.match.params.handle)
+const ProfileDetails = ({ profile, loading, post, comments, match }) => {
+  const { auth } = useAuth()
   const classes = useStyles()
-  const { auth, profile, loading, post, comments } = props
+  const [params] = useState(match.params.handle)
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    props.getProfileByHandle(props.match.params.handle)
-  }, [props.match.params.handle !== params])
+    getProfileByHandle(match.params.handle)
+  }, [match.params.handle !== params])
 
   useEffect(() => {
-    if (props.profile && props.profile.user) {
-      props.getProfilesByFollowingId(props.profile.user._id)
-      props.getProfilesByFollowerId(props.profile.user._id)
-      props.getPostsByUserId(props.profile.user._id)
-      props.getCommentsByUserId(props.profile.user._id)
+    if (profile && profile.user) {
+      getProfilesByFollowingId(profile.user._id)
+      getProfilesByFollowerId(profile.user._id)
+      getPostsByUserId(profile.user._id)
+      getCommentsByUserId(profile.user._id)
     }
-  }, [props.profile])
+  }, [profile])
 
   const rgbaColor =
     profile && profile.color
@@ -75,22 +77,4 @@ const ProfileDetails = props => {
   return <Grid container>{profileContent}</Grid>
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  post: state.post,
-  comments: state.comments,
-  profile: state.profile.profile
-})
-
-const mapDispatchToProps = {
-  getProfileByHandle,
-  getPostsByUserId,
-  getProfilesByFollowerId,
-  getProfilesByFollowingId
-  // getCommentsByUserId
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileDetails)
+export default ProfileDetails
