@@ -8,12 +8,7 @@ import Spinner from '../common/Spinner'
 
 // Actions
 import { getPostsByUserId } from '../post/_services'
-import {
-  getProfileByHandle,
-  getProfilesByFollowingId,
-  getProfilesByFollowerId
-} from './_actions'
-// import { getCommentsByUserId } from '../comment/_actions'
+import { getProfileByHandle, getProfilesByFollowingId, getProfilesByFollowerId } from './_actions'
 
 // Features
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
@@ -55,9 +50,7 @@ const ProfileDetails = props => {
 
   const rgbaColor =
     profile && profile.color
-      ? `rgba(${profile.color.r}, ${profile.color.g}, ${profile.color.b}, ${
-          profile.color.a
-        })`
+      ? `rgba(${profile.color.r}, ${profile.color.g}, ${profile.color.b}, ${profile.color.a})`
       : null
   let profileContent
 
@@ -67,11 +60,7 @@ const ProfileDetails = props => {
     profileContent = (
       <React.Fragment>
         <Grid item xs={12} className={classes.cardHeader}>
-          <ProfileDetailsCardHeader
-            profile={profile}
-            auth={auth}
-            rgbaColor={rgbaColor}
-          />
+          <ProfileDetailsCardHeader profile={profile} auth={auth} rgbaColor={rgbaColor} />
         </Grid>
         <ProfileDetailsTabs
           profile={profile}
