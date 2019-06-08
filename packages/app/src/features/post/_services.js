@@ -1,53 +1,53 @@
 import axios from 'axios'
 
-export const addPost = postData => {
+export function addPost(postData) {
   return axios.post(`/posts/create`, postData)
 }
 
-export const editPost = postData => {
+export function editPost(postData) {
   return axios.post(`/posts/edit`, postData)
 }
 
-export const getPost = postId => {
+export function getPost(postId) {
   return axios.get(`/posts/${postId}`)
 }
 
-export const getPosts = () => {
+export function getPosts() {
   return axios.get(`/posts`)
 }
 
-export const getPostByShortId = postId => {
+export function getPostByShortId(postId) {
   return axios.get(`/posts/short/${postId}`)
 }
 
-export const getPostsByUserId = id => {
+export function getPostsByUserId(id) {
   return axios.get(`/posts/getPosts/published/userId/${id}`)
 }
 
-export const getDraftPostsByUserId = id => {
+export function getDraftPostsByUserId(id) {
   return axios.get(`/posts/getPosts/draft/userId/${id}`)
 }
 
-export const getPostsByUserBookmark = userId => {
+export function getPostsByUserBookmark(userId) {
   return axios.get(`/posts/getposts/bookmark/${userId}`)
 }
 
-export const getPostsByTag = tag => {
+export function getPostsByTag(tag) {
   return axios.get(`/posts/getposts/tag/${tag}`)
 }
 
-export const deletePost = (id, history) => {
+export function deletePost(id) {
   return axios.delete(`/posts/${id}`)
 }
 
-export const handlePostLikes = postId => {
+export function handlePostLikes(postId) {
   return axios.post(`/posts/like/${postId}`)
 }
 
-export const handlePostBookmarks = postId => {
+export function handlePostBookmarks(postId) {
   return axios.post(`/posts/bookmark/${postId}`)
 }
 
-export const getPostsTags = () => {
+export function getPostsTags() {
   return axios.get(`/posts/getAllTags/`)
 }

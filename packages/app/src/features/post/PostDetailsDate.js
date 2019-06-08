@@ -1,13 +1,10 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-// Material Core
 import { Typography } from '@material-ui/core'
 
-const PostDetailsDate = props => {
-  const { post } = props
-
+function PostDetailsDate({ post }) {
   return (
     <Typography style={{ display: 'inline' }}>
       <Moment fromNow locale="de">
@@ -15,6 +12,10 @@ const PostDetailsDate = props => {
       </Moment>
     </Typography>
   )
+}
+
+PostDetailsDate.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDetailsDate

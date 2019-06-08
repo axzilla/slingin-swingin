@@ -1,27 +1,21 @@
-// Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import '../../utils/highlight'
 import ReactQuill from 'react-quill'
 
-// Actions
 import { addPost } from './_services'
 
-// Assets
 import placeholder from '../../assets/img/post-title-placeholder.png'
 import '../../assets/css/quill.snow.css'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
 
-// Components
 import { modules, formats } from '../quill/quill'
 
-// Material Styles
 import { makeStyles } from '@material-ui/core/styles'
 
-// Material Core
 import {
   Grid,
   TextField,
@@ -78,9 +72,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const PostCreate = props => {
+function PostCreate({ history }) {
   const classes = useStyles()
-
   const [errors, setErrors] = useState()
   const [titleImage, setTitleImage] = useState(null)
   const [titleImagePreview, setTitleImagePreview] = useState(null)
@@ -98,11 +91,7 @@ const PostCreate = props => {
     }
   }, [])
 
-  useEffect(() => {
-    setErrors(props.post.errors)
-  }, [props.post.errors])
-
-  const onSubmit = async ({ published }) => {
+  async function onSubmit({ published }) {
     const formData = new FormData()
     formData.append('titleImage', titleImage)
     formData.append('title', postData.title)
@@ -110,17 +99,17 @@ const PostCreate = props => {
     formData.append('type', postData.type)
     formData.append('tags', postData.tags)
     formData.append('published', published)
-    await addPost(formData, props.history)
-    props.history.push('/posts')
+    await addPost(formData)
+    history.push('/posts')
   }
 
-  const onPostTitleImageChange = e => {
+  function onPostTitleImageChange(e) {
     e.preventDefault()
     setTitleImagePreview(URL.createObjectURL(e.target.files[0]))
     setTitleImage(e.target.files[0])
   }
 
-  const onDeleteTitleImageClick = e => {
+  function onDeleteTitleImageClick(e) {
     e.preventDefault()
     if (window.confirm('Bild löschen?')) {
       setTitleImagePreview(null)
@@ -128,25 +117,25 @@ const PostCreate = props => {
     }
   }
 
-  const onReactQuillChange = e => {
+  function onReactQuillChange(e) {
     setPostdata({
       ...postData,
       text: e
     })
   }
 
-  const onChange = e => {
+  function onChange(e) {
     setPostdata({
       ...postData,
       [e.target.name]: e.target.value
     })
   }
 
-  const onTagsInputChange = e => {
+  function onTagsInputChange(e) {
     setTagsInput(slugify(e.target.value))
   }
 
-  const onTagsKeyPress = e => {
+  function onTagsKeyPress(e) {
     if (e.keyCode === 13 || e.keyCode === 32) {
       if (!postData.tags.includes(tagsInput) && !isEmpty(tagsInput)) {
         setPostdata({
@@ -159,14 +148,12 @@ const PostCreate = props => {
     }
   }
 
-  const handleTagDelete = i => {
+  function handleTagDelete(i) {
     setPostdata({
       ...postData,
       tags: [...postData.tags.slice(0, i), ...postData.tags.slice(i + 1)]
     })
   }
-
-  const { isLoading } = props.post
 
   return (
     <Grid className={classes.root} container justify="center">
@@ -287,7 +274,6 @@ const PostCreate = props => {
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>
               <Button
-                disabled={isLoading}
                 className={classes.button}
                 type="submit"
                 color="primary"
@@ -299,7 +285,6 @@ const PostCreate = props => {
             </Grid>
             <Grid item>
               <Button
-                disabled={isLoading}
                 className={classes.button}
                 type="submit"
                 color="primary"
@@ -314,6 +299,10 @@ const PostCreate = props => {
       </Card>
     </Grid>
   )
+}
+
+PostCreate.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default PostCreate

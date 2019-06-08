@@ -1,10 +1,9 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Material Core
 import { Chip } from '@material-ui/core'
 
-const PostDetailsType = ({ post, classes }) => {
+function PostDetailsType({ post }) {
   let color
 
   // https://materialuicolors.co/ Level 200
@@ -24,14 +23,11 @@ const PostDetailsType = ({ post, classes }) => {
     color = '#FFE082' // Amber 200
   }
 
-  return (
-    <Chip
-      variant="outlined"
-      label={post.type}
-      className={classes.chip}
-      style={{ border: `2px solid ${color}` }}
-    />
-  )
+  return <Chip variant="outlined" label={post.type} style={{ border: `2px solid ${color}` }} />
+}
+
+PostDetailsType.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDetailsType

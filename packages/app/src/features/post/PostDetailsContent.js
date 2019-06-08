@@ -1,12 +1,9 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Material Core
 import { Typography } from '@material-ui/core'
 
-const PostDeatilsItemContent = props => {
-  const { post } = props
-
+function PostDeatilsItemContent({ post }) {
   return (
     <Typography
       dangerouslySetInnerHTML={{ __html: post.text }}
@@ -14,6 +11,10 @@ const PostDeatilsItemContent = props => {
       className="post-content"
     />
   )
+}
+
+PostDeatilsItemContent.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDeatilsItemContent

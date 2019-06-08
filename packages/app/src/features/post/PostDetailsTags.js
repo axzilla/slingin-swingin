@@ -1,15 +1,11 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Material Core
 import { Grid, Typography } from '@material-ui/core'
 
-// Components
 import Link from '../../components/Link'
 
-const PostDetailsTags = props => {
-  const { post } = props
-
+function PostDetailsTags({ post }) {
   return (
     <Grid container>
       {post.tags.map(tag => {
@@ -23,6 +19,10 @@ const PostDetailsTags = props => {
       })}
     </Grid>
   )
+}
+
+PostDetailsTags.propTypes = {
+  post: PropTypes.object.isRequired
 }
 
 export default PostDetailsTags
