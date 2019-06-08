@@ -1,14 +1,11 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// Features
 import SearchPostFeed from './SearchPostFeed'
 import SearchProfileFeed from './SearchProfileFeed'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Core
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
 
 const TabContainer = ({ children, dir }) => {
@@ -19,6 +16,11 @@ const TabContainer = ({ children, dir }) => {
   )
 }
 
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  dir: PropTypes.object.isRequired
+}
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -27,9 +29,8 @@ const useStyles = makeStyles({
   }
 })
 
-const CenteredTabs = props => {
+const CenteredTabs = ({ posts, profiles, searchString }) => {
   const classes = useStyles()
-  const { posts, profiles, searchString } = props
 
   const [value, setValue] = useState(0)
 
@@ -62,6 +63,12 @@ const CenteredTabs = props => {
       )}
     </Grid>
   )
+}
+
+CenteredTabs.propTypes = {
+  posts: PropTypes.array.isRequired,
+  profiles: PropTypes.array.isRequired,
+  searchString: PropTypes.string.isRequired
 }
 
 export default CenteredTabs

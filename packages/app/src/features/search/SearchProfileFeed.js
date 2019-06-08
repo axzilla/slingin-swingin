@@ -1,15 +1,12 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// Features
 import Spinner from '../common/Spinner'
 import ProfilesCard from '../profile/ProfilesCard'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const SearchProfileFeed = props => {
-  const { profiles, searchString } = props
+const SearchProfileFeed = ({ profiles, searchString }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -46,6 +43,11 @@ const SearchProfileFeed = props => {
       </Grid>
     </Grid>
   )
+}
+
+SearchProfileFeed.propTypes = {
+  profiles: PropTypes.object.isRequired,
+  searchString: PropTypes.string.isRequired
 }
 
 export default SearchProfileFeed

@@ -1,39 +1,33 @@
-// Packages
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import qs from 'query-string'
 
-// Features
 import Spinner from '../common/Spinner'
 import SearchTabs from './SearchTabs'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Actions
 import { searchFunc } from '../search/_'
 
-// Material Core
 import { Grid } from '@material-ui/core'
 
-const Posts = props => {
-  const { searchResult } = props
-
+const Search = ({ searchResult, location }) => {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
-    const values = qs.parse(props.location.search)
+    const values = qs.parse(location.search)
     const searchString = values.q
-    props.searchFunc(searchString)
+    searchFunc(searchString)
   }, [])
 
   let content
 
-  if (isEmpty(props.searchResult)) {
+  if (isEmpty(searchResult)) {
     content = <Spinner />
   } else {
-    const values = qs.parse(props.location.search)
+    const values = qs.parse(location.search)
     const searchString = values.q
     content = (
       <React.Fragment>
@@ -49,4 +43,9 @@ const Posts = props => {
   return <Grid container>{content}</Grid>
 }
 
-export default Posts
+Search.propTypes = {
+  searchResult: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired
+}
+
+export default Search
