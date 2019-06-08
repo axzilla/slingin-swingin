@@ -1,14 +1,16 @@
 import React, { createContext, useState, useContext } from 'react'
-import setAuthToken from '../utils/setAuthToken'
+import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
+
+import setAuthToken from '../utils/setAuthToken'
 
 const AuthContext = createContext()
 
-export const useAuth = () => {
+export function useAuth() {
   return useContext(AuthContext)
 }
 
-const getInitialState = () => {
+function getInitialState() {
   if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken)
     const decoded = jwtDecode(localStorage.jwtToken)
@@ -24,7 +26,7 @@ const getInitialState = () => {
   return { isAuthenticated: false, user: {}, error: {} }
 }
 
-export const AuthContextProvider = ({ children }) => {
+export function AuthContextProvider({ children }) {
   const [auth, setAuth] = useState(getInitialState())
 
   const defaultContext = {
@@ -32,9 +34,9 @@ export const AuthContextProvider = ({ children }) => {
     setAuth
   }
 
-  return (
-    <AuthContext.Provider value={defaultContext}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={defaultContext}>{children}</AuthContext.Provider>
+}
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.node.isRequired
 }
