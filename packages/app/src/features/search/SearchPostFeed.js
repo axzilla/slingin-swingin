@@ -1,15 +1,12 @@
-// Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// Features
 import Spinner from '../common/Spinner'
 import PostFeedItem from '../post/PostFeedItem'
 
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
-const SearchPostFeed = props => {
-  const { posts, searchString } = props
+const SearchPostFeed = ({ posts, searchString }) => {
   const [limit, setLinmit] = useState(10)
 
   const loadMore = () => {
@@ -46,6 +43,11 @@ const SearchPostFeed = props => {
       </Grid>
     </Grid>
   )
+}
+
+SearchPostFeed.propTypes = {
+  posts: PropTypes.array.isRequired,
+  searchString: PropTypes.string.isRequired
 }
 
 export default SearchPostFeed
