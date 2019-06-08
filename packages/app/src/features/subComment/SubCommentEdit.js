@@ -1,78 +1,40 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
-// Services
-import { updateSubComment } from './_services'
+// Components
+import MarkdownEditor from '../common/MarkdownEditor'
 
 // Material Core
-import { Grid, Button, TextField, FormControl } from '@material-ui/core'
+import { Grid, Button } from '@material-ui/core'
 
-const SubCommentEdit = ({
-  subComment,
-  subComments,
-  setSubComments,
-  setIsEditMode
-}) => {
+function SubCommentEdit({ subComment, onSaveClick }) {
   const [text, setText] = useState('')
 
   useEffect(() => {
     setText(subComment.text)
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setText(e.target.value)
   }
 
-  const onSubmit = async () => {
-    const subCommentData = {
-      text,
-      subCommentId: subComment._id
-    }
-
-    setIsEditMode(false)
-
-    await updateSubComment(subCommentData).then(res => {
-      const updatedSubComment = res.data
-
-      const index = subComments.indexOf(
-        subComments.filter(subComment => {
-          return subComment._id === updatedSubComment._id
-        })[0]
-      )
-
-      setSubComments([
-        ...subComments.slice(0, index),
-        updatedSubComment,
-        ...subComments.slice(index + 1)
-      ])
-    })
-  }
-
   return (
-    <form onSubmit={onSubmit}>
-      <FormControl fullWidth error>
-        <TextField
-          label="Kommentar bearbeiten"
-          margin="normal"
-          multiline
-          variant="outlined"
-          value={text}
-          onChange={onChange}
-        />
-      </FormControl>
+    <form>
+      <MarkdownEditor withPreview text={text} setText={setText} onChange={onChange} value={text} />
 
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
-        <Button type="submit" variant="outlined" color="primary">
+      <Grid container direction="row" justify="space-between" alignItems="center">
+        <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
           Speichern
         </Button>
       </Grid>
     </form>
   )
+}
+
+SubCommentEdit.propTypes = {
+  subComment: PropTypes.string.isRequired,
+  onSaveClick: PropTypes.func.isRequired
 }
 
 export default SubCommentEdit

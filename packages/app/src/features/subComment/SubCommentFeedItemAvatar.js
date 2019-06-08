@@ -1,5 +1,6 @@
 // Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // Components
 import Link from '../../components/Link'
@@ -10,33 +11,26 @@ import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 // Utils
 import isEmpty from '../../utils/isEmpty'
 
-// Material Styles
-import { makeStyles } from '@material-ui/styles'
-
 // Material Core
-import { Avatar } from '@material-ui/core'
+import { Avatar, ListItemAvatar } from '@material-ui/core'
 
-const useStyles = makeStyles({
-  avatar: {
-    marginRight: '10px'
-  }
-})
-
-const SubCommentFeedItemAvatar = ({ subComment }) => {
-  const classes = useStyles()
-
+function SubCommentFeedItemAvatar({ subComment }) {
   return (
-    <Link to={`/${subComment.user.username}`}>
-      <Avatar
-        className={classes.avatar}
-        src={
-          isEmpty(subComment.user.avatar)
-            ? avatarPlaceholder
-            : subComment.user.avatar.secure_url
-        }
-      />
-    </Link>
+    <ListItemAvatar>
+      <Link to={`/${subComment.user.username}`}>
+        <Avatar
+          alt={subComment.user.username}
+          src={
+            isEmpty(subComment.user.avatar) ? avatarPlaceholder : subComment.user.avatar.secure_url
+          }
+        />
+      </Link>
+    </ListItemAvatar>
   )
+}
+
+SubCommentFeedItemAvatar.propTypes = {
+  subComment: PropTypes.object.isRequired
 }
 
 export default SubCommentFeedItemAvatar

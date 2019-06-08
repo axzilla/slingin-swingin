@@ -1,5 +1,6 @@
 // Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // Contexts
 import { useAuth } from '../../contexts/auth'
@@ -26,11 +27,11 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const CommentFeedItemVote = ({ comment, commentsByPostRef, setCommentsByPostRef }) => {
+function CommentFeedItemVote({ comment, commentsByPostRef, setCommentsByPostRef }) {
   const { auth } = useAuth()
   const classes = useStyles()
 
-  const onUpvoteClick = () => {
+  function onUpvoteClick() {
     upvoteComment(comment._id).then(res => {
       const upvotedComment = res.data
 
@@ -48,7 +49,7 @@ const CommentFeedItemVote = ({ comment, commentsByPostRef, setCommentsByPostRef 
     })
   }
 
-  const onDownvoteClick = () => {
+  function onDownvoteClick() {
     downvoteComment(comment._id).then(res => {
       const downvotedComment = res.data
 
@@ -69,9 +70,7 @@ const CommentFeedItemVote = ({ comment, commentsByPostRef, setCommentsByPostRef 
   const upvotes = comment.votes.upvotes.length
   const downvotes = comment.votes.downvotes.length
   const votes = upvotes - downvotes
-
   const isDownvoted = comment.votes.downvotes.map(downvote => downvote.user).includes(auth.user.id)
-
   const isUpvoted = comment.votes.upvotes.map(upvote => upvote.user).includes(auth.user.id)
 
   return (
@@ -88,8 +87,13 @@ const CommentFeedItemVote = ({ comment, commentsByPostRef, setCommentsByPostRef 
         </Grid>
       </Grid>
     </Grid>
-    // </Grid>
   )
+}
+
+CommentFeedItemVote.propTypes = {
+  comment: PropTypes.string.isRequired,
+  commentsByPostRef: PropTypes.array.isRequired,
+  setCommentsByPostRef: PropTypes.func.isRequired
 }
 
 export default CommentFeedItemVote

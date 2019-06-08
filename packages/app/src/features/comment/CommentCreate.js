@@ -1,5 +1,6 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 // Components
 import MarkdownEditor from '../common/MarkdownEditor'
@@ -39,18 +40,12 @@ const useStyles = makeStyles({
   }
 })
 
-const CommentCreate = ({
-  postId,
-  postShortId,
-  toggleAnswerMode,
-  commentsByPostRef,
-  setCommentsByPostRef
-}) => {
+function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setCommentsByPostRef }) {
   const classes = useStyles()
   const [text, setText] = useState('')
   const [errors, setErrors] = useState()
 
-  const onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const commentData = {
@@ -72,7 +67,7 @@ const CommentCreate = ({
     }
   }
 
-  const onChange = e => {
+  function onChange(e) {
     setText(e.target.value)
   }
 
@@ -99,6 +94,13 @@ const CommentCreate = ({
       </FormControl>
     </Grid>
   )
+}
+
+CommentCreate.propTypes = {
+  postId: PropTypes.string.isRequired,
+  toggleAnswerMode: PropTypes.bool.isRequired,
+  commentsByPostRef: PropTypes.array.isRequired,
+  setCommentsByPostRef: PropTypes.func.isRequired
 }
 
 export default CommentCreate

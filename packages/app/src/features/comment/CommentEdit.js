@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 // Components
 import MarkdownEditor from '../common/MarkdownEditor'
@@ -8,16 +9,7 @@ import MarkdownEditor from '../common/MarkdownEditor'
 import { makeStyles } from '@material-ui/styles'
 
 // Material Core
-import {
-  Card,
-  CardContent,
-  Grid,
-  FormControl,
-  FormHelperText,
-  Button,
-  TextField,
-  Typography
-} from '@material-ui/core'
+import { Grid, FormControl, Button } from '@material-ui/core'
 
 const useStyles = makeStyles({
   formControl: {
@@ -48,17 +40,15 @@ const useStyles = makeStyles({
   }
 })
 
-const CommentEdit = ({ comments, comment, onSaveClick }) => {
+function CommentEdit({ comment, onSaveClick }) {
   const classes = useStyles()
-  const { errors } = comments
-
   const [text, setText] = useState('')
 
   useEffect(() => {
     setText(comment.text)
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setText(e.target.value)
   }
 
@@ -81,6 +71,11 @@ const CommentEdit = ({ comments, comment, onSaveClick }) => {
       </FormControl>
     </Grid>
   )
+}
+
+CommentEdit.propTypes = {
+  comment: PropTypes.string.isRequired,
+  onSaveClick: PropTypes.func.isRequired
 }
 
 export default CommentEdit

@@ -55,10 +55,16 @@ router.delete(
   '/:subCommentId',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    const { subCommentId } = req.body
+    const { subCommentId } = req.params
 
     try {
       const deletedSubcomment = await SubComment.findByIdAndDelete(subCommentId)
+      const updatedComment = await Comment.findById(deletedSubcomment.refComment)
+
+      const CommentSubCommentIndex = await updatedComment.subComments.indexOf(deletedSubcomment._id)
+
+      await updatedComment.subComments.splice(CommentSubCommentIndex, 1)
+      await updatedComment.save()
 
       res.json(deletedSubcomment)
     } catch (err) {

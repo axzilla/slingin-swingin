@@ -1,5 +1,6 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 import CodeBlock from '../common/CodeBlock'
@@ -9,38 +10,29 @@ import ReactMarkdown from 'react-markdown'
 import { useAuth } from '../../contexts/auth'
 
 // Services
-import { deleteSubComment } from './_services'
-
-// Assets
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
-// Utils
-import isEmpty from '../../utils/isEmpty'
+import { updateSubComment, deleteSubComment } from './_services'
 
 // Components
 import Link from '../../components/Link'
-// import SubCommentEdit from './SubCommentEdit'
-// import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
-// import SubCommentFeedItemCreator from './SubCommentFeedItemCreator'
-// import SubCommentFeedItemDate from './SubCommentFeedItemDate'
-// import SubCommentFeedItemText from './SubCommentFeedItemText'
-// import SubCommentFeedItemButtons from './SubCommentFeedItemButtons'
+import SubCommentEdit from './SubCommentEdit'
+import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
+import SubCommentFeedItemMenu from './SubCommentFeedItemMenu'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// // Material Colors
-// import { blue } from '@material-ui/core/colors'
+// Material Icons
+import { MoreVert } from '@material-ui/icons'
 
 // Material Core
 import {
   // List,
   ListItem,
-  ListItemAvatar,
+  IconButton,
   ListItemText,
-  Avatar,
   Typography,
-  Divider
+  Divider,
+  CardContent
 } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
@@ -56,8 +48,45 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments, index }) 
   const { auth } = useAuth()
   const classes = useStyles()
   const [isEditMode, setIsEditMode] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
 
-  const onDeleteClick = subCommentId => {
+  function onEditClick() {
+    setIsEditMode(!isEditMode)
+  }
+
+  function handleMenuClick(event) {
+    setAnchorEl(event.currentTarget)
+  }
+
+  function handleMenuClose() {
+    setAnchorEl(null)
+  }
+
+  async function onSaveClick(text) {
+    const subCommentData = {
+      text,
+      subCommentId: subComment._id
+    }
+
+    setIsEditMode(false)
+
+    await updateSubComment(subCommentData).then(res => {
+      const updatedSubComment = res.data
+      const index = subComments.indexOf(
+        subComments.filter(comment => {
+          return comment._id === updatedSubComment._id
+        })[0]
+      )
+
+      setSubComments([
+        ...subComments.slice(0, index),
+        updatedSubComment,
+        ...subComments.slice(index + 1)
+      ])
+    })
+  }
+
+  function onDeleteClick(subCommentId) {
     if (window.confirm('Kommentar löschen?')) {
       deleteSubComment(subCommentId).then(res => {
         const deletedSubComment = res.data
@@ -73,53 +102,71 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments, index }) 
     }
   }
 
-  const onEditClick = () => {
-    setIsEditMode(!isEditMode)
-  }
-
   return (
     <React.Fragment>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Link to={`/${subComment.user.username}`}>
-            <Avatar
-              alt={subComment.user.username}
-              src={
-                isEmpty(subComment.user.avatar)
-                  ? avatarPlaceholder
-                  : subComment.user.avatar.secure_url
+      {!isEditMode ? (
+        <>
+          <ListItem alignItems="flex-start">
+            <SubCommentFeedItemAvatar subComment={subComment} />
+            <ListItemText
+              primary={
+                <Typography>
+                  <ReactMarkdown
+                    source={subComment.text}
+                    escapeHtml={false}
+                    renderers={{ code: CodeBlock }}
+                  />
+                </Typography>
+              }
+              secondary={
+                <React.Fragment>
+                  <Link to={`/${subComment.user.username}`}>
+                    <Typography component="span" variant="body2" className={classes.inline}>
+                      {subComment.user.username}
+                    </Typography>
+                  </Link>
+                  {' — '}
+                  <Moment fromNow locale="de">
+                    {subComment.dateCreated}
+                  </Moment>
+                </React.Fragment>
               }
             />
-          </Link>
-        </ListItemAvatar>
-        <ListItemText
-          primary={
-            <Typography>
-              <ReactMarkdown
-                source={subComment.text}
-                escapeHtml={false}
-                renderers={{ code: CodeBlock }}
-              />
-            </Typography>
-          }
-          secondary={
-            <React.Fragment>
-              <Link to={`/${subComment.user.username}`}>
-                <Typography component="span" variant="body2" className={classes.inline}>
-                  {subComment.user.username}
-                </Typography>
-              </Link>
-              {' — '}
-              <Moment fromNow locale="de">
-                {subComment.dateCreated}
-              </Moment>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+            {auth.isAuthenticated && auth.user.id === subComment.user._id ? (
+              <IconButton
+                aria-label="Settings"
+                aria-controls="customized-menu"
+                onClick={handleMenuClick}
+              >
+                <MoreVert />
+              </IconButton>
+            ) : null}
+
+            <SubCommentFeedItemMenu
+              subComment={subComment}
+              handleMenuClick={handleMenuClick}
+              handleMenuClose={handleMenuClose}
+              onEditClick={onEditClick}
+              onDeleteClick={onDeleteClick}
+              anchorEl={anchorEl}
+            />
+          </ListItem>
+        </>
+      ) : (
+        <CardContent>
+          <SubCommentEdit subComment={subComment} onSaveClick={onSaveClick} />
+        </CardContent>
+      )}
       {subComments.length !== index + 1 ? <Divider variant="inset" component="li" /> : null}
     </React.Fragment>
   )
+}
+
+SubCommentFeedItem.propTypes = {
+  subComment: PropTypes.object.isRequired,
+  subComments: PropTypes.array.isRequired,
+  setSubComments: PropTypes.func.isRequired,
+  index: PropTypes.string.isRequired
 }
 
 export default SubCommentFeedItem

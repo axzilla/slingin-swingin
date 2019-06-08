@@ -1,5 +1,6 @@
 // Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const CommentFeedItemHeader = ({ comment, handleMenuClick }) => {
+function CommentFeedItemHeader({ comment, handleMenuClick }) {
   const classes = useStyles()
   const { auth } = useAuth()
 
@@ -60,9 +61,7 @@ const CommentFeedItemHeader = ({ comment, handleMenuClick }) => {
           </IconButton>
         ) : null
       }
-      title={
-        <Link to={`/${comment.user.username}`}>{comment.user.username}</Link>
-      }
+      title={<Link to={`/${comment.user.username}`}>{comment.user.username}</Link>}
       subheader={
         <Moment fromNow locale="de">
           {comment.dateCreated}
@@ -70,6 +69,11 @@ const CommentFeedItemHeader = ({ comment, handleMenuClick }) => {
       }
     />
   )
+}
+
+CommentFeedItemHeader.propTypes = {
+  comment: PropTypes.string.isRequired,
+  handleMenuClick: PropTypes.func.isRequired
 }
 
 export default CommentFeedItemHeader

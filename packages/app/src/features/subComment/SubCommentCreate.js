@@ -1,63 +1,24 @@
 // Packages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 // Services
 import { createSubComment } from './_services'
 
 // Components
-// Components
 import MarkdownEditor from '../common/MarkdownEditor'
 
-// Contexts
-import { useAuth } from '../../contexts/auth'
-
-// Material Styles
-import { makeStyles } from '@material-ui/core/styles'
-
 // Material Core
-import {
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  TextField,
-  FormControl,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  ListItemAvatar,
-  Avatar,
-  IconButton
-} from '@material-ui/core'
+import { Button } from '@material-ui/core'
 
-// Material Icons
-import { Folder as FolderIcon, AddBox as AddBoxIcon } from '@material-ui/icons'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2)
-  }
-}))
-
-const SubCommentCreate = ({ comment, subComments, setSubComments }) => {
-  const { auth } = useAuth()
-  const classes = useStyles()
-
+function SubCommentCreate({ comment, subComments, setSubComments }) {
   const [subComment, setSubComment] = useState('')
 
-  const onChange = e => {
+  function onChange(e) {
     setSubComment(e.target.value)
   }
 
-  const onSubmit = e => {
+  function onSubmit(e) {
     e.preventDefault()
 
     const subCommentData = {
@@ -89,6 +50,12 @@ const SubCommentCreate = ({ comment, subComments, setSubComments }) => {
       </Button>
     </form>
   )
+}
+
+SubCommentCreate.propTypes = {
+  comment: PropTypes.object.isRequired,
+  subComments: PropTypes.array.isRequired,
+  setSubComments: PropTypes.func.isRequired
 }
 
 export default SubCommentCreate
