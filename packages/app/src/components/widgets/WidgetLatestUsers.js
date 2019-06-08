@@ -1,15 +1,13 @@
-// Packages
 import React from 'react'
+import PropTypes from 'prop-types'
 
-// Components
 import Link from '../Link'
 import CharAvatar from '../avatars/CharAvatar'
 
-// Material Core
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, Avatar, Grid, Box } from '@material-ui/core'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   avatar: {
     height: '75px',
     width: '75px',
@@ -18,9 +16,9 @@ const useStyles = makeStyles(theme => ({
   card: {
     marginBottom: '20px'
   }
-}))
+})
 
-const WidgetLatestUsers = ({ profiles }) => {
+function WidgetLatestUsers({ profiles }) {
   const classes = useStyles()
 
   return (
@@ -60,6 +58,10 @@ const WidgetLatestUsers = ({ profiles }) => {
       </CardContent>
     </Card>
   )
+}
+
+WidgetLatestUsers.propTypes = {
+  profiles: PropTypes.array.isRequired
 }
 
 export default WidgetLatestUsers

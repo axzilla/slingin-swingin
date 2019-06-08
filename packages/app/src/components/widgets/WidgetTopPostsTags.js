@@ -1,9 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import Link from '../Link'
 
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 
-const WidgetTopPostsTags = ({ postTags }) => {
+function WidgetTopPostsTags({ postTags }) {
   return (
     <Card>
       <CardContent>
@@ -13,7 +15,7 @@ const WidgetTopPostsTags = ({ postTags }) => {
           </Box>
         </Typography>
         {postTags &&
-          postTags.slice(0, 20).map((item, i) => {
+          postTags.slice(0, 20).map(item => {
             return (
               <Link key={item._id} to={`/posts/t/${item._id}`}>
                 <Typography color="textSecondary" component="h3">
@@ -25,6 +27,10 @@ const WidgetTopPostsTags = ({ postTags }) => {
       </CardContent>
     </Card>
   )
+}
+
+WidgetTopPostsTags.propTypes = {
+  postTags: PropTypes.array.isRequired
 }
 
 export default WidgetTopPostsTags

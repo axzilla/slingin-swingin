@@ -1,6 +1,8 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import PropTypes from 'prop-types'
 import { Link as RouterLink } from 'react-router-dom'
+
+import { makeStyles } from '@material-ui/styles'
 import Link from '@material-ui/core/Link'
 
 const useStyles = makeStyles({
@@ -14,15 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-// const AdapterLink = React.forwardRef((props, ref) => (
-//   <RouterLink innerRef={ref} {...props} />
-// ))
-
-// const CollisionLink = React.forwardRef((props, ref) => (
-//   <RouterLink innerRef={ref} to="/getting-started/installation/" {...props} />
-// ))
-
-const CustomLink = ({ children, to }) => {
+function CustomLink({ children, to }) {
   const classes = useStyles()
 
   return (
@@ -30,6 +24,11 @@ const CustomLink = ({ children, to }) => {
       {children}
     </Link>
   )
+}
+
+CustomLink.propTypes = {
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired
 }
 
 export default CustomLink
