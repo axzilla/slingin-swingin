@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Link from '../../components/Link'
 
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 
-const LandingWidgetPostTags = ({ postTags }) => {
+function LandingWidgetPostTags({ postTags }) {
   return (
     <Card>
       <CardContent>
@@ -25,6 +26,10 @@ const LandingWidgetPostTags = ({ postTags }) => {
       </CardContent>
     </Card>
   )
+}
+
+LandingWidgetPostTags.propTypes = {
+  postTags: PropTypes.array.isRequired
 }
 
 export default LandingWidgetPostTags

@@ -1,13 +1,10 @@
-// Packages
 import React from 'react'
 
-// Components
 import Link from '../../components/Link'
 
-// Material Core
 import { Typography, Grid, Link as MuiLink } from '@material-ui/core'
 
-const Footer = () => {
+function Footer() {
   return (
     <Grid container direction="column" alignItems="center">
       <Grid item style={{ margin: '20px' }}>
@@ -23,31 +20,19 @@ const Footer = () => {
           </Typography>
         </MuiLink>
 
-        <MuiLink
-          color="inherit"
-          href="https://stackshare.io/codehustla/codehustla"
-          target="blank"
-        >
+        <MuiLink color="inherit" href="https://stackshare.io/codehustla/codehustla" target="blank">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <i className="fas fa-code-branch fa-2x" />
           </Typography>
         </MuiLink>
 
-        <MuiLink
-          color="inherit"
-          href="https://www.instagram.com/codehustla.io/"
-          target="blank"
-        >
+        <MuiLink color="inherit" href="https://www.instagram.com/codehustla.io/" target="blank">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <i className="fab fa-instagram fa-2x" />
           </Typography>
         </MuiLink>
 
-        <MuiLink
-          color="inherit"
-          href="https://www.facebook.com/codehustla/"
-          target="blank"
-        >
+        <MuiLink color="inherit" href="https://www.facebook.com/codehustla/" target="blank">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <i className="fab fa-facebook fa-2x" />
           </Typography>

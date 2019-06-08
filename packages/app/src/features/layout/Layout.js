@@ -1,16 +1,13 @@
-// Packages
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 
-// Features
 import Footer from './Footer'
 import Toolbar from './Toolbar'
 import Alert from '../common/Alert'
 
-// Material Styles
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-// Material Core
 import { CssBaseline, Grid } from '@material-ui/core'
 
 const darkTheme = createMuiTheme({
@@ -37,7 +34,13 @@ const lightTheme = createMuiTheme({
   }
 })
 
-const Layout = ({ children, history }) => {
+function Layout({ children, history }) {
+  const classes = useStyles()
+  const [isDashboardUrl, setIsDashboardUrl] = useState(
+    history.location.pathname.includes('dashboard')
+  )
+  const [isLightTheme, setIsLightTheme] = useState(true)
+
   const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
     control: {
@@ -48,14 +51,6 @@ const Layout = ({ children, history }) => {
       }
     }
   }))
-
-  const [isDashboardUrl, setIsDashboardUrl] = useState(
-    history.location.pathname.includes('dashboard')
-  )
-
-  const classes = useStyles()
-
-  const [isLightTheme, setIsLightTheme] = useState(true)
 
   useEffect(() => {
     if (localStorage.theme === 'dark') {
@@ -69,7 +64,7 @@ const Layout = ({ children, history }) => {
     setIsDashboardUrl(history.location.pathname.includes('dashboard'))
   }, [history.location.pathname])
 
-  const onThemeToggleClick = () => {
+  function onThemeToggleClick() {
     setIsLightTheme(!isLightTheme)
 
     localStorage.theme === 'dark'
@@ -89,6 +84,11 @@ const Layout = ({ children, history }) => {
       <Alert />
     </MuiThemeProvider>
   )
+}
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default withRouter(Layout)
