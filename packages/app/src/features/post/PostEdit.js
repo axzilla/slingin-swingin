@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-import '../../utils/highlight'
-import ReactQuill from 'react-quill'
+
+import MarkdownEditor from '../common/MarkdownEditor'
 
 import { editPost, getPost } from './_services'
 
@@ -9,9 +10,6 @@ import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
 
 import placeholder from '../../assets/img/post-title-placeholder.png'
-import '../../assets/css/quill.snow.css'
-
-import { modules, formats } from '../quill/quill'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -62,9 +60,10 @@ const useStyles = makeStyles({
   }
 })
 
-function PostEdit({ match }) {
+function PostEdit({ match, history }) {
   const classes = useStyles()
 
+  const [post, setPost] = useState({})
   const [errors, setErrors] = useState()
   const [titleImage, setTitleImage] = useState(null)
   const [titleImagePreview, setTitleImagePreview] = useState(null)
@@ -80,7 +79,7 @@ function PostEdit({ match }) {
     }
 
     if (isEmpty(post)) {
-      getPost(match.params.id)
+      getPost(match.params.id).then(res => setPost(res.data))
     }
   }, [])
 
@@ -204,16 +203,8 @@ function PostEdit({ match }) {
             ) : null}
           </FormControl>
           <FormControl className={classes.formControl} error>
-            <ReactQuill
-              name="text"
-              className={classes.quill}
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              value={text || ''}
-              onChange={onReactQuillChange}
-              error={errors && errors.text}
-            />
+            <MarkdownEditor value={text} onChange={onReactQuillChange} />
+
             {errors && errors.text ? (
               <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
             ) : null}
@@ -301,6 +292,11 @@ function PostEdit({ match }) {
       </Card>
     </Grid>
   )
+}
+
+PostEdit.propTypes = {
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default PostEdit

@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-import '../../utils/highlight'
-import ReactQuill from 'react-quill'
 
 import { addPost } from './_services'
+import MarkdownEditor from '../common/MarkdownEditor'
 
 import placeholder from '../../assets/img/post-title-placeholder.png'
-import '../../assets/css/quill.snow.css'
 
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
-
-import { modules, formats } from '../quill/quill'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -99,8 +95,13 @@ function PostCreate({ history }) {
     formData.append('type', postData.type)
     formData.append('tags', postData.tags)
     formData.append('published', published)
-    await addPost(formData)
-    history.push('/posts')
+
+    try {
+      await addPost(formData)
+      history.push('/posts')
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   function onPostTitleImageChange(e) {
@@ -203,15 +204,8 @@ function PostCreate({ history }) {
             ) : null}
           </FormControl>
           <FormControl className={classes.formControl} error>
-            <ReactQuill
-              className={classes.quill}
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              value={postData.text}
-              onChange={onReactQuillChange}
-              error={errors && errors.text}
-            />
+            <MarkdownEditor value={postData.text} onChange={onReactQuillChange} />
+
             {errors && errors.text ? (
               <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
             ) : null}

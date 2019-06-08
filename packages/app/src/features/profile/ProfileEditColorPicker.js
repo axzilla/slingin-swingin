@@ -64,7 +64,7 @@ ProfileEditColorPicker.propTypes = {
   handleColorPickerChange: PropTypes.func.isRequired,
   handleColorPickerClick: PropTypes.func.isRequired,
   handleColorPickerClose: PropTypes.func.isRequired,
-  displayColorPicker: PropTypes.func.isRequireds,
+  displayColorPicker: PropTypes.func.isRequired,
   rgbaColor: PropTypes.string.isRequired
 }
 

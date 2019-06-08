@@ -44,7 +44,7 @@ const PostsByTag = ({ history, match }) => {
   return (
     <Grid container>
       <Grid item xs>
-        <PostsByTagHeaderCard {...props} />
+        <PostsByTagHeaderCard match={match} />
       </Grid>
       <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
         <Hidden smDown>
@@ -65,7 +65,7 @@ const PostsByTag = ({ history, match }) => {
                   auth={auth}
                 />
               ))}
-          {posts && postContent.length === posts.length ? null : (
+          {posts && limit.length === posts.length ? null : (
             <Button onClick={loadMore} variant="outlined" color="primary">
               Mehr...
             </Button>

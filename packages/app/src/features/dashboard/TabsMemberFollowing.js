@@ -16,7 +16,7 @@ function TabsPostBookmarks({ profilesByFollowingId }) {
     profilesByFollowingId &&
     profilesByFollowingId
       .slice(0, limit)
-      .map(profile => <ProfilesCard key={profile._id} profile={profile} location={location} />)
+      .map(profile => <ProfilesCard key={profile._id} profile={profile} />)
   return (
     <Grid>
       {content}

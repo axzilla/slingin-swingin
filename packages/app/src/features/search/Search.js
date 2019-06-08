@@ -8,7 +8,7 @@ import SearchTabs from './SearchTabs'
 
 import isEmpty from '../../utils/isEmpty'
 
-import { searchFunc } from '../search/_'
+import { searchFunc } from './_services'
 
 import { Grid } from '@material-ui/core'
 
