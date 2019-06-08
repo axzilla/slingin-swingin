@@ -1,17 +1,17 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from '@material-ui/styles'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   progress: {
     height: '300px',
     margin: theme.spacing(2)
   }
-})
+}))
 
-function CircularIndeterminate(props) {
-  const { classes } = props
+function CircularIndeterminate() {
+  const classes = useStyles()
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item xs={12}>
@@ -21,4 +21,4 @@ function CircularIndeterminate(props) {
   )
 }
 
-export default withStyles(styles)(CircularIndeterminate)
+export default CircularIndeterminate

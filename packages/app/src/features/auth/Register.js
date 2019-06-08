@@ -1,5 +1,6 @@
 // Packages
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import { Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
@@ -118,9 +119,7 @@ const Register = ({ history }) => {
                 onChange={onChange}
               />
               {errors && errors.username ? (
-                <FormHelperText className={classes.error}>
-                  {errors.username}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.username}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -135,9 +134,7 @@ const Register = ({ history }) => {
                 onChange={onChange}
               />
               {errors && errors.email ? (
-                <FormHelperText className={classes.error}>
-                  {errors.email}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.email}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -152,9 +149,7 @@ const Register = ({ history }) => {
                 onChange={onChange}
               />
               {errors && errors.password ? (
-                <FormHelperText className={classes.error}>
-                  {errors.password}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
               ) : null}
             </FormControl>
             <Button
@@ -175,14 +170,16 @@ const Register = ({ history }) => {
               textDecoration: 'none'
             }}
           >
-            <Button className={classes.passwordButton}>
-              Du hast schon einen Account?
-            </Button>
+            <Button className={classes.passwordButton}>Du hast schon einen Account?</Button>
           </Link>
         </CardContent>
       </Card>
     </Grid>
   )
+}
+
+Register.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default Register

@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ReactGA from 'react-ga'
 import jwtDecode from 'jwt-decode'
@@ -116,9 +117,7 @@ const Login = ({ history }) => {
                 onChange={onChange}
               />
               {errors && errors.login ? (
-                <FormHelperText className={classes.error}>
-                  {errors.login}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.login}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
@@ -133,9 +132,7 @@ const Login = ({ history }) => {
                 onChange={onChange}
               />
               {errors && errors.password ? (
-                <FormHelperText className={classes.error}>
-                  {errors.password}
-                </FormHelperText>
+                <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
               ) : null}
             </FormControl>
             <Button
@@ -150,19 +147,19 @@ const Login = ({ history }) => {
           </form>
           <Divider className={classes.divider} />
           <Link to={'/forgot-password'}>
-            <Button className={classes.passwordButton}>
-              Passwort vergessen?
-            </Button>
+            <Button className={classes.passwordButton}>Passwort vergessen?</Button>
           </Link>
           <Link to={'/register'}>
-            <Button className={classes.passwordButton}>
-              Noch keinen Account?
-            </Button>
+            <Button className={classes.passwordButton}>Noch keinen Account?</Button>
           </Link>
         </CardContent>
       </Card>
     </Grid>
   )
+}
+
+Login.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default Login

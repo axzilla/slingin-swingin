@@ -12,7 +12,7 @@ import isEmpty from '../../utils/isEmpty'
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
 // Actions
-import { handleUserFollower } from './_actions'
+import { handleUserFollower } from './_services'
 
 // Material Styles
 import { makeStyles } from '@material-ui/styles'
@@ -21,14 +21,7 @@ import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 
 // Material Core
-import {
-  Grid,
-  Avatar,
-  Card,
-  CardContent,
-  Typography,
-  Button
-} from '@material-ui/core'
+import { Grid, Avatar, Card, CardContent, Typography, Button } from '@material-ui/core'
 
 const useStyles = makeStyles({
   name: {
@@ -96,9 +89,7 @@ const ProfilesCard = props => {
               <Avatar
                 className={classes.avatar}
                 src={
-                  isEmpty(profile.user.avatar)
-                    ? avatarPlaceholder
-                    : profile.user.avatar.secure_url
+                  isEmpty(profile.user.avatar) ? avatarPlaceholder : profile.user.avatar.secure_url
                 }
                 alt="profile-avatar"
               />
@@ -108,38 +99,24 @@ const ProfilesCard = props => {
                 {profile.name}
               </Typography>
 
-              <Typography
-                className={classes.username}
-                gutterBottom
-                style={{ color: blue[500] }}
-              >
+              <Typography className={classes.username} gutterBottom style={{ color: blue[500] }}>
                 @{profile.user.username}
               </Typography>
 
               {profile.status ? (
                 <Typography gutterBottom className={classes.status}>
-                  <i
-                    className="fas fa-graduation-cap"
-                    style={{ color: red[500] }}
-                  />{' '}
+                  <i className="fas fa-graduation-cap" style={{ color: red[500] }} />{' '}
                   {profile.status}
                 </Typography>
               ) : null}
 
               <Typography gutterBottom variant="caption">
-                {profile.bio ? (
-                  profile.bio
-                ) : (
-                  <span>...hat nichts über sich geschrieben</span>
-                )}
+                {profile.bio ? profile.bio : <span>...hat nichts über sich geschrieben</span>}
               </Typography>
 
               {profile.location ? (
                 <Typography>
-                  <i
-                    className="fas fa-map-marker-alt"
-                    style={{ color: blue[500] }}
-                  />{' '}
+                  <i className="fas fa-map-marker-alt" style={{ color: blue[500] }} />{' '}
                   {profile.location}
                 </Typography>
               ) : null}
@@ -150,14 +127,8 @@ const ProfilesCard = props => {
       {auth.isAuthenticated && profile.user._id !== auth.user.id ? (
         <CardContent>
           <Grid>
-            <Button
-              size="small"
-              onClick={onFollowButtonclick}
-              variant="outlined"
-            >
-              {profile.user.follower
-                .map(follower => follower.user)
-                .includes(auth.user.id) ? (
+            <Button size="small" onClick={onFollowButtonclick} variant="outlined">
+              {profile.user.follower.map(follower => follower.user).includes(auth.user.id) ? (
                 <span>
                   <i className="fas fa-user-check" /> Entfolgen
                 </span>

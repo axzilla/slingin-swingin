@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
 // Utils
@@ -62,10 +63,9 @@ const NotVerified = ({ history }) => {
             @{user.username}
           </Typography>
           <Typography style={{ marginBottom: '10px' }}>
-            Du hast deinen Account noch nicht verifiziert. Um deinen Account im
-            vollen Umfang nutzen zu können, bestätige bitte deinen Account. Wir
-            haben dir hierzu eine E-Mail geschickt. Bitte überprüfe deinen
-            E-Mail Eingang.
+            Du hast deinen Account noch nicht verifiziert. Um deinen Account im vollen Umfang nutzen
+            zu können, bestätige bitte deinen Account. Wir haben dir hierzu eine E-Mail geschickt.
+            Bitte überprüfe deinen E-Mail Eingang.
           </Typography>
           <Typography style={{ marginBottom: '10px', fontWeight: '900' }}>
             Keine E-Mail erhalten?{' '}
@@ -96,6 +96,10 @@ const NotVerified = ({ history }) => {
       />
     </Grid>
   )
+}
+
+NotVerified.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default NotVerified

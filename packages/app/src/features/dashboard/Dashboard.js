@@ -6,8 +6,6 @@ import ReactGA from 'react-ga'
 // Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Services
-import { logoutUser } from '../auth/_services'
 import {
   // getCurrentProfile,
   getProfilesByFollowingId,
@@ -15,11 +13,7 @@ import {
   // clearCurrentProfile
 } from '../profile/_services'
 import { getCommentsByUserId } from '../comment/_services'
-import {
-  getPostsByUserBookmark,
-  getPostsByUserId,
-  getDraftPostsByUserId
-} from '../post/_services'
+import { getPostsByUserBookmark, getPostsByUserId, getDraftPostsByUserId } from '../post/_services'
 
 // Components
 import Link from '../../components/Link'
@@ -46,12 +40,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 // Material Icons
-import {
-  ViewComfy,
-  SupervisedUserCircle,
-  AccountBox,
-  Settings
-} from '@material-ui/icons'
+import { ViewComfy, SupervisedUserCircle, AccountBox, Settings } from '@material-ui/icons'
 
 const drawerWidth = 240
 
@@ -100,7 +89,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function MiniDrawer() {
+function Dashboard() {
   const classes = useStyles()
   const { auth } = useAuth()
   const [postsByUserId, setPostsByUserId] = useState()
@@ -158,11 +147,7 @@ function MiniDrawer() {
   } else {
     dashboardContent = (
       <Switch>
-        <Route
-          exact
-          path="/dashboard"
-          render={() => <Redirect to="/dashboard/posts" />}
-        />
+        <Route exact path="/dashboard" render={() => <Redirect to="/dashboard/posts" />} />
         <Route
           exact
           path="/dashboard/posts"
@@ -188,11 +173,7 @@ function MiniDrawer() {
           )}
         />
         <Route exact path="/dashboard/profile" render={() => <ProfileEdit />} />
-        <Route
-          exact
-          path="/dashboard/settings"
-          render={() => <DashboardSettings />}
-        />
+        <Route exact path="/dashboard/settings" render={() => <DashboardSettings />} />
       </Switch>
     )
   }
@@ -203,11 +184,7 @@ function MiniDrawer() {
         <CssBaseline />
         <Drawer
           variant="permanent"
-          className={clsx(
-            classes.drawer,
-            classes.drawerOpen,
-            classes.drawerClose
-          )}
+          className={clsx(classes.drawer, classes.drawerOpen, classes.drawerClose)}
           classes={{
             paper: clsx(classes.drawerOpen, classes.drawerClose)
           }}
@@ -258,4 +235,4 @@ function MiniDrawer() {
   )
 }
 
-export default MiniDrawer
+export default Dashboard
