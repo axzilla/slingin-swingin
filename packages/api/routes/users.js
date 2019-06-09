@@ -756,37 +756,6 @@ router.post('/change-email', (req, res) => {
   })
 })
 
-// @route   POST api/users/follower/:id
-// @desc    Follow/Unfollow User
-// @access  Private
-router.post('/follower/:user_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  User.findById(req.params.user_id)
-    .then(user => {
-      if (user.follower.filter(follower => follower.user.toString() === req.user.id).length > 0) {
-        // Get remove index
-        const removeIndex = user.follower.map(item => item.user.toString()).indexOf(req.user.id)
-
-        // Splice out of array
-        user.follower.splice(removeIndex, 1)
-
-        // Save
-        user.save().then(savedUser => {
-          Profile.findOne({ handle: savedUser.username }).then(foundUser => res.json(foundUser))
-        })
-      } else if (
-        user.follower.filter(follower => follower.user.toString() === req.user.id).length === 0
-      ) {
-        // Add user id to likes array
-        user.follower.unshift({ user: req.user.id })
-
-        user.save().then(savedUser => {
-          Profile.findOne({ handle: savedUser.username }).then(foundUser => res.json(foundUser))
-        })
-      }
-    })
-    .catch(err => res.status(404).json({ usernotfound: 'Keinen Benutzer gefunden' }))
-})
-
 router.post('/change-settings', passport.authenticate('jwt', { session: false }), (req, res) => {
   const notifications = req.body
 

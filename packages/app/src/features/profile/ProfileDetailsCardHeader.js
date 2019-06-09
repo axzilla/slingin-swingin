@@ -9,7 +9,6 @@ import ProfileDetailsSocials from './ProfileDetailsSocials'
 import ProfileDetailsBio from './ProfileDetailsBio'
 import ProfileDetailsInfos from './ProfileDetailsInfos'
 import ProfileDetailsButtonEdit from './ProfileDetailsButtonEdit'
-import ProfileDetailsButtonFollow from './ProfileDetailsButtonFollow'
 
 import { makeStyles } from '@material-ui/styles'
 
@@ -49,7 +48,6 @@ const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth, setProfile }) => {
               <ProfileDetailsSocials profile={profile} rgbaColor={rgbaColor} />
               <ProfileDetailsInfos profile={profile} />
               <ProfileDetailsButtonEdit profile={profile} auth={auth} />
-              <ProfileDetailsButtonFollow profile={profile} auth={auth} setProfile={setProfile} />
             </Grid>
           </Grid>
         </Grid>

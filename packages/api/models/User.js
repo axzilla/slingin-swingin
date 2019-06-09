@@ -27,14 +27,6 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false
   },
-  follower: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-      }
-    }
-  ],
   notifications: {
     onNewPost: {
       type: Boolean,
@@ -49,10 +41,6 @@ const UserSchema = new Schema({
       default: true
     },
     onCommentedPost: {
-      type: Boolean,
-      default: true
-    },
-    onFollowingMember: {
       type: Boolean,
       default: true
     }

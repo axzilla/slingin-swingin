@@ -37,7 +37,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 router.get('/all', (req, res) => {
   const errors = {}
   Profile.find()
-    .populate('user', ['name', 'username', 'avatar', 'isVerified', 'follower'])
+    .populate('user', ['name', 'username', 'avatar', 'isVerified'])
     .sort({ dateCreated: -1 })
     .then(profiles => {
       if (!profiles) {
@@ -58,7 +58,7 @@ router.get('/handle/:handle', (req, res) => {
   const errors = {}
 
   Profile.findOne({ handle: req.params.handle })
-    .populate('user', ['name', 'username', 'avatar', 'isVerified', 'follower'])
+    .populate('user', ['name', 'username', 'avatar', 'isVerified'])
     .then(profile => {
       if (!profile) {
         errors.noprofile = 'Es existiert kein Profil für diesen Benutzer'
@@ -98,42 +98,6 @@ router.get('/user/:id', (req, res) => {
       res.json(profile)
     })
     .catch(err => res.status(404).json({ profile: 'Es existiert kein Profil für diesen Benutzer' }))
-})
-
-// @route   GET api/profile/following/:id
-// @desc    Get Profiles by Following ID
-// @access  Private
-router.get('/following/:id', (req, res) => {
-  const errors = {}
-  User.find({ 'follower.user': req.params.id })
-    .then(users => {
-      userIdArray = users.map(user => user._id)
-
-      Profile.find({ user: { $in: userIdArray } })
-        .populate('user', ['name', 'username', 'avatar', 'isVerified', 'follower'])
-        .then(profiles => {
-          res.json(profiles)
-        })
-        .catch(err => res.status(404).json({ profile: 'Kein Profil gefunden' }))
-    })
-    .catch(err => res.status(404).json({ profile: 'Kein Benutzer gefunden' }))
-})
-
-// @route   GET api/profile/follower/:id
-// @desc    Get Profiles by Follower ID
-// @access  Private
-router.get('/follower/:id', (req, res) => {
-  User.findById(req.params.id)
-    .then(user => {
-      const userIdArray = user.follower.map(follower => follower.user._id)
-      Profile.find({ user: { $in: userIdArray } })
-        .populate('user', ['name', 'username', 'avatar', 'isVerified', 'follower'])
-        .then(profiles => {
-          res.json(profiles)
-        })
-        .catch(err => res.status(404).json({ profile: 'Kein Profil gefunden' }))
-    })
-    .catch(err => res.status(404).json({ profile: 'Kein Benutzer gefunden' }))
 })
 
 // Create or edit user profile

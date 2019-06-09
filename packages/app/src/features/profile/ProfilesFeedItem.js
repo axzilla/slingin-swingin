@@ -9,8 +9,6 @@ import isEmpty from '../../utils/isEmpty'
 
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
-import { handleUserFollower } from './_services'
-
 import { makeStyles } from '@material-ui/styles'
 
 import { blue, red } from '@material-ui/core/colors'
@@ -63,14 +61,6 @@ const ProfilesFeedItem = ({ profile, profileDetails }) => {
 
   const classes = useStyles()
 
-  const onFollowButtonclick = () => {
-    handleUserFollower(
-      profile.user._id,
-      profileDetails ? profileDetails.user._id : null,
-      profile.handle
-    )
-  }
-
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
       <Link to={`/${profile.user.username}`}>
@@ -115,23 +105,6 @@ const ProfilesFeedItem = ({ profile, profileDetails }) => {
           </Grid>
         </CardContent>
       </Link>
-      {auth.isAuthenticated && profile.user._id !== auth.user.id ? (
-        <CardContent>
-          <Grid>
-            <Button size="small" onClick={onFollowButtonclick} variant="outlined">
-              {profile.user.follower.map(follower => follower.user).includes(auth.user.id) ? (
-                <span>
-                  <i className="fas fa-user-check" /> Entfolgen
-                </span>
-              ) : (
-                <span>
-                  <i className="fas fa-user-plus" /> Folgen
-                </span>
-              )}
-            </Button>
-          </Grid>
-        </CardContent>
-      ) : null}
     </Card>
   )
 }
