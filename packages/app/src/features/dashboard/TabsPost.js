@@ -1,14 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import { useAuth } from '../../contexts/auth'
-
 import { makeStyles } from '@material-ui/core/styles'
-
 import { AppBar, Tabs, Tab } from '@material-ui/core'
-
 import TabsPostPosts from './TabsPostPosts'
-import TabsPostDrafts from './TabsPostDrafts'
 import TabsPostBookmarks from './TabsPostBookmarks'
 import TabsPostComments from './TabsPostComments'
 
@@ -22,7 +17,13 @@ const useStyles = makeStyles({
   }
 })
 
-function TabsPost({ postsByUserId, postsDraftsByUserId, postsByUserBookmark, commentsByUserId }) {
+function TabsPost({
+  postsByUserId,
+  setPostsByUserId,
+  postsByUserBookmark,
+  setPostsByUserBookmark,
+  commentsByUserId
+}) {
   const { auth } = useAuth()
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
@@ -42,23 +43,34 @@ function TabsPost({ postsByUserId, postsDraftsByUserId, postsByUserBookmark, com
           scrollButtons="off"
         >
           <Tab label={`Veröffentlicht (${postsByUserId ? postsByUserId.length : 0})`} />
-          <Tab label={`Entwürfe (${postsDraftsByUserId ? postsDraftsByUserId.length : 0})`} />
           <Tab label={`Lesezeichen (${postsByUserBookmark ? postsByUserBookmark.length : 0})`} />
           <Tab label={`Kommentare (${commentsByUserId ? commentsByUserId.length : 0})`} />
         </Tabs>
       </AppBar>
-      {value === 0 && <TabsPostPosts postsByUserId={postsByUserId} auth={auth} />}
-      {value === 1 && <TabsPostDrafts postsDraftsByUserId={postsDraftsByUserId} auth={auth} />}
-      {value === 2 && <TabsPostBookmarks postsByUserBookmark={postsByUserBookmark} auth={auth} />}
-      {value === 3 && <TabsPostComments commentsByUserId={commentsByUserId} />}
+      {value === 0 && (
+        <TabsPostPosts
+          postsByUserId={postsByUserId}
+          setPostsByUserId={setPostsByUserId}
+          auth={auth}
+        />
+      )}
+      {value === 1 && (
+        <TabsPostBookmarks
+          postsByUserBookmark={postsByUserBookmark}
+          setPostsByUserBookmark={setPostsByUserBookmark}
+          auth={auth}
+        />
+      )}
+      {value === 2 && <TabsPostComments commentsByUserId={commentsByUserId} />}
     </div>
   )
 }
 
 TabsPost.propTypes = {
   postsByUserId: PropTypes.array.isRequired,
-  postsDraftsByUserId: PropTypes.array.isRequired,
+  setPostsByUserId: PropTypes.func.isRequired,
   postsByUserBookmark: PropTypes.array.isRequired,
+  setPostsByUserBookmark: PropTypes.func.isRequired,
   commentsByUserId: PropTypes.array.isRequired
 }
 

@@ -24,10 +24,6 @@ export function getPostsByUserId(id) {
   return axios.get(`/posts/getPosts/published/userId/${id}`)
 }
 
-export function getDraftPostsByUserId(id) {
-  return axios.get(`/posts/getPosts/draft/userId/${id}`)
-}
-
 export function getPostsByUserBookmark(userId) {
   return axios.get(`/posts/getposts/bookmark/${userId}`)
 }

@@ -6,7 +6,7 @@ import ReactGA from 'react-ga'
 import { useAuth } from '../../contexts/auth'
 
 import { getCommentsByUserId } from '../comment/_services'
-import { getPostsByUserBookmark, getPostsByUserId, getDraftPostsByUserId } from '../post/_services'
+import { getPostsByUserBookmark, getPostsByUserId } from '../post/_services'
 
 import Link from '../../components/Link'
 import Spinner from '../common/Spinner'
@@ -26,7 +26,7 @@ import {
   ListItemText
 } from '@material-ui/core'
 
-import { ViewComfy, SupervisedUserCircle, AccountBox, Settings } from '@material-ui/icons'
+import { ViewComfy, AccountBox, Settings } from '@material-ui/icons'
 
 const drawerWidth = 240
 
@@ -79,7 +79,6 @@ function Dashboard() {
   const classes = useStyles()
   const { auth } = useAuth()
   const [postsByUserId, setPostsByUserId] = useState()
-  const [postsDraftsByUserId, setPostsDraftsByUserId] = useState()
   const [postsByUserBookmark, setPostsByUserBookmark] = useState()
   const [commentsByUserId, setCommentsByUserId] = useState()
 
@@ -90,10 +89,6 @@ function Dashboard() {
 
     getPostsByUserId(auth.user.id).then(res => {
       setPostsByUserId(res.data)
-    })
-
-    getDraftPostsByUserId(auth.user.id).then(res => {
-      setPostsDraftsByUserId(res.data)
     })
 
     getPostsByUserBookmark(auth.user.id).then(res => {
@@ -107,12 +102,7 @@ function Dashboard() {
 
   let dashboardContent
 
-  if (
-    postsByUserId === null ||
-    postsDraftsByUserId === null ||
-    postsByUserBookmark === null ||
-    commentsByUserId === null
-  ) {
+  if (postsByUserId === null || postsByUserBookmark === null || commentsByUserId === null) {
     dashboardContent = <Spinner />
   } else {
     dashboardContent = (
@@ -124,8 +114,9 @@ function Dashboard() {
           render={() => (
             <TabsPost
               postsByUserId={postsByUserId}
-              postsDraftsByUserId={postsDraftsByUserId}
+              setPostsByUserId={setPostsByUserId}
               postsByUserBookmark={postsByUserBookmark}
+              setPostsByUserBookmark={setPostsByUserBookmark}
               commentsByUserId={commentsByUserId}
               auth={auth}
             />
