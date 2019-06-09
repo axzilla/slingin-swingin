@@ -44,6 +44,7 @@ const ProfileDetails = ({ match }) => {
 
   async function getInitialData() {
     setIsLoading(true)
+
     const profileUserId = await getProfileByHandle(match.params.handle).then(res => {
       setProfile(res.data)
       return res.data.user._id
@@ -53,6 +54,7 @@ const ProfileDetails = ({ match }) => {
     await getProfilesByFollowingId(profileUserId).then(res => setProfilesByFollowingId(res.data))
     await getProfilesByFollowerId(profileUserId).then(res => setProfilesByFollowerId(res.data))
     await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
+
     setIsLoading(false)
   }
 
@@ -68,7 +70,12 @@ const ProfileDetails = ({ match }) => {
       ) : (
         <>
           <Grid item xs={12} className={classes.cardHeader}>
-            <ProfileDetailsCardHeader profile={profile} auth={auth} rgbaColor={rgbaColor} />
+            <ProfileDetailsCardHeader
+              profile={profile}
+              auth={auth}
+              setProfile={setProfile}
+              rgbaColor={rgbaColor}
+            />
           </Grid>
           <ProfileDetailsTabs
             profile={profile}

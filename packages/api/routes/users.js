@@ -53,9 +53,7 @@ const validateChangePasswordInput = require('../validation/change-password')
 const validateChangeEmailInput = require('../validation/change-email')
 const validateChangeUsernameInput = require('../validation/change-username')
 
-// Load User model
 const User = require('../models/User')
-// Load Profile model
 const Profile = require('../models/Profile')
 
 // // @route   GET api/users/emails
@@ -106,11 +104,9 @@ router.post(
             })
 
             if (req.user.avatar && !isEmpty(req.user.avatar)) {
-              cloudinary.v2.uploader
-                .destroy(req.user.avatar.public_id)
-                .then((result, error) => {
-                  console.log('Old avatar on cloudinary successful deleted')
-                })
+              cloudinary.v2.uploader.destroy(req.user.avatar.public_id).then((result, error) => {
+                console.log('Old avatar on cloudinary successful deleted')
+              })
             }
 
             const payload = {
@@ -122,17 +118,12 @@ router.post(
               notifications: user.notifications
             } // Create JWT Payload
 
-            jwt.sign(
-              payload,
-              process.env.SECRET_OR_KEY,
-              { expiresIn: 43200 },
-              (err, token) => {
-                res.json({
-                  success: true,
-                  token: 'Bearer ' + token
-                })
-              }
-            )
+            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (err, token) => {
+              res.json({
+                success: true,
+                token: 'Bearer ' + token
+              })
+            })
           })
         }
       })
@@ -142,47 +133,36 @@ router.post(
 // @route   GET api/users/avatar-delete
 // @desc    Delete Avatar
 // @access  Private
-router.post(
-  '/avatarDelete',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    User.findById(req.user._id).then(user => {
-      user.avatar = {}
-      user.save()
+router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), (req, res) => {
+  User.findById(req.user._id).then(user => {
+    user.avatar = {}
+    user.save()
 
-      cloudinary.v2.uploader
-        .destroy(req.user.avatar.public_id)
-        .then((result, error) => {
-          if (error) {
-            console.log(error)
-          } else {
-            console.log('Old avatar on cloudinary successful deleted')
-          }
-        })
-
-      const payload = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        avatar: user.avatar,
-        isVerified: user.isVerified,
-        notifications: user.notifications
-      } // Create JWT Payload
-
-      jwt.sign(
-        payload,
-        process.env.SECRET_OR_KEY,
-        { expiresIn: sessionTime },
-        (err, token) => {
-          res.json({
-            success: true,
-            token: 'Bearer ' + token
-          })
-        }
-      )
+    cloudinary.v2.uploader.destroy(req.user.avatar.public_id).then((result, error) => {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Old avatar on cloudinary successful deleted')
+      }
     })
-  }
-)
+
+    const payload = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      avatar: user.avatar,
+      isVerified: user.isVerified,
+      notifications: user.notifications
+    } // Create JWT Payload
+
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+      res.json({
+        success: true,
+        token: 'Bearer ' + token
+      })
+    })
+  })
+})
 
 // @route   POST api/users/register
 // @desc    Register user
@@ -281,19 +261,17 @@ router.post('/register', (req, res) => {
                         console.log('Message sent!')
                       })
 
-                      Profile.findOne({ handle: user.username }).then(
-                        profile => {
-                          if (profile) {
-                            console.log('isProfile')
-                          } else {
-                            const profileFields = {}
-                            profileFields.name = req.body.name
-                            profileFields.user = user.id
-                            profileFields.handle = user.username
-                            new Profile(profileFields).save()
-                          }
+                      Profile.findOne({ handle: user.username }).then(profile => {
+                        if (profile) {
+                          console.log('isProfile')
+                        } else {
+                          const profileFields = {}
+                          profileFields.name = req.body.name
+                          profileFields.user = user.id
+                          profileFields.handle = user.username
+                          new Profile(profileFields).save()
                         }
-                      )
+                      })
 
                       res.json({
                         success: true,
@@ -343,17 +321,12 @@ router.post('/verify', (req, res) => {
         } // Create JWT Payload
 
         // Sign Token
-        jwt.sign(
-          payload,
-          process.env.SECRET_OR_KEY,
-          { expiresIn: sessionTime },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: 'Bearer ' + token
-            })
-          }
-        )
+        jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+          res.json({
+            success: true,
+            token: 'Bearer ' + token
+          })
+        })
       }
     } else {
       errors.alreadyVerified = 'Benutzer ist bereits verifiziert'
@@ -384,34 +357,29 @@ router.post('/verify/send-email', (req, res) => {
       } // Create JWT Payload
 
       // Sign Token
-      jwt.sign(
-        payload,
-        process.env.SECRET_OR_KEY,
-        { expiresIn: sessionTime },
-        (err, token) => {
-          const mailOptions = {
-            from: process.env.NODEMAILER_USER,
-            to: user.email,
-            subject: 'Willkommen zu codehustla!',
-            html: `
+      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+        const mailOptions = {
+          from: process.env.NODEMAILER_USER,
+          to: user.email,
+          subject: 'Willkommen zu codehustla!',
+          html: `
               <p>Hi ${user.username},</p>
               <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
               <a href="${
                 process.env.ENV_API
               }/verify/${token}"><button>Account bestätigen</button></a>
               <p><a href="${process.env.ENV_API}/verify/${token}">${
-              process.env.ENV_API
-            }/verify/${token}</a></p>
+            process.env.ENV_API
+          }/verify/${token}</a></p>
               <p>Vielen Dank,<br>dein codehustla.io Team.</p>
               `
-          }
-
-          transporter.sendMail(mailOptions, err => {
-            console.log('Message sent!')
-            res.json('E-Mail erfolgreich versendet')
-          })
         }
-      )
+
+        transporter.sendMail(mailOptions, err => {
+          console.log('Message sent!')
+          res.json('E-Mail erfolgreich versendet')
+        })
+      })
     } else {
       errors.alreadyVerified = 'Benutzer ist bereits verifiziert'
       return res.status(404).json(errors)
@@ -457,17 +425,12 @@ router.post('/login', (req, res) => {
         } // Create JWT Payload
 
         // Sign Token
-        jwt.sign(
-          payload,
-          process.env.SECRET_OR_KEY,
-          { expiresIn: sessionTime },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: 'Bearer ' + token
-            })
-          }
-        )
+        jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+          res.json({
+            success: true,
+            token: 'Bearer ' + token
+          })
+        })
       } else {
         errors.password = 'Falsches Password'
         return res.status(400).json(errors)
@@ -503,34 +466,29 @@ router.post('/forgot-password', (req, res) => {
       notifications: user.notifications
     } // Create JWT Payload
 
-    jwt.sign(
-      payload,
-      process.env.SECRET_OR_KEY,
-      { expiresIn: sessionTime },
-      (err, token) => {
-        const mailOptions = {
-          from: process.env.NODEMAILER_USER,
-          to: user.email,
-          subject: '[codehustla.io] Passwort zurücksetzen!',
-          html: `
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+      const mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: user.email,
+        subject: '[codehustla.io] Passwort zurücksetzen!',
+        html: `
                 <p>Hi ${user.username},</p>
                 <p>Bitte klicke auf den Link oder auf den button, um dein Passwort zurückzusetzen.</p>
                 <a href="${
                   process.env.ENV_API
                 }/reset-password/${token}"><button>Passwort zurücksetzen</button></a>
                 <p><a href="${process.env.ENV_API}/reset-password/${token}">${
-            process.env.ENV_API
-          }/reset-password/${token}</a></p>
+          process.env.ENV_API
+        }/reset-password/${token}</a></p>
                 <p>Vielen Dank,<br>dein codehustla.io Team.</p>
                 `
-        }
-
-        transporter.sendMail(mailOptions, err => {
-          console.log('Message sent!')
-        })
-        res.json({ alert: 'E-Mail erfolgreich versendet' })
       }
-    )
+
+      transporter.sendMail(mailOptions, err => {
+        console.log('Message sent!')
+      })
+      res.json({ alert: 'E-Mail erfolgreich versendet' })
+    })
   })
 })
 
@@ -634,33 +592,28 @@ router.post('/change-username', (req, res) => {
             notifications: user.notifications
           } // Create JWT Payload
 
-          jwt.sign(
-            payload,
-            process.env.SECRET_OR_KEY,
-            { expiresIn: sessionTime },
-            (err, token) => {
-              const mailOptions = {
-                from: process.env.NODEMAILER_USER,
-                to: [user.email],
-                subject: '[codehustla.io] Username geändert!',
-                html: `
+          jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+            const mailOptions = {
+              from: process.env.NODEMAILER_USER,
+              to: [user.email],
+              subject: '[codehustla.io] Username geändert!',
+              html: `
               <p>Hi ${user.username},</p>
               <p>Du hast deinen Benutzernamen erfolgreich geändert.</p>
               <p>Vielen Dank,<br>dein codehustla.io Team.</p>
               `
-              }
-
-              transporter.sendMail(mailOptions, err => {
-                console.log('message sent!')
-              })
-
-              res.json({
-                alert: 'Benutzername erfolgreich geändert',
-                success: true,
-                token: 'Bearer ' + token
-              })
             }
-          )
+
+            transporter.sendMail(mailOptions, err => {
+              console.log('message sent!')
+            })
+
+            res.json({
+              alert: 'Benutzername erfolgreich geändert',
+              success: true,
+              token: 'Bearer ' + token
+            })
+          })
         })
       })
     }
@@ -775,33 +728,28 @@ router.post('/change-email', (req, res) => {
             notifications: user.notifications
           } // Create JWT Payload
 
-          jwt.sign(
-            payload,
-            process.env.SECRET_OR_KEY,
-            { expiresIn: sessionTime },
-            (err, token) => {
-              const mailOptions = {
-                from: process.env.NODEMAILER_USER,
-                to: [user.email, oldEmail],
-                subject: '[codehustla.io] E-Mail Adresse geändert!',
-                html: `
+          jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+            const mailOptions = {
+              from: process.env.NODEMAILER_USER,
+              to: [user.email, oldEmail],
+              subject: '[codehustla.io] E-Mail Adresse geändert!',
+              html: `
               <p>Hi ${user.username},</p>
               <p>Du hast deine E-Mail Adresse erfolgreich geändert.</p>
               <p>Vielen Dank,<br>dein codehustla.io Team.</p>
               `
-              }
-
-              transporter.sendMail(mailOptions, err => {
-                console.log('message sent!')
-              })
-
-              res.json({
-                alert: 'E-Mail erfolgreich geändert',
-                success: true,
-                token: 'Bearer ' + token
-              })
             }
-          )
+
+            transporter.sendMail(mailOptions, err => {
+              console.log('message sent!')
+            })
+
+            res.json({
+              alert: 'E-Mail erfolgreich geändert',
+              success: true,
+              token: 'Bearer ' + token
+            })
+          })
         })
       })
     }
@@ -811,77 +759,58 @@ router.post('/change-email', (req, res) => {
 // @route   POST api/users/follower/:id
 // @desc    Follow/Unfollow User
 // @access  Private
-router.post(
-  '/follower/:user_id',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    User.findById(req.params.user_id)
-      .then(user => {
-        if (
-          user.follower.filter(
-            follower => follower.user.toString() === req.user.id
-          ).length > 0
-        ) {
-          // Get remove index
-          const removeIndex = user.follower
-            .map(item => item.user.toString())
-            .indexOf(req.user.id)
+router.post('/follower/:user_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  User.findById(req.params.user_id)
+    .then(user => {
+      if (user.follower.filter(follower => follower.user.toString() === req.user.id).length > 0) {
+        // Get remove index
+        const removeIndex = user.follower.map(item => item.user.toString()).indexOf(req.user.id)
 
-          // Splice out of array
-          user.follower.splice(removeIndex, 1)
+        // Splice out of array
+        user.follower.splice(removeIndex, 1)
 
-          // Save
-          user.save().then(post => res.json(post))
-        } else if (
-          user.follower.filter(
-            follower => follower.user.toString() === req.user.id
-          ).length === 0
-        ) {
-          // Add user id to likes array
-          user.follower.unshift({ user: req.user.id })
+        // Save
+        user.save().then(savedUser => {
+          Profile.findOne({ handle: savedUser.username }).then(foundUser => res.json(foundUser))
+        })
+      } else if (
+        user.follower.filter(follower => follower.user.toString() === req.user.id).length === 0
+      ) {
+        // Add user id to likes array
+        user.follower.unshift({ user: req.user.id })
 
-          user.save().then(user => res.json(user))
-        }
-      })
-      .catch(err =>
-        res.status(404).json({ usernotfound: 'Keinen Benutzer gefunden' })
-      )
-  }
-)
+        user.save().then(savedUser => {
+          Profile.findOne({ handle: savedUser.username }).then(foundUser => res.json(foundUser))
+        })
+      }
+    })
+    .catch(err => res.status(404).json({ usernotfound: 'Keinen Benutzer gefunden' }))
+})
 
-router.post(
-  '/change-settings',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    const notifications = req.body
+router.post('/change-settings', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const notifications = req.body
 
-    User.findById(req.user._id).then(user => {
-      user.notifications = notifications
-      user.save().then(updatedUser => {
-        const payload = {
-          id: updatedUser.id,
-          email: updatedUser.email,
-          username: updatedUser.username,
-          avatar: updatedUser.avatar,
-          isVerified: updatedUser.isVerified,
-          notifications: updatedUser.notifications
-        }
+  User.findById(req.user._id).then(user => {
+    user.notifications = notifications
+    user.save().then(updatedUser => {
+      const payload = {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        username: updatedUser.username,
+        avatar: updatedUser.avatar,
+        isVerified: updatedUser.isVerified,
+        notifications: updatedUser.notifications
+      }
 
-        jwt.sign(
-          payload,
-          process.env.SECRET_OR_KEY,
-          { expiresIn: sessionTime },
-          (err, token) => {
-            res.json({
-              alert: 'E-Mail erfolgreich geändert',
-              success: true,
-              token: 'Bearer ' + token
-            })
-          }
-        )
+      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+        res.json({
+          alert: 'E-Mail erfolgreich geändert',
+          success: true,
+          token: 'Bearer ' + token
+        })
       })
     })
-  }
-)
+  })
+})
 
 module.exports = router

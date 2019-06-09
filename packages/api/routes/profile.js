@@ -125,7 +125,7 @@ router.get('/following/:id', (req, res) => {
 router.get('/follower/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
-      userIdArray = user.follower.map(follower => follower.user._id)
+      const userIdArray = user.follower.map(follower => follower.user._id)
       Profile.find({ user: { $in: userIdArray } })
         .populate('user', ['name', 'username', 'avatar', 'isVerified', 'follower'])
         .then(profiles => {

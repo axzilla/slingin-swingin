@@ -5,11 +5,11 @@ import { handleUserFollower } from './_services'
 
 import { Grid, Button } from '@material-ui/core'
 
-const ProfileDetailsButtonFollow = ({ auth, profile }) => {
+const ProfileDetailsButtonFollow = ({ auth, profile, setProfile }) => {
   const onFollowButtonclick = () => {
-    const location = 'profileDetails'
-
-    handleUserFollower(location, profile.user._id, profile.user._id, profile.handle)
+    handleUserFollower(profile.user._id).then(res => {
+      setProfile(res.data)
+    })
   }
 
   return (
@@ -33,7 +33,8 @@ const ProfileDetailsButtonFollow = ({ auth, profile }) => {
 
 ProfileDetailsButtonFollow.propTypes = {
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  setProfile: PropTypes.func.isRequired
 }
 
 export default ProfileDetailsButtonFollow
