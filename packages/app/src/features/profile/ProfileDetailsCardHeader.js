@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth }) => {
+const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth, setProfile }) => {
   const classes = useStyles()
 
   return (
@@ -49,7 +49,7 @@ const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth }) => {
               <ProfileDetailsSocials profile={profile} rgbaColor={rgbaColor} />
               <ProfileDetailsInfos profile={profile} />
               <ProfileDetailsButtonEdit profile={profile} auth={auth} />
-              <ProfileDetailsButtonFollow profile={profile} auth={auth} />
+              <ProfileDetailsButtonFollow profile={profile} auth={auth} setProfile={setProfile} />
             </Grid>
           </Grid>
         </Grid>
@@ -61,7 +61,8 @@ const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth }) => {
 ProfileDetailsCardHeader.propTypes = {
   rgbaColor: PropTypes.string.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  setProfile: PropTypes.func.isRequired
 }
 
 export default ProfileDetailsCardHeader
