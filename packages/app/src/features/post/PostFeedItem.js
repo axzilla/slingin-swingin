@@ -4,7 +4,7 @@ import Link from '../../components/Link'
 import { HashLink } from 'react-router-hash-link'
 import Moment from 'react-moment'
 
-import { handlePostLikes, handlePostBookmarks } from './_services'
+import { useAuth } from '../../contexts/auth'
 
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     paddingBottom: '0'
   },
   card: {
-    width: '100%'
+    // width: '100%'
   },
   media: {
     objectFit: 'cover'
@@ -59,7 +59,8 @@ const useStyles = makeStyles({
   }
 })
 
-function PostFeedItem({ history, post, auth, userPostsId, searchString }) {
+function PostFeedItem({ history, post, onLikeClick, onBookmarkClick }) {
+  const { auth } = useAuth()
   const classes = useStyles()
   let color
 
@@ -82,7 +83,7 @@ function PostFeedItem({ history, post, auth, userPostsId, searchString }) {
 
   function toggleIsPostLiked() {
     if (auth.isAuthenticated) {
-      handlePostLikes(post._id, userPostsId, searchString, auth.user.id)
+      onLikeClick(post._id)
     } else {
       history.push('/login')
     }
@@ -90,7 +91,7 @@ function PostFeedItem({ history, post, auth, userPostsId, searchString }) {
 
   function toggleIsPostBookmarked() {
     if (auth.isAuthenticated) {
-      handlePostBookmarks(post._id, userPostsId, searchString, auth.user.id)
+      onBookmarkClick(post._id)
     } else {
       history.push('/login')
     }
@@ -212,7 +213,9 @@ PostFeedItem.propTypes = {
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   userPostsId: PropTypes.string.isRequired,
-  searchString: PropTypes.string.isRequired
+  searchString: PropTypes.string.isRequired,
+  onLikeClick: PropTypes.func.isRequired,
+  onBookmarkClick: PropTypes.func.isRequired
 }
 
 export default PostFeedItem

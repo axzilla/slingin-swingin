@@ -8,6 +8,7 @@ import Spinner from '../common/Spinner'
 
 import { getPostsByUserId } from '../post/_services'
 import { getProfileByHandle, getProfilesByFollowingId, getProfilesByFollowerId } from './_services'
+import { getCommentsByUserId } from '../comment/_services'
 
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
 import ProfileDetailsTabs from './ProfileDetailsTabs'
@@ -22,27 +23,38 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetails = ({ profile, post, comments, match }) => {
+const ProfileDetails = ({ match }) => {
   const { auth } = useAuth()
   const classes = useStyles()
   const [params] = useState(match.params.handle)
+  const [isLoading, setIsLoading] = useState(false)
+  const [profile, setProfile] = useState({})
+  const [profilesByFollowerId, setProfilesByFollowerId] = useState([])
+  const [profilesByFollowingId, setProfilesByFollowingId] = useState([])
+  const [postsByUserId, setPostsByUserId] = useState([])
+  const [commentsByUserId, setCommentsByUserId] = useState([])
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    getProfileByHandle(match.params.handle)
-  }, [match.params.handle !== params])
+    getInitialData()
+  }, [])
 
-  useEffect(() => {
-    if (profile && profile.user) {
-      getProfilesByFollowingId(profile.user._id)
-      getProfilesByFollowerId(profile.user._id)
-      getPostsByUserId(profile.user._id)
-      // getCommentsByUserId(profile.user._id)
-    }
-  }, [profile])
+  async function getInitialData() {
+    setIsLoading(true)
+    const profileUserId = await getProfileByHandle(match.params.handle).then(res => {
+      setProfile(res.data)
+      return res.data.user._id
+    })
+
+    await getPostsByUserId(profileUserId).then(res => setPostsByUserId(res.data))
+    await getProfilesByFollowingId(profileUserId).then(res => setProfilesByFollowingId(res.data))
+    await getProfilesByFollowerId(profileUserId).then(res => setProfilesByFollowerId(res.data))
+    await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
+    setIsLoading(false)
+  }
 
   const rgbaColor =
     profile && profile.color
@@ -51,18 +63,29 @@ const ProfileDetails = ({ profile, post, comments, match }) => {
 
   return (
     <Grid container>
-      <Grid item xs={12} className={classes.cardHeader}>
-        <ProfileDetailsCardHeader profile={profile} auth={auth} rgbaColor={rgbaColor} />
-      </Grid>
-      <ProfileDetailsTabs profile={profile} post={post} rgbaColor={rgbaColor} comments={comments} />
+      {isLoading || !profile.user ? (
+        <Spinner />
+      ) : (
+        <>
+          <Grid item xs={12} className={classes.cardHeader}>
+            <ProfileDetailsCardHeader profile={profile} auth={auth} rgbaColor={rgbaColor} />
+          </Grid>
+          <ProfileDetailsTabs
+            profile={profile}
+            postsByUserId={postsByUserId}
+            setPostsByUserId={setPostsByUserId}
+            commentsByUserId={commentsByUserId}
+            profilesByFollowerId={profilesByFollowerId}
+            profilesByFollowingId={profilesByFollowingId}
+            rgbaColor={rgbaColor}
+          />
+        </>
+      )}
     </Grid>
   )
 }
 
 ProfileDetails.propTypes = {
-  profile: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
-  comments: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired
 }
 

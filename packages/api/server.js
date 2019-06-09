@@ -31,15 +31,7 @@ mongoose
   .then(() => {
     console.log('MongoDB Connected')
 
-    const server = app.listen(port, () =>
-      console.log(`Server running on port ${port}`)
-    )
-
-    const io = require('./socket').init(server)
-
-    io.on('connection', socket => {
-      console.log('Client connected')
-    })
+    app.listen(port, () => console.log(`Server running on port ${port}`))
   })
   .catch(err => console.log(err))
 

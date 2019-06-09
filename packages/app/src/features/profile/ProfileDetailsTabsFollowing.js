@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import Spinner from '../common/Spinner'
-import ProfilesCard from './ProfilesCard'
+import ProfilesFeedItem from './ProfilesFeedItem'
 
 import { Grid, Button } from '@material-ui/core'
 
-const ProfileDetailsFollowing = ({ profilesByFollowingId }) => {
+const ProfileDetailsTabsFollowing = ({ profilesByFollowingId }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -21,7 +21,7 @@ const ProfileDetailsFollowing = ({ profilesByFollowingId }) => {
     const location = 'getProfilesByFollowingId'
     profileItems = profilesByFollowingId.slice(0, limit).map(profile => (
       <Grid item xs={12} key={profile._id}>
-        <ProfilesCard profile={profile} location={location} />
+        <ProfilesFeedItem profile={profile} location={location} />
       </Grid>
     ))
   }
@@ -40,8 +40,8 @@ const ProfileDetailsFollowing = ({ profilesByFollowingId }) => {
   )
 }
 
-ProfileDetailsFollowing.propTypes = {
+ProfileDetailsTabsFollowing.propTypes = {
   profilesByFollowingId: PropTypes.array.isRequired
 }
 
-export default ProfileDetailsFollowing
+export default ProfileDetailsTabsFollowing

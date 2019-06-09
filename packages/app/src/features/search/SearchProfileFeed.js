@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import Spinner from '../common/Spinner'
-import ProfilesCard from '../profile/ProfilesCard'
+import ProfilesFeedItem from '../profile/ProfilesFeedItem'
 
 import { Grid, Button } from '@material-ui/core'
 
@@ -22,7 +22,7 @@ const SearchProfileFeed = ({ profiles, searchString }) => {
     profileItems = profiles
       .slice(0, limit)
       .map(profile => (
-        <ProfilesCard
+        <ProfilesFeedItem
           location={location}
           key={profile._id}
           profile={profile}

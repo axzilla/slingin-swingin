@@ -123,8 +123,8 @@ function CustomizedSnackbars({ alert, setAlert }) {
 }
 
 CustomizedSnackbars.propTypes = {
-  alert: PropTypes.object.isRequired,
-  setAlert: PropTypes.func.isRequired
+  alert: PropTypes.object,
+  setAlert: PropTypes.func
 }
 
 export default CustomizedSnackbars

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
 
-import ProfileDetailsPostFeed from './ProfileDetailsPostFeed'
-import ProfileDetailsFollower from './ProfileDetailsFollower'
-import ProfileDetailsFollowing from './ProfileDetailsFollowing'
-import ProfileDetailsComments from './ProfileDetailsComments'
+import ProfileDetailsTabsPosts from './ProfileDetailsTabsPosts'
+import ProfileDetailsTabsFollower from './ProfileDetailsTabsFollower'
+import ProfileDetailsTabsFollowing from './ProfileDetailsTabsFollowing'
+import ProfileDetailsTabsComments from './ProfileDetailsTabsComments'
 
 const TabContainer = ({ children, dir }) => {
   return (
@@ -36,10 +36,10 @@ TabContainer.propTypes = {
   dir: PropTypes.object.isRequired
 }
 
-const CenteredTabs = ({
-  profile,
+const ProfileDetailsTabs = ({
   commentsByUserId,
   postsByUserId,
+  setPostsByUserId,
   profilesByFollowerId,
   profilesByFollowingId
 }) => {
@@ -60,44 +60,44 @@ const CenteredTabs = ({
         textColor="primary"
         centered
       >
-        <Tab label={`Beiträge ${postsByUserId ? postsByUserId.length : '0'}`} />
-
-        <Tab label={`Kommentare ${commentsByUserId ? commentsByUserId.length : '0'}`} />
-
-        <Tab label={`Abonnenten  ${profilesByFollowerId ? profilesByFollowerId.length : '0'}`} />
-
-        <Tab label={`Abonniert ${profilesByFollowingId ? profilesByFollowingId.length : '0'}`} />
+        <Tab label={`Beiträge ${postsByUserId.length}`} />
+        <Tab label={`Kommentare ${commentsByUserId.length}`} />
+        <Tab label={`Abonnenten  ${profilesByFollowerId.length}`} />
+        <Tab label={`Abonniert ${profilesByFollowingId.length}`} />
       </Tabs>
       {value === 0 && (
         <TabContainer>
-          <ProfileDetailsPostFeed profile={profile} />
+          <ProfileDetailsTabsPosts
+            postsByUserId={postsByUserId}
+            setPostsByUserId={setPostsByUserId}
+          />
         </TabContainer>
       )}
       {value === 1 && (
         <TabContainer>
-          <ProfileDetailsComments commentsByUserId={commentsByUserId} />
+          <ProfileDetailsTabsComments commentsByUserId={commentsByUserId} />
         </TabContainer>
       )}
       {value === 2 && (
         <TabContainer>
-          <ProfileDetailsFollower userId={profile.user._id} />
+          <ProfileDetailsTabsFollower profilesByFollowerId={profilesByFollowerId} />
         </TabContainer>
       )}
       {value === 3 && (
         <TabContainer>
-          <ProfileDetailsFollowing />
+          <ProfileDetailsTabsFollowing profilesByFollowingId={profilesByFollowingId} />
         </TabContainer>
       )}
     </Grid>
   )
 }
 
-CenteredTabs.propTypes = {
-  profile: PropTypes.object.isRequired,
-  commentsByUserId: PropTypes.array.isRequired,
+ProfileDetailsTabs.propTypes = {
   postsByUserId: PropTypes.array.isRequired,
+  setPostsByUserId: PropTypes.func.isRequired,
+  commentsByUserId: PropTypes.array.isRequired,
   profilesByFollowerId: PropTypes.array.isRequired,
   profilesByFollowingId: PropTypes.array.isRequired
 }
 
-export default CenteredTabs
+export default ProfileDetailsTabs

@@ -58,7 +58,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfilesCard = ({ profile, profileDetails }) => {
+const ProfilesFeedItem = ({ profile, profileDetails }) => {
   const { auth } = useAuth()
 
   const classes = useStyles()
@@ -136,9 +136,9 @@ const ProfilesCard = ({ profile, profileDetails }) => {
   )
 }
 
-ProfilesCard.propTypes = {
+ProfilesFeedItem.propTypes = {
   profile: PropTypes.object.isRequired,
   profileDetails: PropTypes.object.isRequired
 }
 
-export default ProfilesCard
+export default ProfilesFeedItem
