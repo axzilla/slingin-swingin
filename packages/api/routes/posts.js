@@ -15,105 +15,71 @@ const validatePostInput = require('../validation/posts')
 
 const mtuPostNew = require('../nodemailer/templates/mtuPostNew')
 
-// @route   GET api/posts
-// @desc    Get All Published Posts
-// @access  Public
+// Get All Posts
 router.get('/', (req, res) => {
   Post.find()
     .populate('user', ['name', 'username', 'avatar'])
     .sort({ isPinned: -1 })
     .sort({ dateCreated: -1 })
     .then(posts => {
-      const publishedPosts = posts.filter(post => post.published)
-      res.json(publishedPosts)
+      res.json(posts)
     })
-    .catch(err => res.status(404).json({ nopostsfound: 'Keine Beiträge gefunden' }))
+    .catch(() => res.status(404).json({ nopostsfound: 'Keine Beiträge gefunden' }))
 })
 
-// @route   GET api/posts/getPosts/published/userId/:id
-// @desc    Get Published Posts By User ID
-// @access  Public
+// Get Posts By User ID
 router.get('/getPosts/published/userId/:id', (req, res) => {
   Post.find({ user: req.params.id })
     .sort({ dateCreated: -1 })
     .populate('user', ['name', 'username', 'avatar'])
     .then(posts => {
-      console.log(posts)
-      const publishedPosts = posts.filter(post => post.published)
-
-      res.json(publishedPosts)
+      res.json(posts)
     })
-    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
+    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
-// @route   GET api/posts/getPosts/published/userId/:id
-// @desc    Get Draft Posts By User ID
-// @access  Public
-router.get('/getPosts/draft/userId/:id', (req, res) => {
-  Post.find({ user: req.params.id })
-    .sort({ dateCreated: -1 })
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(posts => {
-      const publishedPosts = posts.filter(post => !post.published)
-      res.json(publishedPosts)
-    })
-    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
-})
-
-// @route   GET api/posts/getposts/bookmark/:user_id
-// @desc    Get Published Posts By User Bookmarks
-// @access  Public
+// Get Posts By User Bookmarks
 router.get('/getposts/bookmark/:user_id', (req, res) => {
   Post.find({ 'bookmarks.user': req.params.user_id })
     .sort({ dateCreated: -1 })
     .populate('user', ['name', 'username', 'avatar'])
     .then(posts => {
-      const publishedPosts = posts.filter(post => post.published)
-      res.json(publishedPosts)
+      res.json(posts)
     })
-    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
+    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
-// @route   GET api/posts/getposts/tag/:tag
-// @desc    Get Published Posts By Tag
-// @access  Public
+// Get Posts By Tag
 router.get('/getposts/tag/:tag', (req, res) => {
   Post.find({ tags: req.params.tag })
     .sort({ dateCreated: -1 })
     .populate('user', ['name', 'username', 'avatar'])
     .then(posts => {
-      const publishedPosts = posts.filter(post => post.published)
-      res.json(publishedPosts)
+      res.json(posts)
     })
-    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
+    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
-// @route   GET api/posts/getAllTags
-// @desc    Get All Posts Tag Once With Count
-// @access  Public
+// Get All Posts Tag Once With Count
 router.get('/getAllTags', (req, res) => {
   Post.distinct('tags')
   Post.aggregate([{ $unwind: '$tags' }, { $group: { _id: '$tags', count: { $sum: 1 } } }])
     .sort({ count: -1 })
     .then(tags => res.json(tags))
-    .catch(err => res.status(404).json({ notagsfound: 'Keine Tags gefunden' }))
+    .catch(() => res.status(404).json({ notagsfound: 'Keine Tags gefunden' }))
 })
 
-// @route   GET api/posts/short/:post_iD
-// @desc    Get Post By Short ID
-// @access  Public
+// Get Post By Short ID
 router.get('/short/:post_id', (req, res) => {
   Post.findOne({ shortId: req.params.post_id })
     .populate('user', ['name', 'username', 'avatar'])
     .then(post => {
       res.json(post)
     })
-    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge mit dieser ID gefunden' }))
+    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge mit dieser ID gefunden' }))
 })
 
-// @route   POST api/posts/create
-// @desc    Create Post
-// @access  Private
+// Create Post
 router.post(
   '/create',
   passport.authenticate('jwt', { session: false }),
@@ -152,9 +118,9 @@ router.post(
           })
           .then((result, err) => {
             if (err) {
-              console.log(err)
+              console.log(err) // eslint-disable-line no-console
             } else {
-              console.log('Avatar uploaded')
+              console.log('Avatar uploaded') // eslint-disable-line no-console
               post.titleImage = result
               post.save().then(() => {
                 res.json(post)
@@ -181,9 +147,7 @@ router.post(
   }
 )
 
-// @route   POST api/posts/edit
-// @desc    Edit Post
-// @access  Private
+// Edit Post
 router.post(
   '/edit',
   passport.authenticate('jwt', { session: false }),
@@ -219,7 +183,7 @@ router.post(
               folder: process.env.CLOUDINARY_PATH_POST_TITLE,
               public_id: `post-title-image-${post.id}`
             })
-            .then((result, error) => {
+            .then(result => {
               post.titleImage = result
               post.save()
               res.json(post)
@@ -227,7 +191,7 @@ router.post(
         } else if (titleImage === 'deleted') {
           cloudinary.v2.uploader.destroy(post.titleImage.public_id).then((result, error) => {
             if (error) {
-              console.log(error)
+              console.log(error) // eslint-disable-line no-console
             } else {
               post.titleImage = {}
               post.save()
@@ -238,13 +202,11 @@ router.post(
           res.json(post)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err)) // eslint-disable-line no-console
   }
 )
 
-// @route   DELETE api/posts/:id
-// @desc    Delete Post
-// @access  Private
+// Delete Post
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Post.findById(req.params.id)
     .then(post => {
@@ -253,25 +215,23 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
       }
 
       post.remove().then(post => {
-        Comment.deleteMany({ refPostId: post.id }, (err, data) => {
-          err ? console.log(err) : console.log('All Postdata deleted!')
+        Comment.deleteMany({ refPostId: post.id }, err => {
+          err ? console.log(err) : console.log('All Postdata deleted!') // eslint-disable-line no-console
         })
 
         if (post.titleImage) {
           cloudinary.v2.uploader.destroy(post.titleImage.public_id).then((result, error) => {
-            error ? console.log(error) : console.log('Media on cloudinary successful deleted')
+            error ? console.log(error) : console.log('Media on cloudinary successful deleted') // eslint-disable-line no-console
           })
         }
 
         res.json({ success: true })
       })
     })
-    .catch(err => res.status(404).json({ postnotfound: 'Keine Beiträge gefunden' }))
+    .catch(() => res.status(404).json({ postnotfound: 'Keine Beiträge gefunden' }))
 })
 
-// @route   POST api/posts/like/:id
-// @desc    Toggle Post Likes
-// @access  Private
+// Toggle Post Likes
 router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Post.findById(req.params.id)
     .populate('user', ['name', 'username', 'avatar'])
@@ -288,12 +248,10 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req,
         post.save().then(post => res.json(post))
       }
     })
-    .catch(err => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
+    .catch(() => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
 })
 
-// @route   POST api/posts/bookmark/:id
-// @desc    Toggle Post Bookmarks
-// @access  Private
+// Toggle Post Bookmarks
 router.post('/bookmark/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Post.findById(req.params.id)
     .populate('user', ['name', 'username', 'avatar'])
@@ -310,7 +268,7 @@ router.post('/bookmark/:id', passport.authenticate('jwt', { session: false }), (
         post.save().then(post => res.json(post))
       }
     })
-    .catch(err => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
+    .catch(() => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
 })
 
 module.exports = router

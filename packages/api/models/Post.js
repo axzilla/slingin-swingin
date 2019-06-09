@@ -38,16 +38,6 @@ const PostSchema = new Schema({
   tags: {
     type: Array
   },
-  draft: {
-    type: Boolean,
-    default: false,
-    required: true
-  },
-  published: {
-    type: Boolean,
-    default: true,
-    required: true
-  },
   comments: [
     {
       type: Schema.Types.ObjectId,
