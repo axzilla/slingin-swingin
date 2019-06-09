@@ -8,7 +8,7 @@ const Profile = require('../models/Profile')
 // @desc    Get Posts and Profiles by Search
 // @access  Public
 router.get('/:searchText', (req, res) => {
-  searchResult = {
+  const searchResult = {
     posts: [],
     profiles: []
   }
@@ -25,18 +25,14 @@ router.get('/:searchText', (req, res) => {
     })
     .then(() =>
       Profile.find()
-        .populate('user', ['username', 'isVerified', 'follower', 'avatar'])
+        .populate('user', ['username', 'isVerified'])
         .then(profiles => {
           searchResult.profiles = profiles.filter(
             profile =>
               ((profile.name &&
-                profile.name
-                  .toUpperCase()
-                  .includes(req.params.searchText.toUpperCase())) ||
+                profile.name.toUpperCase().includes(req.params.searchText.toUpperCase())) ||
                 (profile.company &&
-                  profile.company
-                    .toUpperCase()
-                    .includes(req.params.searchText.toUpperCase())) ||
+                  profile.company.toUpperCase().includes(req.params.searchText.toUpperCase())) ||
                 (profile.user &&
                   profile.user.username
                     .toUpperCase()

@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/styles'
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
 
 import ProfileDetailsTabsPosts from './ProfileDetailsTabsPosts'
-import ProfileDetailsTabsFollower from './ProfileDetailsTabsFollower'
-import ProfileDetailsTabsFollowing from './ProfileDetailsTabsFollowing'
 import ProfileDetailsTabsComments from './ProfileDetailsTabsComments'
 
 const TabContainer = ({ children, dir }) => {
@@ -36,13 +34,7 @@ TabContainer.propTypes = {
   dir: PropTypes.object.isRequired
 }
 
-const ProfileDetailsTabs = ({
-  commentsByUserId,
-  postsByUserId,
-  setPostsByUserId,
-  profilesByFollowerId,
-  profilesByFollowingId
-}) => {
+const ProfileDetailsTabs = ({ commentsByUserId, postsByUserId, setPostsByUserId }) => {
   const classes = useStyles()
   const [value, setValue] = useState(0)
 
@@ -62,8 +54,6 @@ const ProfileDetailsTabs = ({
       >
         <Tab label={`Beiträge ${postsByUserId.length}`} />
         <Tab label={`Kommentare ${commentsByUserId.length}`} />
-        <Tab label={`Abonnenten  ${profilesByFollowerId.length}`} />
-        <Tab label={`Abonniert ${profilesByFollowingId.length}`} />
       </Tabs>
       {value === 0 && (
         <TabContainer>
@@ -78,16 +68,6 @@ const ProfileDetailsTabs = ({
           <ProfileDetailsTabsComments commentsByUserId={commentsByUserId} />
         </TabContainer>
       )}
-      {value === 2 && (
-        <TabContainer>
-          <ProfileDetailsTabsFollower profilesByFollowerId={profilesByFollowerId} />
-        </TabContainer>
-      )}
-      {value === 3 && (
-        <TabContainer>
-          <ProfileDetailsTabsFollowing profilesByFollowingId={profilesByFollowingId} />
-        </TabContainer>
-      )}
     </Grid>
   )
 }
@@ -95,9 +75,7 @@ const ProfileDetailsTabs = ({
 ProfileDetailsTabs.propTypes = {
   postsByUserId: PropTypes.array.isRequired,
   setPostsByUserId: PropTypes.func.isRequired,
-  commentsByUserId: PropTypes.array.isRequired,
-  profilesByFollowerId: PropTypes.array.isRequired,
-  profilesByFollowingId: PropTypes.array.isRequired
+  commentsByUserId: PropTypes.array.isRequired
 }
 
 export default ProfileDetailsTabs

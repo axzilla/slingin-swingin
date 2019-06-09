@@ -21,20 +21,13 @@ import {
 const Settings = () => {
   const { auth } = useAuth()
 
-  const {
-    onNewPost,
-    onOwnPost,
-    onBookmarkedPost,
-    onCommentedPost,
-    onFollowingMember
-  } = auth.user.notifications
+  const { onNewPost, onOwnPost, onBookmarkedPost, onCommentedPost } = auth.user.notifications
 
   const [notifications, setNotifications] = useState({
     onNewPost,
     onOwnPost,
     onBookmarkedPost,
-    onCommentedPost,
-    onFollowingMember
+    onCommentedPost
   })
 
   const onChange = e => {
@@ -101,18 +94,6 @@ const Settings = () => {
                   />
                 }
                 label="Bei Beiträgen bei denen ich einen Kommentar hinterlassen habe"
-              />
-            </Grid>
-            <Grid>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="onFollowingMember"
-                    checked={notifications.onFollowingMember}
-                    onChange={onChange}
-                  />
-                }
-                label="Bei Aktivitäten von abonnierten Mitgliedern"
               />
             </Grid>
             <Button type="submit" color="primary" variant="outlined">

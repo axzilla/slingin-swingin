@@ -7,7 +7,7 @@ import { useAuth } from '../../contexts/auth'
 import Spinner from '../common/Spinner'
 
 import { getPostsByUserId } from '../post/_services'
-import { getProfileByHandle, getProfilesByFollowingId, getProfilesByFollowerId } from './_services'
+import { getProfileByHandle } from './_services'
 import { getCommentsByUserId } from '../comment/_services'
 
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
@@ -29,8 +29,6 @@ const ProfileDetails = ({ match }) => {
   const [params] = useState(match.params.handle)
   const [isLoading, setIsLoading] = useState(false)
   const [profile, setProfile] = useState({})
-  const [profilesByFollowerId, setProfilesByFollowerId] = useState([])
-  const [profilesByFollowingId, setProfilesByFollowingId] = useState([])
   const [postsByUserId, setPostsByUserId] = useState([])
   const [commentsByUserId, setCommentsByUserId] = useState([])
 
@@ -51,8 +49,6 @@ const ProfileDetails = ({ match }) => {
     })
 
     await getPostsByUserId(profileUserId).then(res => setPostsByUserId(res.data))
-    await getProfilesByFollowingId(profileUserId).then(res => setProfilesByFollowingId(res.data))
-    await getProfilesByFollowerId(profileUserId).then(res => setProfilesByFollowerId(res.data))
     await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
 
     setIsLoading(false)
@@ -82,8 +78,6 @@ const ProfileDetails = ({ match }) => {
             postsByUserId={postsByUserId}
             setPostsByUserId={setPostsByUserId}
             commentsByUserId={commentsByUserId}
-            profilesByFollowerId={profilesByFollowerId}
-            profilesByFollowingId={profilesByFollowingId}
             rgbaColor={rgbaColor}
           />
         </>

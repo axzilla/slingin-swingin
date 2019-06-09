@@ -5,14 +5,12 @@ import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
 
-import { getProfilesByFollowingId, getProfilesByFollowerId } from '../profile/_services'
 import { getCommentsByUserId } from '../comment/_services'
 import { getPostsByUserBookmark, getPostsByUserId, getDraftPostsByUserId } from '../post/_services'
 
 import Link from '../../components/Link'
 import Spinner from '../common/Spinner'
 import TabsPost from './TabsPost'
-import TabsMember from './TabsMember'
 import ProfileEdit from '../profile/ProfileEdit'
 import DashboardSettings from './DashboardSettings'
 
@@ -84,8 +82,6 @@ function Dashboard() {
   const [postsDraftsByUserId, setPostsDraftsByUserId] = useState()
   const [postsByUserBookmark, setPostsByUserBookmark] = useState()
   const [commentsByUserId, setCommentsByUserId] = useState()
-  const [profilesByFollowerId, setProfilesByFollowerId] = useState()
-  const [profilesByFollowingId, setProfilesByFollowingId] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -104,14 +100,6 @@ function Dashboard() {
       setPostsByUserBookmark(res.data)
     })
 
-    getProfilesByFollowingId(auth.user.id).then(res => {
-      setProfilesByFollowingId(res.data)
-    })
-
-    getProfilesByFollowerId(auth.user.id).then(res => {
-      setProfilesByFollowerId(res.data)
-    })
-
     getCommentsByUserId(auth.user.id).then(res => {
       setCommentsByUserId(res.data)
     })
@@ -123,8 +111,6 @@ function Dashboard() {
     postsByUserId === null ||
     postsDraftsByUserId === null ||
     postsByUserBookmark === null ||
-    profilesByFollowingId === null ||
-    profilesByFollowerId === null ||
     commentsByUserId === null
   ) {
     dashboardContent = <Spinner />
@@ -141,17 +127,6 @@ function Dashboard() {
               postsDraftsByUserId={postsDraftsByUserId}
               postsByUserBookmark={postsByUserBookmark}
               commentsByUserId={commentsByUserId}
-              auth={auth}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/dashboard/member"
-          render={() => (
-            <TabsMember
-              profilesByFollowerId={profilesByFollowerId}
-              profilesByFollowingId={profilesByFollowingId}
               auth={auth}
             />
           )}
@@ -182,14 +157,6 @@ function Dashboard() {
                   <ViewComfy />
                 </ListItemIcon>
                 <ListItemText>Beiträge</ListItemText>
-              </ListItem>
-            </Link>
-            <Link to="/dashboard/member">
-              <ListItem button>
-                <ListItemIcon>
-                  <SupervisedUserCircle />
-                </ListItemIcon>
-                <ListItemText>Mitglieder</ListItemText>
               </ListItem>
             </Link>
           </List>
