@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import Link from '../../components/Link'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
-const ProfileDetailsComments = ({ commentsByUserId }) => {
+const ProfileDetailsTabsComments = ({ commentsByUserId }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -14,7 +13,7 @@ const ProfileDetailsComments = ({ commentsByUserId }) => {
   }
 
   const commentsItem = commentsByUserId.slice(0, limit).map(comment => {
-    const { shortId, urlSlug } = comment.refPostId
+    const { shortId, urlSlug } = comment.refPost
 
     return (
       <Card key={comment._id} style={{ marginBottom: '20px' }}>
@@ -28,7 +27,7 @@ const ProfileDetailsComments = ({ commentsByUserId }) => {
           >
             <div>
               <Link to={`post/${shortId}/${urlSlug}`}>
-                <Typography variant="h6">{comment.refPostId.title}</Typography>
+                <Typography variant="h6">{comment.refPost.title}</Typography>
               </Link>
               <Typography variant="caption" style={{ fontWeight: '300' }}>
                 <Moment fromNow locale="de">
@@ -58,8 +57,8 @@ const ProfileDetailsComments = ({ commentsByUserId }) => {
   )
 }
 
-ProfileDetailsComments.propTypes = {
+ProfileDetailsTabsComments.propTypes = {
   commentsByUserId: PropTypes.array.isRequired
 }
 
-export default ProfileDetailsComments
+export default ProfileDetailsTabsComments

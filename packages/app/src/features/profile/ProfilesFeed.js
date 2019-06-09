@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 
 import { getProfiles } from './_services'
-import ProfilesCard from './ProfilesCard'
+import ProfilesFeedItem from './ProfilesFeedItem'
 
 import CardSponsors from '../../components/cards/CardSponsors'
 import CardUserLatest from '../../components/cards/CardUserLatest'
@@ -39,7 +39,7 @@ const Profiles = () => {
         {profiles &&
           profiles.slice(0, limit)(profile => (
             <Grid item xs={12} key={profile._id}>
-              <ProfilesCard location={location} profile={profile} />
+              <ProfilesFeedItem location={location} profile={profile} />
             </Grid>
           ))}
         {profiles && profiles.slice(0, limit).length === profiles.length ? null : (

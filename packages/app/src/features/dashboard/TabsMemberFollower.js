@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import ProfilesCard from '../profile/ProfilesCard'
+import ProfilesFeedItem from '../profile/ProfilesFeedItem'
 
 import { Grid, Button } from '@material-ui/core'
 
@@ -16,7 +16,7 @@ function TabsPostBookmarks({ profilesByFollowerId }) {
     profilesByFollowerId &&
     profilesByFollowerId
       .slice(0, limit)
-      .map(profile => <ProfilesCard key={profile._id} profile={profile} />)
+      .map(profile => <ProfilesFeedItem key={profile._id} profile={profile} />)
   return (
     <Grid>
       {content}

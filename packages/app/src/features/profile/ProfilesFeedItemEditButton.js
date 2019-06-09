@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Button from '../button/Button'
 
-const ProfilesCardEditButton = ({ profile, auth }) => {
+const ProfilesFeedItemEditButton = ({ profile, auth }) => {
   return (
     <React.Fragment>
       {auth.isAuthenticated && profile.user._id === auth.user.id ? (
@@ -16,9 +16,9 @@ const ProfilesCardEditButton = ({ profile, auth }) => {
   )
 }
 
-ProfilesCardEditButton.propTypes = {
+ProfilesFeedItemEditButton.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 }
 
-export default ProfilesCardEditButton
+export default ProfilesFeedItemEditButton

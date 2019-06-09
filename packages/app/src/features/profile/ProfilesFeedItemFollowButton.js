@@ -5,7 +5,7 @@ import { handleUserFollower } from './_services'
 
 import Button from '../button/Button'
 
-const ProfilesCardFollowButton = ({ profile, auth }) => {
+const ProfilesFeedItemFollowButton = ({ profile, auth }) => {
   const onFollowButtonclick = () => {
     if (profile.user.follower.map(follower => follower.user).includes(auth.user.id)) {
       if (window.confirm('Nicht mehr folgen?')) {
@@ -35,9 +35,9 @@ const ProfilesCardFollowButton = ({ profile, auth }) => {
   )
 }
 
-ProfilesCardFollowButton.propTypes = {
+ProfilesFeedItemFollowButton.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 }
 
-export default ProfilesCardFollowButton
+export default ProfilesFeedItemFollowButton

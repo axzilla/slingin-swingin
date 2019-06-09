@@ -27,9 +27,7 @@ router.get('/', (req, res) => {
       const publishedPosts = posts.filter(post => post.published)
       res.json(publishedPosts)
     })
-    .catch(err =>
-      res.status(404).json({ nopostsfound: 'Keine Beiträge gefunden' })
-    )
+    .catch(err => res.status(404).json({ nopostsfound: 'Keine Beiträge gefunden' }))
 })
 
 // @route   GET api/posts/getPosts/published/userId/:id
@@ -40,12 +38,12 @@ router.get('/getPosts/published/userId/:id', (req, res) => {
     .sort({ dateCreated: -1 })
     .populate('user', ['name', 'username', 'avatar'])
     .then(posts => {
+      console.log(posts)
       const publishedPosts = posts.filter(post => post.published)
+
       res.json(publishedPosts)
     })
-    .catch(err =>
-      res.status(404).json({ nopostfound: 'Keine Beträge gefunden' })
-    )
+    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
 // @route   GET api/posts/getPosts/published/userId/:id
@@ -59,9 +57,7 @@ router.get('/getPosts/draft/userId/:id', (req, res) => {
       const publishedPosts = posts.filter(post => !post.published)
       res.json(publishedPosts)
     })
-    .catch(err =>
-      res.status(404).json({ nopostfound: 'Keine Beträge gefunden' })
-    )
+    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
 // @route   GET api/posts/getposts/bookmark/:user_id
@@ -75,9 +71,7 @@ router.get('/getposts/bookmark/:user_id', (req, res) => {
       const publishedPosts = posts.filter(post => post.published)
       res.json(publishedPosts)
     })
-    .catch(err =>
-      res.status(404).json({ nopostfound: 'Keine Beträge gefunden' })
-    )
+    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
 // @route   GET api/posts/getposts/tag/:tag
@@ -91,9 +85,7 @@ router.get('/getposts/tag/:tag', (req, res) => {
       const publishedPosts = posts.filter(post => post.published)
       res.json(publishedPosts)
     })
-    .catch(err =>
-      res.status(404).json({ nopostfound: 'Keine Beträge gefunden' })
-    )
+    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
 })
 
 // @route   GET api/posts/getAllTags
@@ -101,10 +93,7 @@ router.get('/getposts/tag/:tag', (req, res) => {
 // @access  Public
 router.get('/getAllTags', (req, res) => {
   Post.distinct('tags')
-  Post.aggregate([
-    { $unwind: '$tags' },
-    { $group: { _id: '$tags', count: { $sum: 1 } } }
-  ])
+  Post.aggregate([{ $unwind: '$tags' }, { $group: { _id: '$tags', count: { $sum: 1 } } }])
     .sort({ count: -1 })
     .then(tags => res.json(tags))
     .catch(err => res.status(404).json({ notagsfound: 'Keine Tags gefunden' }))
@@ -119,11 +108,7 @@ router.get('/short/:post_id', (req, res) => {
     .then(post => {
       res.json(post)
     })
-    .catch(err =>
-      res
-        .status(404)
-        .json({ nopostfound: 'Keine Beträge mit dieser ID gefunden' })
-    )
+    .catch(err => res.status(404).json({ nopostfound: 'Keine Beträge mit dieser ID gefunden' }))
 })
 
 // @route   POST api/posts/create
@@ -240,17 +225,15 @@ router.post(
               res.json(post)
             })
         } else if (titleImage === 'deleted') {
-          cloudinary.v2.uploader
-            .destroy(post.titleImage.public_id)
-            .then((result, error) => {
-              if (error) {
-                console.log(error)
-              } else {
-                post.titleImage = {}
-                post.save()
-                res.json(post)
-              }
-            })
+          cloudinary.v2.uploader.destroy(post.titleImage.public_id).then((result, error) => {
+            if (error) {
+              console.log(error)
+            } else {
+              post.titleImage = {}
+              post.save()
+              res.json(post)
+            }
+          })
         } else {
           res.json(post)
         }
@@ -262,113 +245,72 @@ router.post(
 // @route   DELETE api/posts/:id
 // @desc    Delete Post
 // @access  Private
-router.delete(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Post.findById(req.params.id)
-      .then(post => {
-        if (post.user.toString() !== req.user.id) {
-          return res
-            .status(401)
-            .json({ notauthorized: 'Du bist hierfür nicht autorisiert' })
+router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Post.findById(req.params.id)
+    .then(post => {
+      if (post.user.toString() !== req.user.id) {
+        return res.status(401).json({ notauthorized: 'Du bist hierfür nicht autorisiert' })
+      }
+
+      post.remove().then(post => {
+        Comment.deleteMany({ refPostId: post.id }, (err, data) => {
+          err ? console.log(err) : console.log('All Postdata deleted!')
+        })
+
+        if (post.titleImage) {
+          cloudinary.v2.uploader.destroy(post.titleImage.public_id).then((result, error) => {
+            error ? console.log(error) : console.log('Media on cloudinary successful deleted')
+          })
         }
 
-        post.remove().then(post => {
-          Comment.deleteMany({ refPostId: post.id }, (err, data) => {
-            err ? console.log(err) : console.log('All Postdata deleted!')
-          })
-
-          if (post.titleImage) {
-            cloudinary.v2.uploader
-              .destroy(post.titleImage.public_id)
-              .then((result, error) => {
-                error
-                  ? console.log(error)
-                  : console.log('Media on cloudinary successful deleted')
-              })
-          }
-
-          res.json({ success: true })
-        })
+        res.json({ success: true })
       })
-      .catch(err =>
-        res.status(404).json({ postnotfound: 'Keine Beiträge gefunden' })
-      )
-  }
-)
+    })
+    .catch(err => res.status(404).json({ postnotfound: 'Keine Beiträge gefunden' }))
+})
 
 // @route   POST api/posts/like/:id
 // @desc    Toggle Post Likes
 // @access  Private
-router.post(
-  '/like/:id',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Post.findById(req.params.id)
-      .populate('user', ['name', 'username', 'avatar'])
-      .then(post => {
-        if (
-          post.likes.filter(like => like.user.toString() === req.user.id)
-            .length > 0
-        ) {
-          const removeIndex = post.likes
-            .map(item => item.user.toString())
-            .indexOf(req.user.id)
+router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Post.findById(req.params.id)
+    .populate('user', ['name', 'username', 'avatar'])
+    .then(post => {
+      if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+        const removeIndex = post.likes.map(item => item.user.toString()).indexOf(req.user.id)
 
-          post.likes.splice(removeIndex, 1)
+        post.likes.splice(removeIndex, 1)
 
-          post.save().then(post => res.json(post))
-        } else if (
-          post.likes.filter(like => like.user.toString() === req.user.id)
-            .length === 0
-        ) {
-          post.likes.unshift({ user: req.user.id })
+        post.save().then(post => res.json(post))
+      } else if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+        post.likes.unshift({ user: req.user.id })
 
-          post.save().then(post => res.json(post))
-        }
-      })
-      .catch(err =>
-        res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' })
-      )
-  }
-)
+        post.save().then(post => res.json(post))
+      }
+    })
+    .catch(err => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
+})
 
 // @route   POST api/posts/bookmark/:id
 // @desc    Toggle Post Bookmarks
 // @access  Private
-router.post(
-  '/bookmark/:id',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Post.findById(req.params.id)
-      .populate('user', ['name', 'username', 'avatar'])
-      .then(post => {
-        if (
-          post.bookmarks.filter(
-            bookmark => bookmark.user.toString() === req.user.id
-          ).length > 0
-        ) {
-          const removeIndex = post.bookmarks
-            .map(item => item.user.toString())
-            .indexOf(req.user.id)
+router.post('/bookmark/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Post.findById(req.params.id)
+    .populate('user', ['name', 'username', 'avatar'])
+    .then(post => {
+      if (post.bookmarks.filter(bookmark => bookmark.user.toString() === req.user.id).length > 0) {
+        const removeIndex = post.bookmarks.map(item => item.user.toString()).indexOf(req.user.id)
 
-          post.bookmarks.splice(removeIndex, 1)
+        post.bookmarks.splice(removeIndex, 1)
 
-          post.save().then(post => res.json(post))
-        } else if (
-          post.bookmarks.filter(like => like.user.toString() === req.user.id)
-            .length === 0
-        ) {
-          post.bookmarks.unshift({ user: req.user.id })
+        post.save().then(post => res.json(post))
+      } else if (post.bookmarks.filter(like => like.user.toString() === req.user.id).length === 0) {
+        post.bookmarks.unshift({ user: req.user.id })
 
-          post.save().then(post => res.json(post))
-        }
-      })
-      .catch(err =>
-        res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' })
-      )
-  }
-)
+        post.save().then(post => res.json(post))
+      }
+    })
+    .catch(err => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
+})
 
 module.exports = router
