@@ -9,9 +9,7 @@
     "client": "npm start --prefix packages/app",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prod": "NODE_ENV=production npm run server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/app && npm run build --prefix packages/app",
-    "lint": "eslint \"**/*.js\"",
-    "test": "npm run lint"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/app && npm run build --prefix packages/app"
   },
   "author": "",
   "license": "ISC",
@@ -24,23 +22,6 @@
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
     "prettier": "^1.17.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test"
-    }
-  },
-  "lint-staged": {
-    "*.{js,json,css}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.{js}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
   },
   "dependencies": {}
 }
