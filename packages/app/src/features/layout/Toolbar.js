@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import { withRouter } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
 import Link from '../../components/Link'
@@ -188,7 +187,7 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
         <Link to="/">
           <ListItem style={{ display: 'flex', justifyContent: 'space-around' }}>
             <Typography
-              className={classNames(isLightTheme ? classes.logoLight : classes.logoDark)}
+              className={isLightTheme ? classes.logoLight : classes.logoDark}
               variant="h6"
               noWrap
             >
@@ -251,7 +250,7 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
       <AppBar position="fixed" color="inherit">
         <Toolbar>
           <IconButton
-            className={classNames(classes.menuButton, classes.drawerIcon)}
+            className={`${classes.menuButton} ${classes.drawerIcon}`}
             aria-label="Open drawer"
             onClick={toggleDrawer}
           >
@@ -259,10 +258,7 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
           </IconButton>
           <Link to="/">
             <Typography
-              className={classNames(
-                classes.title,
-                isLightTheme ? classes.logoLight : classes.logoDark
-              )}
+              className={`${classes.title} ${isLightTheme ? classes.logoLight : classes.logoDark}`}
               variant="h6"
               noWrap
             >
