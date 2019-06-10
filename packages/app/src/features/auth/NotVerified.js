@@ -1,19 +1,12 @@
-// Packages
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
-// Utils
 import isEmpty from '../../utils/isEmpty'
-
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { sendVerificationEmail } from './_services'
 import { getCurrentProfile } from '../profile/_services'
 
-// Material Core
 import { Grid, Typography, Card, CardContent, Button } from '@material-ui/core'
 
 const NotVerified = ({ history }) => {

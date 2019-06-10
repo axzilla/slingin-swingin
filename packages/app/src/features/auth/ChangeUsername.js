@@ -1,17 +1,12 @@
-// Packages
 import React, { useState, useEffect } from 'react'
+import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
-// Services
 import { changeUsername } from './_services'
-
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Core
 import {
   Typography,
   Card,
@@ -47,11 +42,10 @@ const useStyles = makeStyles({
 
 const ChangeUsername = () => {
   const classes = useStyles()
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
 
+  const [errors, setErrors] = useState()
   const [username, setUsername] = useState(auth.user.username)
-
-  const { errors } = auth
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -63,14 +57,23 @@ const ChangeUsername = () => {
     setUsername(e.target.value)
   }
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
 
     const emailData = {
       id: auth.user.id,
       username
     }
-    changeUsername(emailData)
+
+    try {
+      const res = await changeUsername(emailData)
+      const { token } = res.data
+      const decoded = jwtDecode(token)
+      setAuth({ isAuthenticated: true, user: decoded })
+      localStorage.setItem('jwtToken', token)
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   return (
@@ -82,7 +85,7 @@ const ChangeUsername = () => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="text"
-                error={errors.username ? true : false}
+                error={errors && errors.username ? true : false}
                 placeholder="Benutzername"
                 label="Benutzername"
                 margin="normal"
@@ -91,7 +94,7 @@ const ChangeUsername = () => {
                 value={username}
                 onChange={onChange}
               />
-              {errors.username ? (
+              {errors && errors.username ? (
                 <FormHelperText className={classes.error}>{errors.username}</FormHelperText>
               ) : null}
             </FormControl>
