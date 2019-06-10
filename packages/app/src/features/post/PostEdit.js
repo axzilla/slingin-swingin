@@ -5,7 +5,6 @@ import ReactGA from 'react-ga'
 import MarkdownEditor from '../common/MarkdownEditor'
 
 import { editPost, getPost } from './_services'
-
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
 
@@ -63,7 +62,6 @@ const useStyles = makeStyles({
 function PostEdit({ match, history }) {
   const classes = useStyles()
 
-  const [post, setPost] = useState({})
   const [errors, setErrors] = useState()
   const [titleImage, setTitleImage] = useState(null)
   const [titleImagePreview, setTitleImagePreview] = useState(null)
@@ -78,27 +76,18 @@ function PostEdit({ match, history }) {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    if (isEmpty(post)) {
-      getPost(match.params.id).then(res => setPost(res.data))
-    }
+    getPost(match.params.id).then(res => {
+      const post = res.data
+
+      setTitle(post.title)
+      setText(post.text)
+      setTags(post.tags)
+      setType(post.type)
+      setTitleImagePreview(post.titleImage && post.titleImage.secure_url)
+    })
   }, [])
 
-  useEffect(() => {
-    setErrors(post.errors)
-  }, [post.errors])
-
-  useEffect(() => {
-    setTitle(post.title)
-    setText(post.text)
-    setType(post.type)
-    setTags(post.tags)
-  }, [post])
-
-  useEffect(() => {
-    setTitleImagePreview(post.titleImage && post.titleImage.secure_url)
-  }, [post])
-
-  function onSubmit({ published }) {
+  async function onSubmit({ published }) {
     const formData = new FormData()
     formData.append('id', match.params.id)
     formData.append('titleImage', titleImage)
@@ -108,7 +97,14 @@ function PostEdit({ match, history }) {
     formData.append('published', published)
     formData.append('type', type)
 
-    editPost(formData, history)
+    try {
+      const res = await editPost(formData)
+      const updatedPost = res.data
+      const { shortId, urlSlug } = updatedPost
+      history.push(`/post/${shortId}/${urlSlug}`)
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   function onPostTitleImageChange(e) {
@@ -125,8 +121,8 @@ function PostEdit({ match, history }) {
     }
   }
 
-  function onReactQuillChange(e) {
-    setText(e)
+  function onTextChange(e) {
+    setText(e.target.value)
   }
 
   function onTitleChange(e) {
@@ -203,8 +199,13 @@ function PostEdit({ match, history }) {
             ) : null}
           </FormControl>
           <FormControl className={classes.formControl} error>
-            <MarkdownEditor value={text} onChange={onReactQuillChange} />
-
+            <MarkdownEditor
+              withPreview
+              value={text}
+              onChange={onTextChange}
+              rows={10}
+              setText={setText}
+            />
             {errors && errors.text ? (
               <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
             ) : null}
@@ -251,18 +252,19 @@ function PostEdit({ match, history }) {
             ) : null}
           </FormControl>
           <Grid>
-            {tags.map((tag, i) => {
-              return (
-                <Chip
-                  label={`#${tag}`}
-                  onDelete={() => handleTagDelete(i)}
-                  className={classes.chip}
-                  color="primary"
-                  variant="outlined"
-                  key={tag}
-                />
-              )
-            })}
+            {tags &&
+              tags.map((tag, i) => {
+                return (
+                  <Chip
+                    label={tag}
+                    onDelete={() => handleTagDelete(i)}
+                    className={classes.chip}
+                    color="primary"
+                    variant="outlined"
+                    key={tag}
+                  />
+                )
+              })}
           </Grid>
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>

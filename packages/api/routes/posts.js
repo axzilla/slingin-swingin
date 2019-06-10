@@ -69,6 +69,16 @@ router.get('/getAllTags', (req, res) => {
     .catch(() => res.status(404).json({ notagsfound: 'Keine Tags gefunden' }))
 })
 
+// Get Post By ID
+router.get('/get-post/:postId', (req, res) => {
+  Post.findById(req.params.postId)
+    .populate('user', ['name', 'username', 'avatar'])
+    .then(post => {
+      res.json(post)
+    })
+    .catch(() => res.status(404).json({ nopostfound: 'Keinen Betrag mit dieser ID gefunden' }))
+})
+
 // Get Post By Short ID
 router.get('/short/:post_id', (req, res) => {
   Post.findOne({ shortId: req.params.post_id })
