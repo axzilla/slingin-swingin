@@ -64,8 +64,7 @@ function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
     const commentData = {
       text,
       commentId: comment._id,
-      refPostId: comment.refPostId,
-      refPostShortId: comment.refPostShortId
+      refPostId: comment.refPost
     }
 
     setIsEditMode(false)

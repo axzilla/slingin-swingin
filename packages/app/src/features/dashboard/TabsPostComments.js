@@ -15,7 +15,7 @@ function TabsPostComments({ commentsByUserId }) {
   }
 
   const content = commentsByUserId.slice(0, limit).map(comment => {
-    const { shortId, urlSlug } = comment.refPostId
+    const { shortId, urlSlug } = comment.refPost
 
     return (
       <Card key={comment._id} style={{ marginBottom: '20px' }}>
@@ -29,7 +29,7 @@ function TabsPostComments({ commentsByUserId }) {
           >
             <div>
               <Link to={`/post/${shortId}/${urlSlug}`}>
-                <Typography variant="h6">{comment.refPostId.title}</Typography>
+                <Typography variant="h6">{comment.refPost.title}</Typography>
               </Link>
               <Typography variant="caption" style={{ fontWeight: '300' }}>
                 <Moment fromNow locale="de">
