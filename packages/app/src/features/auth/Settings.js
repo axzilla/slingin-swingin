@@ -14,7 +14,7 @@ import {
   Checkbox
 } from '@material-ui/core'
 
-const Settings = () => {
+function Settings() {
   const { auth, setAuth } = useAuth()
 
   const { onNewPost, onOwnPost, onBookmarkedPost, onCommentedPost } = auth.user.notifications
@@ -26,14 +26,14 @@ const Settings = () => {
     onCommentedPost
   })
 
-  const onChange = e => {
+  function onChange(e) {
     setNotifications({
       ...notifications,
       [e.target.name]: !notifications[e.target.name]
     })
   }
 
-  const onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const res = await updateSettings(notifications)

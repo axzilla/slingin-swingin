@@ -3,16 +3,15 @@ import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
 import { handlePostLikes, handlePostBookmarks } from '../post/_services'
-import { getPosts, getPostsTags } from '../post/_services'
-import { getProfiles } from '../profile/_services'
+import { getPosts } from '../post/_services'
 
 import { useAuth } from '../../contexts/auth'
 
 import PostFeedItem from '../post/PostFeedItem'
 
-import CardLanding from '../../components/cards/CardLanding'
-import LandingWidgetPostTags from './LandingWidgetPostTags'
-import LandingWidgetUsers from './LandingWidgetUsers'
+import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
+import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
+import LandingWelcome from './LandingWelcome'
 
 import { Button, Grid, Hidden } from '@material-ui/core'
 
@@ -20,8 +19,6 @@ function Landing({ history }) {
   const { auth } = useAuth()
   const [limit, setLimit] = useState(10)
   const [posts, setPosts] = useState()
-  const [postTags, setPostTags] = useState()
-  const [profiles, setProfiles] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -30,14 +27,6 @@ function Landing({ history }) {
 
     getPosts().then(res => {
       setPosts(res.data)
-    })
-
-    getPostsTags().then(res => {
-      setPostTags(res.data)
-    })
-
-    getProfiles().then(res => {
-      setProfiles(res.data)
     })
   }, [])
 
@@ -77,11 +66,11 @@ function Landing({ history }) {
     <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
       <Hidden smDown>
         <Grid item xs={3}>
-          <LandingWidgetPostTags postTags={postTags} />
+          <WidgetTopPostsTags />
         </Grid>
       </Hidden>
       <Grid item xs={12} md={6}>
-        {!auth.isAuthenticated ? <CardLanding /> : null}
+        {!auth.isAuthenticated ? <LandingWelcome /> : null}
         <Grid item xs={12}>
           {posts &&
             posts
@@ -105,7 +94,7 @@ function Landing({ history }) {
       </Grid>
       <Hidden smDown>
         <Grid item xs={3}>
-          <LandingWidgetUsers profiles={profiles} />
+          <WidgetLatestUsers />
         </Grid>
       </Hidden>
     </Grid>

@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ChangeUsername = () => {
+function ChangeUsername() {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
 
@@ -53,11 +53,11 @@ const ChangeUsername = () => {
     }
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setUsername(e.target.value)
   }
 
-  const onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const emailData = {

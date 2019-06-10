@@ -39,6 +39,7 @@ const useStyles = makeStyles({
 
 const ProfileEdit = ({ history }) => {
   const classes = useStyles()
+
   const [profile, setProfile] = useState({})
   const [state, setState] = useState({
     displayColorPicker: false,

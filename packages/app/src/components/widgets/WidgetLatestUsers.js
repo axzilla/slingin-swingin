@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import Link from '../Link'
-import CharAvatar from '../avatars/CharAvatar'
+import { getProfiles } from '../../features//profile/_services'
+
+import Link from '../../components/Link'
+import CharAvatar from '../../components/avatars/CharAvatar'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, Avatar, Grid, Box } from '@material-ui/core'
@@ -18,8 +20,15 @@ const useStyles = makeStyles({
   }
 })
 
-function WidgetLatestUsers({ profiles }) {
+function LandingWidgetUsers() {
   const classes = useStyles()
+  const [profiles, setProfiles] = useState()
+
+  useEffect(() => {
+    getProfiles().then(res => {
+      setProfiles(res.data)
+    })
+  })
 
   return (
     <Card className={classes.card}>
@@ -32,7 +41,7 @@ function WidgetLatestUsers({ profiles }) {
         {profiles &&
           profiles.slice(0, 5).map(profile => {
             return (
-              <Link key={profile._id} to={`${profile.handle}`}>
+              <Link key={profile._id} to={`/${profile.handle}`}>
                 <Grid container justify="center" alignItems="center" direction="column">
                   <Grid item xs>
                     {profile.user.avatar && profile.user.avatar.secure_url ? (
@@ -60,8 +69,8 @@ function WidgetLatestUsers({ profiles }) {
   )
 }
 
-WidgetLatestUsers.propTypes = {
+LandingWidgetUsers.propTypes = {
   profiles: PropTypes.array.isRequired
 }
 
-export default WidgetLatestUsers
+export default LandingWidgetUsers

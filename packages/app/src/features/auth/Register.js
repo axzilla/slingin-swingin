@@ -59,9 +59,9 @@ const Register = ({ history }) => {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    // if (auth.isAuthenticated) {
-    //   history.push('/dashboard')
-    // }
+    if (auth.isAuthenticated) {
+      history.push('/dashboard')
+    }
   }, [])
 
   const onChange = e => {
