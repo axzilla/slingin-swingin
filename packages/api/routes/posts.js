@@ -101,7 +101,7 @@ router.post(
       return res.status(400).json(errors)
     }
 
-    const { title, text, type, published, tags } = req.body
+    const { title, text, type, tags } = req.body
     const { user } = req
 
     const postFields = {}
@@ -112,8 +112,7 @@ router.post(
       title,
       text,
       type,
-      tags: tags ? tags.split(',') : [],
-      published
+      tags: tags ? tags.split(',') : []
     })
 
     Post.create(postFields).then(post => {
@@ -167,7 +166,7 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors)
     }
-    const { titleImage, title, text, type, tags, published } = req.body
+    const { titleImage, title, text, type, tags } = req.body
     const { user } = req
     const postFields = {}
 
@@ -178,7 +177,6 @@ router.post(
       text,
       type,
       tags: tags ? tags.split(',') : [],
-      published,
       dateUpdated: Date.now()
     })
 

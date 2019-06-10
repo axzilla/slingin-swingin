@@ -87,14 +87,13 @@ function PostEdit({ match, history }) {
     })
   }, [])
 
-  async function onSubmit({ published }) {
+  async function onSubmit() {
     const formData = new FormData()
     formData.append('id', match.params.id)
     formData.append('titleImage', titleImage)
     formData.append('title', title)
     formData.append('text', text)
     formData.append('tags', tags)
-    formData.append('published', published)
     formData.append('type', type)
 
     try {

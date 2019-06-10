@@ -87,14 +87,13 @@ function PostCreate({ history }) {
     }
   }, [])
 
-  async function onSubmit({ published }) {
+  async function onSubmit() {
     const formData = new FormData()
     formData.append('titleImage', titleImage)
     formData.append('title', postData.title)
     formData.append('text', text)
     formData.append('type', postData.type)
     formData.append('tags', postData.tags)
-    formData.append('published', published)
 
     try {
       await addPost(formData)
