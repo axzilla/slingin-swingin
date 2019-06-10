@@ -208,6 +208,9 @@ function PostCreate({ history }) {
               rows={10}
               setText={setText}
             />
+            {errors && errors.text ? (
+              <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
+            ) : null}
           </FormControl>
           <FormControl
             variant="outlined"
@@ -237,8 +240,7 @@ function PostCreate({ history }) {
           <FormControl className={classes.formControl} error>
             <TextField
               type="tags"
-              error={errors && errors.title ? true : false}
-              label="Hashtags"
+              label="Tags"
               margin="normal"
               variant="outlined"
               name="tags"
@@ -255,7 +257,7 @@ function PostCreate({ history }) {
               return (
                 <Chip
                   key={tag}
-                  label={`#${tag}`}
+                  label={tag}
                   onDelete={() => handleTagDelete(i)}
                   className={classes.chip}
                   color="primary"

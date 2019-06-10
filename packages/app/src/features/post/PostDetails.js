@@ -116,7 +116,7 @@ function PostDetails({ match, history }) {
               post={post}
               auth={auth}
               deletePost={deletePost}
-              // history={history}
+              history={history}
             />
           </Card>
         </Grid>

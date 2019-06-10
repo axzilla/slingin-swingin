@@ -9,7 +9,7 @@ export function editPost(postData) {
 }
 
 export function getPost(postId) {
-  return axios.get(`/posts/${postId}`)
+  return axios.get(`/posts/get-post/${postId}`)
 }
 
 export function getPosts() {

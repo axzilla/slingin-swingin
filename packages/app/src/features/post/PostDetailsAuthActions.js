@@ -13,7 +13,7 @@ function PostDetailsAuthActions({ post, auth, history }) {
         'Bist du sicher, dass du diesen Beitrag löschen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden!'
       )
     ) {
-      deletePost(id, history)
+      deletePost(id).then(() => history.push('/'))
     }
   }
 
