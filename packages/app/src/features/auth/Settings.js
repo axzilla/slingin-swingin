@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import jwtDecode from 'jwt-decode'
 
 import { useAuth } from '../../contexts/auth'
 import { updateSettings } from './_services'
@@ -14,7 +15,7 @@ import {
 } from '@material-ui/core'
 
 const Settings = () => {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
 
   const { onNewPost, onOwnPost, onBookmarkedPost, onCommentedPost } = auth.user.notifications
 
@@ -32,9 +33,14 @@ const Settings = () => {
     })
   }
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
-    updateSettings(notifications)
+
+    const res = await updateSettings(notifications)
+    const { token } = res.data
+    const decoded = jwtDecode(token)
+    setAuth({ isAuthenticated: true, user: decoded })
+    localStorage.setItem('jwtToken', token)
   }
 
   return (
