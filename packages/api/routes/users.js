@@ -596,7 +596,7 @@ router.post('/change-username', (req, res) => {
             const mailOptions = {
               from: process.env.NODEMAILER_USER,
               to: [user.email],
-              subject: '[codehustla.io] Username geändert!',
+              subject: '[codehustla.io] Benutzername geändert!',
               html: `
               <p>Hi ${user.username},</p>
               <p>Du hast deinen Benutzernamen erfolgreich geändert.</p>

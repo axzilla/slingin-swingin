@@ -1,18 +1,11 @@
-// Packages
 import React, { useState, useEffect } from 'react'
-import ReactGA from 'react-ga'
 import jwtDecode from 'jwt-decode'
+import ReactGA from 'react-ga'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { changeEmail } from './_services'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import {
   Typography,
   Card,

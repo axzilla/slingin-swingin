@@ -1,19 +1,12 @@
-// Packages
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
-// Services
 import { verifyUser } from './_services'
-
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Typography, Grid, Card, CardContent } from '@material-ui/core'
 
 const useStyles = makeStyles({

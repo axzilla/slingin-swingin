@@ -1,18 +1,11 @@
-// Packages
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { forgotPassword } from './_services'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import {
   Typography,
   Grid,

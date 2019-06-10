@@ -1,20 +1,13 @@
-// Packages
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import { Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { registerUser } from './_services'
-
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
 
-// Material Core
 import {
   Typography,
   Grid,

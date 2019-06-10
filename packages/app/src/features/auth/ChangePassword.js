@@ -1,18 +1,11 @@
-// Packages
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { changePassword } from './_services'
 
-// Material Style
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import {
   Typography,
   Card,
@@ -46,12 +39,11 @@ const useStyles = makeStyles({
   }
 })
 
-const ChangePassword = ({ history }) => {
-  const { auth } = useAuth()
+const ChangePassword = () => {
+  const { auth, setAuth } = useAuth()
   const classes = useStyles()
 
-  const { errors } = auth
-
+  const [errors, setErrors] = useState()
   const [passwords, setPasswords] = useState({
     oldPassword: '',
     newPassword: '',
@@ -71,7 +63,7 @@ const ChangePassword = ({ history }) => {
     })
   }
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
     const passwordData = {
       id: auth.user.id,
@@ -80,7 +72,15 @@ const ChangePassword = ({ history }) => {
       newPassword2: passwords.newPassword2
     }
 
-    changePassword(passwordData, history)
+    try {
+      const res = await changePassword(passwordData)
+      const { token } = res.data
+      const decoded = jwtDecode(token)
+      setAuth({ isAuthenticated: true, user: decoded })
+      localStorage.setItem('jwtToken', token)
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   return (
@@ -92,7 +92,7 @@ const ChangePassword = ({ history }) => {
             <FormControl className={classes.formControl} error>
               <TextField
                 type="password"
-                error={errors.oldPassword ? true : false}
+                error={errors && errors.oldPassword ? true : false}
                 placeholder="Altes Passwort"
                 label="Altes Passwort"
                 margin="normal"
@@ -101,14 +101,14 @@ const ChangePassword = ({ history }) => {
                 value={passwords.oldPassword}
                 onChange={onChange}
               />
-              {errors.oldPassword ? (
+              {errors && errors.oldPassword ? (
                 <FormHelperText className={classes.error}>{errors.oldPassword}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="password"
-                error={errors.newPassword ? true : false}
+                error={errors && errors.newPassword ? true : false}
                 placeholder="Neues Passwort"
                 label="Neues Passwort"
                 margin="normal"
@@ -117,14 +117,14 @@ const ChangePassword = ({ history }) => {
                 value={passwords.newPassword}
                 onChange={onChange}
               />
-              {errors.newPassword ? (
+              {errors && errors.newPassword ? (
                 <FormHelperText className={classes.error}>{errors.newPassword}</FormHelperText>
               ) : null}
             </FormControl>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="password"
-                error={errors.newPassword2 ? true : false}
+                error={errors && errors.newPassword2 ? true : false}
                 placeholder="Neues Passwort wiederholen"
                 label="Neues Passwort wiederholen"
                 margin="normal"
@@ -133,7 +133,7 @@ const ChangePassword = ({ history }) => {
                 value={passwords.newPassword2}
                 onChange={onChange}
               />
-              {errors.newPassword2 ? (
+              {errors && errors.newPassword2 ? (
                 <FormHelperText className={classes.error}>{errors.newPassword2}</FormHelperText>
               ) : null}
             </FormControl>
@@ -145,10 +145,6 @@ const ChangePassword = ({ history }) => {
       </Card>
     </React.Fragment>
   )
-}
-
-ChangePassword.propTypes = {
-  history: PropTypes.object.isRequired
 }
 
 export default ChangePassword

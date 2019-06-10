@@ -1,13 +1,8 @@
-// Packages
 import React, { useState } from 'react'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { updateSettings } from './_services'
 
-// Material Core
 import {
   Grid,
   Card,
