@@ -72,9 +72,9 @@ function TabsPostBookmarks({ postsByUserBookmark, setPostsByUserBookmark, auth }
 }
 
 TabsPostBookmarks.propTypes = {
-  postsByUserBookmark: PropTypes.array.isRequired,
-  setPostsByUserBookmark: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  postsByUserBookmark: PropTypes.array,
+  setPostsByUserBookmark: PropTypes.func,
+  auth: PropTypes.object
 }
 
 export default TabsPostBookmarks

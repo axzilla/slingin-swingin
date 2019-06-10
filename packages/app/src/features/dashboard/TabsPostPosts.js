@@ -74,9 +74,9 @@ function TabsPostPosts({ postsByUserId, setPostsByUserId, auth }) {
 }
 
 TabsPostPosts.propTypes = {
-  postsByUserId: PropTypes.array.isRequired,
-  setPostsByUserId: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  postsByUserId: PropTypes.array,
+  setPostsByUserId: PropTypes.func,
+  auth: PropTypes.object
 }
 
 export default TabsPostPosts

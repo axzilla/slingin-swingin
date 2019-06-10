@@ -17,8 +17,8 @@ const TabContainer = ({ children, dir }) => {
 }
 
 TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  dir: PropTypes.object.isRequired
+  children: PropTypes.node,
+  dir: PropTypes.object
 }
 
 const useStyles = makeStyles({
@@ -70,11 +70,11 @@ const CenteredTabs = ({ searchResult, searchString, setSearchResult }) => {
 }
 
 CenteredTabs.propTypes = {
-  posts: PropTypes.array.isRequired,
-  profiles: PropTypes.array.isRequired,
-  searchString: PropTypes.string.isRequired,
-  searchResult: PropTypes.array.isRequired,
-  setSearchResult: PropTypes.func.isRequired
+  posts: PropTypes.array,
+  profiles: PropTypes.array,
+  searchString: PropTypes.string,
+  searchResult: PropTypes.array,
+  setSearchResult: PropTypes.func
 }
 
 export default CenteredTabs

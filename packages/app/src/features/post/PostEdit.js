@@ -296,8 +296,8 @@ function PostEdit({ match, history }) {
 }
 
 PostEdit.propTypes = {
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  match: PropTypes.object,
+  history: PropTypes.object
 }
 
 export default PostEdit

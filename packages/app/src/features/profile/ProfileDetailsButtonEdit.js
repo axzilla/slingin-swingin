@@ -19,8 +19,8 @@ const ProfileDetailsButtonEdit = ({ profile, auth }) => {
 }
 
 ProfileDetailsButtonEdit.propTypes = {
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  profile: PropTypes.object,
+  auth: PropTypes.object
 }
 
 export default ProfileDetailsButtonEdit

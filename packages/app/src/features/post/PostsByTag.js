@@ -80,8 +80,8 @@ const PostsByTag = ({ history, match }) => {
 }
 
 PostsByTag.propTypes = {
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  history: PropTypes.object,
+  match: PropTypes.object
 }
 
 export default PostsByTag

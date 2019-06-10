@@ -27,7 +27,7 @@ function PostDetailsType({ post }) {
 }
 
 PostDetailsType.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsType

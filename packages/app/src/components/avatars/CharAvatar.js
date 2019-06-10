@@ -79,11 +79,11 @@ function CharAvatar({ size, fontSize, charString, profileColor, border }) {
 }
 
 CharAvatar.propTypes = {
-  size: PropTypes.string.isRequired,
-  fontSize: PropTypes.string.isRequired,
-  charString: PropTypes.string.isRequired,
-  profileColor: PropTypes.string.isRequired,
-  border: PropTypes.string.isRequired
+  size: PropTypes.string,
+  fontSize: PropTypes.string,
+  charString: PropTypes.string,
+  profileColor: PropTypes.string,
+  border: PropTypes.string
 }
 
 export default CharAvatar

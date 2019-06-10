@@ -1,4 +1,3 @@
-// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
@@ -6,27 +5,17 @@ import 'moment/locale/de'
 import CodeBlock from '../common/CodeBlock'
 import ReactMarkdown from 'react-markdown'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { updateSubComment, deleteSubComment } from './_services'
 
-// Components
 import Link from '../../components/Link'
 import SubCommentEdit from './SubCommentEdit'
 import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
 import SubCommentFeedItemMenu from './SubCommentFeedItemMenu'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Icons
 import { MoreVert } from '@material-ui/icons'
-
-// Material Core
 import {
-  // List,
   ListItem,
   IconButton,
   ListItemText,
@@ -110,13 +99,11 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments, index }) 
             <SubCommentFeedItemAvatar subComment={subComment} />
             <ListItemText
               primary={
-                <Typography>
-                  <ReactMarkdown
-                    source={subComment.text}
-                    escapeHtml={false}
-                    renderers={{ code: CodeBlock }}
-                  />
-                </Typography>
+                <ReactMarkdown
+                  source={subComment.text}
+                  escapeHtml={false}
+                  renderers={{ code: CodeBlock }}
+                />
               }
               secondary={
                 <React.Fragment>
@@ -163,10 +150,10 @@ const SubCommentFeedItem = ({ subComment, subComments, setSubComments, index }) 
 }
 
 SubCommentFeedItem.propTypes = {
-  subComment: PropTypes.object.isRequired,
-  subComments: PropTypes.array.isRequired,
-  setSubComments: PropTypes.func.isRequired,
-  index: PropTypes.string.isRequired
+  subComment: PropTypes.object,
+  subComments: PropTypes.array,
+  setSubComments: PropTypes.func,
+  index: PropTypes.number
 }
 
 export default SubCommentFeedItem

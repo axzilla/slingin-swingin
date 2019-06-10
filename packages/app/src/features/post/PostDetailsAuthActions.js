@@ -43,9 +43,9 @@ function PostDetailsAuthActions({ post, auth, history }) {
 }
 
 PostDetailsAuthActions.propTypes = {
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  post: PropTypes.object,
+  auth: PropTypes.object,
+  history: PropTypes.object
 }
 
 export default PostDetailsAuthActions

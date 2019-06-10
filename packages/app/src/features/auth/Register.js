@@ -172,7 +172,7 @@ const Register = ({ history }) => {
 }
 
 Register.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 }
 
 export default Register

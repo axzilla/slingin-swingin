@@ -30,7 +30,7 @@ function SubCommentFeedItemAvatar({ subComment }) {
 }
 
 SubCommentFeedItemAvatar.propTypes = {
-  subComment: PropTypes.object.isRequired
+  subComment: PropTypes.object
 }
 
 export default SubCommentFeedItemAvatar

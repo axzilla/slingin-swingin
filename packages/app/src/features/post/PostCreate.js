@@ -284,7 +284,7 @@ function PostCreate({ history }) {
 }
 
 PostCreate.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 }
 
 export default PostCreate

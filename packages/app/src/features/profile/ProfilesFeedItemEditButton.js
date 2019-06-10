@@ -17,8 +17,8 @@ const ProfilesFeedItemEditButton = ({ profile, auth }) => {
 }
 
 ProfilesFeedItemEditButton.propTypes = {
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  profile: PropTypes.object,
+  auth: PropTypes.object
 }
 
 export default ProfilesFeedItemEditButton

@@ -5,7 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/styles/prism'
 
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardContent, FormControl, Button, TextField, Typography } from '@material-ui/core'
+import { Card, CardContent, FormControl, Button, TextField } from '@material-ui/core'
 
 const useStyles = makeStyles({
   cardPreview: {
@@ -25,7 +25,7 @@ function CodeBlock({ language, value }) {
 }
 
 CodeBlock.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   language: PropTypes.string
 }
 
@@ -131,9 +131,7 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
       {value && withPreview ? (
         <Card className={classes.cardPreview}>
           <CardContent>
-            <Typography>
-              <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
-            </Typography>
+            <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
           </CardContent>
         </Card>
       ) : null}
@@ -143,10 +141,10 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
 
 MarkdownEditor.propTypes = {
   withPreview: PropTypes.bool,
-  text: PropTypes.string.isRequired,
-  setText: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  setText: PropTypes.func,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
   name: PropTypes.string,
   rows: PropTypes.number,
   label: PropTypes.string

@@ -1,27 +1,21 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 import CodeBlock from '../common/CodeBlock'
 import ReactMarkdown from 'react-markdown'
 
-// Material Core
-import { Typography } from '@material-ui/core'
-
 function CommentFeedItemtext({ comment }) {
   return (
-    <Typography>
-      <ReactMarkdown
-        source={comment.text}
-        escapeHtml={false}
-        renderers={{ code: CodeBlock }}
-        type="read"
-      />
-    </Typography>
+    <ReactMarkdown
+      source={comment.text}
+      escapeHtml={false}
+      renderers={{ code: CodeBlock }}
+      type="read"
+    />
   )
 }
 
 CommentFeedItemtext.propTypes = {
-  comment: PropTypes.string.isRequired
+  comment: PropTypes.object
 }
 
 export default CommentFeedItemtext

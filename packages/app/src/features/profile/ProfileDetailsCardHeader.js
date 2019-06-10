@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth, setProfile }) => {
+const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth }) => {
   const classes = useStyles()
 
   return (
@@ -57,10 +57,9 @@ const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth, setProfile }) => {
 }
 
 ProfileDetailsCardHeader.propTypes = {
-  rgbaColor: PropTypes.string.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  setProfile: PropTypes.func.isRequired
+  rgbaColor: PropTypes.string,
+  profile: PropTypes.object,
+  auth: PropTypes.object
 }
 
 export default ProfileDetailsCardHeader

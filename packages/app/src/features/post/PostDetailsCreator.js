@@ -23,7 +23,7 @@ function PostDetailsCreator({ post }) {
 }
 
 PostDetailsCreator.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsCreator

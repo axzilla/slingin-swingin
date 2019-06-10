@@ -85,7 +85,7 @@ const ProfileDetails = ({ match }) => {
 }
 
 ProfileDetails.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object
 }
 
 export default ProfileDetails

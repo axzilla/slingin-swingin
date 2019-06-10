@@ -27,8 +27,8 @@ function CustomLink({ children, to }) {
 }
 
 CustomLink.propTypes = {
-  children: PropTypes.node.isRequired,
-  to: PropTypes.string.isRequired
+  children: PropTypes.node,
+  to: PropTypes.string
 }
 
 export default CustomLink

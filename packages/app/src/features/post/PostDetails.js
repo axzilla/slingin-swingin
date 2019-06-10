@@ -157,8 +157,8 @@ function PostDetails({ match, history }) {
 }
 
 PostDetails.propTypes = {
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  history: PropTypes.object,
+  match: PropTypes.object
 }
 
 export default PostDetails

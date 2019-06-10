@@ -90,8 +90,8 @@ function Layout({ children, history }) {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  history: PropTypes.object.isRequired
+  children: PropTypes.node,
+  history: PropTypes.object
 }
 
 export default withRouter(Layout)

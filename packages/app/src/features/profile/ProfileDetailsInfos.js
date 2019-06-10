@@ -71,7 +71,7 @@ const ProfileDetailsInfos = ({ profile }) => {
 }
 
 ProfileDetailsInfos.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object
 }
 
 export default ProfileDetailsInfos

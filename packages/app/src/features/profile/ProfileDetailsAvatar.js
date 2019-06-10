@@ -40,8 +40,8 @@ const ProfileDetailsAvatar = ({ rgbaColor, profile }) => {
 }
 
 ProfileDetailsAvatar.propTypes = {
-  rgbaColor: PropTypes.string.isRequired,
-  profile: PropTypes.object.isRequired
+  rgbaColor: PropTypes.string,
+  profile: PropTypes.object
 }
 
 export default ProfileDetailsAvatar

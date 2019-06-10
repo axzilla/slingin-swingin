@@ -25,7 +25,7 @@ function PostDetailsAvatar({ post }) {
 }
 
 PostDetailsAvatar.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsAvatar

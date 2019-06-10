@@ -53,9 +53,9 @@ function SubCommentCreate({ comment, subComments, setSubComments }) {
 }
 
 SubCommentCreate.propTypes = {
-  comment: PropTypes.object.isRequired,
-  subComments: PropTypes.array.isRequired,
-  setSubComments: PropTypes.func.isRequired
+  comment: PropTypes.object,
+  subComments: PropTypes.array,
+  setSubComments: PropTypes.func
 }
 
 export default SubCommentCreate

@@ -27,7 +27,7 @@ function PostsByTagHeaderCard({ match }) {
 }
 
 PostsByTagHeaderCard.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object
 }
 
 export default PostsByTagHeaderCard

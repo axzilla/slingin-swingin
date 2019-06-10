@@ -30,8 +30,8 @@ const useStyles = makeStyles({
 })
 
 TabContainer.propTypes = {
-  children: PropTypes.object.isRequired,
-  dir: PropTypes.object.isRequired
+  children: PropTypes.object,
+  dir: PropTypes.object
 }
 
 const ProfileDetailsTabs = ({ commentsByUserId, postsByUserId, setPostsByUserId }) => {
@@ -73,9 +73,9 @@ const ProfileDetailsTabs = ({ commentsByUserId, postsByUserId, setPostsByUserId 
 }
 
 ProfileDetailsTabs.propTypes = {
-  postsByUserId: PropTypes.array.isRequired,
-  setPostsByUserId: PropTypes.func.isRequired,
-  commentsByUserId: PropTypes.array.isRequired
+  postsByUserId: PropTypes.array,
+  setPostsByUserId: PropTypes.func,
+  commentsByUserId: PropTypes.array
 }
 
 export default ProfileDetailsTabs

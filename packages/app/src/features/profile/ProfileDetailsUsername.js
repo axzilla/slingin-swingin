@@ -34,8 +34,8 @@ const ProfileDetailsUsername = ({ profile, rgbaColor }) => {
 }
 
 ProfileDetailsUsername.propTypes = {
-  profile: PropTypes.object.isRequired,
-  rgbaColor: PropTypes.string.isRequired
+  profile: PropTypes.object,
+  rgbaColor: PropTypes.string
 }
 
 export default ProfileDetailsUsername

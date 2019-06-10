@@ -40,7 +40,7 @@ function WidgetTopPostsTags() {
 }
 
 WidgetTopPostsTags.propTypes = {
-  postTags: PropTypes.array.isRequired
+  postTags: PropTypes.array
 }
 
 export default WidgetTopPostsTags
