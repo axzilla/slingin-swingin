@@ -1,14 +1,10 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/styles/prism'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Card, CardContent, FormControl, Button, TextField, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
