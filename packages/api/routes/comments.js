@@ -101,7 +101,7 @@ router.get('/getByUserId/:userId', (req, res) => {
   Comment.find({ user: req.params.userId })
     .sort({ dateCreated: -1 })
     .populate('user', ['name', 'username', 'avatar'])
-    .populate('refPostId', ['title', 'shortId', 'urlSlug'])
+    .populate('refPost', ['title', 'shortId', 'urlSlug'])
     .then(comments => res.json(comments))
 })
 
