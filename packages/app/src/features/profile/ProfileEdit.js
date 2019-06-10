@@ -16,7 +16,6 @@ import {
   CardContent,
   Typography,
   FormControl,
-  FormHelperText,
   TextField,
   Button
 } from '@material-ui/core'
@@ -41,7 +40,6 @@ const useStyles = makeStyles({
 const ProfileEdit = ({ history }) => {
   const classes = useStyles()
   const [profile, setProfile] = useState({})
-  const [errors, setErrors] = useState()
   const [state, setState] = useState({
     displayColorPicker: false,
     color: '',
@@ -70,11 +68,7 @@ const ProfileEdit = ({ history }) => {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    try {
-      getCurrentProfile().then(profile => setProfile(profile))
-    } catch (err) {
-      setErrors(err.response.data)
-    }
+    getCurrentProfile().then(res => setProfile(res.data))
   }, [])
 
   useEffect(() => {
@@ -154,7 +148,6 @@ const ProfileEdit = ({ history }) => {
         <FormControl className={classes.formControl} error>
           <TextField
             type="text"
-            error={errors.twitter ? true : false}
             placeholder="Twitter URL"
             label="Twitter"
             margin="normal"
@@ -163,14 +156,10 @@ const ProfileEdit = ({ history }) => {
             value={state.twitter}
             onChange={onChange}
           />
-          {errors.twitter ? (
-            <FormHelperText className={classes.error}>{errors.twitter}</FormHelperText>
-          ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
           <TextField
             type="text"
-            error={errors.facebook ? true : false}
             placeholder="Facebook URL"
             label="Facebook"
             margin="normal"
@@ -179,14 +168,10 @@ const ProfileEdit = ({ history }) => {
             value={state.facebook}
             onChange={onChange}
           />
-          {errors.facebook ? (
-            <FormHelperText className={classes.error}>{errors.facebook}</FormHelperText>
-          ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
           <TextField
             type="text"
-            error={errors.instagram ? true : false}
             placeholder="Instagram URL"
             label="Instagram"
             margin="normal"
@@ -195,14 +180,10 @@ const ProfileEdit = ({ history }) => {
             value={state.instagram}
             onChange={onChange}
           />
-          {errors.instagram ? (
-            <FormHelperText className={classes.error}>{errors.instagram}</FormHelperText>
-          ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
           <TextField
             type="text"
-            error={errors.linkedin ? true : false}
             placeholder="LinkedIn URL"
             label="LinkedIn"
             margin="normal"
@@ -211,14 +192,10 @@ const ProfileEdit = ({ history }) => {
             value={state.linkedin}
             onChange={onChange}
           />
-          {errors.linkedin ? (
-            <FormHelperText className={classes.error}>{errors.linkedin}</FormHelperText>
-          ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
           <TextField
             type="text"
-            error={errors.xing ? true : false}
             placeholder="Xing URL"
             label="Xing"
             margin="normal"
@@ -227,14 +204,10 @@ const ProfileEdit = ({ history }) => {
             value={state.xing}
             onChange={onChange}
           />
-          {errors.xing ? (
-            <FormHelperText className={classes.error}>{errors.xing}</FormHelperText>
-          ) : null}
         </FormControl>
         <FormControl className={classes.formControl} error>
           <TextField
             type="text"
-            error={errors.youtube ? true : false}
             placeholder="Youtube URL"
             label="Youtube"
             margin="normal"
@@ -243,9 +216,6 @@ const ProfileEdit = ({ history }) => {
             value={state.youtube}
             onChange={onChange}
           />
-          {errors.youtube ? (
-            <FormHelperText className={classes.error}>{errors.youtube}</FormHelperText>
-          ) : null}
         </FormControl>
       </div>
     )
@@ -261,7 +231,6 @@ const ProfileEdit = ({ history }) => {
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.name ? true : false}
                   placeholder="Wie heisst du?"
                   label="Name"
                   margin="normal"
@@ -270,14 +239,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.name}
                   onChange={onChange}
                 />
-                {errors.name ? (
-                  <FormHelperText className={classes.error}>{errors.name}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.status ? true : false}
                   placeholder="z.B Junior Developer"
                   label="Status"
                   margin="normal"
@@ -286,14 +251,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.status}
                   onChange={onChange}
                 />
-                {errors.status ? (
-                  <FormHelperText className={classes.error}>{errors.status}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.company ? true : false}
                   placeholder="z.B einen Arbeitgeber"
                   label="Firma"
                   margin="normal"
@@ -302,14 +263,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.company}
                   onChange={onChange}
                 />
-                {errors.company ? (
-                  <FormHelperText className={classes.error}>{errors.company}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.website ? true : false}
                   placeholder="Website URL"
                   label="Website"
                   margin="normal"
@@ -318,14 +275,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.website}
                   onChange={onChange}
                 />
-                {errors.website ? (
-                  <FormHelperText className={classes.error}>{errors.website}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.location ? true : false}
                   placeholder="Woher kommst du?"
                   label="Ort"
                   margin="normal"
@@ -334,14 +287,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.location}
                   onChange={onChange}
                 />
-                {errors.location ? (
-                  <FormHelperText className={classes.error}>{errors.location}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.github ? true : false}
                   placeholder="Github Benutzername"
                   label="Github"
                   margin="normal"
@@ -350,14 +299,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.github}
                   onChange={onChange}
                 />
-                {errors.github ? (
-                  <FormHelperText className={classes.error}>{errors.github}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.gitlab ? true : false}
                   placeholder="Gitlab Benutzername"
                   label="Gitlab"
                   margin="normal"
@@ -366,14 +311,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.gitlab}
                   onChange={onChange}
                 />
-                {errors.gitlab ? (
-                  <FormHelperText className={classes.error}>{errors.gitlab}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.bitbucket ? true : false}
                   placeholder="Bitbucket Benutzername"
                   label="Bitbucket"
                   margin="normal"
@@ -382,14 +323,10 @@ const ProfileEdit = ({ history }) => {
                   value={state.bitbucket}
                   onChange={onChange}
                 />
-                {errors.bitbucket ? (
-                  <FormHelperText className={classes.error}>{errors.bitbucket}</FormHelperText>
-                ) : null}
               </FormControl>
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  error={errors.bio ? true : false}
                   multiline
                   rowsMax="4"
                   placeholder="Schreib etwas über dich!"
@@ -400,9 +337,6 @@ const ProfileEdit = ({ history }) => {
                   value={state.bio}
                   onChange={onChange}
                 />
-                {errors.bio ? (
-                  <FormHelperText className={classes.error}>{errors.bio}</FormHelperText>
-                ) : null}
               </FormControl>
               <Typography>Profilfarbe</Typography>
               <ProfileEditColorPicker
