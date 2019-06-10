@@ -4,15 +4,13 @@ const router = express.Router()
 const Post = require('../models/Post')
 const Profile = require('../models/Profile')
 
-// @route   GET api/search
-// @desc    Get Posts and Profiles by Search
-// @access  Public
+// Get Posts and Profiles by Search
+
 router.get('/:searchText', (req, res) => {
-  const searchResult = {
+  let searchResult = {
     posts: [],
     profiles: []
   }
-
   Post.find({
     $or: [
       { title: { $regex: req.params.searchText, $options: 'i' } },
@@ -21,7 +19,7 @@ router.get('/:searchText', (req, res) => {
   })
     .populate('user', ['name', 'username', 'avatar'])
     .then(posts => {
-      searchResult.posts = [...posts.filter(post => post.published)]
+      searchResult.posts = posts
     })
     .then(() =>
       Profile.find()
@@ -42,7 +40,7 @@ router.get('/:searchText', (req, res) => {
         })
     )
     .then(() => res.json(searchResult))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err)) // eslint-disable-line no-console
 })
 
 module.exports = router

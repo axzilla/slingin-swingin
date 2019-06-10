@@ -6,7 +6,7 @@ import ProfilesFeedItem from '../profile/ProfilesFeedItem'
 
 import { Grid, Button } from '@material-ui/core'
 
-const SearchProfileFeed = ({ profiles, searchString }) => {
+const SearchProfileFeed = ({ searchResult }) => {
   const [limit, setLimit] = useState(10)
 
   const loadMore = () => {
@@ -15,27 +15,20 @@ const SearchProfileFeed = ({ profiles, searchString }) => {
 
   let profileItems
 
-  if (profiles === null) {
+  if (searchResult.profiles === null) {
     profileItems = <Spinner />
   } else {
     const location = 'getProfilesBySearch'
-    profileItems = profiles
+    profileItems = searchResult.profiles
       .slice(0, limit)
-      .map(profile => (
-        <ProfilesFeedItem
-          location={location}
-          key={profile._id}
-          profile={profile}
-          searchString={searchString}
-        />
-      ))
+      .map(profile => <ProfilesFeedItem location={location} key={profile._id} profile={profile} />)
   }
 
   return (
     <Grid container direction="column" alignItems="center">
       <Grid item xs={12} sm={8} md={6}>
         {profileItems}
-        {profiles && profileItems.length === profiles.length ? null : (
+        {searchResult.profiles && profileItems.length === searchResult.profiles.length ? null : (
           <Button onClick={loadMore} variant="outlined" color="primary">
             Mehr...
           </Button>
@@ -46,7 +39,7 @@ const SearchProfileFeed = ({ profiles, searchString }) => {
 }
 
 SearchProfileFeed.propTypes = {
-  profiles: PropTypes.object.isRequired,
+  searchResult: PropTypes.object.isRequired,
   searchString: PropTypes.string.isRequired
 }
 

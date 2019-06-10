@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withRouter } from 'react-router-dom'
-
 import { useAuth } from '../../contexts/auth'
-
 import Link from '../../components/Link'
-
 import isEmpty from '../../utils/isEmpty'
-
 import { searchFunc } from '../search/_services'
 
 import {
@@ -337,6 +334,12 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
       </Drawer>
     </div>
   )
+}
+
+ToolbarApp.propTypes = {
+  history: PropTypes.object.isRequired,
+  isLightTheme: PropTypes.bool.isRequired,
+  onThemeToggleClick: PropTypes.func.isRequired
 }
 
 export default withRouter(ToolbarApp)

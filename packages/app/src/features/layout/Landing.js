@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
+import { handlePostLikes, handlePostBookmarks } from '../post/_services'
 import { getPosts, getPostsTags } from '../post/_services'
 import { getProfiles } from '../profile/_services'
 
@@ -44,6 +45,34 @@ function Landing({ history }) {
     setLimit(limit + 10)
   }
 
+  function onLikeClick(postId) {
+    handlePostLikes(postId).then(res => {
+      const updatedPost = res.data
+
+      const index = posts.indexOf(
+        posts.filter(post => {
+          return post._id === updatedPost._id
+        })[0]
+      )
+
+      setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)])
+    })
+  }
+
+  function onBookmarkClick(postId) {
+    handlePostBookmarks(postId).then(res => {
+      const updatedPost = res.data
+
+      const index = posts.indexOf(
+        posts.filter(post => {
+          return post._id === updatedPost._id
+        })[0]
+      )
+
+      setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)])
+    })
+  }
+
   return (
     <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
       <Hidden smDown>
@@ -59,11 +88,12 @@ function Landing({ history }) {
               .slice(0, limit)
               .map(post => (
                 <PostFeedItem
-                  clickLocation={'allPosts'}
                   key={post._id}
                   post={post}
                   history={history}
                   auth={auth}
+                  onLikeClick={onLikeClick}
+                  onBookmarkClick={onBookmarkClick}
                 />
               ))}
           {posts && posts.slice(0, limit).length === posts.length ? null : (

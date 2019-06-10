@@ -74,9 +74,9 @@ function PostCreate({ history }) {
   const [titleImage, setTitleImage] = useState(null)
   const [titleImagePreview, setTitleImagePreview] = useState(null)
   const [tagsInput, setTagsInput] = useState('')
+  const [text, setText] = useState('')
   const [postData, setPostdata] = useState({
     title: '',
-    text: '',
     type: '',
     tags: []
   })
@@ -91,14 +91,14 @@ function PostCreate({ history }) {
     const formData = new FormData()
     formData.append('titleImage', titleImage)
     formData.append('title', postData.title)
-    formData.append('text', postData.text)
+    formData.append('text', text)
     formData.append('type', postData.type)
     formData.append('tags', postData.tags)
     formData.append('published', published)
 
     try {
       await addPost(formData)
-      history.push('/posts')
+      history.push('/')
     } catch (err) {
       setErrors(err.response.data)
     }
@@ -118,18 +118,15 @@ function PostCreate({ history }) {
     }
   }
 
-  function onReactQuillChange(e) {
-    setPostdata({
-      ...postData,
-      text: e
-    })
-  }
-
   function onChange(e) {
     setPostdata({
       ...postData,
       [e.target.name]: e.target.value
     })
+  }
+
+  function onTextChange(e) {
+    setText(e.target.value)
   }
 
   function onTagsInputChange(e) {
@@ -204,11 +201,13 @@ function PostCreate({ history }) {
             ) : null}
           </FormControl>
           <FormControl className={classes.formControl} error>
-            <MarkdownEditor value={postData.text} onChange={onReactQuillChange} />
-
-            {errors && errors.text ? (
-              <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
-            ) : null}
+            <MarkdownEditor
+              withPreview
+              value={text}
+              onChange={onTextChange}
+              rows={10}
+              setText={setText}
+            />
           </FormControl>
           <FormControl
             variant="outlined"
@@ -269,23 +268,11 @@ function PostCreate({ history }) {
             <Grid item>
               <Button
                 className={classes.button}
-                type="submit"
                 color="primary"
                 variant="outlined"
-                onClick={() => onSubmit({ published: true })}
+                onClick={onSubmit}
               >
                 Veröffentlichen
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                className={classes.button}
-                type="submit"
-                color="primary"
-                variant="outlined"
-                onClick={() => onSubmit({ published: false })}
-              >
-                Entwurf speichern
               </Button>
             </Grid>
           </Grid>

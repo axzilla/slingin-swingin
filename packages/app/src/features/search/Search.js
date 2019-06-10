@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import qs from 'query-string'
@@ -12,15 +12,24 @@ import { searchFunc } from './_services'
 
 import { Grid } from '@material-ui/core'
 
-const Search = ({ searchResult, location }) => {
+const Search = ({ location }) => {
+  const [searchResult, setSearchResult] = useState()
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
+
     const values = qs.parse(location.search)
     const searchString = values.q
-    searchFunc(searchString)
+    searchFunc(searchString).then(res => setSearchResult(res.data))
   }, [])
+
+  useEffect(() => {
+    const values = qs.parse(location.search)
+    const searchString = values.q
+    searchFunc(searchString).then(res => setSearchResult(res.data))
+  }, [location.search])
 
   let content
 
@@ -32,9 +41,9 @@ const Search = ({ searchResult, location }) => {
     content = (
       <React.Fragment>
         <SearchTabs
-          posts={searchResult.posts}
-          profiles={searchResult.profiles}
+          searchResult={searchResult}
           searchString={searchString}
+          setSearchResult={setSearchResult}
         />
       </React.Fragment>
     )
@@ -44,7 +53,6 @@ const Search = ({ searchResult, location }) => {
 }
 
 Search.propTypes = {
-  searchResult: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired
 }
 
