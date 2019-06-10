@@ -22,9 +22,9 @@ function PostDetailsLikes({ onBookmarkClick, post, auth }) {
 }
 
 PostDetailsLikes.propTypes = {
-  onBookmarkClick: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  onBookmarkClick: PropTypes.func,
+  post: PropTypes.object,
+  auth: PropTypes.object
 }
 
 export default PostDetailsLikes

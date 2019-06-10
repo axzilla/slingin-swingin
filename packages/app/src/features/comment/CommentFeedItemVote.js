@@ -1,20 +1,11 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { upvoteComment, downvoteComment } from './_services'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Grid, Typography, Button } from '@material-ui/core'
-
-// Material Colors
 import { red, brown } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +13,6 @@ const useStyles = makeStyles(theme => ({
     margin: '5px 0 5px'
   },
   button: {
-    // margin: `0 ${theme.spacing(1)}px`,
     padding: theme.spacing(1.5)
   }
 }))
@@ -91,9 +81,9 @@ function CommentFeedItemVote({ comment, commentsByPostRef, setCommentsByPostRef 
 }
 
 CommentFeedItemVote.propTypes = {
-  comment: PropTypes.string.isRequired,
-  commentsByPostRef: PropTypes.array.isRequired,
-  setCommentsByPostRef: PropTypes.func.isRequired
+  comment: PropTypes.object,
+  commentsByPostRef: PropTypes.array,
+  setCommentsByPostRef: PropTypes.func
 }
 
 export default CommentFeedItemVote

@@ -20,9 +20,9 @@ function PostDetailsLikes({ onLikeClick, post, auth }) {
 }
 
 PostDetailsLikes.propTypes = {
-  onLikeClick: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  onLikeClick: PropTypes.func,
+  post: PropTypes.object,
+  auth: PropTypes.object
 }
 
 export default PostDetailsLikes

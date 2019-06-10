@@ -58,7 +58,7 @@ const ProfileDetailsTabsComments = ({ commentsByUserId }) => {
 }
 
 ProfileDetailsTabsComments.propTypes = {
-  commentsByUserId: PropTypes.array.isRequired
+  commentsByUserId: PropTypes.array
 }
 
 export default ProfileDetailsTabsComments

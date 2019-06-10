@@ -59,7 +59,7 @@ function Verify({ match }) {
 }
 
 Verify.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object
 }
 
 export default Verify

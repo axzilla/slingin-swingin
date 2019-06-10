@@ -152,7 +152,7 @@ function Login({ history }) {
 }
 
 Login.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 }
 
 export default Login

@@ -33,8 +33,8 @@ function SubCommentEdit({ subComment, onSaveClick }) {
 }
 
 SubCommentEdit.propTypes = {
-  subComment: PropTypes.string.isRequired,
-  onSaveClick: PropTypes.func.isRequired
+  subComment: PropTypes.string,
+  onSaveClick: PropTypes.func
 }
 
 export default SubCommentEdit

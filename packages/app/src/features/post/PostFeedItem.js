@@ -209,13 +209,13 @@ function PostFeedItem({ history, post, onLikeClick, onBookmarkClick }) {
 }
 
 PostFeedItem.propTypes = {
-  history: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  userPostsId: PropTypes.string.isRequired,
-  searchString: PropTypes.string.isRequired,
-  onLikeClick: PropTypes.func.isRequired,
-  onBookmarkClick: PropTypes.func.isRequired
+  history: PropTypes.object,
+  post: PropTypes.object,
+  auth: PropTypes.object,
+  userPostsId: PropTypes.string,
+  searchString: PropTypes.string,
+  onLikeClick: PropTypes.func,
+  onBookmarkClick: PropTypes.func
 }
 
 export default PostFeedItem

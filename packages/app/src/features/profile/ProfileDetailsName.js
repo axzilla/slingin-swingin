@@ -33,8 +33,8 @@ const ProfileDetailsName = ({ profile, rgbaColor }) => {
 }
 
 ProfileDetailsName.propTypes = {
-  profile: PropTypes.object.isRequired,
-  rgbaColor: PropTypes.string.isRequired
+  profile: PropTypes.object,
+  rgbaColor: PropTypes.string
 }
 
 export default ProfileDetailsName

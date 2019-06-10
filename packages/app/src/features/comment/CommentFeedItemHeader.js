@@ -1,22 +1,14 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
-// Component
 import Link from '../../components/Link'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { CardHeader, Avatar, IconButton } from '@material-ui/core'
-
-// Material Icons
 import { MoreVert } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
@@ -72,8 +64,8 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
 }
 
 CommentFeedItemHeader.propTypes = {
-  comment: PropTypes.string.isRequired,
-  handleMenuClick: PropTypes.func.isRequired
+  comment: PropTypes.object,
+  handleMenuClick: PropTypes.func
 }
 
 export default CommentFeedItemHeader

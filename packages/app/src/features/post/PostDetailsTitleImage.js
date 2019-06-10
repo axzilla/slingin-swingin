@@ -22,7 +22,7 @@ function PostDetailsTitleImage({ post }) {
 }
 
 PostDetailsTitleImage.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsTitleImage

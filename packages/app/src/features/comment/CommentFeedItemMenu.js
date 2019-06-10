@@ -1,11 +1,8 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// Material Core
 import { Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core'
 
-// Material Icons
 import { Edit, Delete } from '@material-ui/icons'
 
 function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuClose, anchorEl }) {
@@ -53,11 +50,11 @@ function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuCl
 }
 
 CommentFeedItemMenu.propTypes = {
-  comment: PropTypes.string.isRequired,
-  onEditClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
-  handleMenuClose: PropTypes.func.isRequired,
-  anchorEl: PropTypes.object.isRequired
+  comment: PropTypes.object,
+  onEditClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
+  handleMenuClose: PropTypes.func,
+  anchorEl: PropTypes.object
 }
 
 export default CommentFeedItemMenu

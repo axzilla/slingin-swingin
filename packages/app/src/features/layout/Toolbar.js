@@ -333,9 +333,9 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
 }
 
 ToolbarApp.propTypes = {
-  history: PropTypes.object.isRequired,
-  isLightTheme: PropTypes.bool.isRequired,
-  onThemeToggleClick: PropTypes.func.isRequired
+  history: PropTypes.object,
+  isLightTheme: PropTypes.bool,
+  onThemeToggleClick: PropTypes.func
 }
 
 export default withRouter(ToolbarApp)

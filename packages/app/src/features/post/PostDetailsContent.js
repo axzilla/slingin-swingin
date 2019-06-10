@@ -14,7 +14,7 @@ function PostDeatilsItemContent({ post }) {
 }
 
 PostDeatilsItemContent.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDeatilsItemContent

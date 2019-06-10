@@ -59,11 +59,11 @@ function SubCommentFeedItemMenu({
 }
 
 SubCommentFeedItemMenu.propTypes = {
-  subComment: PropTypes.object.isRequired,
-  onEditClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
-  handleMenuClose: PropTypes.func.isRequired,
-  anchorEl: PropTypes.object.isRequired
+  subComment: PropTypes.object,
+  onEditClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
+  handleMenuClose: PropTypes.func,
+  anchorEl: PropTypes.object
 }
 
 export default SubCommentFeedItemMenu

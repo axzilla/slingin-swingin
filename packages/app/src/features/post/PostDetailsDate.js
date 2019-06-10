@@ -15,7 +15,7 @@ function PostDetailsDate({ post }) {
 }
 
 PostDetailsDate.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsDate

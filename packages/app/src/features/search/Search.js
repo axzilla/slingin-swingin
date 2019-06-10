@@ -53,7 +53,7 @@ const Search = ({ location }) => {
 }
 
 Search.propTypes = {
-  location: PropTypes.string.isRequired
+  location: PropTypes.string
 }
 
 export default Search

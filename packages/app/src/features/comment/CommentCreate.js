@@ -91,10 +91,10 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
 }
 
 CommentCreate.propTypes = {
-  postId: PropTypes.string.isRequired,
-  toggleAnswerMode: PropTypes.bool.isRequired,
-  commentsByPostRef: PropTypes.array.isRequired,
-  setCommentsByPostRef: PropTypes.func.isRequired
+  postId: PropTypes.string,
+  toggleAnswerMode: PropTypes.bool,
+  commentsByPostRef: PropTypes.array,
+  setCommentsByPostRef: PropTypes.func
 }
 
 export default CommentCreate

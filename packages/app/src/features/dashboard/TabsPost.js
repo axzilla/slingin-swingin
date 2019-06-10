@@ -27,7 +27,6 @@ function TabsPost({
   const { auth } = useAuth()
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
-
   function handleChange(event, newValue) {
     setValue(newValue)
   }
@@ -67,11 +66,11 @@ function TabsPost({
 }
 
 TabsPost.propTypes = {
-  postsByUserId: PropTypes.array.isRequired,
-  setPostsByUserId: PropTypes.func.isRequired,
-  postsByUserBookmark: PropTypes.array.isRequired,
-  setPostsByUserBookmark: PropTypes.func.isRequired,
-  commentsByUserId: PropTypes.array.isRequired
+  postsByUserId: PropTypes.array,
+  setPostsByUserId: PropTypes.func,
+  postsByUserBookmark: PropTypes.array,
+  setPostsByUserBookmark: PropTypes.func,
+  commentsByUserId: PropTypes.array
 }
 
 export default TabsPost

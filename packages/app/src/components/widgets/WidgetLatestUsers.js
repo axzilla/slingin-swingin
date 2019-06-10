@@ -70,7 +70,7 @@ function LandingWidgetUsers() {
 }
 
 LandingWidgetUsers.propTypes = {
-  profiles: PropTypes.array.isRequired
+  profiles: PropTypes.array
 }
 
 export default LandingWidgetUsers

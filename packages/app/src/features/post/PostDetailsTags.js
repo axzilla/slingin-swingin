@@ -22,7 +22,7 @@ function PostDetailsTags({ post }) {
 }
 
 PostDetailsTags.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsTags

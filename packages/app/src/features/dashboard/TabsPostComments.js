@@ -57,7 +57,7 @@ function TabsPostComments({ commentsByUserId }) {
 }
 
 TabsPostComments.propTypes = {
-  commentsByUserId: PropTypes.array.isRequired
+  commentsByUserId: PropTypes.array
 }
 
 export default TabsPostComments

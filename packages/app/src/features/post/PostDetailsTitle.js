@@ -12,7 +12,7 @@ function PostDetailsTitle({ post }) {
 }
 
 PostDetailsTitle.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object
 }
 
 export default PostDetailsTitle

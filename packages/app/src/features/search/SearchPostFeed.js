@@ -78,10 +78,10 @@ const SearchPostFeed = ({ searchResult, setSearchResult }) => {
 }
 
 SearchPostFeed.propTypes = {
-  posts: PropTypes.array.isRequired,
-  searchString: PropTypes.string.isRequired,
-  searchResult: PropTypes.object.isRequired,
-  setSearchResult: PropTypes.func.isRequired
+  posts: PropTypes.array,
+  searchString: PropTypes.string,
+  searchResult: PropTypes.object,
+  setSearchResult: PropTypes.func
 }
 
 export default SearchPostFeed

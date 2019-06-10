@@ -74,8 +74,8 @@ function CommentEdit({ comment, onSaveClick }) {
 }
 
 CommentEdit.propTypes = {
-  comment: PropTypes.string.isRequired,
-  onSaveClick: PropTypes.func.isRequired
+  comment: PropTypes.string,
+  onSaveClick: PropTypes.func
 }
 
 export default CommentEdit

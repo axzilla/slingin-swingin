@@ -61,11 +61,11 @@ const ProfileEditColorPicker = props => {
 }
 
 ProfileEditColorPicker.propTypes = {
-  handleColorPickerChange: PropTypes.func.isRequired,
-  handleColorPickerClick: PropTypes.func.isRequired,
-  handleColorPickerClose: PropTypes.func.isRequired,
-  displayColorPicker: PropTypes.func.isRequired,
-  rgbaColor: PropTypes.string.isRequired
+  handleColorPickerChange: PropTypes.func,
+  handleColorPickerClick: PropTypes.func,
+  handleColorPickerClose: PropTypes.func,
+  displayColorPicker: PropTypes.func,
+  rgbaColor: PropTypes.string
 }
 
 export default ProfileEditColorPicker

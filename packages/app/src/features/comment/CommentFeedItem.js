@@ -1,15 +1,10 @@
-// Packages
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
-
-// Services
 import { updateComment, deleteComment } from './_services'
 import { getSubCommentByCommentId } from '../subComment/_services'
 
-// Components
 import CommentEdit from './CommentEdit'
 import CommentFeedItemHeader from './CommentFeedItemHeader'
 import CommentFeedItemText from './CommentFeedItemText'
@@ -18,10 +13,7 @@ import CommentFeedItemVote from './CommentFeedItemVote'
 import SubCommentFeedItem from '../subComment/SubCommentFeedItem'
 import SubCommentCreate from '../subComment/SubCommentCreate'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Card, CardContent, CardActions, Divider, List } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
@@ -170,9 +162,9 @@ function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
 }
 
 CommentFeedItem.propTypes = {
-  comment: PropTypes.string.isRequired,
-  commentsByPostRef: PropTypes.array.isRequired,
-  setCommentsByPostRef: PropTypes.func.isRequired
+  comment: PropTypes.object,
+  commentsByPostRef: PropTypes.array,
+  setCommentsByPostRef: PropTypes.func
 }
 
 export default CommentFeedItem

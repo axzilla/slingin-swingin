@@ -80,8 +80,8 @@ function ProfileDetailsTabsPosts({ postsByUserId, setPostsByUserId }) {
 }
 
 ProfileDetailsTabsPosts.propTypes = {
-  postsByUserId: PropTypes.array.isRequired,
-  setPostsByUserId: PropTypes.func.isRequired
+  postsByUserId: PropTypes.array,
+  setPostsByUserId: PropTypes.func
 }
 
 export default ProfileDetailsTabsPosts

@@ -39,8 +39,8 @@ const SearchProfileFeed = ({ searchResult }) => {
 }
 
 SearchProfileFeed.propTypes = {
-  searchResult: PropTypes.object.isRequired,
-  searchString: PropTypes.string.isRequired
+  searchResult: PropTypes.object,
+  searchString: PropTypes.string
 }
 
 export default SearchProfileFeed
