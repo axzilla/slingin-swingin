@@ -3,13 +3,10 @@ import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
-
 import { getPostsByTag, getPostsTags } from './_services'
 
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
-
-import Spinner from '../common/Spinner'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
 
 import { Button, Grid, Hidden } from '@material-ui/core'
@@ -56,7 +53,7 @@ const PostsByTag = ({ history, match }) => {
           {posts &&
             posts
               .slice(0, limit)
-              .map((post, i) => (
+              .map(post => (
                 <PostFeedItem
                   clickLocation={'allPosts'}
                   key={post._id}
@@ -65,7 +62,7 @@ const PostsByTag = ({ history, match }) => {
                   auth={auth}
                 />
               ))}
-          {posts && limit.length === posts.length ? null : (
+          {posts && posts.slice(0, limit).length === posts.length ? null : (
             <Button onClick={loadMore} variant="outlined" color="primary">
               Mehr...
             </Button>

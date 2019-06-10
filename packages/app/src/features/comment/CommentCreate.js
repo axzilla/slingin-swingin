@@ -75,13 +75,7 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
     <Grid className={classes.root} container justify="center">
       <FormControl className={classes.formControl} error>
         <form onSubmit={onSubmit}>
-          <MarkdownEditor
-            withPreview
-            text={text}
-            setText={setText}
-            onChange={onChange}
-            value={text}
-          />
+          <MarkdownEditor withPreview setText={setText} onChange={onChange} value={text} />
 
           {errors && errors.text ? (
             <FormHelperText className={classes.error}>{errors.text}</FormHelperText>

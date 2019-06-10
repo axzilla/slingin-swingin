@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }
 })
 
-const CenteredTabs = ({ posts, profiles, searchString }) => {
+const CenteredTabs = ({ searchResult, searchString, setSearchResult }) => {
   const classes = useStyles()
 
   const [value, setValue] = useState(0)
@@ -48,17 +48,21 @@ const CenteredTabs = ({ posts, profiles, searchString }) => {
         textColor="primary"
         centered
       >
-        <Tab label={`Beiträge ${posts ? posts.length : '0'}`} />
-        <Tab label={`Mitglieder  ${profiles ? profiles.length : '0'}`} />
+        <Tab label={`Beiträge ${searchResult.posts ? searchResult.posts.length : '0'}`} />
+        <Tab label={`Mitglieder  ${searchResult.profiles ? searchResult.profiles.length : '0'}`} />
       </Tabs>
       {value === 0 && (
         <TabContainer>
-          <SearchPostFeed posts={posts} searchString={searchString} />
+          <SearchPostFeed
+            searchResult={searchResult}
+            searchString={searchString}
+            setSearchResult={setSearchResult}
+          />
         </TabContainer>
       )}
       {value === 1 && (
         <TabContainer>
-          <SearchProfileFeed profiles={profiles} searchString={searchString} />
+          <SearchProfileFeed searchResult={searchResult} searchString={searchString} />
         </TabContainer>
       )}
     </Grid>
@@ -68,7 +72,9 @@ const CenteredTabs = ({ posts, profiles, searchString }) => {
 CenteredTabs.propTypes = {
   posts: PropTypes.array.isRequired,
   profiles: PropTypes.array.isRequired,
-  searchString: PropTypes.string.isRequired
+  searchString: PropTypes.string.isRequired,
+  searchResult: PropTypes.array.isRequired,
+  setSearchResult: PropTypes.func.isRequired
 }
 
 export default CenteredTabs

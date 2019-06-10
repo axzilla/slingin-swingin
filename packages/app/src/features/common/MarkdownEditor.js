@@ -37,7 +37,7 @@ CodeBlock.defaultProps = {
   language: null
 }
 
-function MarkdownEditor({ withPreview, text, setText, onChange, value }) {
+function MarkdownEditor({ withPreview, setText, onChange, value, name, label, rows }) {
   const classes = useStyles()
 
   const mdStrings = {
@@ -51,95 +51,50 @@ function MarkdownEditor({ withPreview, text, setText, onChange, value }) {
     img: '![Image](https://source.unsplash.com/random/100x100)'
   }
 
-  function createBreakline() {
-    setText(text + '  ')
-  }
-
-  function onKeyDown(e) {
-    if (e.keyCode === 13) {
-      createBreakline()
-    }
-  }
-
   function onCodeClick() {
-    const selected = window.getSelection().toString()
-
-    if (selected) {
-      setText(text.replace(selected, '```\n' + selected + '\n```'))
-    } else {
-      setText(text + mdStrings.code)
-    }
+    setText(value + mdStrings.code)
   }
 
   function onBoldClick() {
-    const selected = window.getSelection().toString()
-
-    if (selected) {
-      setText(text.replace(selected, `**${selected}**`))
-    } else {
-      setText(text + mdStrings.bold)
-    }
+    setText(value + mdStrings.bold)
   }
 
   function onItalicClick() {
-    const selected = window.getSelection().toString()
-
-    if (selected) {
-      setText(text.replace(selected, `*${selected}*`))
-    } else {
-      setText(text + mdStrings.italic)
-    }
+    setText(value + mdStrings.italic)
   }
 
   function onUlClick() {
-    const selected = window.getSelection().toString()
-
-    if (selected) {
-      setText(text.replace(selected, `- ${selected}`))
-    } else {
-      setText(text + mdStrings.ul)
-    }
+    setText(value + mdStrings.ul)
   }
 
   function onOlClick() {
-    const selected = window.getSelection().toString()
-
-    if (selected) {
-      setText(text.replace(selected, `1. ${selected}`))
-    } else {
-      setText(text + mdStrings.ol)
-    }
+    setText(value + mdStrings.ol)
   }
 
   function onLinkClick() {
-    setText(text + mdStrings.link)
+    setText(value + mdStrings.link)
   }
 
   function onQuoteClick() {
-    const selected = window.getSelection().toString()
-
-    if (selected) {
-      setText(text.replace(selected, `> ${selected}`))
-    } else {
-      setText(text + mdStrings.quote)
-    }
+    setText(value + mdStrings.quote)
   }
 
   function onImgClick() {
-    setText(text + mdStrings.img)
+    setText(value + mdStrings.img)
   }
 
   return (
     <>
       <FormControl fullWidth error>
         <TextField
-          label="Kommentieren (Markdown)"
+          label={label}
           margin="normal"
           multiline
           variant="outlined"
           value={value}
           onChange={onChange}
-          onKeyDown={onKeyDown}
+          name={name}
+          rows={rows}
         />
 
         <Card className={classes.menu}>
@@ -177,11 +132,11 @@ function MarkdownEditor({ withPreview, text, setText, onChange, value }) {
         </Card>
       </FormControl>
 
-      {text && withPreview ? (
+      {value && withPreview ? (
         <Card className={classes.cardPreview}>
           <CardContent>
             <Typography>
-              <ReactMarkdown source={text} renderers={{ code: CodeBlock }} />
+              <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
             </Typography>
           </CardContent>
         </Card>
@@ -195,7 +150,10 @@ MarkdownEditor.propTypes = {
   text: PropTypes.string.isRequired,
   setText: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  rows: PropTypes.number,
+  label: PropTypes.string
 }
 
 export default MarkdownEditor
