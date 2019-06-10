@@ -140,18 +140,16 @@ router.post(
         res.json(post)
       }
 
-      if (post.published) {
-        // Send Mail to User - New POST - If onNewPost
-        User.find().then(users => {
-          users
-            .filter(user => {
-              return user.notifications.onNewPost
-            })
-            .map(user => {
-              mtuPostNew(post, user)
-            })
-        })
-      }
+      // Send Mail to User - New POST - If onNewPost
+      User.find().then(users => {
+        users
+          .filter(user => {
+            return user.notifications.onNewPost
+          })
+          .map(user => {
+            mtuPostNew(post, user)
+          })
+      })
     })
   }
 )
