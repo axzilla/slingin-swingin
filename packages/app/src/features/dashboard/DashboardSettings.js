@@ -1,14 +1,12 @@
-// Packages
 import React from 'react'
-
-import { makeStyles } from '@material-ui/core/styles'
-
-import { Grid } from '@material-ui/core'
 
 import ChangeEmail from '../auth/ChangeEmail'
 import ChangePassword from '../auth/ChangePassword'
 import ChangeUsername from '../auth/ChangeUsername'
 import Settings from '../auth/Settings'
+
+import { makeStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   container: {
