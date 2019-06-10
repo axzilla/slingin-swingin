@@ -221,7 +221,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
       }
 
       post.remove().then(post => {
-        Comment.deleteMany({ refPostId: post.id }, err => {
+        Comment.deleteMany({ refPost: post.id }, err => {
           err ? console.log(err) : console.log('All Postdata deleted!') // eslint-disable-line no-console
         })
 
