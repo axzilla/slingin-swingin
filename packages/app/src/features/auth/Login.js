@@ -43,7 +43,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Login = ({ history }) => {
+function Login({ history }) {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
   const { errors } = auth
@@ -58,19 +58,19 @@ const Login = ({ history }) => {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
-    // if (auth.isAuthenticated) {
-    //   history.push('/dashboard')
-    // }
+    if (auth.isAuthenticated) {
+      history.push('/dashboard')
+    }
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value
     })
   }
 
-  const onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const userData = {

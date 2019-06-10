@@ -1,49 +1,49 @@
 import axios from 'axios'
 
-export const registerUser = userData => {
+export function registerUser(userData) {
   return axios.post(`/users/register`, userData)
 }
 
-export const loginUser = loginData => {
+export function loginUser(loginData) {
   return axios.post(`/users/login`, loginData)
 }
 
-export const uploadAvatar = (formData, config) => {
+export function uploadAvatar(formData, config) {
   return axios.post(`/users/avatarUpload`, formData, config)
 }
 
-export const deleteAvatar = () => {
+export function deleteAvatar() {
   return axios.post(`/users/avatarDelete`)
 }
 
-export const verifyUser = decoded => {
+export function verifyUser(decoded) {
   return axios.post(`/users/verify`, decoded)
 }
 
-export const sendVerificationEmail = user => {
+export function sendVerificationEmail(user) {
   return axios.post(`/users/verify/send-email`, user)
 }
 
-export const forgotPassword = emailData => {
+export function forgotPassword(emailData) {
   return axios.post(`/users/forgot-password`, emailData)
 }
 
-export const setNewPassword = passwordData => {
+export function setNewPassword(passwordData) {
   return axios.post(`/users/reset-password`, passwordData)
 }
 
-export const changeUsername = usernameData => {
+export function changeUsername(usernameData) {
   return axios.post(`/users/change-username`, usernameData)
 }
 
-export const changePassword = passwordData => {
+export function changePassword(passwordData) {
   return axios.post(`/users/change-password`, passwordData)
 }
 
-export const changeEmail = emailData => {
+export function changeEmail(emailData) {
   return axios.post(`/users/change-email`, emailData)
 }
 
-export const updateSettings = settingData => {
+export function updateSettings(settingData) {
   return axios.post(`/users/change-settings`, settingData)
 }

@@ -1,19 +1,18 @@
 import React from 'react'
+import jwtDecode from 'jwt-decode'
 
 import isEmpty from '../../utils/isEmpty'
-
 import { useAuth } from '../../contexts/auth'
 
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
 import { uploadAvatar, deleteAvatar } from '../auth/_services'
 
 import { Button, Typography, Avatar, Grid } from '@material-ui/core'
 
 const ProfileEditAvatar = () => {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
 
-  const onChange = e => {
+  const onChange = async e => {
     e.preventDefault()
 
     const formData = new FormData()
@@ -25,7 +24,11 @@ const ProfileEditAvatar = () => {
       }
     }
 
-    uploadAvatar(formData, config)
+    const res = await uploadAvatar(formData, config)
+    const { token } = res.data
+    const decoded = jwtDecode(token)
+    setAuth({ isAuthenticated: true, user: decoded })
+    localStorage.setItem('jwtToken', token)
   }
 
   const onDeleteAvatarClick = e => {

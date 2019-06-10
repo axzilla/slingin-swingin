@@ -4,17 +4,15 @@ import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
 
-import Spinner from '../common/Spinner'
-
 import { getPostsByUserId } from '../post/_services'
 import { getProfileByHandle } from './_services'
 import { getCommentsByUserId } from '../comment/_services'
 
+import Spinner from '../common/Spinner'
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
 import ProfileDetailsTabs from './ProfileDetailsTabs'
 
 import { makeStyles } from '@material-ui/styles'
-
 import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({

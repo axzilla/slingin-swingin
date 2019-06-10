@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ForgotPassword = ({ history }) => {
+function ForgotPassword({ history }) {
   const { auth } = useAuth()
   const classes = useStyles()
 
@@ -57,11 +57,11 @@ const ForgotPassword = ({ history }) => {
     }
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setEmail(e.target.value)
   }
 
-  const onSubmit = e => {
+  function onSubmit(e) {
     e.preventDefault()
 
     const emailData = {

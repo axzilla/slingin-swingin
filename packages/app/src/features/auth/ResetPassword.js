@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ResetPassword = ({ history, match }) => {
+function ResetPassword({ history, match }) {
   const { auth } = useAuth()
   const classes = useStyles()
 
@@ -62,14 +62,14 @@ const ResetPassword = ({ history, match }) => {
     }
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setPasswords({
       ...passwords,
       [e.target.name]: e.target.value
     })
   }
 
-  const onSubmit = e => {
+  function onSubmit(e) {
     e.preventDefault()
     const decode = jwtDecode(match.params.token)
 

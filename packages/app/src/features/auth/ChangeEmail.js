@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ChangeEmail = () => {
+function ChangeEmail() {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
   const { errors } = auth
@@ -52,11 +52,11 @@ const ChangeEmail = () => {
     }
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setEmail(e.target.value)
   }
 
-  const onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const emailData = {

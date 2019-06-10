@@ -8,6 +8,7 @@ import { getPostsByTag, getPostsTags } from './_services'
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
+import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
 
 import { Button, Grid, Hidden } from '@material-ui/core'
 
@@ -69,7 +70,9 @@ const PostsByTag = ({ history, match }) => {
           )}
         </Grid>
         <Hidden smDown>
-          <Grid item xs={3} />
+          <Grid item xs={3}>
+            <WidgetLatestUsers />
+          </Grid>
         </Hidden>
       </Grid>
     </Grid>

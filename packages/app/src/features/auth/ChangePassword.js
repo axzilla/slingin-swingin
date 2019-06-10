@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ChangePassword = () => {
+function ChangePassword() {
   const { auth, setAuth } = useAuth()
   const classes = useStyles()
 
@@ -56,14 +56,14 @@ const ChangePassword = () => {
     }
   }, [])
 
-  const onChange = e => {
+  function onChange(e) {
     setPasswords({
       ...passwords,
       [e.target.name]: e.target.value
     })
   }
 
-  const onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault()
     const passwordData = {
       id: auth.user.id,

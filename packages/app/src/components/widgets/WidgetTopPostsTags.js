@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+
+import { getPostsTags } from '../../features/post/_services'
 
 import Link from '../Link'
 
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 
-function WidgetTopPostsTags({ postTags }) {
+function WidgetTopPostsTags() {
+  const [postTags, setPostTags] = useState()
+
+  useEffect(() => {
+    getPostsTags().then(res => {
+      setPostTags(res.data)
+    })
+  })
+
   return (
     <Card>
       <CardContent>

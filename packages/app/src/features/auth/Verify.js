@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Verify = ({ match }) => {
+function Verify({ match }) {
   const { auth } = useAuth()
   const classes = useStyles()
   const { errors } = auth
