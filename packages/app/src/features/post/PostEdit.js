@@ -268,20 +268,9 @@ function PostEdit({ match, history }) {
                 type="submit"
                 color="primary"
                 variant="outlined"
-                onClick={() => onSubmit({ published: true })}
+                onClick={onSubmit}
               >
                 Veröffentlichen
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                className={classes.button}
-                type="submit"
-                color="primary"
-                variant="outlined"
-                onClick={() => onSubmit({ published: false })}
-              >
-                Entwurf speichern
               </Button>
             </Grid>
           </Grid>
