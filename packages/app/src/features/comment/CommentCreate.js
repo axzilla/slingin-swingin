@@ -1,17 +1,11 @@
-// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// Components
 import MarkdownEditor from '../common/MarkdownEditor'
 
-// Actions
 import { createComment } from './_services'
 
-// Material Styles
 import { makeStyles } from '@material-ui/styles'
-
-// Material Core
 import { Grid, FormControl, FormHelperText, Button } from '@material-ui/core'
 
 const useStyles = makeStyles({

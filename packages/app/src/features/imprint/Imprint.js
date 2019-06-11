@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import ReactGA from 'react-ga'
-
 import { Typography, Paper } from '@material-ui/core'
 
 function Imprint() {

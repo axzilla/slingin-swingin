@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-
 import { useAuth } from '../../contexts/auth'
-
 import { getPostByShortId, deletePost, handlePostLikes, handlePostBookmarks } from './_services'
 import { getCommentsByPostRef } from '../comment/_services'
-
 import Spinner from '../common/Spinner'
 import CommentCreate from '../comment/CommentCreate'
 import CommentFeedItem from '../comment/CommentFeedItem'
@@ -21,9 +18,7 @@ import PostDetailsLikes from './PostDetailsLikes'
 import PostDetailsBookmarks from './PostDetailsBookmarks'
 import PostDetailsAuthActions from './PostDetailsAuthActions'
 import PostDetailsContent from './PostDetailsContent'
-
 import { makeStyles } from '@material-ui/styles'
-
 import { Card, CardContent, Grid, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({

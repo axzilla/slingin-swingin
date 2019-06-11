@@ -1,11 +1,6 @@
-// Packages
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-
-// Components
 import MarkdownEditor from '../common/MarkdownEditor'
-
-// Material Core
 import { Grid, Button } from '@material-ui/core'
 
 function SubCommentEdit({ subComment, onSaveClick }) {

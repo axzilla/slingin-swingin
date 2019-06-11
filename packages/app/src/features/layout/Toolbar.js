@@ -5,7 +5,6 @@ import { useAuth } from '../../contexts/auth'
 import Link from '../../components/Link'
 import isEmpty from '../../utils/isEmpty'
 import { searchFunc } from '../search/_services'
-
 import {
   AppBar,
   Toolbar,
@@ -20,7 +19,6 @@ import {
   Drawer,
   List
 } from '@material-ui/core'
-
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
@@ -28,9 +26,7 @@ import {
   AddBox,
   InvertColors as InvertColorsIcon
 } from '@material-ui/icons'
-
 import { blue } from '@material-ui/core/colors'
-
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 

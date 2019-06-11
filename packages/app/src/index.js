@@ -4,7 +4,6 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import HttpsRedirect from 'react-https-redirect'
 
-// Contexts
 import { AuthContextProvider } from './contexts/auth'
 
 ReactDOM.render(

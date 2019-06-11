@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import isEmpty from '../../utils/isEmpty'
-
 import { Typography } from '@material-ui/core'
 
-const ProfileDetailsBio = ({ profile }) => {
+function ProfileDetailsBio({ profile }) {
   return (
     <Typography gutterBottom>
       {isEmpty(profile.bio) ? (

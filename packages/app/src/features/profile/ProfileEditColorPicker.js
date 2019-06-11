@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
 import { ChromePicker } from 'react-color'
 
-const ProfileEditColorPicker = props => {
-  const {
-    handleColorPickerChange,
-    handleColorPickerClick,
-    handleColorPickerClose,
-    displayColorPicker,
-    rgbaColor
-  } = props
-
+function ProfileEditColorPicker({
+  handleColorPickerChange,
+  handleColorPickerClick,
+  handleColorPickerClose,
+  displayColorPicker,
+  rgbaColor
+}) {
   const styles = reactCSS({
     default: {
       color: {

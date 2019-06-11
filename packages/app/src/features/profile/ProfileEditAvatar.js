@@ -1,18 +1,15 @@
 import React from 'react'
 import jwtDecode from 'jwt-decode'
-
 import isEmpty from '../../utils/isEmpty'
 import { useAuth } from '../../contexts/auth'
-
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 import { uploadAvatar, deleteAvatar } from '../auth/_services'
-
 import { Button, Typography, Avatar, Grid } from '@material-ui/core'
 
-const ProfileEditAvatar = () => {
+function ProfileEditAvatar() {
   const { auth, setAuth } = useAuth()
 
-  const onChange = async e => {
+  async function onChange(e) {
     e.preventDefault()
 
     const formData = new FormData()
@@ -31,7 +28,7 @@ const ProfileEditAvatar = () => {
     localStorage.setItem('jwtToken', token)
   }
 
-  const onDeleteAvatarClick = e => {
+  function onDeleteAvatarClick(e) {
     e.preventDefault()
     if (window.confirm('Profilbild löschen?')) {
       deleteAvatar()

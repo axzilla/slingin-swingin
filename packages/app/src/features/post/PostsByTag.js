@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-
 import { getPostsByTag, getPostsTags } from './_services'
 import { handlePostLikes, handlePostBookmarks } from '../post/_services'
-
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
 import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
-
 import { Button, Grid, Hidden } from '@material-ui/core'
 
-const PostsByTag = ({ history, match }) => {
+function PostsByTag({ history, match }) {
   const [posts, setPosts] = useState()
   const [postTags, setPostTags] = useState()
   const [limit, setLimit] = useState(10)
@@ -35,7 +32,7 @@ const PostsByTag = ({ history, match }) => {
     getPostsByTag(match.params.tag)
   }, [match.params.tag])
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 

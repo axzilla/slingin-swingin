@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-
 import { withRouter } from 'react-router-dom'
 import ReactGA from 'react-ga'
-
 import { createProfile, getCurrentProfile } from './_services'
-
 import ProfileEditColorPicker from './ProfileEditColorPicker'
 import ProfileEditAvatar from './ProfileEditAvatar'
-
 import { makeStyles } from '@material-ui/styles'
 import {
   Grid,
@@ -37,7 +33,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileEdit = ({ history }) => {
+function ProfileEdit({ history }) {
   const classes = useStyles()
 
   const [profile, setProfile] = useState({})
@@ -99,7 +95,7 @@ const ProfileEdit = ({ history }) => {
   const rgbaColor = `rgba(${color && color.r}, ${color && color.g}, ${color && color.b}, ${color &&
     color.a})`
 
-  const onSubmit = e => {
+  function onSubmit(e) {
     e.preventDefault()
 
     const profileData = {
@@ -125,19 +121,19 @@ const ProfileEdit = ({ history }) => {
     createProfile(profileData, history)
   }
 
-  const onChange = e => {
+  function onChange(e) {
     setState({ ...state, [e.target.name]: e.target.value })
   }
 
-  const handleColorPickerClick = () => {
+  function handleColorPickerClick() {
     setState({ ...state, displayColorPicker: !state.displayColorPicker })
   }
 
-  const handleColorPickerClose = () => {
+  function handleColorPickerClose() {
     setState({ ...state, displayColorPicker: false })
   }
 
-  const handleColorPickerChange = color => {
+  function handleColorPickerChange(color) {
     setState({ ...state, color: color.rgb })
   }
 

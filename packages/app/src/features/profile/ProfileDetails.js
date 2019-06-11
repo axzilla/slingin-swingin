@@ -11,7 +11,6 @@ import { getCommentsByUserId } from '../comment/_services'
 import Spinner from '../common/Spinner'
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
 import ProfileDetailsTabs from './ProfileDetailsTabs'
-
 import { makeStyles } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
 
@@ -21,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetails = ({ match }) => {
+function ProfileDetails({ match }) {
   const { auth } = useAuth()
   const classes = useStyles()
   const [params] = useState(match.params.handle)

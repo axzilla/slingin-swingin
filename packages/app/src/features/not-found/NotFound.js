@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactGA from 'react-ga'
-
 import { Card } from '@material-ui/core'
 
 function NotFound() {

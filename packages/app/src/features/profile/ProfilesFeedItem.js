@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import Link from '../../components/Link'
-
 import isEmpty from '../../utils/isEmpty'
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 import { Grid, Avatar, Card, CardContent, Typography } from '@material-ui/core'
@@ -51,7 +48,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfilesFeedItem = ({ profile }) => {
+function ProfilesFeedItem({ profile }) {
   const classes = useStyles()
 
   return (

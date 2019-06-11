@@ -5,10 +5,10 @@ import Moment from 'react-moment'
 import 'moment/locale/de'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
-const ProfileDetailsTabsComments = ({ commentsByUserId }) => {
+function ProfileDetailsTabsComments({ commentsByUserId }) {
   const [limit, setLimit] = useState(10)
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 

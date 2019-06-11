@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import ReactGA from 'react-ga'
-
 import { Typography, Paper } from '@material-ui/core'
 
 function PrivacyPolicy() {
@@ -212,7 +211,7 @@ function PrivacyPolicy() {
         einer rechtlichen Verpflichtung oder auf Grundlage unserer berechtigten Interessen
         geschieht. Vorbehaltlich ausdrücklicher Einwilligung oder vertraglich erforderlicher
         Übermittlung, verarbeiten oder lassen wir die Daten nur in Drittländern mit einem
-        anerkannten Datenschutzniveau, zu denen die unter dem "Privacy-Shield" zertifizierten
+        anerkannten Datenschutzniveau, zu denen die unter dem Privacy-Shield zertifizierten
         US-Verarbeiter gehören oder auf Grundlage besonderer Garantien, wie z.B. vertraglicher
         Verpflichtung durch sogenannte Standardschutzklauseln der EU-Kommission, dem Vorliegen von
         Zertifizierungen oder verbindlichen internen Datenschutzvorschriften verarbeiten (Art. 44
@@ -663,7 +662,7 @@ function PrivacyPolicy() {
         Anzeigen präsentieren, die potentiell deren Interessen entsprechen. Falls einem Nutzer z.B.
         Anzeigen für Produkte angezeigt werden, für die er sich auf anderen Onlineangeboten
         interessiert hat, spricht man hierbei vom „Remarketing“. Ferner können wir nachhalten,
-        welchen Erfolg unsere Anzeigen erzielt haben (sog "Conversion-Messung"). Wir erfahren jedoch
+        welchen Erfolg unsere Anzeigen erzielt haben (sog Conversion-Messung). Wir erfahren jedoch
         nur die anonyme Gesamtanzahl der Nutzer, die auf unsere Anzeige geklickt haben und zu einer
         mit einem Conversion-Tracking-Tag versehenen Seite weitergeleitet wurden. Wir erhalten
         jedoch keine Informationen, mit denen sich Nutzer persönlich identifizieren lassen.
@@ -671,8 +670,8 @@ function PrivacyPolicy() {
         <br />
         Zu den vorgenannten Zwecken wird bei Aufruf unserer und anderer Webseiten, auf denen die
         Marketing-Dienste von LinkedIn aktiv sind, ein Code von LinkedIn ausgeführt und es werden
-        sog. "Insights-Tags" (unsichtbare Grafiken oder Code, auch als "Web Beacons" bezeichnet) in
-        die Webseiten eingebunden. Mit deren Hilfe wird auf dem Gerät der Nutzer ein individuelles
+        sog. Insights-Tags (unsichtbare Grafiken oder Code, auch als Web Beacons bezeichnet) in die
+        Webseiten eingebunden. Mit deren Hilfe wird auf dem Gerät der Nutzer ein individuelles
         Cookie, d.h. eine kleine Datei abgespeichert (statt Cookies können auch vergleichbare
         Technologien verwendet werden). In dieser Datei wird vermerkt, welche Webseiten der Nutzer
         aufgesucht, für welche Inhalte er sich interessiert und welche Angebote der Nutzer geklickt
@@ -716,13 +715,13 @@ function PrivacyPolicy() {
         <strong>Facebook-Pixel, Custom Audiences und Facebook-Conversion:</strong>
         <br />
         <br />
-        Innerhalb unseres Onlineangebotes wird das sog. "Facebook-Pixel" des sozialen Netzwerkes
+        Innerhalb unseres Onlineangebotes wird das sog. Facebook-Pixel des sozialen Netzwerkes
         Facebook, welches von der Facebook Ireland Ltd., 4 Grand Canal Square, Grand Canal Harbour,
-        Dublin 2, Irland betrieben wird ("Facebook"), eingesetzt.
+        Dublin 2, Irland betrieben wird (Facebook), eingesetzt.
         <br />
         <br />
         Mit Hilfe des Facebook-Pixels ist es Facebook zum einen möglich, die Besucher unseres
-        Onlineangebotes als Zielgruppe für die Darstellung von Anzeigen (sog. "Facebook-Ads") zu
+        Onlineangebotes als Zielgruppe für die Darstellung von Anzeigen (sog. Facebook-Ads) zu
         bestimmen. Dementsprechend setzen wir das Facebook-Pixel ein, um die durch uns geschalteten
         Facebook-Ads nur solchen Facebook-Nutzern anzuzeigen, die auch ein Interesse an unserem
         Onlineangebot gezeigt haben oder die bestimmte Merkmale (z.B. Interessen an bestimmten
@@ -873,8 +872,8 @@ function PrivacyPolicy() {
         Die IP-Adresse ist damit für die Darstellung dieser Inhalte erforderlich. Wir bemühen uns
         nur solche Inhalte zu verwenden, deren jeweilige Anbieter die IP-Adresse lediglich zur
         Auslieferung der Inhalte verwenden. Drittanbieter können ferner so genannte Pixel-Tags
-        (unsichtbare Grafiken, auch als "Web Beacons" bezeichnet) für statistische oder
-        Marketingzwecke verwenden. Durch die "Pixel-Tags" können Informationen, wie der
+        (unsichtbare Grafiken, auch als Web Beacons bezeichnet) für statistische oder
+        Marketingzwecke verwenden. Durch die Pixel-Tags können Informationen, wie der
         Besucherverkehr auf den Seiten dieser Website ausgewertet werden. Die pseudonymen
         Informationen können ferner in Cookies auf dem Gerät der Nutzer gespeichert werden und unter
         anderem technische Informationen zum Browser und Betriebssystem, verweisende Webseiten,
@@ -912,7 +911,7 @@ function PrivacyPolicy() {
         <strong>Google Fonts:</strong>
         <br />
         <br />
-        Wir binden die Schriftarten ("Google Fonts") des Anbieters Google Ireland Limited, Gordon
+        Wir binden die Schriftarten (Google Fonts) des Anbieters Google Ireland Limited, Gordon
         House, Barrow Street, Dublin 4, Irland, ein. Nach Angaben von Google werden die Daten der
         Nutzer allein zu Zwecken der Darstellung der Schriftarten im Browser der Nutzer verwendet.
         Die Einbindung erfolgt auf Grundlage unserer berechtigten Interessen an einer technisch
@@ -927,7 +926,7 @@ function PrivacyPolicy() {
         <br />
         <br />
         Wir binden die Funktion zur Erkennung von Bots, z.B. bei Eingaben in Onlineformularen
-        ("ReCaptcha") des Anbieters GGoogle Ireland Limited, Gordon House, Barrow Street, Dublin 4,
+        (ReCaptcha) des Anbieters GGoogle Ireland Limited, Gordon House, Barrow Street, Dublin 4,
         Irland, ein. Datenschutzerklärung: https://www.google.com/policies/privacy/, Opt-Out:
         https://adssettings.google.com/authenticated.
         <br />
@@ -951,8 +950,8 @@ function PrivacyPolicy() {
         <strong>OpenStreetMap:</strong>
         <br />
         <br />
-        Wir binden die Landkarten des Dienstes "OpenStreetMap" ein (https://www.openstreetmap.de),
-        die auf Grundlage der Open Data Commons Open Database Lizenz (ODbL) durch die OpenStreetMap
+        Wir binden die Landkarten des Dienstes OpenStreetMap ein (https://www.openstreetmap.de), die
+        auf Grundlage der Open Data Commons Open Database Lizenz (ODbL) durch die OpenStreetMap
         Foundation (OSMF) angeboten werden. Datenschutzerklärung:
         https://wiki.openstreetmap.org/wiki/Privacy_Policy.
         <br />
@@ -976,9 +975,9 @@ function PrivacyPolicy() {
         <br />
         Wir nutzen auf Grundlage unserer berechtigten Interessen (d.h. Interesse an der Analyse,
         Optimierung und wirtschaftlichem Betrieb unseres Onlineangebotes im Sinne des Art. 6 Abs. 1
-        lit. f. DSGVO) Social Plugins ("Plugins") des sozialen Netzwerkes facebook.com, welches von
+        lit. f. DSGVO) Social Plugins (Plugins) des sozialen Netzwerkes facebook.com, welches von
         der Facebook Ireland Ltd., 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland
-        betrieben wird ("Facebook"). Hierzu können z.B. Inhalte wie Bilder, Videos oder Texte und
+        betrieben wird (Facebook). Hierzu können z.B. Inhalte wie Bilder, Videos oder Texte und
         Schaltflächen gehören, mit denen Nutzer Inhalte dieses Onlineangebotes innerhalb von
         Facebook teilen können. Die Liste und das Aussehen der Facebook Social Plugins kann hier
         eingesehen werden: https://developers.facebook.com/docs/plugins/.
@@ -1135,7 +1134,7 @@ function PrivacyPolicy() {
         <strong>Sharing-Funktionen von AddThis:</strong>
         <br />
         <br />
-        Innerhalb unseres Onlineangebotes wird der Dienst "AddThis" (1595 Spring Hill Rd Suite 300
+        Innerhalb unseres Onlineangebotes wird der Dienst AddThis (1595 Spring Hill Rd Suite 300
         Vienna, VA 22182, USA) zum Teilen von Inhalten dieses Onlineangebotes innerhalb sozialer
         Netzwerke eingesetzt (sog. Sharing).
         <br />
@@ -1147,7 +1146,7 @@ function PrivacyPolicy() {
         AddThis nutzt die personenbezogenen Informationen der Nutzer für die Zurverfügungstellung
         und das Ausführen der Sharing-Funktionen. Darüber hinaus kann AddThis pseudonyme
         Informationen der Nutzer zu Marketingzwecken nutzen. Diese Daten werden mithilfe von sog.
-        "Cookie"-Textdateien auf dem Computer der Nutzer gespeichert. Datenschutzerklärung:
+        Cookie-Textdateien auf dem Computer der Nutzer gespeichert. Datenschutzerklärung:
         http://www.addthis.com/privacy, Opt-Out: http://www.addthis.com/privacy/opt-out.
         <br />
         <br />
@@ -1157,12 +1156,12 @@ function PrivacyPolicy() {
         <br />
         <br />
         Wir verwenden die datenschutzsicheren „Shariff“-Schaltflächen. „Shariff“ wurde entwickelt,
-        um mehr Privatsphäre im Netz zu ermöglichen und die üblichen "Share"-Buttons der sozialen
+        um mehr Privatsphäre im Netz zu ermöglichen und die üblichen Share-Buttons der sozialen
         Netzwerke zu ersetzen. Dabei stellt nicht der Browser der Nutzer, sondern der Server auf dem
         sich dieses Onlineangebot befindet, eine Verbindung mit dem Server der jeweiligen
         Social-Media-Plattformen her und fragt z.B. die Anzahl von Likes, etc. ab. Der Nutzer bleibt
         hierbei anonym. Mehr Informationen zum Shariff-Projekt finden Sie bei den Entwicklern von
-        dem Magazin c't: www.ct.de.
+        dem Magazin ct: www.ct.de.
         <br />
         <br />
       </Typography>

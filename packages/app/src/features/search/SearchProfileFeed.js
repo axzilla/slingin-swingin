@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-
 import Spinner from '../common/Spinner'
 import ProfilesFeedItem from '../profile/ProfilesFeedItem'
-
 import { Grid, Button } from '@material-ui/core'
 
-const SearchProfileFeed = ({ searchResult }) => {
+function SearchProfileFeed({ searchResult }) {
   const [limit, setLimit] = useState(10)
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 
