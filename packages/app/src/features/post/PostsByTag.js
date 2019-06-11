@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
-import { useAuth } from '../../contexts/auth'
 import { getPostsByTag, getPostsTags } from './_services'
+import { handlePostLikes, handlePostBookmarks } from '../post/_services'
 
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
@@ -13,7 +13,6 @@ import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
 import { Button, Grid, Hidden } from '@material-ui/core'
 
 const PostsByTag = ({ history, match }) => {
-  const { auth } = useAuth()
   const [posts, setPosts] = useState()
   const [postTags, setPostTags] = useState()
   const [limit, setLimit] = useState(10)
@@ -22,6 +21,7 @@ const PostsByTag = ({ history, match }) => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
+
     getPostsByTag(match.params.tag).then(res => {
       setPosts(res.data)
     })
@@ -37,6 +37,34 @@ const PostsByTag = ({ history, match }) => {
 
   const loadMore = () => {
     setLimit(limit + 10)
+  }
+
+  function onLikeClick(postId) {
+    handlePostLikes(postId).then(res => {
+      const updatedPost = res.data
+
+      const index = posts.indexOf(
+        posts.filter(post => {
+          return post._id === updatedPost._id
+        })[0]
+      )
+
+      setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)])
+    })
+  }
+
+  function onBookmarkClick(postId) {
+    handlePostBookmarks(postId).then(res => {
+      const updatedPost = res.data
+
+      const index = posts.indexOf(
+        posts.filter(post => {
+          return post._id === updatedPost._id
+        })[0]
+      )
+
+      setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)])
+    })
   }
 
   return (
@@ -56,11 +84,11 @@ const PostsByTag = ({ history, match }) => {
               .slice(0, limit)
               .map(post => (
                 <PostFeedItem
-                  clickLocation={'allPosts'}
                   key={post._id}
-                  post={post}
                   history={history}
-                  auth={auth}
+                  post={post}
+                  onLikeClick={onLikeClick}
+                  onBookmarkClick={onBookmarkClick}
                 />
               ))}
           {posts && posts.slice(0, limit).length === posts.length ? null : (
