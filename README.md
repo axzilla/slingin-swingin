@@ -1,11 +1,12 @@
 # codehustla.io - Gemeinsam werden wir bessere Entwickler
-## Für jeden der Lust und Zeit hat an diesem Projekt mitzuwirken
 
 ### Production-Umgebung
 https://www.codehustla.io/
 
 ### Staging-Umgebung 
 https://codehustla-staging.herokuapp.com/
+
+## Für jeden der Lust und Zeit hat an diesem Projekt mitzuwirken
 
 1. Create and setup .env files
 2. Run "npm i" in root folder, "npm i" in packages/app and "npm i" in packages/api folder
