@@ -5,11 +5,11 @@ import Spinner from '../common/Spinner'
 import PostFeedItem from '../post/PostFeedItem'
 import { Grid, Button } from '@material-ui/core'
 
-const SearchPostFeed = ({ searchResult, setSearchResult }) => {
+function SearchPostFeed({ searchResult, setSearchResult }) {
   const [limit, setLinmit] = useState(10)
   const { posts } = searchResult
 
-  const loadMore = () => {
+  function loadMore() {
     setLinmit(limit + 10)
   }
 

@@ -1,7 +1,5 @@
 import React from 'react'
-
 import Link from '../../components/Link'
-
 import { Typography, Grid, Link as MuiLink } from '@material-ui/core'
 
 function Footer() {

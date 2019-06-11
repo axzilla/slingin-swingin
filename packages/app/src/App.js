@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ReactGA from 'react-ga'
-
 import PrivateRoute from './features/common/PrivateRoute'
 import Layout from './features/layout/Layout'
 import Landing from './features/layout/Landing'
@@ -30,7 +29,7 @@ const ScrollToTop = () => {
   return null
 }
 
-const App = props => {
+function App(props) {
   return (
     <Router>
       <Route component={ScrollToTop} />

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
-
 import { getProfiles } from './_services'
 import ProfilesFeedItem from './ProfilesFeedItem'
-
 import CardSponsors from '../../components/cards/CardSponsors'
 import CardUserLatest from '../../components/cards/CardUserLatest'
-
 import { Grid, Hidden, Button, Typography } from '@material-ui/core'
 
-const Profiles = () => {
+function ProfilesFeed() {
   const [limit, setLimit] = useState(10)
   const [profiles, setProfiles] = useState([])
 
@@ -21,7 +18,7 @@ const Profiles = () => {
     getProfiles().then(res => setProfiles(res.data))
   }, [])
 
-  const loadMore = () => {
+  function loadMore() {
     setLimit(limit + 10)
   }
 
@@ -57,4 +54,4 @@ const Profiles = () => {
   )
 }
 
-export default Profiles
+export default ProfilesFeed

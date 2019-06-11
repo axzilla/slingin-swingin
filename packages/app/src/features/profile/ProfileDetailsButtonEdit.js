@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-
 import { Grid, Button } from '@material-ui/core'
 
-const ProfileDetailsButtonEdit = ({ profile, auth }) => {
+function ProfileDetailsButtonEdit({ profile, auth }) {
   return (
     <Grid container>
       {auth.isAuthenticated && profile.user._id === auth.user.id ? (

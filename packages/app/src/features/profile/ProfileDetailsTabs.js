@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-
 import { makeStyles } from '@material-ui/styles'
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
-
 import ProfileDetailsTabsPosts from './ProfileDetailsTabsPosts'
 import ProfileDetailsTabsComments from './ProfileDetailsTabsComments'
 
-const TabContainer = ({ children, dir }) => {
+function TabContainer({ children, dir }) {
   return (
     <Typography component="div" dir={dir}>
       {children}
@@ -34,11 +32,11 @@ TabContainer.propTypes = {
   dir: PropTypes.object
 }
 
-const ProfileDetailsTabs = ({ commentsByUserId, postsByUserId, setPostsByUserId }) => {
+function ProfileDetailsTabs({ commentsByUserId, postsByUserId, setPostsByUserId }) {
   const classes = useStyles()
   const [value, setValue] = useState(0)
 
-  const handleChange = (event, value) => {
+  function handleChange(event, value) {
     setValue(value)
   }
 

@@ -4,15 +4,12 @@ import Moment from 'react-moment'
 import 'moment/locale/de'
 import CodeBlock from '../common/CodeBlock'
 import ReactMarkdown from 'react-markdown'
-
 import { useAuth } from '../../contexts/auth'
 import { updateSubComment, deleteSubComment } from './_services'
-
 import Link from '../../components/Link'
 import SubCommentEdit from './SubCommentEdit'
 import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
 import SubCommentFeedItemMenu from './SubCommentFeedItemMenu'
-
 import { makeStyles } from '@material-ui/styles'
 import { MoreVert } from '@material-ui/icons'
 import {
@@ -33,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const SubCommentFeedItem = ({ subComment, subComments, setSubComments, index }) => {
+function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) {
   const { auth } = useAuth()
   const classes = useStyles()
   const [isEditMode, setIsEditMode] = useState(false)

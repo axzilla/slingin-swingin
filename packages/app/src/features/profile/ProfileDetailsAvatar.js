@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import isEmpty from '../../utils/isEmpty'
-
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
 import { Avatar } from '@material-ui/core'
@@ -24,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ProfileDetailsAvatar = ({ rgbaColor, profile }) => {
+function ProfileDetailsAvatar({ rgbaColor, profile }) {
   const classes = useStyles()
 
   return (

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import isEmpty from '../../utils/isEmpty'
-
 import Avatar from './ProfileDetailsAvatar'
 import ProfileDetailsName from './ProfileDetailsName'
 import ProfileDetailsUsername from './ProfileDetailsUsername'
@@ -9,11 +8,8 @@ import ProfileDetailsSocials from './ProfileDetailsSocials'
 import ProfileDetailsBio from './ProfileDetailsBio'
 import ProfileDetailsInfos from './ProfileDetailsInfos'
 import ProfileDetailsButtonEdit from './ProfileDetailsButtonEdit'
-
 import { makeStyles } from '@material-ui/styles'
-
 import { grey } from '@material-ui/core/colors'
-
 import { Grid, Card, CardContent } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -24,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsCardHeader = ({ rgbaColor, profile, auth }) => {
+function ProfileDetailsCardHeader({ rgbaColor, profile, auth }) {
   const classes = useStyles()
 
   return (

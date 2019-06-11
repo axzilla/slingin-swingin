@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-
 import SearchPostFeed from './SearchPostFeed'
 import SearchProfileFeed from './SearchProfileFeed'
-
 import { makeStyles } from '@material-ui/styles'
-
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
 
-const TabContainer = ({ children, dir }) => {
+function TabContainer({ children, dir }) {
   return (
     <Typography component="div" dir={dir}>
       {children}
@@ -29,12 +26,12 @@ const useStyles = makeStyles({
   }
 })
 
-const CenteredTabs = ({ searchResult, searchString, setSearchResult }) => {
+function CenteredTabs({ searchResult, searchString, setSearchResult }) {
   const classes = useStyles()
 
   const [value, setValue] = useState(0)
 
-  const handleChange = (event, value) => {
+  function handleChange(event, value) {
     setValue(value)
   }
 

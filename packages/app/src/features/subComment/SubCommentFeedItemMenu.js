@@ -1,11 +1,6 @@
-// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
-
-// Material Core
 import { Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core'
-
-// Material Icons
 import { Edit, Delete } from '@material-ui/icons'
 
 function SubCommentFeedItemMenu({

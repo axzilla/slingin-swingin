@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import isEmpty from '../../utils/isEmpty'
-
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
 import { Grid } from '@material-ui/core'
@@ -16,7 +14,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileDetailsSocials = ({ profile, rgbaColor }) => {
+function ProfileDetailsSocials({ profile, rgbaColor }) {
   const classes = useStyles()
 
   const checkForHttp = string => {

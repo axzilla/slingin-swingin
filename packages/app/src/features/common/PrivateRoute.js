@@ -1,8 +1,6 @@
-// Packages
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-// Contexts
 import { useAuth } from '../../contexts/auth'
 
 function PrivateRoute({ component: Component, ...rest }) {

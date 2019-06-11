@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import qs from 'query-string'
-
 import Spinner from '../common/Spinner'
 import SearchTabs from './SearchTabs'
-
 import isEmpty from '../../utils/isEmpty'
-
 import { searchFunc } from './_services'
-
 import { Grid } from '@material-ui/core'
 
-const Search = ({ location }) => {
+function Search({ location }) {
   const [searchResult, setSearchResult] = useState()
 
   useEffect(() => {

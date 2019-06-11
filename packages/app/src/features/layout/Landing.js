@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-
 import { handlePostLikes, handlePostBookmarks } from '../post/_services'
 import { getPosts } from '../post/_services'
-
 import { useAuth } from '../../contexts/auth'
-
 import PostFeedItem from '../post/PostFeedItem'
-
 import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
 import LandingWelcome from './LandingWelcome'
-
 import { Button, Grid, Hidden } from '@material-ui/core'
 
 function Landing({ history }) {

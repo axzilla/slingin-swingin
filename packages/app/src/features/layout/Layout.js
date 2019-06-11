@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-
 import Footer from './Footer'
 import Toolbar from './Toolbar'
 import Alert from '../common/Alert'
-
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-
 import { CssBaseline, Grid } from '@material-ui/core'
 
 const darkTheme = createMuiTheme({

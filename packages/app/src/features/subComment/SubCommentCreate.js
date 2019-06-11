@@ -1,14 +1,7 @@
-// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-
-// Services
 import { createSubComment } from './_services'
-
-// Components
 import MarkdownEditor from '../common/MarkdownEditor'
-
-// Material Core
 import { Button } from '@material-ui/core'
 
 function SubCommentCreate({ comment, subComments, setSubComments }) {

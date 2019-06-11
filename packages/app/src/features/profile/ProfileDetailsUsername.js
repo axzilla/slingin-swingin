@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import isEmpty from '../../utils/isEmpty'
-
 import { makeStyles } from '@material-ui/styles'
 import { Typography } from '@material-ui/core'
 
@@ -16,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ProfileDetailsUsername = ({ profile, rgbaColor }) => {
+function ProfileDetailsUsername({ profile, rgbaColor }) {
   const classes = useStyles()
 
   return (

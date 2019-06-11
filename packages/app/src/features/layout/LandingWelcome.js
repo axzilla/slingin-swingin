@@ -1,7 +1,5 @@
 import React from 'react'
-
 import Link from '../../components/Link'
-
 import { Grid, Typography, Button, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
