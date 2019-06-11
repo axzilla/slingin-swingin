@@ -40,7 +40,6 @@ const NotVerified = ({ history }) => {
   const onLogoutClick = e => {
     e.preventDefault()
     if (window.confirm('Bist du sicher, dass du dich ausloggen möchtest?')) {
-      // logoutUser()
       history.push('/login')
     }
   }

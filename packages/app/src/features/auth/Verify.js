@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
+import { useAuth } from '../../contexts/auth'
 import { verifyUser } from './_services'
 
 import { makeStyles } from '@material-ui/styles'
@@ -30,19 +31,29 @@ const useStyles = makeStyles({
 
 function Verify({ match }) {
   const classes = useStyles()
+  const { setAuth } = useAuth()
   const [errors, setErrors] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
+    verify()
+  }, [])
+
+  async function verify() {
     const decode = jwtDecode(match.params.token)
+
     try {
-      verifyUser(decode)
+      const res = await verifyUser(decode)
+      const { token } = res.data
+      const decoded = jwtDecode(token)
+      setAuth({ isAuthenticated: true, user: decoded })
+      localStorage.setItem('jwtToken', token)
     } catch (err) {
       setErrors(err.response.data)
     }
-  }, [])
+  }
 
   return (
     <Grid className={classes.root} container justify="center">
