@@ -40,9 +40,6 @@ const useStyles = makeStyles({
     paddingTop: '0',
     paddingBottom: '0'
   },
-  card: {
-    // width: '100%'
-  },
   media: {
     objectFit: 'cover'
   },
@@ -59,7 +56,7 @@ const useStyles = makeStyles({
   }
 })
 
-function PostFeedItem({ history, post, onLikeClick, onBookmarkClick }) {
+function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
   const { auth } = useAuth()
   const classes = useStyles()
   let color
@@ -209,13 +206,10 @@ function PostFeedItem({ history, post, onLikeClick, onBookmarkClick }) {
 }
 
 PostFeedItem.propTypes = {
-  history: PropTypes.object,
   post: PropTypes.object,
-  auth: PropTypes.object,
-  userPostsId: PropTypes.string,
-  searchString: PropTypes.string,
   onLikeClick: PropTypes.func,
-  onBookmarkClick: PropTypes.func
+  onBookmarkClick: PropTypes.func,
+  history: PropTypes.object
 }
 
 export default PostFeedItem

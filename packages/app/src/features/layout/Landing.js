@@ -78,9 +78,8 @@ function Landing({ history }) {
               .map(post => (
                 <PostFeedItem
                   key={post._id}
-                  post={post}
                   history={history}
-                  auth={auth}
+                  post={post}
                   onLikeClick={onLikeClick}
                   onBookmarkClick={onBookmarkClick}
                 />
