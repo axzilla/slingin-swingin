@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
 import { verifyUser } from './_services'
-import { useAuth } from '../../contexts/auth'
 
 import { makeStyles } from '@material-ui/styles'
 import { Typography, Grid, Card, CardContent } from '@material-ui/core'
@@ -30,16 +29,19 @@ const useStyles = makeStyles({
 })
 
 function Verify({ match }) {
-  const { auth } = useAuth()
   const classes = useStyles()
-  const { errors } = auth
+  const [errors, setErrors] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
     const decode = jwtDecode(match.params.token)
-    verifyUser(decode)
+    try {
+      verifyUser(decode)
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }, [])
 
   return (
@@ -47,9 +49,9 @@ function Verify({ match }) {
       <Card>
         <CardContent>
           <Typography variant="subtitle1">
-            {errors.user ||
-              errors.tokenExpired ||
-              errors.alreadyVerified ||
+            {(errors && errors.user) ||
+              (errors && errors.tokenExpired) ||
+              (errors && errors.alreadyVerified) ||
               'Du hast deinen Account erfolgreich verifiziert.'}
           </Typography>
         </CardContent>
