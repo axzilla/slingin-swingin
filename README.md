@@ -26,7 +26,7 @@ Wir erwarten von den Mitwirkenden, dass sie sich an unseren zugrunde liegenden [
 
 ### Wo kann ich etwas beitragen
 
-Alle [ISSUES](https://github.com/codehustla/codehustla.io/issues), die mit "approved" gekennzeichnet sind, sind zu vergeben. Informationen zur Kennzeichnung von Problemen findest du in den Definitionen [hier] (https://github.com/codehustla/codehustla.tío/labels).
+Alle [Issues](https://github.com/codehustla/codehustla.io/issues), die mit "approved" gekennzeichnet sind, sind zu vergeben. Informationen zur Kennzeichnung von Problemen findest du in den Definitionen [hier](https://github.com/codehustla/codehustla.tío/labels).
 
 **Refactoring** Code, z.B. Das Verbessern des Codes ohne Änderung des Verhaltens ist ein Bereich, der wahrscheinlich auf der Grundlage der Intuition durchgeführt werden kann und möglicherweise nicht viel Kommunikation erfordert, um zusammengeführt zu werden.
 
