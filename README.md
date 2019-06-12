@@ -4,7 +4,7 @@ Willkommen in der Codebasis von [codehustla.io](https://www.codehustla.io). Ich 
 
 ## Was ist codehustla.io?
 
-[codehustla.io](https://www.codehustla.io) ist eine deutschsprachige(DACH) Plattform, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen. Wir legen Wert auf einen unterstützenden und konstruktiven Dialog bei der Verfolgung eines guten Kodex und einer guten Karriere für alle Mitglieder. Das Ökosystem erstreckt sich von Anfängern bis hin zu fortgeschrittenen Entwicklern, und alle sind herzlich eingeladen, ihren Platz in unserer Community zu finden. ❤️
+[codehustla.io](https://www.codehustla.io) ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen. Wir legen Wert auf einen unterstützenden und konstruktiven Dialog bei der Verfolgung eines guten Kodex und einer guten Karriere für alle Mitglieder. Das Ökosystem erstreckt sich von Anfängern bis hin zu fortgeschrittenen Entwicklern, und alle sind herzlich eingeladen, ihren Platz in unserer Community zu finden. ❤️
 
 ## Inhaltsverzeichnis
 
