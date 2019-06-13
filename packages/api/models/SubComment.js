@@ -3,6 +3,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const SubCommentSchema = new Schema({
+  refPost: {
+    type: Schema.Types.ObjectId,
+    ref: 'post'
+  },
   refComment: {
     type: Schema.Types.ObjectId,
     ref: 'comment'

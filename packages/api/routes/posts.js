@@ -9,6 +9,7 @@ const upload = multer()
 
 const Post = require('../models/Post')
 const Comment = require('../models/Comment')
+const SubComment = require('../models/SubComment')
 const User = require('../models/User')
 
 const validatePostInput = require('../validation/posts')
@@ -213,28 +214,22 @@ router.post(
 )
 
 // Delete Post
-router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Post.findById(req.params.id)
-    .then(post => {
-      if (post.user.toString() !== req.user.id) {
-        return res.status(401).json({ notauthorized: 'Du bist hierfür nicht autorisiert' })
-      }
+router.delete('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const deletedPost = await Post.findByIdAndDelete(req.params.id)
+    await Comment.deleteMany({ refPost: deletedPost._id })
+    await SubComment.deleteMany({ refPost: deletedPost._id })
 
-      post.remove().then(post => {
-        Comment.deleteMany({ refPost: post.id }, err => {
-          err ? console.log(err) : console.log('All Postdata deleted!') // eslint-disable-line no-console
-        })
-
-        if (post.titleImage) {
-          cloudinary.v2.uploader.destroy(post.titleImage.public_id).then((result, error) => {
-            error ? console.log(error) : console.log('Media on cloudinary successful deleted') // eslint-disable-line no-console
-          })
-        }
-
-        res.json({ success: true })
+    if (deletedPost.titleImage) {
+      cloudinary.v2.uploader.destroy(deletedPost.titleImage.public_id).then((result, error) => {
+        error ? console.log(error) : console.log('Media on cloudinary successful deleted') // eslint-disable-line no-console
       })
-    })
-    .catch(() => res.status(404).json({ postnotfound: 'Keine Beiträge gefunden' }))
+    }
+
+    res.json({ success: true })
+  } catch (err) {
+    console.log(err) // eslint-disable-line no-console
+  }
 })
 
 // Toggle Post Likes

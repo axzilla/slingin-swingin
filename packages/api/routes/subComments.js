@@ -7,11 +7,12 @@ const SubComment = require('../models/SubComment')
 
 // Create Subcomment
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const { text, refComment } = req.body
+  const { text, refPost, refComment } = req.body
   const { id } = req.user
 
   const newSubComment = {
     text,
+    refPost,
     refComment,
     user: id
   }
