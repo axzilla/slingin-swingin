@@ -91,8 +91,10 @@ function PostCreate({ history }) {
     formData.append('tags', postData.tags)
 
     try {
-      await addPost(formData)
-      history.push('/')
+      const res = await addPost(formData)
+      const createdPost = res.data
+      const { shortId, urlSlug } = createdPost
+      history.push(`/post/${shortId}/${urlSlug}`)
     } catch (err) {
       setErrors(err.response.data)
     }

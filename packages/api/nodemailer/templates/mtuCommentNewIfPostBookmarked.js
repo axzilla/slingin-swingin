@@ -8,16 +8,10 @@ module.exports = mtuPostNew = (post, user) => {
     html: `
     <p>Hi ${user.username},</p>
     <p>Es gibt neue Aktivitäten auf einen Beitrag, welchen du als Lesezeichen markiert hast. Schau doch mal wieder vorbei.</p>
-    <p><a href="${process.env.ENV_API}/post/${post.shortId}/${post.urlSlug}">${
-      process.env.ENV_API
-    }/post/${post.shortId}/${post.urlSlug}<a/></p>
+    <p><a href="${process.env.ENV_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ENV_URL}/post/${post.shortId}/${post.urlSlug}<a/></p>
     <p>Vielen Dank,<br> dein codehustla.io Team.</p>
 
-    <p>Du möchtest <a href="${
-      process.env.ENV_API
-    }/edit-settings">keine weiteren E-Mails</a> mehr erhalten oder deine <a href="${
-      process.env.ENV_API
-    }/edit-settings">E-Mail Einstellungen ändern</a>?</p>
+    <p>Du möchtest <a href="${process.env.ENV_URL}/edit-settings">keine weiteren E-Mails</a> mehr erhalten oder deine <a href="${process.env.ENV_URL}/edit-settings">E-Mail Einstellungen ändern</a>?</p>
     `
   }
 

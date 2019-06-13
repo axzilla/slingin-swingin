@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import jwtDecode from 'jwt-decode'
 
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 import { updateSettings } from './_services'
 
 import {
@@ -16,6 +17,7 @@ import {
 
 function Settings() {
   const { auth, setAuth } = useAuth()
+  const { setAlert } = useAlert()
 
   const { onNewPost, onOwnPost, onBookmarkedPost, onCommentedPost } = auth.user.notifications
 
@@ -40,6 +42,7 @@ function Settings() {
     const { token } = res.data
     const decoded = jwtDecode(token)
     setAuth({ isAuthenticated: true, user: decoded })
+    setAlert({ message: 'E-Mail Einstellungen erfolgreich geändert' })
     localStorage.setItem('jwtToken', token)
   }
 

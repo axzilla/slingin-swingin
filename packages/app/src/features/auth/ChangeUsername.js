@@ -4,6 +4,7 @@ import ReactGA from 'react-ga'
 
 import { changeUsername } from './_services'
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 
 import { makeStyles } from '@material-ui/styles'
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
 function ChangeUsername() {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
+  const { setAlert } = useAlert()
 
   const [errors, setErrors] = useState()
   const [username, setUsername] = useState(auth.user.username)
@@ -70,6 +72,8 @@ function ChangeUsername() {
       const { token } = res.data
       const decoded = jwtDecode(token)
       setAuth({ isAuthenticated: true, user: decoded })
+      setAlert({ message: 'Benutzername erfolgreich geändert' })
+      setErrors('')
       localStorage.setItem('jwtToken', token)
     } catch (err) {
       setErrors(err.response.data)

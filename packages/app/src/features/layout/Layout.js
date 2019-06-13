@@ -32,8 +32,6 @@ const lightTheme = createMuiTheme({
 })
 
 function Layout({ children, history }) {
-  const [alert, setAlert] = useState()
-
   const [isDashboardUrl, setIsDashboardUrl] = useState(
     history.location.pathname.includes('dashboard')
   )
@@ -81,7 +79,7 @@ function Layout({ children, history }) {
         {children}
         {isDashboardUrl ? null : <Footer />}
       </Grid>
-      <Alert alert={alert} setAlert={setAlert} />
+      <Alert />
     </MuiThemeProvider>
   )
 }

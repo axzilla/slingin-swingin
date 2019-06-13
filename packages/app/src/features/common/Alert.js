@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
+import { useAlert } from '../../contexts/alert'
 
 import isEmpty from '../../utils/isEmpty'
 
@@ -84,7 +85,9 @@ MySnackbarContentWrapper.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info'])
 }
 
-function CustomizedSnackbars({ alert, setAlert }) {
+function CustomizedSnackbars() {
+  const { alert, setAlert } = useAlert()
+
   useEffect(() => {
     if (!isEmpty(alert && alert.message)) {
       setOpen(true)

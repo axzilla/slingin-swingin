@@ -8,12 +8,8 @@ module.exports = mtaPostNew = post => {
     html: `
       <p>Hi Admin,</p>
       <p>Es gibt einen neuen Beitrag.</p>
-      <a href="${process.env.ENV_API}/post/${post.shortId}/${
-      post.urlSlug
-    }"><button>Beitrag anschauen</button></a>
-      <p><a href="${process.env.ENV_API}/post/${post.shortId}/${
-      post.urlSlug
-    }">${process.env.ENV_API}/post/${post.shortId}/${post.urlSlug}</a></p>
+      <a href="${process.env.ENV_URL}/post/${post.shortId}/${post.urlSlug}"><button>Beitrag anschauen</button></a>
+      <p><a href="${process.env.ENV_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ENV_URL}/post/${post.shortId}/${post.urlSlug}</a></p>
       `
   }
 

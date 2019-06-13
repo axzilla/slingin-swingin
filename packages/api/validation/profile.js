@@ -6,14 +6,6 @@ module.exports = function validateProfileInput(data) {
 
   data.name = !isEmpty(data.name) ? data.name : ''
 
-  if (!Validator.isLength(data.name, { min: 2, max: 40 })) {
-    errors.name = 'Name muss zwischen 2und 40 Zeichen lang sein'
-  }
-
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name ist ein Pflichtfeld'
-  }
-
   if (!isEmpty(data.website)) {
     if (!Validator.isURL(data.website)) {
       errors.website = 'Keine gültige URL'

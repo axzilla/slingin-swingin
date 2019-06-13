@@ -116,7 +116,7 @@ router.post(
               avatar: user.avatar,
               isVerified: user.isVerified,
               notifications: user.notifications
-            } 
+            }
 
             jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (err, token) => {
               res.json({
@@ -226,12 +226,8 @@ router.post('/register', (req, res) => {
                         html: `
                         <p>Hi ${user.username},</p>
                         <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
-                        <a href="${
-                          process.env.ENV_API
-                        }/verify/${token}"><button>Account bestätigen</button></a>
-                        <p><a href="${process.env.ENV_API}/verify/${token}">${
-                          process.env.ENV_API
-                        }/verify/${token}</a></p>
+                        <a href="${process.env.ENV_URL}/verify/${token}"><button>Account bestätigen</button></a>
+                        <p><a href="${process.env.ENV_URL}/verify/${token}">${process.env.ENV_URL}/verify/${token}</a></p>
                         <p>Vielen Dank,<br>dein codehustla.io Team.</p>
                         `
                       }
@@ -248,12 +244,8 @@ router.post('/register', (req, res) => {
                         html: `
                         <p>Hi Admin,</p>
                         <p>Es gibt einen neuen Benutzer.</p>
-                        <a href="${process.env.ENV_API}/${
-                          user.username
-                        }"><button>Profil anschauen</button></a>
-                        <p><a href="${process.env.ENV_API}/${user.username}">${
-                          process.env.ENV_API
-                        }/${user.username}</a></p>
+                        <a href="${process.env.ENV_URL}/${user.username}"><button>Profil anschauen</button></a>
+                        <p><a href="${process.env.ENV_URL}/${user.username}">${process.env.ENV_URL}/${user.username}</a></p>
                         `
                       }
 
@@ -365,12 +357,8 @@ router.post('/verify/send-email', (req, res) => {
           html: `
               <p>Hi ${user.username},</p>
               <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
-              <a href="${
-                process.env.ENV_API
-              }/verify/${token}"><button>Account bestätigen</button></a>
-              <p><a href="${process.env.ENV_API}/verify/${token}">${
-            process.env.ENV_API
-          }/verify/${token}</a></p>
+              <a href="${process.env.ENV_URL}/verify/${token}"><button>Account bestätigen</button></a>
+              <p><a href="${process.env.ENV_URL}/verify/${token}">${process.env.ENV_URL}/verify/${token}</a></p>
               <p>Vielen Dank,<br>dein codehustla.io Team.</p>
               `
         }
@@ -474,12 +462,8 @@ router.post('/forgot-password', (req, res) => {
         html: `
                 <p>Hi ${user.username},</p>
                 <p>Bitte klicke auf den Link oder auf den button, um dein Passwort zurückzusetzen.</p>
-                <a href="${
-                  process.env.ENV_API
-                }/reset-password/${token}"><button>Passwort zurücksetzen</button></a>
-                <p><a href="${process.env.ENV_API}/reset-password/${token}">${
-          process.env.ENV_API
-        }/reset-password/${token}</a></p>
+                <a href="${process.env.ENV_URL}/reset-password/${token}"><button>Passwort zurücksetzen</button></a>
+                <p><a href="${process.env.ENV_URL}/reset-password/${token}">${process.env.ENV_URL}/reset-password/${token}</a></p>
                 <p>Vielen Dank,<br>dein codehustla.io Team.</p>
                 `
       }
