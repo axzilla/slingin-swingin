@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getProfiles } from '../../features//profile/_services'
+import { getProfiles } from '../profile/_services'
 
 import Link from '../../components/Link'
 import CharAvatar from '../../components/avatars/CharAvatar'

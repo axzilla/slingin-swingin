@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { getPostsTags } from '../../features/post/_services'
+import { getPostsTags } from '../post/_services'
 
 import Link from '../Link'
 
