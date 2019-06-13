@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Typography } from '@material-ui/core'
+import CodeBlock from '../common/CodeBlock'
+import ReactMarkdown from 'react-markdown'
 
 function PostDeatilsItemContent({ post }) {
   return (
-    <Typography
-      dangerouslySetInnerHTML={{ __html: post.text }}
-      style={{ marginBottom: '20px' }}
-      className="post-content"
+    <ReactMarkdown
+      source={post.text}
+      escapeHtml={false}
+      renderers={{ code: CodeBlock }}
+      type="read"
     />
   )
 }
