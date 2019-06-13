@@ -5,11 +5,14 @@ import * as serviceWorker from './serviceWorker'
 import HttpsRedirect from 'react-https-redirect'
 
 import { AuthContextProvider } from './contexts/auth'
+import { AlertContextProvider } from './contexts/alert'
 
 ReactDOM.render(
   <HttpsRedirect>
     <AuthContextProvider>
-      <App />
+      <AlertContextProvider>
+        <App />
+      </AlertContextProvider>
     </AuthContextProvider>
   </HttpsRedirect>,
   document.getElementById('root')

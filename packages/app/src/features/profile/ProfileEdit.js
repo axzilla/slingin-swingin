@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import ReactGA from 'react-ga'
+
+import { useAlert } from '../../contexts/alert'
 import { createProfile, getCurrentProfile } from './_services'
 import ProfileEditColorPicker from './ProfileEditColorPicker'
 import ProfileEditAvatar from './ProfileEditAvatar'
@@ -34,6 +36,7 @@ const useStyles = makeStyles({
 })
 
 function ProfileEdit({ history }) {
+  const { setAlert } = useAlert()
   const classes = useStyles()
 
   const [profile, setProfile] = useState({})
@@ -95,7 +98,7 @@ function ProfileEdit({ history }) {
   const rgbaColor = `rgba(${color && color.r}, ${color && color.g}, ${color && color.b}, ${color &&
     color.a})`
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const profileData = {
@@ -118,7 +121,9 @@ function ProfileEdit({ history }) {
       instagram: state.instagram
     }
 
-    createProfile(profileData, history)
+    await createProfile(profileData, history)
+    console.log('ges')
+    setAlert({ message: 'Profil erfolgreich geändert' })
   }
 
   function onChange(e) {

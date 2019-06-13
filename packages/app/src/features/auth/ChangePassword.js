@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 import { changePassword } from './_services'
 
 import { makeStyles } from '@material-ui/styles'
@@ -41,6 +42,7 @@ const useStyles = makeStyles({
 
 function ChangePassword() {
   const { auth, setAuth } = useAuth()
+  const { setAlert } = useAlert()
   const classes = useStyles()
 
   const [errors, setErrors] = useState()
@@ -77,7 +79,14 @@ function ChangePassword() {
       const { token } = res.data
       const decoded = jwtDecode(token)
       setAuth({ isAuthenticated: true, user: decoded })
+      setAlert({ message: 'Passwort erfolgreich geändert' })
       localStorage.setItem('jwtToken', token)
+      setPasswords({
+        oldPassword: '',
+        newPassword: '',
+        newPassword2: ''
+      })
+      setErrors('')
     } catch (err) {
       setErrors(err.response.data)
     }

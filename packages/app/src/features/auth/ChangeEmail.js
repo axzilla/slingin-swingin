@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 import { changeEmail } from './_services'
 
 import { makeStyles } from '@material-ui/styles'
@@ -42,6 +43,7 @@ const useStyles = makeStyles({
 function ChangeEmail() {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
+  const { setAlert } = useAlert()
   const { errors } = auth
 
   const [email, setEmail] = useState(auth.user.email)
@@ -69,6 +71,7 @@ function ChangeEmail() {
       const { token } = res.data
       const decoded = jwtDecode(token)
       setAuth({ isAuthenticated: true, user: decoded })
+      setAlert({ message: 'E-Mail Adresse erfolgreich geändert' })
       localStorage.setItem('jwtToken', token)
     } catch (err) {
       setAuth({ ...auth, errors: err.response.data })
