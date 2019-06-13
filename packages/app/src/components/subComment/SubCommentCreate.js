@@ -4,7 +4,7 @@ import { createSubComment } from './_services'
 import MarkdownEditor from '../common/MarkdownEditor'
 import { Button } from '@material-ui/core'
 
-function SubCommentCreate({ comment, subComments, setSubComments }) {
+function SubCommentCreate({ postId, comment, subComments, setSubComments }) {
   const [subComment, setSubComment] = useState('')
 
   function onChange(e) {
@@ -16,6 +16,7 @@ function SubCommentCreate({ comment, subComments, setSubComments }) {
 
     const subCommentData = {
       text: subComment,
+      refPost: postId,
       refComment: comment._id
     }
 
@@ -46,6 +47,7 @@ function SubCommentCreate({ comment, subComments, setSubComments }) {
 }
 
 SubCommentCreate.propTypes = {
+  postId: PropTypes.string,
   comment: PropTypes.object,
   subComments: PropTypes.array,
   setSubComments: PropTypes.func

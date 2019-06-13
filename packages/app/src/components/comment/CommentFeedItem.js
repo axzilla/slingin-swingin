@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
+function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRef }) {
   const classes = useStyles()
   const { auth } = useAuth()
   const [isEditMode, setIsEditMode] = useState(false)
@@ -56,7 +56,7 @@ function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
     const commentData = {
       text,
       commentId: comment._id,
-      refPostId: comment.refPost
+      refPost: comment.refPost
     }
 
     setIsEditMode(false)
@@ -151,6 +151,7 @@ function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
       {auth.isAuthenticated ? (
         <CardContent>
           <SubCommentCreate
+            postId={post._id}
             comment={comment}
             subComments={subComments}
             setSubComments={setSubComments}
@@ -162,6 +163,7 @@ function CommentFeedItem({ comment, commentsByPostRef, setCommentsByPostRef }) {
 }
 
 CommentFeedItem.propTypes = {
+  post: PropTypes.object,
   comment: PropTypes.object,
   commentsByPostRef: PropTypes.array,
   setCommentsByPostRef: PropTypes.func
