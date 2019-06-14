@@ -270,7 +270,7 @@ function PostCreate({ history }) {
                 variant="outlined"
                 onClick={onSubmit}
               >
-                Veröffentlichen
+                Speichern
               </Button>
             </Grid>
           </Grid>
