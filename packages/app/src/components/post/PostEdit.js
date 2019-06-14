@@ -270,7 +270,7 @@ function PostEdit({ match, history }) {
                 variant="outlined"
                 onClick={onSubmit}
               >
-                Veröffentlichen
+                Speichern
               </Button>
             </Grid>
           </Grid>
