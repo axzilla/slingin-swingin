@@ -19,7 +19,8 @@ function PostDetailsAuthActions({ post, auth, history }) {
     <React.Fragment>
       {auth.isAuthenticated ? (
         <span>
-          {post.user && auth.user.isVerified && post.user._id === auth.user.id ? (
+          {(post.user && auth.user.isVerified && post.user._id === auth.user.id) ||
+          (auth.user.roles && auth.user.roles.isAdmin) ? (
             <React.Fragment>
               <Divider />
               <CardActions>

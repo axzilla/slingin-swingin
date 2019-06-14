@@ -114,7 +114,8 @@ router.post(
               username: user.username,
               avatar: user.avatar,
               isVerified: user.isVerified,
-              notifications: user.notifications
+              notifications: user.notifications,
+              roles: user.roles
             }
 
             jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (err, token) => {
@@ -151,7 +152,8 @@ router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), (
       username: user.username,
       avatar: user.avatar,
       isVerified: user.isVerified,
-      notifications: user.notifications
+      notifications: user.notifications,
+      roles: user.roles
     } // Create JWT Payload
 
     jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
@@ -208,7 +210,8 @@ router.post('/register', (req, res) => {
                     username: user.username,
                     avatar: user.avatar,
                     isVerified: user.isVerified,
-                    notifications: user.notifications
+                    notifications: user.notifications,
+                    roles: user.roles
                   } // Create JWT Payload
 
                   // Sign Token
@@ -308,7 +311,8 @@ router.post('/verify', (req, res) => {
           username: user.username,
           avatar: user.avatar,
           isVerified: user.isVerified,
-          notifications: user.notifications
+          notifications: user.notifications,
+          roles: user.roles
         } // Create JWT Payload
 
         // Sign Token
@@ -344,7 +348,8 @@ router.post('/verify/send-email', (req, res) => {
         username: user.username,
         avatar: user.avatar,
         isVerified: user.isVerified,
-        notifications: user.notifications
+        notifications: user.notifications,
+        roles: user.roles
       } // Create JWT Payload
 
       // Sign Token
@@ -405,7 +410,8 @@ router.post('/login', (req, res) => {
           username: user.username,
           avatar: user.avatar,
           isVerified: user.isVerified,
-          notifications: user.notifications
+          notifications: user.notifications,
+          roles: user.roles
         } // Create JWT Payload
 
         // Sign Token
@@ -447,7 +453,8 @@ router.post('/forgot-password', (req, res) => {
       username: user.username,
       avatar: user.avatar,
       isVerified: user.isVerified,
-      notifications: user.notifications
+      notifications: user.notifications,
+      roles: user.roles
     } // Create JWT Payload
 
     jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
@@ -502,7 +509,8 @@ router.post('/reset-password', (req, res) => {
                 username: user.username,
                 avatar: user.avatar,
                 isVerified: user.isVerified,
-                notifications: user.notifications
+                notifications: user.notifications,
+                roles: user.roles
               } // Create JWT Payload
 
               jwt.sign(
@@ -569,7 +577,8 @@ router.post('/change-username', (req, res) => {
             username: user.username,
             avatar: user.avatar,
             isVerified: user.isVerified,
-            notifications: user.notifications
+            notifications: user.notifications,
+            roles: user.roles
           } // Create JWT Payload
 
           jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
@@ -635,7 +644,8 @@ router.post('/change-password', (req, res) => {
                     username: user.username,
                     avatar: user.avatar,
                     isVerified: user.isVerified,
-                    notifications: user.notifications
+                    notifications: user.notifications,
+                    roles: user.roles
                   } // Create JWT Payload
 
                   jwt.sign(
@@ -705,7 +715,8 @@ router.post('/change-email', (req, res) => {
             username: user.username,
             avatar: user.avatar,
             isVerified: user.isVerified,
-            notifications: user.notifications
+            notifications: user.notifications,
+            roles: user.roles
           } // Create JWT Payload
 
           jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
@@ -748,7 +759,8 @@ router.post('/change-settings', passport.authenticate('jwt', { session: false })
         username: updatedUser.username,
         avatar: updatedUser.avatar,
         isVerified: updatedUser.isVerified,
-        notifications: updatedUser.notifications
+        notifications: updatedUser.notifications,
+        roles: user.roles
       }
 
       jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {

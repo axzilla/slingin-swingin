@@ -2,6 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
+  roles: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
+  },
   username: {
     type: String,
     required: true,
