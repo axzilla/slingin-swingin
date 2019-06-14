@@ -166,12 +166,10 @@ router.post(
       return res.status(400).json(errors)
     }
     const { titleImage, title, text, type, tags } = req.body
-    const { user } = req
     const postFields = {}
 
     Object.assign(postFields, {
       urlSlug: slugify(title),
-      user: user.id,
       title,
       text,
       type,
