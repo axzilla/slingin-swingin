@@ -33,13 +33,9 @@ const CommentSchema = new Schema({
       }
     ]
   },
-  subComments: [{ type: Schema.Types.ObjectId, ref: 'subComments' }],
   dateCreated: {
     type: Date,
     default: Date.now
-  },
-  dateUpdated: {
-    type: Date
   }
 })
 

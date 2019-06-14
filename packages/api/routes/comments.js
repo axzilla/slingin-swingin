@@ -2,14 +2,8 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-const Post = require('../models/Post')
 const Comment = require('../models/Comment')
 const SubComment = require('../models/SubComment')
-const User = require('../models/User')
-
-const mtuCommentNewIfPostOwner = require('../nodemailer/templates/mtuCommentNewIfPostOwner')
-const mtuCommentNewIfPostBookmarked = require('../nodemailer/templates/mtuCommentNewIfPostBookmarked')
-const mtuCommentNewIfPostCommented = require('../nodemailer/templates/mtuCommentNewIfPostCommented')
 
 // Create Comment
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
@@ -24,57 +18,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
 
   try {
     const createdComment = await Comment.create(newComment)
-
-    const updatedPost = await Post.findById(createdComment.refPost)
-      .populate('user')
-      .populate('comments')
-      .populate('comments.user')
-      .populate('bookmarks.user')
-
-    updatedPost.comments.push(createdComment.id)
-    updatedPost.save()
-
-    // Send Mail to User - New Comment - If Post Owner
-    User.findById(updatedPost.user.id).then(user => {
-      if (user.notifications.onOwnPost && user.id !== req.user.id) {
-        mtuCommentNewIfPostOwner(updatedPost, user)
-      }
-    })
-
-    // Send Mail to User - New Comment - If Post Bookmarked
-    if (updatedPost.bookmarks.length > 0) {
-      updatedPost.bookmarks
-        .filter(bookmark => {
-          return bookmark.user.notifications.onBookmarkedPost && bookmark.user.id !== req.user.id
-        })
-        .map(bookmark => {
-          mtuCommentNewIfPostBookmarked(updatedPost, bookmark.user)
-        })
-    }
-
-    // Send Mail to User - New Comment - If Post Commented
-    if (updatedPost.comments.length > 0) {
-      let userIdArray = updatedPost.comments.map(comment => {
-        return comment.user
-      })
-
-      User.find({ _id: { $in: userIdArray } }, (err, users) => {
-        users
-          .filter(user => {
-            return user.notifications.onCommentedPost && user.id !== req.user.id
-          })
-          .map(user => {
-            mtuCommentNewIfPostCommented(updatedPost, user)
-          })
-      })
-    }
-
-    const foundComment = await Comment.findById(createdComment._id).populate('user', [
-      'name',
-      'username',
-      'avatar'
-    ])
-
+    const foundComment = await Comment.findById(createdComment._id).populate('user')
     res.json(foundComment)
   } catch (err) {
     console.log(err) // eslint-disable-line no-console
@@ -125,17 +69,11 @@ router.post('/update', passport.authenticate('jwt', { session: false }), async (
   }
 })
 
-// Delete Comment
+// Delete Comment and Subcomments by Comment ID
 router.post('/delete', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
     const deletedComment = await Comment.findByIdAndDelete(req.body.commentId)
     await SubComment.deleteMany({ refComment: deletedComment._id })
-    const updatedPost = await Post.findById(deletedComment.refPost)
-    const postCommentIndex = updatedPost.comments.indexOf(deletedComment._id)
-
-    updatedPost.comments.splice(postCommentIndex, 1)
-    updatedPost.save()
-
     res.json(deletedComment)
   } catch (err) {
     console.log(err) // eslint-disable-line no-console

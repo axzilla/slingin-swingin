@@ -94,7 +94,6 @@ router.post(
           console.log('2/3 - User avatar on cloudinary successful uploaded!')
           User.findById(req.user._id).then(user => {
             user.avatar = result
-
             user.save()
 
             fs.unlink(`${req.file.path}`, error => {
@@ -397,9 +396,6 @@ router.post('/login', (req, res) => {
       errors.login = 'Benutzer nicht gefunden'
       return res.status(404).json(errors)
     }
-
-    user.lastLogin = Date.now()
-    user.save()
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {

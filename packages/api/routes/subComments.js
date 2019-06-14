@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-const Comment = require('../models/Comment')
 const SubComment = require('../models/SubComment')
 
 // Create Subcomment
@@ -20,10 +19,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
   try {
     const createdSubComment = await SubComment.create(newSubComment)
     const foundSubComment = await SubComment.findById(createdSubComment._id).populate('user')
-    const updatedComment = await Comment.findById(createdSubComment.refComment._id)
-    await updatedComment.subComments.push(createdSubComment._id)
-    await updatedComment.save()
-
     res.json(foundSubComment)
   } catch (err) {
     console.log(err) // eslint-disable-line no-console
@@ -57,16 +52,8 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     const { subCommentId } = req.params
-
     try {
       const deletedSubcomment = await SubComment.findByIdAndDelete(subCommentId)
-      const updatedComment = await Comment.findById(deletedSubcomment.refComment)
-
-      const CommentSubCommentIndex = await updatedComment.subComments.indexOf(deletedSubcomment._id)
-
-      await updatedComment.subComments.splice(CommentSubCommentIndex, 1)
-      await updatedComment.save()
-
       res.json(deletedSubcomment)
     } catch (err) {
       console.log(err) // eslint-disable-line no-console

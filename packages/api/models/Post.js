@@ -38,12 +38,6 @@ const PostSchema = new Schema({
   tags: {
     type: Array
   },
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'comment'
-    }
-  ],
   likes: [
     {
       user: {
@@ -63,9 +57,6 @@ const PostSchema = new Schema({
   dateCreated: {
     type: Date,
     default: Date.now
-  },
-  dateUpdated: {
-    type: Date
   }
 })
 

@@ -175,8 +175,7 @@ router.post(
       title,
       text,
       type,
-      tags: tags ? tags.split(',') : [],
-      dateUpdated: Date.now()
+      tags: tags ? tags.split(',') : []
     })
 
     Post.findByIdAndUpdate(req.body.id, postFields)
