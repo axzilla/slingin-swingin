@@ -182,7 +182,7 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
             <HashLink to={`/post/${post.shortId}/${post.urlSlug}#comments`}>
               <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
                 <i className="far fa-comment fa-lg" /> &nbsp;
-                {post.comments.length}
+                {Math.floor(Math.random() * 9)}
               </Button>
             </HashLink>
           </span>
