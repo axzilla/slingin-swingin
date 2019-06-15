@@ -110,7 +110,8 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
                 </React.Fragment>
               }
             />
-            {auth.isAuthenticated && auth.user.id === subComment.user._id ? (
+            {(auth.isAuthenticated && auth.user.id === subComment.user._id) ||
+            (auth.user.roles && auth.user.roles.isAdmin) ? (
               <IconButton
                 aria-label="Settings"
                 aria-controls="customized-menu"
