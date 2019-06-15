@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import isEmpty from '../../utils/isEmpty'
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 import { Avatar } from '@material-ui/core'
@@ -12,9 +12,9 @@ function PostDetailsAvatar({ post }) {
     content = <Avatar src={avatarPlaceholder} />
   } else {
     content = (
-      <Link to={`/${post.user.username}`}>
+      <LinkRouter to={`/${post.user.username}`}>
         <Avatar src={isEmpty(post.user.avatar) ? avatarPlaceholder : post.user.avatar.secure_url} />
-      </Link>
+      </LinkRouter>
     )
   }
 

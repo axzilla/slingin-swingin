@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import CodeBlock from '../common/CodeBlock'
 import StyledReactMarkdown from '../common/StyledReactMarkdown'
 import { useAuth } from '../../contexts/auth'
 import { updateSubComment, deleteSubComment } from './_services'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import SubCommentEdit from './SubCommentEdit'
 import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
 import SubCommentFeedItemMenu from './SubCommentFeedItemMenu'
@@ -98,11 +97,11 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
               primary={<StyledReactMarkdown source={subComment.text} escapeHtml={false} />}
               secondary={
                 <React.Fragment>
-                  <Link to={`/${subComment.user.username}`}>
+                  <LinkRouter to={`/${subComment.user.username}`}>
                     <Typography component="span" variant="body2" className={classes.inline}>
                       {subComment.user.username}
                     </Typography>
-                  </Link>
+                  </LinkRouter>
                   {' — '}
                   <Moment fromNow locale="de">
                     {subComment.dateCreated}

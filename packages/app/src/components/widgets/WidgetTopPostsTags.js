@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { getPostsTags } from '../post/_services'
 
-import Link from '../Link'
+import LinkRouter from '../LinkRouter'
 
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 
@@ -27,11 +27,11 @@ function WidgetTopPostsTags() {
         {postTags &&
           postTags.slice(0, 20).map(item => {
             return (
-              <Link key={item._id} to={`/posts/t/${item._id}`}>
+              <LinkRouter key={item._id} to={`/posts/t/${item._id}`}>
                 <Typography color="textSecondary" component="h3">
                   #{item._id}
                 </Typography>
-              </Link>
+              </LinkRouter>
             )
           })}
       </CardContent>

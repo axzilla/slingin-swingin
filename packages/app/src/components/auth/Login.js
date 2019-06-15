@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import ReactGA from 'react-ga'
 import jwtDecode from 'jwt-decode'
 
@@ -139,12 +139,12 @@ function Login({ history }) {
             </Button>
           </form>
           <Divider className={classes.divider} />
-          <Link to={'/forgot-password'}>
+          <LinkRouter to={'/forgot-password'}>
             <Button className={classes.passwordButton}>Passwort vergessen?</Button>
-          </Link>
-          <Link to={'/register'}>
+          </LinkRouter>
+          <LinkRouter to={'/register'}>
             <Button className={classes.passwordButton}>Noch keinen Account?</Button>
-          </Link>
+          </LinkRouter>
         </CardContent>
       </Card>
     </Grid>

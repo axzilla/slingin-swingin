@@ -8,7 +8,7 @@ import { useAuth } from '../../contexts/auth'
 import { getCommentsByUserId } from '../comment/_services'
 import { getPostsByUserBookmark, getPostsByUserId } from '../post/_services'
 
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import Spinner from '../common/Spinner'
 import TabsPost from './TabsPost'
 import ProfileEdit from '../profile/ProfileEdit'
@@ -142,33 +142,33 @@ function Dashboard() {
           <div className={classes.toolbar} />
           <Divider />
           <List>
-            <Link to="/dashboard/posts">
+            <LinkRouter to="/dashboard/posts">
               <ListItem button>
                 <ListItemIcon>
                   <ViewComfy />
                 </ListItemIcon>
                 <ListItemText>Beiträge</ListItemText>
               </ListItem>
-            </Link>
+            </LinkRouter>
           </List>
           <Divider />
           <List>
-            <Link to="/dashboard/profile">
+            <LinkRouter to="/dashboard/profile">
               <ListItem button>
                 <ListItemIcon>
                   <AccountBox />
                 </ListItemIcon>
                 <ListItemText>Profil</ListItemText>
               </ListItem>
-            </Link>
-            <Link to="/dashboard/settings">
+            </LinkRouter>
+            <LinkRouter to="/dashboard/settings">
               <ListItem button>
                 <ListItemIcon>
                   <Settings />
                 </ListItemIcon>
                 <ListItemText>Einstellungen</ListItemText>
               </ListItem>
-            </Link>
+            </LinkRouter>
           </List>
         </Drawer>
         {dashboardContent}

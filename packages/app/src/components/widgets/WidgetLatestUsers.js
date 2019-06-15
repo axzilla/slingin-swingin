@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { getProfiles } from '../profile/_services'
 
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import CharAvatar from '../../components/avatars/CharAvatar'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -41,7 +41,7 @@ function LandingWidgetUsers() {
         {profiles &&
           profiles.slice(0, 5).map(profile => {
             return (
-              <Link key={profile._id} to={`/${profile.handle}`}>
+              <LinkRouter key={profile._id} to={`/${profile.handle}`}>
                 <Grid container justify="center" alignItems="center" direction="column">
                   <Grid item xs>
                     {profile.user.avatar && profile.user.avatar.secure_url ? (
@@ -61,7 +61,7 @@ function LandingWidgetUsers() {
                     </Typography>
                   </Grid>
                 </Grid>
-              </Link>
+              </LinkRouter>
             )
           })}
       </CardContent>
