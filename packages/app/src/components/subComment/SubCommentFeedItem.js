@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 import CodeBlock from '../common/CodeBlock'
-import ReactMarkdown from 'react-markdown'
+import StyledReactMarkdown from '../common/StyledReactMarkdown'
 import { useAuth } from '../../contexts/auth'
 import { updateSubComment, deleteSubComment } from './_services'
 import Link from '../../components/Link'
@@ -95,13 +95,7 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
           <ListItem alignItems="flex-start">
             <SubCommentFeedItemAvatar subComment={subComment} />
             <ListItemText
-              primary={
-                <ReactMarkdown
-                  source={subComment.text}
-                  escapeHtml={false}
-                  renderers={{ code: CodeBlock }}
-                />
-              }
+              primary={<StyledReactMarkdown source={subComment.text} escapeHtml={false} />}
               secondary={
                 <React.Fragment>
                   <Link to={`/${subComment.user.username}`}>

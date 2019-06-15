@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-import { Link } from 'react-router-dom'
+import Link from '../../components/Link'
 import jwtDecode from 'jwt-decode'
 
 import { useAuth } from '../../contexts/auth'

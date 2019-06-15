@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import Link from '../../components/Link'
 import { Grid, Button } from '@material-ui/core'
 
 function ProfileDetailsButtonEdit({ profile, auth }) {
