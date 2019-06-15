@@ -1,18 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import LinkRouter from '../../components/LinkRouter'
 import Moment from 'react-moment'
-
 import { useAuth } from '../../contexts/auth'
-
+import { getCommentsByPostRef } from '../comment/_services'
+import { getSubCommentByPostRef } from '../subComment/_services'
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
 import isEmpty from '../../utils/isEmpty'
-
 import { makeStyles } from '@material-ui/styles'
-
 import { blue, red } from '@material-ui/core/colors'
-
 import {
   Grid,
   Avatar,
@@ -58,7 +54,18 @@ const useStyles = makeStyles({
 function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
   const { auth } = useAuth()
   const classes = useStyles()
+  const [commentsLength, setCommentsLength] = useState(0)
   let color
+
+  useEffect(() => {
+    getInitialData()
+  }, [])
+
+  async function getInitialData() {
+    const foundComments = await getCommentsByPostRef(post._id).then(res => res.data)
+    const foundSubComments = await getSubCommentByPostRef(post._id).then(res => res.data)
+    setCommentsLength(foundComments.length + foundSubComments.length)
+  }
 
   // https://materialuicolors.co/ Level 200
   if (post.type === 'Tutorial') {
@@ -176,7 +183,7 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
             <LinkRouter to={`/post/${post.shortId}/${post.urlSlug}`}>
               <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
                 <i className="far fa-comment fa-lg" /> &nbsp;
-                {Math.floor(Math.random() * 9)}
+                {commentsLength}
               </Button>
             </LinkRouter>
           </span>
