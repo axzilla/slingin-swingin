@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 function Login({ history }) {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
-  const { errors } = auth
+  const [errors, setErrors] = useState('')
 
   const [loginData, setLoginData] = useState({
     login: '',
@@ -86,7 +86,7 @@ function Login({ history }) {
       localStorage.setItem('jwtToken', token)
       history.push('/')
     } catch (err) {
-      setAuth({ ...auth, errors: err.response.data })
+      setErrors(err.response.data)
     }
   }
 
