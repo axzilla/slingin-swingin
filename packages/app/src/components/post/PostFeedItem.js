@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from '../../components/Link'
-import { HashLink } from 'react-router-hash-link'
 import Moment from 'react-moment'
 
 import { useAuth } from '../../contexts/auth'
@@ -179,12 +178,12 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
               &nbsp;
               <Typography>{post.likes.length}</Typography>
             </Button>
-            <HashLink to={`/post/${post.shortId}/${post.urlSlug}#comments`}>
+            <Link to={`/post/${post.shortId}/${post.urlSlug}`}>
               <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
                 <i className="far fa-comment fa-lg" /> &nbsp;
                 {Math.floor(Math.random() * 9)}
               </Button>
-            </HashLink>
+            </Link>
           </span>
           <Button
             onClick={toggleIsPostBookmarked}
