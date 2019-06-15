@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { useAuth } from '../../contexts/auth'
 import { updateComment, deleteComment } from './_services'
-import { getSubCommentByCommentId } from '../subComment/_services'
+import { getSubCommentByCommentRef } from '../subComment/_services'
 
 import CommentEdit from './CommentEdit'
 import CommentFeedItemHeader from './CommentFeedItemHeader'
@@ -32,7 +32,7 @@ function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRe
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   async function getInitialProps() {
-    const res = await getSubCommentByCommentId(comment._id)
+    const res = await getSubCommentByCommentRef(comment._id)
     setSubComments(res.data)
   }
 

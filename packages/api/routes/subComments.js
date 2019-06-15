@@ -25,8 +25,17 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
   }
 })
 
-// Get Subcomment by ID
-router.get('/:commentId', (req, res) => {
+// Get Subcomments by Post Ref
+router.get('/get-by-post-ref/:postId', (req, res) => {
+  SubComment.find({ refPost: req.params.postId })
+    .populate('user')
+    .then(foundSubComments => {
+      res.json(foundSubComments)
+    })
+})
+
+// Get Subcomments by Comment Ref
+router.get('/get-by-comment-ref/:commentId', (req, res) => {
   SubComment.find({ refComment: req.params.commentId })
     .populate('user')
     .then(foundSubComments => {
