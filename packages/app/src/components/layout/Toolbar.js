@@ -24,7 +24,8 @@ import {
   Search as SearchIcon,
   AccountCircle,
   AddBox,
-  InvertColors as InvertColorsIcon
+  InvertColors as InvertColorsIcon,
+  ExitToApp
 } from '@material-ui/icons'
 import { blue } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
@@ -148,7 +149,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
   const { isAuthenticated } = auth
   const classes = useStyles()
   const [toolbarData, setToolbarData] = useState({
@@ -175,6 +176,12 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
       searchFunc(toolbarData.searchText)
       history.push(`/search?q=${toolbarData.searchText}`)
     }
+  }
+
+  function onLogoutClick() {
+    setAuth({ isAuthenticated: false, user: {} })
+    localStorage.removeItem('jwtToken')
+    history.push('/login')
   }
 
   const sideList = (
@@ -298,11 +305,16 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
           </div>
 
           {isAuthenticated ? (
-            <Link to="/dashboard">
-              <IconButton>
-                <AccountCircle />
+            <>
+              <Link to="/dashboard">
+                <IconButton>
+                  <AccountCircle />
+                </IconButton>
+              </Link>
+              <IconButton onClick={onLogoutClick}>
+                <ExitToApp />
               </IconButton>
-            </Link>
+            </>
           ) : (
             <div className={classes.sectionDesktop}>
               <Link to="/register">
