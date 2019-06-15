@@ -5,8 +5,6 @@ import Moment from 'react-moment'
 import { useAuth } from '../../contexts/auth'
 import { getCommentsByPostRef } from '../comment/_services'
 import { getSubCommentByPostRef } from '../subComment/_services'
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-import isEmpty from '../../utils/isEmpty'
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 import {
@@ -118,10 +116,17 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
         <Grid container wrap="nowrap">
           <Grid item>
             <LinkRouter to={`/${post.user.username}`}>
-              <Avatar
-                src={isEmpty(post.user.avatar) ? avatarPlaceholder : post.user.avatar.secure_url}
-                className={classes.bigAvatar}
-              />
+              {post.user.avatar && post.user.avatar.secure_url ? (
+                <Avatar
+                  className={classes.bigAvatar}
+                  alt={post.user.username}
+                  src={post.user.avatar.secure_url}
+                />
+              ) : (
+                <Avatar className={classes.bigAvatar} alt={post.user.username}>
+                  {post.user.username.substring(0, 1)}
+                </Avatar>
+              )}
             </LinkRouter>
           </Grid>
 
