@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import isEmpty from '../../utils/isEmpty'
 import { searchFunc } from '../search/_services'
 import {
@@ -24,7 +24,8 @@ import {
   Search as SearchIcon,
   AccountCircle,
   AddBox,
-  InvertColors as InvertColorsIcon
+  InvertColors as InvertColorsIcon,
+  ExitToApp
 } from '@material-ui/icons'
 import { blue } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/styles'
@@ -148,7 +149,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
   const { isAuthenticated } = auth
   const classes = useStyles()
   const [toolbarData, setToolbarData] = useState({
@@ -177,10 +178,16 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
     }
   }
 
+  function onLogoutClick() {
+    setAuth({ isAuthenticated: false, user: {} })
+    localStorage.removeItem('jwtToken')
+    history.push('/login')
+  }
+
   const sideList = (
     <div className={classes.list}>
       <List>
-        <Link to="/">
+        <LinkRouter to="/">
           <ListItem style={{ display: 'flex', justifyContent: 'space-around' }}>
             <Typography
               className={isLightTheme ? classes.logoLight : classes.logoDark}
@@ -190,25 +197,25 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
               CODEHUSTLA
             </Typography>
           </ListItem>
-        </Link>
+        </LinkRouter>
         {!isAuthenticated ? (
           <React.Fragment>
             <ListItem>
               <ListItemText>
-                <Link to="/register">
+                <LinkRouter to="/register">
                   <Button fullWidth className={classes.button} variant="outlined" color="secondary">
                     Registrieren
                   </Button>
-                </Link>
+                </LinkRouter>
               </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemText>
-                <Link to="/login">
+                <LinkRouter to="/login">
                   <Button color="primary" fullWidth className={classes.button} variant="outlined">
                     Einloggen
                   </Button>
-                </Link>
+                </LinkRouter>
               </ListItemText>
             </ListItem>
           </React.Fragment>
@@ -218,14 +225,14 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
         <React.Fragment>
           <Divider />
 
-          <Link to="/create-post">
+          <LinkRouter to="/create-post">
             <ListItem button>
               <ListItemIcon>
                 <AddBox />
               </ListItemIcon>
               <ListItemText>Beitrag erstellen</ListItemText>
             </ListItem>
-          </Link>
+          </LinkRouter>
         </React.Fragment>
       ) : null}
       <Divider />
@@ -252,7 +259,7 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/">
+          <LinkRouter to="/">
             <Typography
               className={`${classes.title} ${isLightTheme ? classes.logoLight : classes.logoDark}`}
               variant="h6"
@@ -260,7 +267,7 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
             >
               CODEHUSTLA
             </Typography>
-          </Link>
+          </LinkRouter>
           <div className={isLightTheme ? classes.searchLight : classes.searchDark}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -283,11 +290,11 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
 
           {isAuthenticated ? (
             <div className={classes.sectionDesktop}>
-              <Link to="/create-post">
+              <LinkRouter to="/create-post">
                 <Button className={classes.button} variant="outlined" color="primary">
                   Beitrag erstellen
                 </Button>
-              </Link>
+              </LinkRouter>
             </div>
           ) : null}
 
@@ -298,23 +305,28 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
           </div>
 
           {isAuthenticated ? (
-            <Link to="/dashboard">
-              <IconButton>
-                <AccountCircle />
+            <>
+              <LinkRouter to="/dashboard">
+                <IconButton>
+                  <AccountCircle />
+                </IconButton>
+              </LinkRouter>
+              <IconButton onClick={onLogoutClick}>
+                <ExitToApp />
               </IconButton>
-            </Link>
+            </>
           ) : (
             <div className={classes.sectionDesktop}>
-              <Link to="/register">
+              <LinkRouter to="/register">
                 <Button className={classes.button} variant="outlined" color="secondary">
                   Registrieren
                 </Button>
-              </Link>
-              <Link to="/login">
+              </LinkRouter>
+              <LinkRouter to="/login">
                 <Button color="primary" className={classes.button} variant="outlined">
                   Einloggen
                 </Button>
-              </Link>
+              </LinkRouter>
             </div>
           )}
         </Toolbar>

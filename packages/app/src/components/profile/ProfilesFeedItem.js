@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
-import isEmpty from '../../utils/isEmpty'
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
+import LinkRouter from '../../components/LinkRouter'
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 import { Grid, Avatar, Card, CardContent, Typography } from '@material-ui/core'
@@ -53,17 +51,21 @@ function ProfilesFeedItem({ profile }) {
 
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
-      <Link to={`/${profile.user.username}`}>
+      <LinkRouter to={`/${profile.user.username}`}>
         <CardContent>
           <Grid container wrap="nowrap">
             <Grid>
-              <Avatar
-                className={classes.avatar}
-                src={
-                  isEmpty(profile.user.avatar) ? avatarPlaceholder : profile.user.avatar.secure_url
-                }
-                alt="profile-avatar"
-              />
+              {profile.user.avatar && profile.user.avatar.secure_url ? (
+                <Avatar
+                  className={classes.avatar}
+                  alt={profile.user.username}
+                  src={profile.user.avatar.secure_url}
+                />
+              ) : (
+                <Avatar className={classes.avatar} alt={profile.user.username}>
+                  {profile.user.username.substring(0, 1)}
+                </Avatar>
+              )}
             </Grid>
             <Grid>
               <Typography className={classes.name} variant="h5" component="h2">
@@ -94,7 +96,7 @@ function ProfilesFeedItem({ profile }) {
             </Grid>
           </Grid>
         </CardContent>
-      </Link>
+      </LinkRouter>
     </Card>
   )
 }

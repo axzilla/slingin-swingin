@@ -5,7 +5,7 @@ import 'moment/locale/de'
 
 import { useAuth } from '../../contexts/auth'
 
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 
 import { makeStyles } from '@material-ui/styles'
 import { CardHeader, Avatar, IconButton } from '@material-ui/core'
@@ -27,23 +27,24 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
     <CardHeader
       avatar={
         comment.user.avatar ? (
-          <Link to={`/${comment.user.username}`}>
+          <LinkRouter to={`/${comment.user.username}`}>
             <Avatar
               src={comment.user.avatar ? comment.user.avatar.secure_url : null}
               aria-label="Recipe"
               className={classes.avatar}
             />
-          </Link>
+          </LinkRouter>
         ) : (
-          <Link to={`/${comment.user.username}`}>
+          <LinkRouter to={`/${comment.user.username}`}>
             <Avatar aria-label="Recipe" className={classes.avatar}>
               {comment.user.username.substring(0, 1)}
             </Avatar>
-          </Link>
+          </LinkRouter>
         )
       }
       action={
-        auth.isAuthenticated && auth.user.id === comment.user._id ? (
+        (auth.isAuthenticated && auth.user.id === comment.user._id) ||
+        (auth.user.roles && auth.user.roles.isAdmin) ? (
           <IconButton
             aria-label="Settings"
             aria-controls="customized-menu"
@@ -53,7 +54,7 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
           </IconButton>
         ) : null
       }
-      title={<Link to={`/${comment.user.username}`}>{comment.user.username}</Link>}
+      title={<LinkRouter to={`/${comment.user.username}`}>{comment.user.username}</LinkRouter>}
       subheader={
         <Moment fromNow locale="de">
           {comment.dateCreated}

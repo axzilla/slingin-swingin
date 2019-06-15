@@ -22,7 +22,7 @@ import NotFound from './components/not-found/NotFound'
 import Imprint from './components/imprint/Imprint'
 import PrivacyPolicy from './components/privacy/PrivacyPolicy'
 
-ReactGA.initialize('UA-128112231-2')
+ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID)
 
 const ScrollToTop = () => {
   window.scrollTo(0, 0)
