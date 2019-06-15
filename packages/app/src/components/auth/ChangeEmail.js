@@ -44,7 +44,7 @@ function ChangeEmail() {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
   const { setAlert } = useAlert()
-  const { errors } = auth
+  const [errors, setErrors] = useState('')
 
   const [email, setEmail] = useState(auth.user.email)
 
@@ -74,7 +74,7 @@ function ChangeEmail() {
       setAlert({ message: 'E-Mail Adresse erfolgreich geändert' })
       localStorage.setItem('jwtToken', token)
     } catch (err) {
-      setAuth({ ...auth, errors: err.response.data })
+      setErrors(err.response.data)
     }
   }
 

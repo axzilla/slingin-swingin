@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 const Register = ({ history }) => {
   const classes = useStyles()
   const { auth, setAuth } = useAuth()
-  const { errors } = auth
+  const [errors, setErrors] = useState('')
 
   const [registerData, setRegisterData] = useState({
     username: '',
@@ -88,7 +88,7 @@ const Register = ({ history }) => {
       localStorage.setItem('jwtToken', token)
       history.push('/')
     } catch (err) {
-      setAuth({ ...auth, errors: err.response.data })
+      setErrors(err.response.data)
     }
   }
 

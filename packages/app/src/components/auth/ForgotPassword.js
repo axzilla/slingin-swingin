@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 import { forgotPassword } from './_services'
 
 import { makeStyles } from '@material-ui/styles'
@@ -42,9 +43,10 @@ const useStyles = makeStyles({
 
 function ForgotPassword({ history }) {
   const { auth } = useAuth()
+  const { setAlert } = useAlert()
   const classes = useStyles()
 
-  const { errors } = auth
+  const [errors, setErrors] = useState('')
   const [email, setEmail] = useState('')
 
   useEffect(() => {
@@ -61,15 +63,21 @@ function ForgotPassword({ history }) {
     setEmail(e.target.value)
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault()
 
     const emailData = {
       email
     }
 
-    forgotPassword(emailData)
-    setEmail('')
+    try {
+      await forgotPassword(emailData)
+      setAlert({ message: 'E-Mail erfolgreich gesendet' })
+      setEmail('')
+      setErrors('')
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   return (

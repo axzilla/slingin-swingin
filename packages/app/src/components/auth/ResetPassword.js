@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode'
 import ReactGA from 'react-ga'
 
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 import { setNewPassword } from './_services'
 
 import { makeStyles } from '@material-ui/styles'
@@ -43,9 +44,10 @@ const useStyles = makeStyles({
 
 function ResetPassword({ history, match }) {
   const { auth } = useAuth()
-  const classes = useStyles()
+  const { setAlert } = useAlert()
 
-  const { errors } = auth
+  const classes = useStyles()
+  const [errors, setErrors] = useState('')
 
   const [passwords, setPasswords] = useState({
     password: '',
@@ -69,7 +71,7 @@ function ResetPassword({ history, match }) {
     })
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault()
     const decode = jwtDecode(match.params.token)
 
@@ -78,8 +80,12 @@ function ResetPassword({ history, match }) {
       password: passwords.password,
       password2: passwords.password2
     }
-
-    setNewPassword(passwordData, history)
+    try {
+      await setNewPassword(passwordData)
+      setAlert({ message: 'E-Mail erfolgreich gesendet' })
+    } catch (err) {
+      setErrors(err.response.data)
+    }
   }
 
   return (
