@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
@@ -26,9 +26,9 @@ function ProfileDetailsTabsComments({ commentsByUserId }) {
             }}
           >
             <div>
-              <Link to={`post/${shortId}/${urlSlug}`}>
+              <LinkRouter to={`post/${shortId}/${urlSlug}`}>
                 <Typography variant="h6">{comment.refPost.title}</Typography>
-              </Link>
+              </LinkRouter>
               <Typography variant="caption" style={{ fontWeight: '300' }}>
                 <Moment fromNow locale="de">
                   {comment.dateCreated}

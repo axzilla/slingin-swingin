@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import { Typography } from '@material-ui/core'
 
 function PostDetailsCreator({ post }) {
@@ -10,11 +10,11 @@ function PostDetailsCreator({ post }) {
     content = <Typography>anonym</Typography>
   } else {
     content = (
-      <Link to={`/${post.user.username}`}>
+      <LinkRouter to={`/${post.user.username}`}>
         <Typography color="primary" style={{ display: 'inline' }}>
           {post.user.username}
         </Typography>
-      </Link>
+      </LinkRouter>
     )
   }
 

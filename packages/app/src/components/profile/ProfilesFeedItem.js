@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import isEmpty from '../../utils/isEmpty'
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 import { makeStyles } from '@material-ui/styles'
@@ -53,7 +53,7 @@ function ProfilesFeedItem({ profile }) {
 
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
-      <Link to={`/${profile.user.username}`}>
+      <LinkRouter to={`/${profile.user.username}`}>
         <CardContent>
           <Grid container wrap="nowrap">
             <Grid>
@@ -94,7 +94,7 @@ function ProfilesFeedItem({ profile }) {
             </Grid>
           </Grid>
         </CardContent>
-      </Link>
+      </LinkRouter>
     </Card>
   )
 }

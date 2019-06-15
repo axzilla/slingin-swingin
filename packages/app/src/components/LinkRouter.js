@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-function CustomLink({ children, to }) {
+function LinkRouter({ children, to }) {
   const classes = useStyles()
 
   return (
@@ -26,9 +26,9 @@ function CustomLink({ children, to }) {
   )
 }
 
-CustomLink.propTypes = {
+LinkRouter.propTypes = {
   children: PropTypes.node,
   to: PropTypes.string
 }
 
-export default CustomLink
+export default LinkRouter
