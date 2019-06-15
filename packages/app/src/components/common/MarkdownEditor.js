@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/styles/prism'
+import Link from '../../components/Link'
 
 import { makeStyles } from '@material-ui/styles'
 import { Card, CardContent, FormControl, Button, TextField, Typography } from '@material-ui/core'
@@ -132,7 +133,7 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
         <Card className={classes.cardPreview}>
           <CardContent>
             <Typography>
-              <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
+              <ReactMarkdown source={value} renderers={{ code: CodeBlock, link: Link }} />
             </Typography>
           </CardContent>
         </Card>
