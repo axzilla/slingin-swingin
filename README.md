@@ -93,7 +93,7 @@ Dieser Abschnitt enthält eine allgemeine Anforderungs- und Kurzanleitung.
 3. Klone dein Forked-Repository, dh. `git clone https://github.com/ <Benutzername> / codehustla.io.git`
 4. Richte die Umgebungsvariablen (.env) ein:
 
-- **api .env**
+- **api .env**  
 MONGO_URI="i.e. mongodb://localhost:27017/name-to-your-app"  
 SECRET_OR_KEY="use-any-secret-you-want"  
 NODEMAILER_SERVICE="nodemailer-service"  
@@ -106,7 +106,7 @@ CLOUDINARY_PATH_POST_TITLE="path-to-post-title"
 CLOUDINARY_PATH_USER_AVATAR="path-to-user-avatar"  
 ENV_URL="http://localhost:3000 or https://www.example.io"
 
-- **app .env**
+- **app .env**  
 SKIP_PREFLIGHT_CHECK=true  
 REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID="Tracking-ID"
 
