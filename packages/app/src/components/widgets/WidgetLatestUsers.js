@@ -23,7 +23,8 @@ import {
 const useStyles = makeStyles({
   avatar: {
     height: '50px',
-    width: '50px'
+    width: '50px',
+    marginRight: '15px'
   },
   card: {
     marginBottom: '20px'

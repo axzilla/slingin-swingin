@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LinkRouter from '../../components/LinkRouter'
-import isEmpty from '../../utils/isEmpty'
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 import { Grid, Avatar, Card, CardContent, Typography } from '@material-ui/core'
@@ -57,13 +55,17 @@ function ProfilesFeedItem({ profile }) {
         <CardContent>
           <Grid container wrap="nowrap">
             <Grid>
-              <Avatar
-                className={classes.avatar}
-                src={
-                  isEmpty(profile.user.avatar) ? avatarPlaceholder : profile.user.avatar.secure_url
-                }
-                alt="profile-avatar"
-              />
+              {profile.user.avatar && profile.user.avatar.secure_url ? (
+                <Avatar
+                  className={classes.avatar}
+                  alt={profile.user.username}
+                  src={profile.user.avatar.secure_url}
+                />
+              ) : (
+                <Avatar className={classes.avatar} alt={profile.user.username}>
+                  {profile.user.username.substring(0, 1)}
+                </Avatar>
+              )}
             </Grid>
             <Grid>
               <Typography className={classes.name} variant="h5" component="h2">

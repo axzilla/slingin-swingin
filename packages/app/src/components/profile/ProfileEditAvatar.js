@@ -2,7 +2,6 @@ import React from 'react'
 import jwtDecode from 'jwt-decode'
 import isEmpty from '../../utils/isEmpty'
 import { useAuth } from '../../contexts/auth'
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 import { uploadAvatar, deleteAvatar } from '../auth/_services'
 import { Button, Typography, Avatar, Grid } from '@material-ui/core'
 
@@ -37,11 +36,17 @@ function ProfileEditAvatar() {
 
   return (
     <Grid container direction="column" alignItems="center">
-      <Avatar
-        style={{ height: '150px', width: '150px' }}
-        src={isEmpty(auth.user.avatar) ? avatarPlaceholder : auth.user.avatar.secure_url}
-        alt="user-avatar"
-      />
+      {auth.user.avatar && auth.user.avatar.secure_url ? (
+        <Avatar
+          style={{ height: '150px', width: '150px' }}
+          alt={auth.user.username}
+          src={auth.user.avatar.secure_url}
+        />
+      ) : (
+        <Avatar style={{ height: '150px', width: '150px' }} alt={auth.user.username}>
+          {auth.user.username.substring(0, 1)}
+        </Avatar>
+      )}
       <Typography>*max 10MB</Typography>
       <input onChange={onChange} style={{ display: 'none' }} id="raised-button-file" type="file" />
       <Grid className="icons">

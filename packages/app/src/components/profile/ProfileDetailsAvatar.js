@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import isEmpty from '../../utils/isEmpty'
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
 import { Avatar } from '@material-ui/core'
@@ -25,14 +24,28 @@ function ProfileDetailsAvatar({ rgbaColor, profile }) {
   const classes = useStyles()
 
   return (
-    <Avatar
-      style={{
-        border: !isEmpty(profile.color) ? `3px ${rgbaColor} solid` : null
-      }}
-      className={classes.avatar}
-      src={isEmpty(profile.user.avatar) ? avatarPlaceholder : profile.user.avatar.secure_url}
-      alt="profile-avatar"
-    />
+    <>
+      {profile.user.avatar && profile.user.avatar.secure_url ? (
+        <Avatar
+          style={{
+            border: !isEmpty(profile.color) ? `3px ${rgbaColor} solid` : null
+          }}
+          alt={profile.user.username}
+          src={profile.user.avatar.secure_url}
+          className={classes.avatar}
+        />
+      ) : (
+        <Avatar
+          style={{
+            border: !isEmpty(profile.color) ? `3px ${rgbaColor} solid` : null
+          }}
+          alt={profile.user.username}
+          className={classes.avatar}
+        >
+          {profile.user.username.substring(0, 1)}
+        </Avatar>
+      )}
+    </>
   )
 }
 
