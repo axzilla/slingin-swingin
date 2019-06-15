@@ -43,7 +43,8 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
         )
       }
       action={
-        auth.isAuthenticated && auth.user.id === comment.user._id ? (
+        (auth.isAuthenticated && auth.user.id === comment.user._id) ||
+        (auth.user.roles && auth.user.roles.isAdmin) ? (
           <IconButton
             aria-label="Settings"
             aria-controls="customized-menu"
