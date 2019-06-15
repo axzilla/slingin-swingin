@@ -51,7 +51,7 @@ function LandingWidgetUsers() {
         </Typography>
         <List>
           {profiles &&
-            profiles.slice(0, 5).map(profile => {
+            profiles.slice(0, 10).map(profile => {
               return (
                 <ListItem key={profile._id}>
                   <LinkRouter key={profile._id} to={`/${profile.handle}`}>
