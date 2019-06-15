@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-import { Link } from 'react-router-dom'
+import LinkRouter from '../../components/LinkRouter'
 import jwtDecode from 'jwt-decode'
 
 import { useAuth } from '../../contexts/auth'
@@ -156,7 +156,7 @@ const Register = ({ history }) => {
             </Button>
           </form>
           <Divider className={classes.divider} />
-          <Link
+          <LinkRouter
             to={'/login'}
             style={{
               display: 'block',
@@ -164,7 +164,7 @@ const Register = ({ history }) => {
             }}
           >
             <Button className={classes.passwordButton}>Du hast schon einen Account?</Button>
-          </Link>
+          </LinkRouter>
         </CardContent>
       </Card>
     </Grid>

@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import LinkRouter from '../../components/LinkRouter'
 import Button from '../button/Button'
 
 function ProfilesFeedItemEditButton({ profile, auth }) {
   return (
     <React.Fragment>
       {auth.isAuthenticated && profile.user._id === auth.user.id ? (
-        <Link to="/edit-profile">
+        <LinkRouter to="/edit-profile">
           <Button>Bearbeiten</Button>
-        </Link>
+        </LinkRouter>
       ) : null}
     </React.Fragment>
   )

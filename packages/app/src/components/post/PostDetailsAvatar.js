@@ -1,24 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import isEmpty from '../../utils/isEmpty'
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
+import LinkRouter from '../../components/LinkRouter'
 import { Avatar } from '@material-ui/core'
 
 function PostDetailsAvatar({ post }) {
-  let content = {}
-
-  if (post.user === null) {
-    content = <Avatar src={avatarPlaceholder} />
-  } else {
-    content = (
-      <Link to={`/${post.user.username}`}>
-        <Avatar src={isEmpty(post.user.avatar) ? avatarPlaceholder : post.user.avatar.secure_url} />
-      </Link>
-    )
-  }
-
-  return <React.Fragment>{content}</React.Fragment>
+  return (
+    <LinkRouter to={`/${post.user.username}`}>
+      {post.user.avatar && post.user.avatar.secure_url ? (
+        <Avatar alt={post.user.username} src={post.user.avatar.secure_url} />
+      ) : (
+        <Avatar alt={post.user.username}>{post.user.username.substring(0, 1)}</Avatar>
+      )}
+    </LinkRouter>
+  )
 }
 
 PostDetailsAvatar.propTypes = {

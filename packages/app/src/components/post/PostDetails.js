@@ -4,6 +4,7 @@ import ReactGA from 'react-ga'
 import { useAuth } from '../../contexts/auth'
 import { getPostByShortId, deletePost, handlePostLikes, handlePostBookmarks } from './_services'
 import { getCommentsByPostRef } from '../comment/_services'
+import { getSubCommentByPostRef } from '../subComment/_services'
 import Spinner from '../common/Spinner'
 import CommentCreate from '../comment/CommentCreate'
 import CommentFeedItem from '../comment/CommentFeedItem'
@@ -34,6 +35,7 @@ function PostDetails({ match, history }) {
   const [isLoading, setIsloading] = useState(false)
   const [post, setPost] = useState([])
   const [commentsByPostRef, setCommentsByPostRef] = useState([])
+  const [subCommentsByPostRef, setSubCommentsByPostRef] = useState([])
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -51,6 +53,11 @@ function PostDetails({ match, history }) {
 
     const commentsByPostRef = await getCommentsByPostRef(postByShortId._id).then(res => res.data)
     setCommentsByPostRef(commentsByPostRef)
+
+    const subCommentsByPostRef = await getSubCommentByPostRef(postByShortId._id).then(
+      res => res.data
+    )
+    setSubCommentsByPostRef(subCommentsByPostRef)
 
     setIsloading(false)
   }
@@ -126,7 +133,7 @@ function PostDetails({ match, history }) {
           ) : null}
         </Grid>
         <Typography variant="subtitle1" gutterBottom>
-          Kommentare ({commentsByPostRef.length})
+          Kommentare ({commentsByPostRef.length + subCommentsByPostRef.length})
         </Typography>
         {commentsByPostRef &&
           commentsByPostRef.map(comment => {

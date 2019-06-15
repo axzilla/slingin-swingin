@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from '../../components/Link'
+import LinkRouter from '../../components/LinkRouter'
 import { Typography, Grid, Link as MuiLink } from '@material-ui/core'
 
 function Footer() {
@@ -43,19 +43,19 @@ function Footer() {
         </MuiLink>
       </div>
       <div style={{ marginTop: '20px' }}>
-        <Link to="/imprint">
+        <LinkRouter to="/imprint">
           <Typography gutterBottom style={{ display: 'inline' }}>
             Impressum{' '}
           </Typography>
-        </Link>
+        </LinkRouter>
         <Typography gutterBottom style={{ display: 'inline' }}>
           &bull;{' '}
         </Typography>
-        <Link to="/privacy-policy">
+        <LinkRouter to="/privacy-policy">
           <Typography gutterBottom style={{ display: 'inline' }}>
             Datenschutz
           </Typography>
-        </Link>
+        </LinkRouter>
       </div>
     </Grid>
   )

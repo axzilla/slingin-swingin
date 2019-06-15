@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import LinkRouter from '../../components/LinkRouter'
 import { deletePost } from './_services'
 import { CardActions, Button, Divider } from '@material-ui/core'
 
@@ -25,9 +25,9 @@ function PostDetailsAuthActions({ post, auth, history }) {
               <Divider />
               <CardActions>
                 <React.Fragment>
-                  <Link to={`/edit-post/${post._id}`}>
+                  <LinkRouter to={`/edit-post/${post._id}`}>
                     <Button color="primary">Bearbeiten</Button>
-                  </Link>
+                  </LinkRouter>
                   <Button onClick={onDeleteClick.bind(this, post._id)} color="primary">
                     Löschen
                   </Button>

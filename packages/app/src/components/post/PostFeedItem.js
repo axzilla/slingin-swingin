@@ -1,19 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../components/Link'
-import { HashLink } from 'react-router-hash-link'
+import LinkRouter from '../../components/LinkRouter'
 import Moment from 'react-moment'
-
 import { useAuth } from '../../contexts/auth'
-
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
-import isEmpty from '../../utils/isEmpty'
-
+import { getCommentsByPostRef } from '../comment/_services'
+import { getSubCommentByPostRef } from '../subComment/_services'
 import { makeStyles } from '@material-ui/styles'
-
 import { blue, red } from '@material-ui/core/colors'
-
 import {
   Grid,
   Avatar,
@@ -59,7 +52,18 @@ const useStyles = makeStyles({
 function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
   const { auth } = useAuth()
   const classes = useStyles()
+  const [commentsLength, setCommentsLength] = useState(0)
   let color
+
+  useEffect(() => {
+    getInitialData()
+  }, [])
+
+  async function getInitialData() {
+    const foundComments = await getCommentsByPostRef(post._id).then(res => res.data)
+    const foundSubComments = await getSubCommentByPostRef(post._id).then(res => res.data)
+    setCommentsLength(foundComments.length + foundSubComments.length)
+  }
 
   // https://materialuicolors.co/ Level 200
   if (post.type === 'Tutorial') {
@@ -97,7 +101,7 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
       {post.titleImage ? (
-        <Link to={`/post/${post.shortId}/${post.urlSlug}`}>
+        <LinkRouter to={`/post/${post.shortId}/${post.urlSlug}`}>
           <CardMedia
             component="img"
             alt="Post Tittle Image"
@@ -105,18 +109,25 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
             height="140"
             image={post.titleImage.secure_url}
           />
-        </Link>
+        </LinkRouter>
       ) : null}
 
       <CardContent>
         <Grid container wrap="nowrap">
           <Grid item>
-            <Link to={`/${post.user.username}`}>
-              <Avatar
-                src={isEmpty(post.user.avatar) ? avatarPlaceholder : post.user.avatar.secure_url}
-                className={classes.bigAvatar}
-              />
-            </Link>
+            <LinkRouter to={`/${post.user.username}`}>
+              {post.user.avatar && post.user.avatar.secure_url ? (
+                <Avatar
+                  className={classes.bigAvatar}
+                  alt={post.user.username}
+                  src={post.user.avatar.secure_url}
+                />
+              ) : (
+                <Avatar className={classes.bigAvatar} alt={post.user.username}>
+                  {post.user.username.substring(0, 1)}
+                </Avatar>
+              )}
+            </LinkRouter>
           </Grid>
 
           <Grid>
@@ -126,32 +137,27 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
               className={classes.chip}
               style={{ border: `2px solid ${color}` }}
             />
-            <Link to={`/post/${post.shortId}/${post.urlSlug}`}>
+            <LinkRouter to={`/post/${post.shortId}/${post.urlSlug}`}>
               <Typography variant="h5" component="h2" color="textSecondary">
                 {post.title}
               </Typography>
-            </Link>
+            </LinkRouter>
             <Grid container>
               {post.tags.map(tag => {
                 return (
-                  <Link key={tag} to={`/posts/t/${tag}`}>
+                  <LinkRouter key={tag} to={`/posts/t/${tag}`}>
                     <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
                       #{tag}
                     </Typography>
-                  </Link>
+                  </LinkRouter>
                 )
               })}
             </Grid>
-            <Link to={`/${post.user.username}`}>
-              <Typography
-                variant="caption"
-                gutterBottom
-                color="primary"
-                className={classes.inlineText}
-              >
+            <LinkRouter to={`/${post.user.username}`}>
+              <Typography gutterBottom className={classes.inlineText}>
                 {post.user.username}
               </Typography>
-            </Link>
+            </LinkRouter>
             <Typography variant="caption" gutterBottom className={classes.inlineText}>
               {' '}
               -{' '}
@@ -179,12 +185,12 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
               &nbsp;
               <Typography>{post.likes.length}</Typography>
             </Button>
-            <HashLink to={`/post/${post.shortId}/${post.urlSlug}#comments`}>
+            <LinkRouter to={`/post/${post.shortId}/${post.urlSlug}`}>
               <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
                 <i className="far fa-comment fa-lg" /> &nbsp;
-                {Math.floor(Math.random() * 9)}
+                {commentsLength}
               </Button>
-            </HashLink>
+            </LinkRouter>
           </span>
           <Button
             onClick={toggleIsPostBookmarked}

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/styles/prism'
+import Link from '@material-ui/core/Link'
 
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardContent, FormControl, Button, TextField } from '@material-ui/core'
+import { Card, CardContent, FormControl, Button, TextField, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   cardPreview: {
@@ -79,6 +80,14 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
     setText(value + mdStrings.img)
   }
 
+  function CustomLink(props) {
+    return (
+      <Link href={props.href} target="_blank">
+        {props.children}
+      </Link>
+    )
+  }
+
   return (
     <>
       <FormControl fullWidth error>
@@ -131,7 +140,9 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
       {value && withPreview ? (
         <Card className={classes.cardPreview}>
           <CardContent>
-            <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
+            <Typography>
+              <ReactMarkdown source={value} renderers={{ code: CodeBlock, link: CustomLink }} />
+            </Typography>
           </CardContent>
         </Card>
       ) : null}
@@ -147,7 +158,9 @@ MarkdownEditor.propTypes = {
   value: PropTypes.string,
   name: PropTypes.string,
   rows: PropTypes.number,
-  label: PropTypes.string
+  label: PropTypes.string,
+  children: PropTypes.node,
+  href: PropTypes.string
 }
 
 export default MarkdownEditor

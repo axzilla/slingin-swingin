@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
-
 import isEmpty from '../../utils/isEmpty'
 import { useAuth } from '../../contexts/auth'
+import { useAlert } from '../../contexts/alert'
 import { sendVerificationEmail } from './_services'
 import { getCurrentProfile } from '../profile/_services'
-
 import { Grid, Typography, Card, CardContent, Button } from '@material-ui/core'
 
-const NotVerified = ({ history }) => {
+function NotVerified({ history }) {
   const { auth } = useAuth()
-
+  const { setAlert } = useAlert()
   const { user } = auth
-  const { alerts } = auth
-
-  const [alert, setAlert] = useState({})
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -28,20 +24,10 @@ const NotVerified = ({ history }) => {
     getCurrentProfile()
   }, [])
 
-  useEffect(() => {
-    setAlert(alerts)
-  }, [alerts])
-
-  const onSendMailClick = e => {
+  async function onSendMailClick(e) {
     e.preventDefault()
-    sendVerificationEmail(auth.user)
-  }
-
-  const onLogoutClick = e => {
-    e.preventDefault()
-    if (window.confirm('Bist du sicher, dass du dich ausloggen möchtest?')) {
-      history.push('/login')
-    }
+    await sendVerificationEmail(auth.user)
+    setAlert({ message: 'E-Mail erfolgreich gesendet' })
   }
 
   return (
@@ -67,22 +53,8 @@ const NotVerified = ({ history }) => {
           >
             E-Mail senden
           </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={onLogoutClick}
-            style={{ margin: '5px' }}
-          >
-            Ausloggen
-          </Button>
         </CardContent>
       </Card>
-      {/* <Alert
-        isOpen={!isEmpty(alerts) ? true : false}
-        status="success"
-        alerts={alert}
-        message={alerts}
-      /> */}
     </Grid>
   )
 }
