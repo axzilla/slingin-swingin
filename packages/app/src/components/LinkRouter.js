@@ -9,10 +9,10 @@ const useStyles = makeStyles({
   link: {
     cursor: 'pointer',
     userSelect: 'auto',
-    textDecoration: 'none'
-    // '&:hover': {
-    //   textDecoration: 'none'
-    // }
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'none'
+    }
   }
 })
 
