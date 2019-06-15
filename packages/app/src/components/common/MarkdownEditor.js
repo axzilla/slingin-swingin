@@ -5,7 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/styles/prism'
 
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardContent, FormControl, Button, TextField } from '@material-ui/core'
+import { Card, CardContent, FormControl, Button, TextField, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   cardPreview: {
@@ -131,7 +131,9 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
       {value && withPreview ? (
         <Card className={classes.cardPreview}>
           <CardContent>
-            <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
+            <Typography>
+              <ReactMarkdown source={value} renderers={{ code: CodeBlock }} />
+            </Typography>
           </CardContent>
         </Card>
       ) : null}

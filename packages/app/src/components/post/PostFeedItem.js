@@ -142,12 +142,7 @@ function PostFeedItem({ post, history, onLikeClick, onBookmarkClick }) {
               })}
             </Grid>
             <Link to={`/${post.user.username}`}>
-              <Typography
-                variant="caption"
-                gutterBottom
-                color="primary"
-                className={classes.inlineText}
-              >
+              <Typography gutterBottom className={classes.inlineText}>
                 {post.user.username}
               </Typography>
             </Link>

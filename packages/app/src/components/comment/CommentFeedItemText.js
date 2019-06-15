@@ -1,17 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CodeBlock from '../common/CodeBlock'
-import ReactMarkdown from 'react-markdown'
+import StyledReactMarkdown from '../common/StyledReactMarkdown'
 
 function CommentFeedItemtext({ comment }) {
-  return (
-    <ReactMarkdown
-      source={comment.text}
-      escapeHtml={false}
-      renderers={{ code: CodeBlock }}
-      type="read"
-    />
-  )
+  return <StyledReactMarkdown source={comment.text} escapeHtml={false} type="read" />
 }
 
 CommentFeedItemtext.propTypes = {

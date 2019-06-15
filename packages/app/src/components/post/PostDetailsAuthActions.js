@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import Link from '../../components/Link'
 import { deletePost } from './_services'
 import { CardActions, Button, Divider } from '@material-ui/core'
 
