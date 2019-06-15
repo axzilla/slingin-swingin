@@ -108,7 +108,7 @@ ENV_URL="http://localhost:3000 or https://www.example.io"
 
 - **app .env**
 SKIP_PREFLIGHT_CHECK=true  
-GOOGLE_ANALYTICS_TRACKING_ID="Tracking-ID"
+REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID="Tracking-ID"
 
 5. Führe die Installation der npm-Packages durch
 - npm i --prefix packages/app
