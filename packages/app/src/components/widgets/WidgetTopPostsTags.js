@@ -14,7 +14,7 @@ function WidgetTopPostsTags() {
     getPostsTags().then(res => {
       setPostTags(res.data)
     })
-  })
+  }, [])
 
   return (
     <Card>
