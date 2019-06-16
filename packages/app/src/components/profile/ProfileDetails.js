@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 function ProfileDetails({ match }) {
   const { auth } = useAuth()
   const classes = useStyles()
-  const [params] = useState(match.params.handle)
   const [isLoading, setIsLoading] = useState(false)
   const [profile, setProfile] = useState({})
   const [postsByUserId, setPostsByUserId] = useState([])
