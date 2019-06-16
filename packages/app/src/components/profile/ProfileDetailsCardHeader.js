@@ -33,17 +33,21 @@ function ProfileDetailsCardHeader({ rgbaColor, profile, auth }) {
     >
       <CardContent>
         <Grid container>
-          <Grid container item sm={2} alignItems="center" direction="column">
-            <Avatar profile={profile} rgbaColor={rgbaColor} />
+          <Grid item xs={12} md={3}>
+            <Grid container alignItems="center" direction="column">
+              <Avatar profile={profile} rgbaColor={rgbaColor} />
+            </Grid>
           </Grid>
-          <Grid container item sm={10}>
-            <Grid item xs={12}>
-              <ProfileDetailsName profile={profile} rgbaColor={rgbaColor} />
-              <ProfileDetailsUsername profile={profile} rgbaColor={rgbaColor} />
-              <ProfileDetailsBio profile={profile} />
-              <ProfileDetailsSocials profile={profile} rgbaColor={rgbaColor} />
-              <ProfileDetailsInfos profile={profile} />
-              <ProfileDetailsButtonEdit profile={profile} auth={auth} />
+          <Grid item xs={12} md={9}>
+            <Grid container>
+              <Grid item xs={12}>
+                <ProfileDetailsName profile={profile} rgbaColor={rgbaColor} />
+                <ProfileDetailsUsername profile={profile} rgbaColor={rgbaColor} />
+                <ProfileDetailsBio profile={profile} />
+                <ProfileDetailsSocials profile={profile} rgbaColor={rgbaColor} />
+                <ProfileDetailsInfos profile={profile} />
+                <ProfileDetailsButtonEdit profile={profile} auth={auth} />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
