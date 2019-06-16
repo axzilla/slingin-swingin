@@ -8,10 +8,8 @@ import { Avatar } from '@material-ui/core'
 const useStyles = makeStyles(theme => ({
   avatar: {
     border: `3px solid ${grey[500]}`,
-    maxWidth: '200px',
-    maxHeight: '200px',
-    width: 'auto',
-    height: 'auto',
+    width: '150px',
+    height: '150px',
     marginRight: '20px',
     [theme.breakpoints.down('xs')]: {
       marginRight: '0',
