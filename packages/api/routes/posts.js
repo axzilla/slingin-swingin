@@ -75,6 +75,10 @@ router.get('/get-post/:postId', (req, res) => {
   Post.findById(req.params.postId)
     .populate('user', ['name', 'username', 'avatar'])
     .then(post => {
+      if (!post) {
+        res.status(404)
+      }
+
       res.json(post)
     })
     .catch(() => res.status(404).json({ nopostfound: 'Keinen Betrag mit dieser ID gefunden' }))
@@ -85,6 +89,10 @@ router.get('/short/:post_id', (req, res) => {
   Post.findOne({ shortId: req.params.post_id })
     .populate('user', ['name', 'username', 'avatar'])
     .then(post => {
+      if (!post) {
+        res.status(404)
+      }
+
       res.json(post)
     })
     .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge mit dieser ID gefunden' }))

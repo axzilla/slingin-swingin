@@ -39,7 +39,7 @@ function LandingWidgetUsers() {
     getProfiles().then(res => {
       setProfiles(res.data)
     })
-  })
+  }, [])
 
   return (
     <Card className={classes.card}>

@@ -7,13 +7,23 @@ import { useAuth } from '../../contexts/auth'
 import PostFeedItem from '../post/PostFeedItem'
 import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
+import WidgetSidebarRight from '../../components/widgets/WidgetSidebarRight'
+import WidgetSidebarLeft from '../../components/widgets/WidgetSidebarLeft'
 import LandingWelcome from './LandingWelcome'
+
 import { Button, Grid, Hidden } from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
+import CloudIcon from '@material-ui/icons/Cloud'
+import FolderSharedIcon from '@material-ui/icons/FolderShared'
 
 function Landing({ history }) {
   const { auth } = useAuth()
   const [limit, setLimit] = useState(10)
   const [posts, setPosts] = useState()
+  const [state, setState] = useState({
+    left: false,
+    right: false
+  })
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -57,6 +67,14 @@ function Landing({ history }) {
     })
   }
 
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return
+    }
+
+    setState({ ...state, [side]: open })
+  }
+
   return (
     <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
       <Hidden smDown>
@@ -66,6 +84,18 @@ function Landing({ history }) {
       </Hidden>
       <Grid item xs={12} md={6}>
         {!auth.isAuthenticated ? <LandingWelcome /> : null}
+        <Hidden mdUp>
+          <Grid container direction="row" justify="space-between" alignItems="center">
+            <IconButton onClick={toggleDrawer('left', true)}>
+              <CloudIcon />
+            </IconButton>
+            <IconButton onClick={toggleDrawer('right', true)}>
+              <FolderSharedIcon />
+            </IconButton>
+          </Grid>
+          <WidgetSidebarRight state={state} setState={setState} toggleDrawer={toggleDrawer} />
+          <WidgetSidebarLeft state={state} setState={setState} toggleDrawer={toggleDrawer} />
+        </Hidden>
         <Grid item xs={12}>
           {posts &&
             posts
