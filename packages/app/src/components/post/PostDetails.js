@@ -48,16 +48,20 @@ function PostDetails({ match, history }) {
   async function getInitialProps() {
     setIsloading(true)
 
-    const postByShortId = await getPostByShortId(match.params.postId).then(res => res.data)
-    setPost(postByShortId)
+    try {
+      const postByShortId = await getPostByShortId(match.params.postId).then(res => res.data)
+      setPost(postByShortId)
 
-    const commentsByPostRef = await getCommentsByPostRef(postByShortId._id).then(res => res.data)
-    setCommentsByPostRef(commentsByPostRef)
+      const commentsByPostRef = await getCommentsByPostRef(postByShortId._id).then(res => res.data)
+      setCommentsByPostRef(commentsByPostRef)
 
-    const subCommentsByPostRef = await getSubCommentByPostRef(postByShortId._id).then(
-      res => res.data
-    )
-    setSubCommentsByPostRef(subCommentsByPostRef)
+      const subCommentsByPostRef = await getSubCommentByPostRef(postByShortId._id).then(
+        res => res.data
+      )
+      setSubCommentsByPostRef(subCommentsByPostRef)
+    } catch (err) {
+      history.push('/not-found')
+    }
 
     setIsloading(false)
   }
