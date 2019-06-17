@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-function ProfileDetails({ match }) {
+function ProfileDetails({ match, history }) {
   const { auth } = useAuth()
   const classes = useStyles()
   const [isLoading, setIsLoading] = useState(false)
@@ -39,13 +39,17 @@ function ProfileDetails({ match }) {
   async function getInitialData() {
     setIsLoading(true)
 
-    const profileUserId = await getProfileByHandle(match.params.handle).then(res => {
-      setProfile(res.data)
-      return res.data.user._id
-    })
+    try {
+      const profileUserId = await getProfileByHandle(match.params.handle).then(res => {
+        setProfile(res.data)
+        return res.data.user._id
+      })
 
-    await getPostsByUserId(profileUserId).then(res => setPostsByUserId(res.data))
-    await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
+      await getPostsByUserId(profileUserId).then(res => setPostsByUserId(res.data))
+      await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
+    } catch (err) {
+      history.push('/not-found')
+    }
 
     setIsLoading(false)
   }
@@ -83,7 +87,8 @@ function ProfileDetails({ match }) {
 }
 
 ProfileDetails.propTypes = {
-  match: PropTypes.object
+  match: PropTypes.object,
+  history: PropTypes.object
 }
 
 export default ProfileDetails
