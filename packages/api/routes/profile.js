@@ -16,14 +16,11 @@ const User = require('../models/User')
 // @desc    Get current users profile
 // @access  Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {}
-
   Profile.findOne({ user: req.user.id })
     .populate('user', ['name', 'username', 'avatar'])
     .then(profile => {
       if (!profile) {
-        errors.noprofile = 'Es existiert kein Profil für diesen Benutzer'
-        return res.status(404).json(errors)
+        res.status(404)
       }
 
       res.json(profile)
@@ -55,14 +52,11 @@ router.get('/all', (req, res) => {
 // @access  Public
 
 router.get('/handle/:handle', (req, res) => {
-  const errors = {}
-
   Profile.findOne({ handle: req.params.handle })
     .populate('user', ['name', 'username', 'avatar', 'isVerified'])
     .then(profile => {
       if (!profile) {
-        errors.noprofile = 'Es existiert kein Profil für diesen Benutzer'
-        res.status(404).json(errors)
+        res.status(404)
       }
 
       const notVerified = {
@@ -87,14 +81,13 @@ router.get('/handle/:handle', (req, res) => {
 // @desc    Get profile by user ID
 // @access  Public
 router.get('/user/:id', (req, res) => {
-  const errors = {}
   Profile.findOne({ user: req.params.id })
     .populate('user', ['name', 'username', 'avatar'])
     .then(profile => {
       if (!profile) {
-        errors.noprofile = 'Es existiert kein Profil für diesen Benutzer'
-        res.status(404).json(errors)
+        res.status(404)
       }
+
       res.json(profile)
     })
     .catch(err => res.status(404).json({ profile: 'Es existiert kein Profil für diesen Benutzer' }))
