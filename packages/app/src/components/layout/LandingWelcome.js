@@ -16,9 +16,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: '15px',
     marginBottom: '12px'
   },
+  gridButtons: {
+    marginBottom: theme.spacing(3)
+  },
   button: {
-    margin: theme.spacing(0),
-    marginBottom: '30px'
+    margin: theme.spacing(1)
   }
 }))
 
