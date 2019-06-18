@@ -140,7 +140,10 @@ const useStyles = makeStyles(theme => ({
     }
   },
   button: {
-    margin: theme.spacing(0)
+    margin: theme.spacing(1)
+  },
+  mobileButton: {
+    margin: `${theme.spacing(-1)}px 0`
   },
   textLink: {
     flexGrow: 1,
@@ -203,7 +206,12 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
             <ListItem>
               <ListItemText>
                 <LinkRouter to="/register">
-                  <Button fullWidth className={classes.button} variant="outlined" color="secondary">
+                  <Button
+                    fullWidth
+                    className={classes.mobileButton}
+                    variant="outlined"
+                    color="secondary"
+                  >
                     Registrieren
                   </Button>
                 </LinkRouter>
@@ -212,7 +220,12 @@ function ToolbarApp({ history, isLightTheme, onThemeToggleClick }) {
             <ListItem>
               <ListItemText>
                 <LinkRouter to="/login">
-                  <Button color="primary" fullWidth className={classes.button} variant="outlined">
+                  <Button
+                    color="primary"
+                    fullWidth
+                    className={classes.mobileButton}
+                    variant="outlined"
+                  >
                     Einloggen
                   </Button>
                 </LinkRouter>
