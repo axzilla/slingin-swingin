@@ -13,6 +13,7 @@ function PostsByTag({ history, match }) {
   const [posts, setPosts] = useState()
   const [postTags, setPostTags] = useState()
   const [limit, setLimit] = useState(10)
+  const [paramsTag, setParamsTag] = useState()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -26,11 +27,13 @@ function PostsByTag({ history, match }) {
     getPostsTags().then(res => {
       setPostTags(res.data)
     })
-  }, [])
+
+    setParamsTag()
+  }, [match.params.tag])
 
   useEffect(() => {
     getPostsByTag(match.params.tag)
-  }, [match.params.tag])
+  }, [match.params.tag !== paramsTag])
 
   function loadMore() {
     setLimit(limit + 10)
