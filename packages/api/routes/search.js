@@ -23,7 +23,7 @@ router.get('/:searchText', (req, res) => {
     })
     .then(() =>
       Profile.find()
-        .populate('user', ['username', 'isVerified'])
+        .populate('user')
         .then(profiles => {
           searchResult.profiles = profiles.filter(
             profile =>
