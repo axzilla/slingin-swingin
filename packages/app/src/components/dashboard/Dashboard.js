@@ -23,7 +23,8 @@ import {
   Divider,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Avatar
 } from '@material-ui/core'
 
 import { ViewComfy, AccountBox, Settings } from '@material-ui/icons'
@@ -31,6 +32,10 @@ import { ViewComfy, AccountBox, Settings } from '@material-ui/icons'
 const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
+  avatar: {
+    width: '24px',
+    height: '24px'
+  },
   root: {
     display: 'flex'
   },
@@ -140,6 +145,16 @@ function Dashboard() {
           }}
         >
           <div className={classes.toolbar} />
+          <List>
+            <LinkRouter to={`/${auth.user.username}`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <Avatar src={auth.user.avatar.secure_url} className={classes.avatar} />
+                </ListItemIcon>
+                <ListItemText>@{auth.user.username}</ListItemText>
+              </ListItem>
+            </LinkRouter>
+          </List>
           <Divider />
           <List>
             <LinkRouter to="/dashboard/posts">
