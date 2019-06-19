@@ -22,7 +22,8 @@ function TabsPost({
   setPostsByUserId,
   postsByUserBookmark,
   setPostsByUserBookmark,
-  commentsByUserId
+  commentsByUserId,
+  subCommentsByUserId
 }) {
   const { auth } = useAuth()
   const classes = useStyles()
@@ -43,7 +44,13 @@ function TabsPost({
         >
           <Tab label={`Veröffentlicht (${postsByUserId ? postsByUserId.length : 0})`} />
           <Tab label={`Lesezeichen (${postsByUserBookmark ? postsByUserBookmark.length : 0})`} />
-          <Tab label={`Kommentare (${commentsByUserId ? commentsByUserId.length : 0})`} />
+          <Tab
+            label={`Kommentare (${
+              commentsByUserId && subCommentsByUserId
+                ? commentsByUserId.length + subCommentsByUserId.length
+                : 0
+            })`}
+          />
         </Tabs>
       </AppBar>
       {value === 0 && (
@@ -60,7 +67,12 @@ function TabsPost({
           auth={auth}
         />
       )}
-      {value === 2 && <TabsPostComments commentsByUserId={commentsByUserId} />}
+      {value === 2 && (
+        <TabsPostComments
+          commentsByUserId={commentsByUserId}
+          subCommentsByUserId={subCommentsByUserId}
+        />
+      )}
     </div>
   )
 }
@@ -70,7 +82,8 @@ TabsPost.propTypes = {
   setPostsByUserId: PropTypes.func,
   postsByUserBookmark: PropTypes.array,
   setPostsByUserBookmark: PropTypes.func,
-  commentsByUserId: PropTypes.array
+  commentsByUserId: PropTypes.array,
+  subCommentsByUserId: PropTypes.array
 }
 
 export default TabsPost

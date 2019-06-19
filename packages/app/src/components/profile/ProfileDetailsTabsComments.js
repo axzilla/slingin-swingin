@@ -6,14 +6,16 @@ import 'moment/locale/de'
 import StyledReactMarkdown from '../common/StyledReactMarkdown'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
-function ProfileDetailsTabsComments({ commentsByUserId }) {
+function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
   const [limit, setLimit] = useState(10)
 
   function loadMore() {
     setLimit(limit + 10)
   }
 
-  const commentsItem = commentsByUserId.slice(0, limit).map(comment => {
+  const mergedComments = [...commentsByUserId, ...subCommentsByUserId]
+
+  const commentsItem = mergedComments.slice(0, limit).map(comment => {
     const { shortId, urlSlug } = comment.refPost
 
     return (
@@ -58,7 +60,8 @@ function ProfileDetailsTabsComments({ commentsByUserId }) {
 }
 
 ProfileDetailsTabsComments.propTypes = {
-  commentsByUserId: PropTypes.array
+  commentsByUserId: PropTypes.array,
+  subCommentsByUserId: PropTypes.array
 }
 
 export default ProfileDetailsTabsComments

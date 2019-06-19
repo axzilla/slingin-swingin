@@ -6,6 +6,7 @@ import ReactGA from 'react-ga'
 import { useAuth } from '../../contexts/auth'
 
 import { getCommentsByUserId } from '../comment/_services'
+import { getSubCommentsByUserId } from '../subComment/_services'
 import { getPostsByUserBookmark, getPostsByUserId } from '../post/_services'
 
 import LinkRouter from '../../components/LinkRouter'
@@ -85,29 +86,42 @@ function Dashboard() {
   const { auth } = useAuth()
   const [postsByUserId, setPostsByUserId] = useState()
   const [postsByUserBookmark, setPostsByUserBookmark] = useState()
-  const [commentsByUserId, setCommentsByUserId] = useState()
+  const [commentsByUserId, setCommentsByUserId] = useState([])
+  const [subCommentsByUserId, setSubCommentsByUserId] = useState([])
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
+    getInitialData()
+  }, [])
 
-    getPostsByUserId(auth.user.id).then(res => {
+  async function getInitialData() {
+    await getPostsByUserId(auth.user.id).then(res => {
       setPostsByUserId(res.data)
     })
 
-    getPostsByUserBookmark(auth.user.id).then(res => {
+    await getPostsByUserBookmark(auth.user.id).then(res => {
       setPostsByUserBookmark(res.data)
     })
 
-    getCommentsByUserId(auth.user.id).then(res => {
+    await getCommentsByUserId(auth.user.id).then(res => {
       setCommentsByUserId(res.data)
     })
-  }, [])
+
+    await getSubCommentsByUserId(auth.user.id).then(res => {
+      setSubCommentsByUserId(res.data)
+    })
+  }
 
   let dashboardContent
 
-  if (postsByUserId === null || postsByUserBookmark === null || commentsByUserId === null) {
+  if (
+    postsByUserId === null ||
+    postsByUserBookmark === null ||
+    commentsByUserId === null ||
+    subCommentsByUserId === null
+  ) {
     dashboardContent = <Spinner />
   } else {
     dashboardContent = (
@@ -123,6 +137,7 @@ function Dashboard() {
               postsByUserBookmark={postsByUserBookmark}
               setPostsByUserBookmark={setPostsByUserBookmark}
               commentsByUserId={commentsByUserId}
+              subCommentsByUserId={subCommentsByUserId}
               auth={auth}
             />
           )}

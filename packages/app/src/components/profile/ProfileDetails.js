@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/auth'
 import { getPostsByUserId } from '../post/_services'
 import { getProfileByHandle } from './_services'
 import { getCommentsByUserId } from '../comment/_services'
+import { getSubCommentsByUserId } from '../subComment/_services'
 
 import Spinner from '../common/Spinner'
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
@@ -27,6 +28,7 @@ function ProfileDetails({ match, history }) {
   const [profile, setProfile] = useState({})
   const [postsByUserId, setPostsByUserId] = useState([])
   const [commentsByUserId, setCommentsByUserId] = useState([])
+  const [subCommentsByUserId, setSubCommentsByUserId] = useState([])
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -47,6 +49,7 @@ function ProfileDetails({ match, history }) {
 
       await getPostsByUserId(profileUserId).then(res => setPostsByUserId(res.data))
       await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
+      await getSubCommentsByUserId(profileUserId).then(res => setSubCommentsByUserId(res.data))
     } catch (err) {
       history.push('/not-found')
     }
@@ -78,6 +81,7 @@ function ProfileDetails({ match, history }) {
             postsByUserId={postsByUserId}
             setPostsByUserId={setPostsByUserId}
             commentsByUserId={commentsByUserId}
+            subCommentsByUserId={subCommentsByUserId}
             rgbaColor={rgbaColor}
           />
         </>

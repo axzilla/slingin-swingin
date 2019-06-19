@@ -8,6 +8,10 @@ export function getSubCommentByPostRef(postId) {
   return axios.get(`/subComments/get-by-post-ref/${postId}`)
 }
 
+export function getSubCommentsByUserId(userId) {
+  return axios.get(`/subComments/get-by-user-id/${userId}`)
+}
+
 export function getSubCommentByCommentRef(commentId) {
   return axios.get(`/subComments/get-by-comment-ref/${commentId}`)
 }
