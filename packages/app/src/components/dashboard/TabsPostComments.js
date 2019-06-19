@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
+import StyledReactMarkdown from '../common/StyledReactMarkdown'
 import LinkRouter from '../../components/LinkRouter'
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
@@ -36,8 +37,7 @@ function TabsPostComments({ commentsByUserId }) {
               </Typography>
             </div>
           </div>
-
-          <Typography dangerouslySetInnerHTML={{ __html: comment.text }} className="post-content" />
+          <StyledReactMarkdown source={comment.text} escapeHtml={false} type="read" />
         </CardContent>
       </Card>
     )
