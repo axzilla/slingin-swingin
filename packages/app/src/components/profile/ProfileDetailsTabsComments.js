@@ -15,35 +15,38 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
 
   const mergedComments = [...commentsByUserId, ...subCommentsByUserId]
 
-  const commentsItem = mergedComments.slice(0, limit).map(comment => {
-    const { shortId, urlSlug } = comment.refPost
+  const commentsItem = mergedComments
+    .sort((a, b) => a.dateCreated < b.dateCreated)
+    .slice(0, limit)
+    .map(comment => {
+      const { shortId, urlSlug } = comment.refPost
 
-    return (
-      <Card key={comment._id} style={{ marginBottom: '20px' }}>
-        <CardContent>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px'
-            }}
-          >
-            <div>
-              <LinkRouter to={`post/${shortId}/${urlSlug}`}>
-                <Typography variant="h6">{comment.refPost.title}</Typography>
-              </LinkRouter>
-              <Typography variant="caption" style={{ fontWeight: '300' }}>
-                <Moment fromNow locale="de">
-                  {comment.dateCreated}
-                </Moment>
-              </Typography>
+      return (
+        <Card key={comment._id} style={{ marginBottom: '20px' }}>
+          <CardContent>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '10px'
+              }}
+            >
+              <div>
+                <LinkRouter to={`post/${shortId}/${urlSlug}`}>
+                  <Typography variant="h6">{comment.refPost.title}</Typography>
+                </LinkRouter>
+                <Typography variant="caption" style={{ fontWeight: '300' }}>
+                  <Moment fromNow locale="de">
+                    {comment.dateCreated}
+                  </Moment>
+                </Typography>
+              </div>
             </div>
-          </div>
-          <StyledReactMarkdown source={comment.text} escapeHtml={false} type="read" />
-        </CardContent>
-      </Card>
-    )
-  })
+            <StyledReactMarkdown source={comment.text} escapeHtml={false} type="read" />
+          </CardContent>
+        </Card>
+      )
+    })
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
