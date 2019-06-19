@@ -698,6 +698,11 @@ router.post('/change-email', (req, res) => {
     return res.status(400).json(errors)
   }
 
+  if (domains.includes(req.body.email.split('@')[1])) {
+    errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
+    return res.status(400).json(errors)
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       errors.email = 'E-Mail Adresse ist bereits vergeben'
