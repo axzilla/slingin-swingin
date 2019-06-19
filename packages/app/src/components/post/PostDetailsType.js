@@ -1,6 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import { makeStyles } from '@material-ui/styles'
 import { Chip } from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+  chip: {
+    border: props => `2px solid ${props.color}`,
+    borderRadius: '5px',
+    marginBottom: theme.spacing(1)
+  }
+}))
 
 function PostDetailsType({ post }) {
   let color
@@ -22,7 +32,9 @@ function PostDetailsType({ post }) {
     color = '#FFE082' // Amber 200
   }
 
-  return <Chip variant="outlined" label={post.type} style={{ border: `2px solid ${color}` }} />
+  const classes = useStyles({ color })
+
+  return <Chip variant="outlined" label={post.type} className={classes.chip} />
 }
 
 PostDetailsType.propTypes = {
