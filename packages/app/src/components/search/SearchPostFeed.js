@@ -64,7 +64,7 @@ function SearchPostFeed({ searchResult, setSearchResult }) {
   }
 
   return (
-    <Grid container justify="center">
+    <Grid container alignItems="center" justify="center">
       <Grid item xs={12} sm={6}>
         {postContent}
         {posts && postContent.length === posts.length ? null : (

@@ -23,8 +23,8 @@ function SearchProfileFeed({ searchResult }) {
   }
 
   return (
-    <Grid container direction="column" alignItems="center">
-      <Grid item xs={12} sm={8} md={6}>
+    <Grid container alignItems="center" justify="center">
+      <Grid item xs={12} md={6}>
         {profileItems}
         {searchResult.profiles && profileItems.length === searchResult.profiles.length ? null : (
           <Button onClick={loadMore} variant="outlined" color="primary">

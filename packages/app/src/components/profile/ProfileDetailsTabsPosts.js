@@ -67,7 +67,7 @@ function ProfileDetailsTabsPosts({ postsByUserId, setPostsByUserId }) {
 
   return (
     <Grid container alignItems="center" justify="center">
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={6}>
         {postContent}
         {postsByUserId && postContent.length === postsByUserId.length ? null : (
           <Button onClick={loadMore} variant="outlined" color="primary">
