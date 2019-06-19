@@ -76,10 +76,15 @@ function PostCreate({ history }) {
     tags: []
   })
 
+  const inputLabel = React.useRef(null)
+  const [labelWidth, setLabelWidth] = React.useState(0)
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
+
+    setLabelWidth(inputLabel.current.offsetWidth)
   }, [])
 
   async function onSubmit() {
@@ -213,13 +218,19 @@ function PostCreate({ history }) {
             className={classes.formControl}
             error={errors && errors.type ? true : false}
           >
-            <InputLabel error={errors && errors.type ? true : false} htmlFor="filled-age-simple">
+            <InputLabel
+              ref={inputLabel}
+              htmlFor="outlined-type-simple"
+              error={errors && errors.type ? true : false}
+            >
               Beitragstyp
             </InputLabel>
             <Select
               value={postData.type}
               onChange={onChange}
-              input={<OutlinedInput name="type" id="filled-age-simple" />}
+              input={
+                <OutlinedInput labelWidth={labelWidth} name="type" id="outlined-type-simple" />
+              }
             >
               <MenuItem value="Tutorial">Tutorial</MenuItem>
               <MenuItem value="Blogartikel">Blogartikel</MenuItem>
@@ -229,9 +240,6 @@ function PostCreate({ history }) {
               <MenuItem value="Frage">Frage</MenuItem>
               <MenuItem value="Fun">Fun</MenuItem>
             </Select>
-            {errors && errors.type ? (
-              <FormHelperText className={classes.error}>{errors.type}</FormHelperText>
-            ) : null}
           </FormControl>
           <FormControl className={classes.formControl} error>
             <TextField

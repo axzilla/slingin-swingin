@@ -67,10 +67,15 @@ function PostEdit({ match, history }) {
   const [tags, setTags] = useState([])
   const [tagsInput, setTagsInput] = useState('')
 
+  const inputLabel = React.useRef(null)
+  const [labelWidth, setLabelWidth] = React.useState(0)
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       ReactGA.pageview(window.location.pathname + window.location.search)
     }
+
+    setLabelWidth(inputLabel.current.offsetWidth)
 
     getPost(match.params.id).then(res => {
       const post = res.data
@@ -210,13 +215,19 @@ function PostEdit({ match, history }) {
             className={classes.formControl}
             error={errors && errors.type ? true : false}
           >
-            <InputLabel error={errors && errors.type ? true : false} htmlFor="filled-age-simple">
+            <InputLabel
+              ref={inputLabel}
+              htmlFor="outlined-type-simple"
+              error={errors && errors.type ? true : false}
+            >
               Beitragstyp
             </InputLabel>
             <Select
               value={type}
               onChange={onTypeChange}
-              input={<OutlinedInput name="type" id="filled-age-simple" />}
+              input={
+                <OutlinedInput name="type" labelWidth={labelWidth} id="outlined-type-simple" />
+              }
             >
               <MenuItem value="Tutorial">Tutorial</MenuItem>
               <MenuItem value="Blogartikel">Blogartikel</MenuItem>
