@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     background: 'transparent',
     marginBottom: '20px'
   },
-  menu: { marginBottom: '10px' },
+  menu: { marginBottom: '20px' },
   button: { height: '40px', borderRadius: 0 }
 })
 
@@ -101,7 +101,6 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
           name={name}
           rows={rows}
         />
-
         <Card className={classes.menu}>
           <Button className={classes.button} onClick={onBoldClick}>
             <i className="fas fa-bold fa-lg" />
