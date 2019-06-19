@@ -6,14 +6,15 @@ import StyledReactMarkdown from '../common/StyledReactMarkdown'
 import LinkRouter from '../../components/LinkRouter'
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
-function TabsPostComments({ commentsByUserId }) {
+function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {
   const [limit, setLimit] = useState(10)
 
   function loadMore() {
     setLimit(limit + 10)
   }
 
-  const content = commentsByUserId.slice(0, limit).map(comment => {
+  const mergedComments = [...commentsByUserId, ...subCommentsByUserId]
+  const content = mergedComments.slice(0, limit).map(comment => {
     const { shortId, urlSlug } = comment.refPost
 
     return (
@@ -45,7 +46,7 @@ function TabsPostComments({ commentsByUserId }) {
   return (
     <Grid>
       {content}
-      {commentsByUserId && content.length === commentsByUserId.length ? null : (
+      {mergedComments && content.length === mergedComments.length ? null : (
         <Button onClick={loadMore} variant="outlined" color="primary">
           Mehr...
         </Button>
@@ -55,7 +56,8 @@ function TabsPostComments({ commentsByUserId }) {
 }
 
 TabsPostComments.propTypes = {
-  commentsByUserId: PropTypes.array
+  commentsByUserId: PropTypes.array,
+  subCommentsByUserId: PropTypes.array
 }
 
 export default TabsPostComments

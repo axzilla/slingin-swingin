@@ -32,7 +32,12 @@ TabContainer.propTypes = {
   dir: PropTypes.object
 }
 
-function ProfileDetailsTabs({ commentsByUserId, postsByUserId, setPostsByUserId }) {
+function ProfileDetailsTabs({
+  commentsByUserId,
+  subCommentsByUserId,
+  postsByUserId,
+  setPostsByUserId
+}) {
   const classes = useStyles()
   const [value, setValue] = useState(0)
 
@@ -51,7 +56,7 @@ function ProfileDetailsTabs({ commentsByUserId, postsByUserId, setPostsByUserId 
         centered
       >
         <Tab label={`Beiträge ${postsByUserId.length}`} />
-        <Tab label={`Kommentare ${commentsByUserId.length}`} />
+        <Tab label={`Kommentare ${commentsByUserId.length + subCommentsByUserId.length}`} />
       </Tabs>
       {value === 0 && (
         <TabContainer>
@@ -63,7 +68,10 @@ function ProfileDetailsTabs({ commentsByUserId, postsByUserId, setPostsByUserId 
       )}
       {value === 1 && (
         <TabContainer>
-          <ProfileDetailsTabsComments commentsByUserId={commentsByUserId} />
+          <ProfileDetailsTabsComments
+            commentsByUserId={commentsByUserId}
+            subCommentsByUserId={subCommentsByUserId}
+          />
         </TabContainer>
       )}
     </Grid>
@@ -73,7 +81,8 @@ function ProfileDetailsTabs({ commentsByUserId, postsByUserId, setPostsByUserId 
 ProfileDetailsTabs.propTypes = {
   postsByUserId: PropTypes.array,
   setPostsByUserId: PropTypes.func,
-  commentsByUserId: PropTypes.array
+  commentsByUserId: PropTypes.array,
+  subCommentsByUserId: PropTypes.array
 }
 
 export default ProfileDetailsTabs
