@@ -18,27 +18,9 @@ function Footer() {
           </Typography>
         </MuiLink>
 
-        <MuiLink color="inherit" href="https://github.com/codehustla/codehustla.io" target="blank">
+        <MuiLink color="inherit" href="https://github.com/badazzdev/codehustla.io" target="blank">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <i className="fab fa-github fa-2x" />{' '}
-          </Typography>
-        </MuiLink>
-
-        <MuiLink color="inherit" href="https://stackshare.io/codehustla/codehustla" target="blank">
-          <Typography style={{ display: 'inline', margin: '15px' }}>
-            <i className="fas fa-code-branch fa-2x" />
-          </Typography>
-        </MuiLink>
-
-        <MuiLink color="inherit" href="https://www.instagram.com/codehustla.io/" target="blank">
-          <Typography style={{ display: 'inline', margin: '15px' }}>
-            <i className="fab fa-instagram fa-2x" />
-          </Typography>
-        </MuiLink>
-
-        <MuiLink color="inherit" href="https://www.facebook.com/codehustla/" target="blank">
-          <Typography style={{ display: 'inline', margin: '15px' }}>
-            <i className="fab fa-facebook fa-2x" />
           </Typography>
         </MuiLink>
       </div>
