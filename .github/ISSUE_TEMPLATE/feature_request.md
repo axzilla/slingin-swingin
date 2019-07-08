@@ -1,20 +1,20 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+Name: Funktionsanforderung
+Über: Schlage eine Idee für dieses Projekt vor
+Titel: ''
+Labels: ''
+Beauftragte: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+** Steht deine Funktionsanforderung im Zusammenhang mit einem Problem? Bitte beschreiben.**
+Eine klare und präzise Beschreibung des Problems. Z.B. Ich bin immer frustriert, wenn [...]
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+** Beschreibe die Lösung, die du möchtest **
+Eine klare und präzise Beschreibung dessen, was passieren soll.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+** Beschreibe Alternativen, die du in Betracht gezogen hast **
+Eine klare und präzise Beschreibung aller alternativen Lösungen oder Funktionen, die du in Betracht gezogen hast.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+** Zusätzlicher Kontext **
+Fügen hier weitere Kontexte oder Screenshots zur Funktionsanforderung hinzu.
