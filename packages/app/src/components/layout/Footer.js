@@ -17,7 +17,6 @@ function Footer() {
             <i className="far fa-envelope-open fa-2x" />
           </Typography>
         </MuiLink>
-
         <MuiLink color="inherit" href="https://github.com/badazzdev/codehustla.io" target="blank">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <i className="fab fa-github fa-2x" />{' '}
