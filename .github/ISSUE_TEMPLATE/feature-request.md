@@ -1,9 +1,9 @@
 ---
-name: 
-about: 
-title: 
-labels: 
-assignees: 
+name: Feature Request
+about: Featureanfrage
+title: ''
+labels: feature request
+assignees: ''
 
 ---
 

@@ -1,9 +1,9 @@
 ---
-Name: Fehlerbericht
-Über: Erstelle einen Bericht, der uns bei der Verbesserung hilft
-Titel: ''
-Labels: ''
-Beauftragte: ''
+name: Bug Report
+about: Fehlerbericht
+title: ''
+labels: bug
+assignees: ''
 
 ---
 
