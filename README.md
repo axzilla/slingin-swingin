@@ -1,10 +1,10 @@
-# codehustla.io - Developer Community 💻
+# codehustla - Developer Community 💻
 
-Willkommen in der Codebasis von [codehustla.io](https://www.codehustla.io). Ich freue mich sehr, dich hier zu haben. Mit deiner Hilfe können wir [codehustla.io](https://www.codehustla.io) ausbauen, weiter entwickeln und debuggen.
+Willkommen in der Codebasis von [codehustla](https://codehustla-production.herokuapp.com/). Ich freue mich sehr, dich hier zu haben. Mit deiner Hilfe können wir [codehustla](https://codehustla-production.herokuapp.com/) ausbauen, weiter entwickeln und debuggen.
 
-## Was ist codehustla.io?
+## Was ist codehustla?
 
-[codehustla.io](https://www.codehustla.io) ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen. Wir legen Wert auf einen unterstützenden und konstruktiven Dialog bei der Verfolgung eines guten Kodex und einer guten Karriere für alle Mitglieder. Das Ökosystem erstreckt sich von Anfängern bis hin zu fortgeschrittenen Entwicklern und alle sind herzlich eingeladen, ihren Platz in unserer Community zu finden. ❤️
+[codehustla](https://codehustla-production.herokuapp.com/) ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen. Wir legen Wert auf einen unterstützenden und konstruktiven Dialog bei der Verfolgung eines guten Kodex und einer guten Karriere für alle Mitglieder. Das Ökosystem erstreckt sich von Anfängern bis hin zu fortgeschrittenen Entwicklern und alle sind herzlich eingeladen, ihren Platz in unserer Community zu finden. ❤️
 
 ## Inhaltsverzeichnis
 
@@ -22,11 +22,11 @@ Willkommen in der Codebasis von [codehustla.io](https://www.codehustla.io). Ich 
 
 ## Mitwirkung
 
-Wir erwarten von den Mitwirkenden, dass sie sich an unseren zugrunde liegenden [Verhaltensregeln](CODE_OF_CONDUCT.md) halten. Alle Gespräche und Diskussionen über GitHub (Probleme, Pull-Anfragen) und über codehustla.io müssen respektvoll und frei von Belästigungen sein.
+Wir erwarten von den Mitwirkenden, dass sie sich an unseren zugrunde liegenden [Verhaltensregeln](CODE_OF_CONDUCT.md) halten. Alle Gespräche und Diskussionen über GitHub (Probleme, Pull-Anfragen) und über codehustla müssen respektvoll und frei von Belästigungen sein.
 
 ### Wo kann ich etwas beitragen
 
-Alle [Issues](https://github.com/badazzdev/codehustla.io/issues), die mit "approved" gekennzeichnet sind, sind zu vergeben. Informationen zur Kennzeichnung von Problemen findest du in den Definitionen [hier](https://github.com/badazzdev/codehustla.io/labels).
+Alle [Issues](https://github.com/badazzdev/codehustla/issues), die mit "approved" gekennzeichnet sind, sind zu vergeben. Informationen zur Kennzeichnung von Problemen findest du in den Definitionen [hier](https://github.com/badazzdev/codehustla/labels).
 
 **Refactoring** Code, z.B. Das Verbessern des Codes ohne Änderung des Verhaltens ist ein Bereich, der wahrscheinlich auf der Grundlage der Intuition durchgeführt werden kann und möglicherweise nicht viel Kommunikation erfordert, um zusammengeführt zu werden.
 
@@ -82,8 +82,8 @@ Dieser Abschnitt enthält eine allgemeine Anforderungs- und Kurzanleitung.
 ### Installation
 
 1. Stelle sicher, dass alle Voraussetzungen installiert sind.
-2. Forke das codehustla.io Repository, https://github.com/badazzdev/codehustla.io/fork
-3. Klone dein Forked-Repository, dh. `git clone https://github.com/ <Benutzername> / codehustla.io.git`
+2. Forke das codehustla Repository, https://github.com/badazzdev/codehustla/fork
+3. Klone dein Forked-Repository, dh. `git clone https://github.com/ <Benutzername> / codehustla.git`
 4. Richte die Umgebungsvariablen (.env) ein:
 
 - **api .env**  
@@ -116,16 +116,16 @@ Starte das Projekt mit "npm run dev". Das Projekt startet auf http://localhost:3
 
 ## Offenlegung von Sicherheitslücken
 
-Solltest du eine Sicherheitslücke in diesem Projekt gefunden oder aufgedeckt haben, freuen wir uns sehr von dir eine E-Mail an office@codehustla.io mit allen benötigten Informationen zu erhalten.
+Solltest du eine Sicherheitslücke in diesem Projekt gefunden oder aufgedeckt haben, freuen wir uns sehr von dir eine E-Mail an mail@badazz.dev mit allen benötigten Informationen zu erhalten.
 
 ## Lizenz
 
 Dieses Programm ist freie Software: Du kannst es unter den Bedingungen der von der Free Software Foundation veröffentlichten GNU Affero General Public License, Version 3 der Lizenz, oder (nach deiner Wahl) einer späteren Version weitergeben und / oder ändern. Den vollständigen Text findest du in der Datei [LICENSE] (./ LICENSE.md) in unserem Repository.
 
-Wie bei vielen Open Source-Projekten ist es erforderlich, dass Mitwirkende uns eine Mitwirkenden-Lizenzvereinbarung (Contributor License Agreement, CLA) zur Verfügung stellen. Durch die Übermittlung von Code an das codehustla.io-Projekt gewährst du uns ein Recht zur Verwendung dieses Codes gemäß den Bedingungen des CLA.
+Wie bei vielen Open Source-Projekten ist es erforderlich, dass Mitwirkende uns eine Mitwirkenden-Lizenzvereinbarung (Contributor License Agreement, CLA) zur Verfügung stellen. Durch die Übermittlung von Code an das codehustla-Projekt gewährst du uns ein Recht zur Verwendung dieses Codes gemäß den Bedingungen des CLA.
 
 Unsere Version des CLA wurde aus der Microsoft Contributor-Lizenzvereinbarung übernommen, die sie unter Creative Commons CC0 1.0 Universal großzügig öffentlich zugänglich machte.
 
-Bei Fragen sende uns eine E-Mail an office@codehustla.io
+Bei Fragen sende uns eine E-Mail an mail@badazz.dev
 
 **Happy Coding ❤️**

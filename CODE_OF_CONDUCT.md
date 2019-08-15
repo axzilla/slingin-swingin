@@ -8,19 +8,19 @@ Im Interesse der Förderung eines offenen und einladenden Umfeldes wollen wir un
 
 Beispiele für Verhaltensweisen, welche dazu beitragen ein positives Umfeld zu erzeugen, beinhalten:
 
-* Die Verwendung von einladenden und einbindenden Formulierungen
-* Abweichenden Ansichten und Erfahrungen wird Respekt entgegengebracht
-* Konstruktive Kritik wird höflich entgegengenommen
-* Fokussierung auf das, was das Beste ist für die Gemeinschaft
-* Verständnis zeigen gegenüber anderen Mitgliedern der Gemeinschaft
+- Die Verwendung von einladenden und einbindenden Formulierungen
+- Abweichenden Ansichten und Erfahrungen wird Respekt entgegengebracht
+- Konstruktive Kritik wird höflich entgegengenommen
+- Fokussierung auf das, was das Beste ist für die Gemeinschaft
+- Verständnis zeigen gegenüber anderen Mitgliedern der Gemeinschaft
 
 Beispiele für nicht akzeptables Verhalten beinhalten:
 
-* Die Verwendung sexualisierter Sprache, Bilder oder Symbolik sowie unerwünschte Versuche sexueller Anbahnung
-* Beleidigende / abwertende Kommentare, persönliche oder politische Angriffe, Nutzung des Internets für unbilliges Verhalten
-* Öffentliche oder private Belästigungen
-* Das Veröffentlichen von privaten Informationen Anderer, wie zum Beispiel physische oder elektronische Adressen, ohne deren ausdrückliche Erlaubnis
-* Anderes Verhalten, welches in einem professionellen Umfeld begründet als unangemessen betrachtet werden kann 
+- Die Verwendung sexualisierter Sprache, Bilder oder Symbolik sowie unerwünschte Versuche sexueller Anbahnung
+- Beleidigende / abwertende Kommentare, persönliche oder politische Angriffe, Nutzung des Internets für unbilliges Verhalten
+- Öffentliche oder private Belästigungen
+- Das Veröffentlichen von privaten Informationen Anderer, wie zum Beispiel physische oder elektronische Adressen, ohne deren ausdrückliche Erlaubnis
+- Anderes Verhalten, welches in einem professionellen Umfeld begründet als unangemessen betrachtet werden kann
 
 ## Unsere Verantwortlichkeiten
 
@@ -34,7 +34,7 @@ Dieser Verhaltenskodex gilt sowohl innerhalb des Projektbereichs als auch in öf
 
 ## Umsetzung
 
-Fälle von missbräuchlichem, belästigendem oder anderweitig nicht akzeptablem Verhalten können dem Projektteam unter office@codehustla.io gemeldet werden. Alle Beschwerden werden geprüft und untersucht und werden zu einer Antwort führen, die angesichts der Umstände für notwendig und angemessen gehalten wird. Das Projektteam ist verpflichtet, über diejenigen, die Vorfälle gemeldet haben, Verschwiegenheit zu wahren. Weitere Einzelheiten zu speziellen Umsetzungsgrundsätzen können gesondert mitgeteilt werden.
+Fälle von missbräuchlichem, belästigendem oder anderweitig nicht akzeptablem Verhalten können dem Projektteam unter mail@badazz.dev gemeldet werden. Alle Beschwerden werden geprüft und untersucht und werden zu einer Antwort führen, die angesichts der Umstände für notwendig und angemessen gehalten wird. Das Projektteam ist verpflichtet, über diejenigen, die Vorfälle gemeldet haben, Verschwiegenheit zu wahren. Weitere Einzelheiten zu speziellen Umsetzungsgrundsätzen können gesondert mitgeteilt werden.
 
 Projektverantwortliche, welche den Verhaltenskodex nicht befolgen, oder nicht nach bestem Wissen und Glauben für dessen Einhaltung sorgen, können sich vorübergehenden oder dauerhaften Auswirkungen gegenübersehen, die durch andere Mitglieder der Projektleitung bestimmt wurden.
 
