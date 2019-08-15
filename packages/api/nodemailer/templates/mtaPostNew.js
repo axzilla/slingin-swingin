@@ -3,7 +3,7 @@ const transporter = require('../transporter')
 module.exports = mtaPostNew = post => {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
-    to: 'office@codehustla.io',
+    to: 'mail@badazz.dev',
     subject: 'Neuer Beitrag!',
     html: `
       <p>Hi Admin,</p>

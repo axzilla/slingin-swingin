@@ -22,17 +22,13 @@ function Imprint() {
         <br />
         Axel Adrian
         <br />
-        Hüllenkamp 72
-        <br />
-        22149 Hamburg
-        <br />
         <br />
       </Typography>
       <Typography gutterBottom>
         <strong>Kontakt:</strong> <br />
         E-Mail:{' '}
-        <a href="mailto:office@codehustla.io" style={{ color: '#2196f3' }}>
-          office@codehustla.io
+        <a href="mailto:mail@badazz.dev" style={{ color: '#2196f3' }}>
+          mail@badazz.dev
         </a>
         <br />
         <br />

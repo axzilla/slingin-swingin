@@ -230,7 +230,7 @@ router.post('/register', (req, res) => {
                         <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
                         <a href="${process.env.ENV_URL}/verify/${token}"><button>Account bestätigen</button></a>
                         <p><a href="${process.env.ENV_URL}/verify/${token}">${process.env.ENV_URL}/verify/${token}</a></p>
-                        <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+                        <p>Vielen Dank,<br>dein codehustla Team.</p>
                         `
                       }
 
@@ -241,7 +241,7 @@ router.post('/register', (req, res) => {
                       // Send info to Admin
                       const adminMailOptions = {
                         from: process.env.NODEMAILER_USER,
-                        to: 'office@codehustla.io',
+                        to: 'mail@badazz.dev',
                         subject: 'Neuer Benutzer!',
                         html: `
                         <p>Hi Admin,</p>
@@ -363,7 +363,7 @@ router.post('/verify/send-email', (req, res) => {
               <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
               <a href="${process.env.ENV_URL}/verify/${token}"><button>Account bestätigen</button></a>
               <p><a href="${process.env.ENV_URL}/verify/${token}">${process.env.ENV_URL}/verify/${token}</a></p>
-              <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+              <p>Vielen Dank,<br>dein codehustla Team.</p>
               `
         }
 
@@ -461,13 +461,13 @@ router.post('/forgot-password', (req, res) => {
       const mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: user.email,
-        subject: '[codehustla.io] Passwort zurücksetzen!',
+        subject: '[codehustla] Passwort zurücksetzen!',
         html: `
                 <p>Hi ${user.username},</p>
                 <p>Bitte klicke auf den Link oder auf den button, um dein Passwort zurückzusetzen.</p>
                 <a href="${process.env.ENV_URL}/reset-password/${token}"><button>Passwort zurücksetzen</button></a>
                 <p><a href="${process.env.ENV_URL}/reset-password/${token}">${process.env.ENV_URL}/reset-password/${token}</a></p>
-                <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+                <p>Vielen Dank,<br>dein codehustla Team.</p>
                 `
       }
 
@@ -521,11 +521,11 @@ router.post('/reset-password', (req, res) => {
                   const mailOptions = {
                     from: process.env.NODEMAILER_USER,
                     to: user.email,
-                    subject: '[codehustla.io] Passwort zurückgesetzt!',
+                    subject: '[codehustla] Passwort zurückgesetzt!',
                     html: `
                       <p>Hi ${user.username},</p>
                       <p>Du hast dein Passwort erfolgreich geändert.</p>
-                      <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+                      <p>Vielen Dank,<br>dein codehustla Team.</p>
                       `
                   }
 
@@ -585,11 +585,11 @@ router.post('/change-username', (req, res) => {
             const mailOptions = {
               from: process.env.NODEMAILER_USER,
               to: [user.email],
-              subject: '[codehustla.io] Benutzername geändert!',
+              subject: '[codehustla] Benutzername geändert!',
               html: `
               <p>Hi ${user.username},</p>
               <p>Du hast deinen Benutzernamen erfolgreich geändert.</p>
-              <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+              <p>Vielen Dank,<br>dein codehustla Team.</p>
               `
             }
 
@@ -656,11 +656,11 @@ router.post('/change-password', (req, res) => {
                       const mailOptions = {
                         from: process.env.NODEMAILER_USER,
                         to: user.email,
-                        subject: '[codehustla.io] Passwort geändert!',
+                        subject: '[codehustla] Passwort geändert!',
                         html: `
                       <p>Hi ${user.username},</p>
                       <p>Du hast dein Passwort erfolgreich geändert.</p>
-                      <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+                      <p>Vielen Dank,<br>dein codehustla Team.</p>
                       `
                       }
 
@@ -728,11 +728,11 @@ router.post('/change-email', (req, res) => {
             const mailOptions = {
               from: process.env.NODEMAILER_USER,
               to: [user.email, oldEmail],
-              subject: '[codehustla.io] E-Mail Adresse geändert!',
+              subject: '[codehustla] E-Mail Adresse geändert!',
               html: `
               <p>Hi ${user.username},</p>
               <p>Du hast deine E-Mail Adresse erfolgreich geändert.</p>
-              <p>Vielen Dank,<br>dein codehustla.io Team.</p>
+              <p>Vielen Dank,<br>dein codehustla Team.</p>
               `
             }
 
