@@ -97,7 +97,7 @@ Dieser Abschnitt enthält eine allgemeine Anforderungs- und Kurzanleitung.
   CLOUDINARY_CLOUD_NAME="cloudinary-cloud-name"  
   CLOUDINARY_PATH_POST_TITLE="path-to-post-title"  
   CLOUDINARY_PATH_USER_AVATAR="path-to-user-avatar"  
-  ENV_URL="http://localhost:3000 or https://www.example.io"
+  ROOT_URL="http://localhost:3000 or https://www.example.io"
 
 - **app .env**  
   SKIP_PREFLIGHT_CHECK=true  

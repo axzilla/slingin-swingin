@@ -1,3 +1,11 @@
+# Remove it (_packages.old) after finishing nextJS integration
+_packages.old
+
+node_modules
+.env
+.next
+.DS_Store
+
 # Logs
 logs
 *.log
