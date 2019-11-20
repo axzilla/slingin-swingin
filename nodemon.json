@@ -1,0 +1,14 @@
+{
+  "ignore": [
+    ".next/",
+    ".storybook/",
+    "components/",
+    "components-ui/",
+    "components-ui-stories/,",
+    "contexts/",
+    "pages/",
+    "static/",
+    "themes/",
+    "utils/"
+  ]
+}
