@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import ReactGA from 'react-ga'
 
 import AuthContext from '../../contexts/AuthContext'
 
@@ -31,10 +30,6 @@ function ProfileDetails({ handle }) {
   const [subCommentsByUserId, setSubCommentsByUserId] = useState([])
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getInitialData()
   }, [])
 

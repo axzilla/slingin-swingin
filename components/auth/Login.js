@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Router from 'next/router'
-import ReactGA from 'react-ga'
 
 import AuthContext from '../../contexts/AuthContext'
 import { loginUser } from './_services'
@@ -51,12 +50,6 @@ function Login() {
     login: '',
     password: ''
   })
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   function onChange(e) {
     setLoginData({

@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react'
-import ReactGA from 'react-ga'
+import React from 'react'
 import { Typography, Paper } from '@material-ui/core'
 
 function PrivacyPolicy() {
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
-
   return (
     <Paper style={{ padding: '16px 24px', maxWidth: '100%' }}>
       <Typography variant="h3" component="h1" gutterBottom>

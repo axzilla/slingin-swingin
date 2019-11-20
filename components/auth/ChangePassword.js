@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
-import ReactGA from 'react-ga'
+import React, { useState, useContext } from 'react'
 
 import AuthContext from '../../contexts/AuthContext'
 import { useAlert } from '../../contexts/AlertContext'
@@ -50,12 +49,6 @@ function ChangePassword() {
     newPassword: '',
     newPassword2: ''
   })
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   function onChange(e) {
     setPasswords({

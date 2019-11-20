@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Router from 'next/router'
-import ReactGA from 'react-ga'
 
 import { registerUser, loginUser } from './_services'
 import AuthContext from '../../contexts/AuthContext'
@@ -54,12 +53,6 @@ const Register = () => {
     email: '',
     password: ''
   })
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   const onChange = e => {
     setRegisterData({

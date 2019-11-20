@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ReactGA from 'react-ga'
 import { getProfiles } from './_services'
 import ProfilesFeedItem from './ProfilesFeedItem'
 import CardSponsors from '../../components/cards/CardSponsors'
@@ -11,10 +10,6 @@ function ProfilesFeed() {
   const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getProfiles().then(res => setProfiles(res.data))
   }, [])
 

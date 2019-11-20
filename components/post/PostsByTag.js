@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import ReactGA from 'react-ga'
 import { getPostsByTag, getPostsTags } from './_services'
 import { handlePostLikes, handlePostBookmarks } from '../post/_services'
 import PostFeedItem from './PostFeedItem'
@@ -15,10 +14,6 @@ function PostsByTag({ tag }) {
   const [limit, setLimit] = useState(10)
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getPostsByTag(tag).then(res => {
       setPosts(res.data)
     })

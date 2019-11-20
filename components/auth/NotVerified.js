@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react'
 
-import ReactGA from 'react-ga'
 import AuthContext from '../../contexts/AuthContext'
 import { sendVerificationEmail } from './_services'
 import { getCurrentProfile } from '../profile/_services'
@@ -10,10 +9,6 @@ function NotVerified() {
   const { user } = useContext(AuthContext)
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getCurrentProfile()
   }, [])
 

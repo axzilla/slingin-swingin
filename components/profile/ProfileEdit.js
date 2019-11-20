@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ReactGA from 'react-ga'
 
 import { useAlert } from '../../contexts/AlertContext'
 import { createProfile, getCurrentProfile } from './_services'
@@ -62,10 +61,6 @@ function ProfileEdit() {
   })
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getCurrentProfile().then(res => setProfile(res.data))
   }, [])
 
