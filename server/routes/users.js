@@ -229,7 +229,6 @@ router.post('/register', (req, res) => {
                         html: `
                         <p>Hi ${user.username},</p>
                         <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
-                        <a href="${process.env.ROOT_URL}/verify/${token}"><button>Account bestätigen</button></a>
                         <p><a href="${process.env.ROOT_URL}/verify/${token}">${process.env.ROOT_URL}/verify/${token}</a></p>
                         <p>Vielen Dank,<br>dein codehustla Team.</p>
                         `
@@ -247,7 +246,6 @@ router.post('/register', (req, res) => {
                         html: `
                         <p>Hi Admin,</p>
                         <p>Es gibt einen neuen Benutzer.</p>
-                        <a href="${process.env.ROOT_URL}/${user.username}"><button>Profil anschauen</button></a>
                         <p><a href="${process.env.ROOT_URL}/${user.username}">${process.env.ROOT_URL}/${user.username}</a></p>
                         `
                       }
@@ -362,7 +360,6 @@ router.post('/verify/send-email', (req, res) => {
           html: `
               <p>Hi ${user.username},</p>
               <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
-              <a href="${process.env.ROOT_URL}/verify/${token}"><button>Account bestätigen</button></a>
               <p><a href="${process.env.ROOT_URL}/verify/${token}">${process.env.ROOT_URL}/verify/${token}</a></p>
               <p>Vielen Dank,<br>dein codehustla Team.</p>
               `
@@ -466,7 +463,6 @@ router.post('/forgot-password', (req, res) => {
         html: `
                 <p>Hi ${user.username},</p>
                 <p>Bitte klicke auf den Link oder auf den button, um dein Passwort zurückzusetzen.</p>
-                <a href="${process.env.ROOT_URL}/reset-password/${token}"><button>Passwort zurücksetzen</button></a>
                 <p><a href="${process.env.ROOT_URL}/reset-password/${token}">${process.env.ROOT_URL}/reset-password/${token}</a></p>
                 <p>Vielen Dank,<br>dein codehustla Team.</p>
                 `
