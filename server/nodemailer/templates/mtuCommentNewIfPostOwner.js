@@ -1,6 +1,6 @@
 const transporter = require('../transporter')
 
-module.exports = mtuPostNew = (post, user) => {
+module.exports = (post, user) => {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: user.email,
@@ -16,6 +16,6 @@ module.exports = mtuPostNew = (post, user) => {
   }
 
   transporter.sendMail(mailOptions, err => {
-    console.log('Message sent!')
+    err ? console.log(err) : console.log('Message sent!')
   })
 }

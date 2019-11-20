@@ -1,16 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 const passport = require('passport')
-var fs = require('fs')
 
 // Load Validation
 const validateProfileInput = require('../validation/profile')
 
 // Load Profile Model
 const Profile = require('../models/Profile')
-// Load User Model
-const User = require('../models/User')
 
 // @route   GET api/profile
 // @desc    Get current users profile
@@ -43,7 +39,13 @@ router.get('/all', (req, res) => {
       }
       res.json(profiles)
     })
-    .catch(err => res.status(404).json({ profile: 'Keine Profile gefunden' }))
+    .catch(err => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.status(404).json({ profile: 'Keine Profile gefunden' })
+      }
+    })
 })
 
 // @route   GET api/profile/handle/:handle
@@ -90,7 +92,13 @@ router.get('/user/:id', (req, res) => {
 
       res.json(profile)
     })
-    .catch(err => res.status(404).json({ profile: 'Es existiert kein Profil für diesen Benutzer' }))
+    .catch(err => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.status(404).json({ profile: 'Es existiert kein Profil für diesen Benutzer' })
+      }
+    })
 })
 
 // Create or edit user profile

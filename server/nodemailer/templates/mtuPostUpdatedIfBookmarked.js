@@ -1,6 +1,6 @@
 const transporter = require('../transporter')
 
-module.exports = mtuPostUpdatedIfBookmarked = (post, bookmark) => {
+module.exports = (post, bookmark) => {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: bookmark.user.email,
@@ -13,7 +13,8 @@ module.exports = mtuPostUpdatedIfBookmarked = (post, bookmark) => {
         <p>Vielen Dank,<br> dein codehustla Team.</p>
         `
   }
+
   transporter.sendMail(mailOptions, err => {
-    console.log('Message sent!')
+    err ? console.log(err) : console.log('Message sent!')
   })
 }
