@@ -104,7 +104,7 @@ router.post(
             })
 
             if (req.user.avatar && !isEmpty(req.user.avatar)) {
-              cloudinary.v2.uploader.destroy(req.user.avatar.public_id).then((result, error) => {
+              cloudinary.v2.uploader.destroy(req.user.avatar.public_id).then(() => {
                 console.log('Old avatar on cloudinary successful deleted')
               })
             }
@@ -236,7 +236,7 @@ router.post('/register', (req, res) => {
                       }
 
                       transporter.sendMail(mailOptions, err => {
-                        console.log('Message sent!')
+                        err ? console.log(err) : console.log('Message sent!')
                       })
 
                       // Send info to Admin
@@ -253,7 +253,7 @@ router.post('/register', (req, res) => {
                       }
 
                       transporter.sendMail(adminMailOptions, err => {
-                        console.log('Message sent!')
+                        err ? console.log(err) : console.log('Message sent!')
                       })
 
                       Profile.findOne({ handle: user.username }).then(profile => {
@@ -369,7 +369,7 @@ router.post('/verify/send-email', (req, res) => {
         }
 
         transporter.sendMail(mailOptions, err => {
-          console.log('Message sent!')
+          err ? console.log(err) : console.log('Message sent!')
           res.json('E-Mail erfolgreich versendet')
         })
       })
@@ -473,7 +473,7 @@ router.post('/forgot-password', (req, res) => {
       }
 
       transporter.sendMail(mailOptions, err => {
-        console.log('Message sent!')
+        err ? console.log(err) : console.log('Message sent!')
       })
       res.json({ alert: 'E-Mail erfolgreich versendet' })
     })
@@ -531,7 +531,7 @@ router.post('/reset-password', (req, res) => {
                   }
 
                   transporter.sendMail(mailOptions, err => {
-                    console.log('Message sent!')
+                    err ? console.log(err) : console.log('Message sent!')
                   })
 
                   res.json({
@@ -595,7 +595,7 @@ router.post('/change-username', (req, res) => {
             }
 
             transporter.sendMail(mailOptions, err => {
-              console.log('message sent!')
+              err ? console.log(err) : console.log('Message sent!')
             })
 
             res.json({
@@ -666,7 +666,7 @@ router.post('/change-password', (req, res) => {
                       }
 
                       transporter.sendMail(mailOptions, err => {
-                        console.log('message sent!')
+                        err ? console.log(err) : console.log('Message sent!')
                       })
 
                       res.json({
@@ -711,7 +711,7 @@ router.post('/change-email', (req, res) => {
     } else {
       User.findById(req.body.id).then(user => {
         const newEmail = req.body.email
-        oldEmail = user.email
+        const oldEmail = user.email
         user.email = newEmail
 
         user.save().then(user => {
@@ -738,7 +738,7 @@ router.post('/change-email', (req, res) => {
             }
 
             transporter.sendMail(mailOptions, err => {
-              console.log('message sent!')
+              err ? console.log(err) : console.log('Message sent!')
             })
 
             res.json({

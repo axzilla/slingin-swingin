@@ -5,22 +5,26 @@ function slugify(string) {
   const b = 'aaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------'
   const p = new RegExp(a.split('').join('|'), 'g')
 
-  return string
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-    .replace(/&/g, '') // Replace & with ''
-    .replace(/_/g, '') // Replace _ with ''
-    .replace(/,/g, '-') // Replace , with '-'
-    .replace(/ä/g, 'ae') // Replace ä with 'ae'
-    .replace(/ö/g, 'oe') // Replace ö with 'oe'
-    .replace(/ü/g, 'ue') // Replace ü with 'ue'
-    .replace(/ß/g, 'ss') // Replace ß with 'ss'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, '') // Trim - from end of text
+  return (
+    string
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+      .replace(/&/g, '') // Replace & with ''
+      .replace(/_/g, '') // Replace _ with ''
+      .replace(/,/g, '-') // Replace , with '-'
+      .replace(/ä/g, 'ae') // Replace ä with 'ae'
+      .replace(/ö/g, 'oe') // Replace ö with 'oe'
+      .replace(/ü/g, 'ue') // Replace ü with 'ue'
+      .replace(/ß/g, 'ss') // Replace ß with 'ss'
+      // eslint-disable-next-line
+      .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+      // eslint-disable-next-line
+      .replace(/\-\-+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '')
+  ) // Trim - from end of text
 }
 
 export default slugify

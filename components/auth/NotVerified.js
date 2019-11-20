@@ -1,10 +1,7 @@
 import React, { useEffect, useContext } from 'react'
-import Router from 'next/router'
 
 import ReactGA from 'react-ga'
-import isEmpty from '../../utils/isEmpty'
 import AuthContext from '../../contexts/AuthContext'
-import { useAlert } from '../../contexts/AlertContext'
 import { sendVerificationEmail } from './_services'
 import { getCurrentProfile } from '../profile/_services'
 import { Grid, Typography, Card, CardContent, Button } from '@material-ui/core'
@@ -23,7 +20,6 @@ function NotVerified() {
   async function onSendMailClick(e) {
     e.preventDefault()
     await sendVerificationEmail(user)
-    setAlert({ message: 'E-Mail erfolgreich gesendet' })
   }
 
   return (
