@@ -8,7 +8,6 @@ module.exports = post => {
     html: `
       <p>Hi Admin,</p>
       <p>Es gibt einen neuen Beitrag.</p>
-      <a href="${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}"><button>Beitrag anschauen</button></a>
       <p><a href="${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}</a></p>
       `
   }
