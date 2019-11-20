@@ -1,7 +1,7 @@
 const Validator = require('validator')
-const isEmpty = require('./is-empty')
+const isEmpty = require('../utils/isEmpty')
 
-module.exports = function validateProfileInput(data) {
+module.exports = function validateProfile(data) {
   let errors = {}
 
   data.name = !isEmpty(data.name) ? data.name : ''

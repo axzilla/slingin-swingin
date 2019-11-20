@@ -1,7 +1,7 @@
 const Validator = require('validator')
-const isEmpty = require('./is-empty')
+const isEmpty = require('../utils/isEmpty')
 
-module.exports = function validateChangeEmailInput(data) {
+module.exports = function validateEmailChange(data) {
   let errors = {}
 
   data.email = !isEmpty(data.email) ? data.email : ''
