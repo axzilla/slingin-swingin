@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
-import ReactGA from 'react-ga'
 
 import { useAlert } from '../../contexts/AlertContext'
 import { setNewPassword } from './_services'
@@ -51,12 +50,6 @@ function ResetPassword({ token }) {
     password: '',
     password2: ''
   })
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   function onChange(e) {
     setPasswords({

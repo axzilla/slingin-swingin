@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import ReactGA from 'react-ga'
 import MarkdownEditor from '../common/MarkdownEditor'
 import { editPost, getPost } from './_services'
 import isEmpty from '../../utils/isEmpty'
@@ -72,10 +71,6 @@ function PostEdit({ id }) {
   const [labelWidth, setLabelWidth] = React.useState(0)
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     setLabelWidth(inputLabel.current.offsetWidth)
 
     getPost(id).then(res => {

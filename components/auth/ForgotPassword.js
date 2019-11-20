@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import ReactGA from 'react-ga'
+import React, { useState } from 'react'
 
 import { useAlert } from '../../contexts/AlertContext'
 import { forgotPassword } from './_services'
@@ -45,12 +44,6 @@ function ForgotPassword() {
 
   const [errors, setErrors] = useState('')
   const [email, setEmail] = useState('')
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   function onChange(e) {
     setEmail(e.target.value)

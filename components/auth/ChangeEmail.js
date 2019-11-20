@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import ReactGA from 'react-ga'
 
 import AuthContext from '../../contexts/AuthContext'
 import { useAlert } from '../../contexts/AlertContext'
@@ -46,12 +45,6 @@ function ChangeEmail() {
   const [errors, setErrors] = useState('')
 
   const [email, setEmail] = useState('')
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   useEffect(() => {
     setEmail(user.email)

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
-import ReactGA from 'react-ga'
 import { addPost } from './_services'
 import MarkdownEditor from '../common/MarkdownEditor'
 import placeholder from '../../assets/img/post-title-placeholder.png'
@@ -80,10 +79,6 @@ function PostCreate() {
   const [labelWidth, setLabelWidth] = React.useState(0)
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     setLabelWidth(inputLabel.current.offsetWidth)
   }, [])
 

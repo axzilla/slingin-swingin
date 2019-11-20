@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import ReactGA from 'react-ga'
 import { handlePostLikes, handlePostBookmarks } from '../post/_services'
 import { getPosts } from '../post/_services'
 import AuthContext from '../../contexts/AuthContext'
@@ -26,10 +25,6 @@ function Landing() {
   })
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getPosts().then(res => {
       setPosts(res.data)
     })

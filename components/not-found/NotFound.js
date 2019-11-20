@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactGA from 'react-ga'
 import notFound from '../../assets/img/404.png'
 import LinkRouter from '../LinkRouter'
 import { makeStyles } from '@material-ui/styles'
@@ -17,9 +16,6 @@ const useStyles = makeStyles(theme => ({
 
 function NotFound() {
   const classes = useStyles()
-  if (process.env.NODE_ENV === 'production') {
-    ReactGA.pageview(window.location.pathname + window.location.search)
-  }
 
   return (
     <Grid

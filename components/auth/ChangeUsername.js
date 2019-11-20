@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import ReactGA from 'react-ga'
 
 import { changeUsername } from './_services'
 import AuthContext from '../../contexts/AuthContext'
@@ -47,12 +46,6 @@ function ChangeUsername() {
 
   const [errors, setErrors] = useState()
   const [username, setUsername] = useState('')
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-  }, [])
 
   useEffect(() => {
     setUsername(user.username)

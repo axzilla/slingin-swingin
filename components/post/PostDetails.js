@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import ReactGA from 'react-ga'
 import AuthContext from '../../contexts/AuthContext'
 import { getPostByShortId, deletePost, handlePostLikes, handlePostBookmarks } from './_services'
 import { getCommentsByPostRef } from '../comment/_services'
@@ -39,10 +38,6 @@ function PostDetails({ postId }) {
   const [subCommentsByPostRef, setSubCommentsByPostRef] = useState([])
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(window.location.pathname + window.location.search)
-    }
-
     getInitialProps()
   }, [])
 
