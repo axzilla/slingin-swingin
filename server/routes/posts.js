@@ -12,7 +12,7 @@ const Comment = require('../models/Comment')
 const SubComment = require('../models/SubComment')
 const User = require('../models/User')
 
-const validatePostInput = require('../validation/posts')
+const validatePost = require('../validation/validatePost')
 
 const mtuPostNew = require('../nodemailer/templates/mtuPostNew')
 
@@ -105,7 +105,7 @@ router.post(
   upload.single('titleImage'),
   (req, res) => {
     console.log(req.user)
-    const { errors, isValid } = validatePostInput(req.body)
+    const { errors, isValid } = validatePost(req.body)
 
     if (!isValid) {
       return res.status(400).json(errors)
@@ -170,7 +170,7 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   upload.single('titleImage'),
   (req, res) => {
-    const { errors, isValid } = validatePostInput(req.body)
+    const { errors, isValid } = validatePost(req.body)
     if (!isValid) {
       return res.status(400).json(errors)
     }

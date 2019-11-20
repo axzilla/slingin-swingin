@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 const passport = require('passport')
-const isEmpty = require('../validation/is-empty')
 var fs = require('fs')
 
+const isEmpty = require('../utils/isEmpty')
 const createJwtToken = require('../utils/createJwtToken')
 const domains = require('disposable-email-domains')
 
@@ -46,13 +46,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-const validateRegisterInput = require('../validation/register')
-const validateLoginInput = require('../validation/login')
-const validateForgotPasswordInput = require('../validation/forgot-password')
-const validateResetPasswordInput = require('../validation/reset-password')
-const validateChangePasswordInput = require('../validation/change-password')
-const validateChangeEmailInput = require('../validation/change-email')
-const validateChangeUsernameInput = require('../validation/change-username')
+const validateRegister = require('../validation/validateRegister')
+const validateLogin = require('../validation/validateLogin')
+const validatePasswordForgot = require('../validation/validatePasswordForgot')
+const validatePasswordReset = require('../validation/validatePasswordReset')
+const validatePasswordChange = require('../validation/validatePasswordChange')
+const validateEmailChange = require('../validation/validateEmailChange')
+const validateUsernameChange = require('../validation/validateUsernameChange')
 
 const User = require('../models/User')
 const Profile = require('../models/Profile')
@@ -170,7 +170,7 @@ router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), (
 // @desc    Register user
 // @access  Public
 router.post('/register', (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body)
+  const { errors, isValid } = validateRegister(req.body)
 
   if (!isValid) {
     return res.status(400).json(errors)
@@ -379,7 +379,7 @@ router.post('/verify/send-email', (req, res) => {
 
 // Login User
 router.post('/login', async (req, res) => {
-  const { errors, isValid } = validateLoginInput(req.body)
+  const { errors, isValid } = validateLogin(req.body)
 
   const email = req.body.login
   const username = req.body.login
@@ -431,7 +431,7 @@ router.post('/login', async (req, res) => {
 // @desc    Send forgot password E-Mail
 // @access  Public
 router.post('/forgot-password', (req, res) => {
-  const { errors, isValid } = validateForgotPasswordInput(req.body)
+  const { errors, isValid } = validatePasswordForgot(req.body)
 
   if (!isValid) {
     return res.status(400).json(errors)
@@ -480,7 +480,7 @@ router.post('/forgot-password', (req, res) => {
 // @desc    Reset password
 // @access  Public
 router.post('/reset-password', (req, res) => {
-  const { errors, isValid } = validateResetPasswordInput(req.body)
+  const { errors, isValid } = validatePasswordReset(req.body)
 
   // Check Validation
   if (!isValid) {
@@ -548,7 +548,7 @@ router.post('/reset-password', (req, res) => {
 // @desc    Change username
 // @access  Private
 router.post('/change-username', (req, res) => {
-  const { errors, isValid } = validateChangeUsernameInput(req.body)
+  const { errors, isValid } = validateUsernameChange(req.body)
 
   if (!isValid) {
     return res.status(400).json(errors)
@@ -610,7 +610,7 @@ router.post('/change-username', (req, res) => {
 // @desc    Change password
 // @access  Private
 router.post('/change-password', (req, res) => {
-  const { errors, isValid } = validateChangePasswordInput(req.body)
+  const { errors, isValid } = validatePasswordChange(req.body)
 
   // Check Validation
   if (!isValid) {
@@ -689,7 +689,7 @@ router.post('/change-password', (req, res) => {
 // @desc    Change email
 // @access  Private
 router.post('/change-email', (req, res) => {
-  const { errors, isValid } = validateChangeEmailInput(req.body)
+  const { errors, isValid } = validateEmailChange(req.body)
 
   if (!isValid) {
     return res.status(400).json(errors)

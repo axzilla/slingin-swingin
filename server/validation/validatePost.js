@@ -1,7 +1,7 @@
 const Validator = require('validator')
-const isEmpty = require('./is-empty')
+const isEmpty = require('../utils/isEmpty')
 
-module.exports = function validatePostInput(data) {
+module.exports = function validatePost(data) {
   let errors = {}
 
   data.text = !isEmpty(data.text) ? data.text : ''
