@@ -110,7 +110,7 @@ router.post(
         roles: savedUser.roles
       }
 
-      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (err, token) => {
+      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (error, token) => {
         res.json({
           success: true,
           token: 'Bearer ' + token
@@ -145,7 +145,7 @@ router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), a
       roles: savedUser.roles
     }
 
-    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
       res.json({
         success: true,
         token: 'Bearer ' + token
@@ -216,8 +216,8 @@ router.post('/register', async (req, res) => {
       `
     }
 
-    transporter.sendMail(mailOptions, err => {
-      err ? console.log(err) : console.log('Message sent!')
+    transporter.sendMail(mailOptions, error => {
+      error ? console.log(error) : console.log('Message sent!')
     })
 
     // Send info to Admin
@@ -232,8 +232,8 @@ router.post('/register', async (req, res) => {
       `
     }
 
-    transporter.sendMail(adminMailOptions, err => {
-      err ? console.log(err) : console.log('Message sent!')
+    transporter.sendMail(adminMailOptions, error => {
+      error ? console.log(error) : console.log('Message sent!')
     })
 
     new Profile({ user: newUser.id, handle: newUser.username }).save()
@@ -282,7 +282,7 @@ router.post('/verify', async (req, res) => {
         } // Create JWT Payload
 
         // Sign Token
-        jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+        jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
           res.json({
             success: true,
             token: 'Bearer ' + token
@@ -323,7 +323,7 @@ router.post('/verify/send-email', async (req, res) => {
       } // Create JWT Payload
 
       // Sign Token
-      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
         const mailOptions = {
           from: process.env.NODEMAILER_USER,
           to: foundUser.email,
@@ -336,8 +336,8 @@ router.post('/verify/send-email', async (req, res) => {
               `
         }
 
-        transporter.sendMail(mailOptions, err => {
-          err ? console.log(err) : console.log('Message sent!')
+        transporter.sendMail(mailOptions, error => {
+          error ? console.log(error) : console.log('Message sent!')
           res.json('E-Mail erfolgreich versendet')
         })
       })
@@ -389,8 +389,8 @@ router.post('/login', async (req, res) => {
       errors.password = 'Falsches Password'
       return res.status(400).json(errors)
     }
-  } catch (err) {
-    if (err) throw err
+  } catch (error) {
+    if (error) throw error
   }
 })
 
@@ -424,7 +424,7 @@ router.post('/forgot-password', async (req, res) => {
       roles: foundUser.roles
     } // Create JWT Payload
 
-    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
       const mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: foundUser.email,
@@ -437,8 +437,8 @@ router.post('/forgot-password', async (req, res) => {
                 `
       }
 
-      transporter.sendMail(mailOptions, err => {
-        err ? console.log(err) : console.log('Message sent!')
+      transporter.sendMail(mailOptions, error => {
+        error ? console.log(error) : console.log('Message sent!')
       })
       res.json({ alert: 'E-Mail erfolgreich versendet' })
     })
@@ -466,10 +466,10 @@ router.post('/reset-password', async (req, res) => {
     } else {
       foundUser.password = req.body.password
 
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(foundUser.password, salt, async (err, hash) => {
+      bcrypt.genSalt(10, (error, salt) => {
+        bcrypt.hash(foundUser.password, salt, async (error, hash) => {
           try {
-            if (err) throw err
+            if (error) throw error
             foundUser.password = hash
             const savedUser = await foundUser.save()
 
@@ -487,7 +487,7 @@ router.post('/reset-password', async (req, res) => {
               payload,
               process.env.SECRET_OR_KEY,
               { expiresIn: sessionTime },
-              (err, token) => {
+              (error, token) => {
                 const mailOptions = {
                   from: process.env.NODEMAILER_USER,
                   to: savedUser.email,
@@ -499,8 +499,8 @@ router.post('/reset-password', async (req, res) => {
                         `
                 }
 
-                transporter.sendMail(mailOptions, err => {
-                  err ? console.log(err) : console.log('Message sent!')
+                transporter.sendMail(mailOptions, error => {
+                  error ? console.log(error) : console.log('Message sent!')
                 })
 
                 res.json({
@@ -561,7 +561,7 @@ router.post('/change-username', async (req, res) => {
       roles: savedUser.roles
     } // Create JWT Payload
 
-    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
       const mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: [savedUser.email],
@@ -573,8 +573,8 @@ router.post('/change-username', async (req, res) => {
                 `
       }
 
-      transporter.sendMail(mailOptions, err => {
-        err ? console.log(err) : console.log('Message sent!')
+      transporter.sendMail(mailOptions, error => {
+        error ? console.log(error) : console.log('Message sent!')
       })
 
       res.json({
@@ -614,10 +614,10 @@ router.post('/change-password', async (req, res) => {
         // eslint-disable-next-line
         foundUser.password = newPassword
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(foundUser.password, salt, async (err, hash) => {
+        bcrypt.genSalt(10, (error, salt) => {
+          bcrypt.hash(foundUser.password, salt, async (error, hash) => {
             try {
-              if (err) throw err
+              if (error) throw error
               foundUser.password = hash
               const savedUser = await foundUser.save()
 
@@ -635,7 +635,7 @@ router.post('/change-password', async (req, res) => {
                 payload,
                 process.env.SECRET_OR_KEY,
                 { expiresIn: sessionTime },
-                (err, token) => {
+                (error, token) => {
                   const mailOptions = {
                     from: process.env.NODEMAILER_USER,
                     to: savedUser.email,
@@ -647,8 +647,8 @@ router.post('/change-password', async (req, res) => {
                           `
                   }
 
-                  transporter.sendMail(mailOptions, err => {
-                    err ? console.log(err) : console.log('Message sent!')
+                  transporter.sendMail(mailOptions, error => {
+                    error ? console.log(error) : console.log('Message sent!')
                   })
 
                   res.json({
@@ -714,7 +714,7 @@ router.post('/change-email', async (req, res) => {
       roles: savedUser.roles
     }
 
-    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
       const mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: [savedUser.email, oldEmail],
@@ -726,8 +726,8 @@ router.post('/change-email', async (req, res) => {
               `
       }
 
-      transporter.sendMail(mailOptions, err => {
-        err ? console.log(err) : console.log('Message sent!')
+      transporter.sendMail(mailOptions, error => {
+        error ? console.log(error) : console.log('Message sent!')
       })
 
       res.json({
@@ -763,7 +763,7 @@ router.post(
         roles: savedUser.roles
       }
 
-      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (error, token) => {
         res.json({
           alert: 'E-Mail erfolgreich geändert',
           success: true,

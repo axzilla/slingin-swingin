@@ -54,16 +54,16 @@ const Register = () => {
     password: ''
   })
 
-  const onChange = e => {
+  const onChange = event => {
     setRegisterData({
       ...registerData,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     })
   }
 
-  const onSubmit = async e => {
+  const onSubmit = async event => {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       await registerUser({ ...registerData })
 
@@ -77,8 +77,8 @@ const Register = () => {
 
       await login(jwtToken)
       Router.push('/')
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

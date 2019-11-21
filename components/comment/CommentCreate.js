@@ -39,9 +39,9 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
   const [text, setText] = useState('')
   const [errors, setErrors] = useState()
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       const commentData = {
         text,
@@ -52,13 +52,13 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
       setCommentsByPostRef([createdComment.data, ...commentsByPostRef])
       toggleAnswerMode && toggleAnswerMode()
       setText('')
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 
-  function onChange(e) {
-    setText(e.target.value)
+  function onChange(event) {
+    setText(event.target.value)
   }
 
   return (

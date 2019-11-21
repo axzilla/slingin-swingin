@@ -97,42 +97,42 @@ function PostCreate() {
       const { shortId, urlSlug } = createdPost
 
       Router.push(`/post/${shortId}/${urlSlug}`)
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 
-  function onPostTitleImageChange(e) {
-    e.preventDefault()
-    setTitleImagePreview(URL.createObjectURL(e.target.files[0]))
-    setTitleImage(e.target.files[0])
+  function onPostTitleImageChange(event) {
+    event.preventDefault()
+    setTitleImagePreview(URL.createObjectURL(event.target.files[0]))
+    setTitleImage(event.target.files[0])
   }
 
-  function onDeleteTitleImageClick(e) {
-    e.preventDefault()
+  function onDeleteTitleImageClick(event) {
+    event.preventDefault()
     if (window.confirm('Bild löschen?')) {
       setTitleImagePreview(null)
       setTitleImage(null)
     }
   }
 
-  function onChange(e) {
+  function onChange(event) {
     setPostdata({
       ...postData,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     })
   }
 
-  function onTextChange(e) {
-    setText(e.target.value)
+  function onTextChange(event) {
+    setText(event.target.value)
   }
 
-  function onTagsInputChange(e) {
-    setTagsInput(slugify(e.target.value))
+  function onTagsInputChange(event) {
+    setTagsInput(slugify(event.target.value))
   }
 
-  function onTagsKeyPress(e) {
-    if (e.keyCode === 13 || e.keyCode === 32) {
+  function onTagsKeyPress(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
       if (!postData.tags.includes(tagsInput) && !isEmpty(tagsInput)) {
         setPostdata({
           ...postData,

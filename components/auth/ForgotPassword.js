@@ -45,13 +45,13 @@ function ForgotPassword() {
   const [errors, setErrors] = useState('')
   const [email, setEmail] = useState('')
 
-  function onChange(e) {
-    setEmail(e.target.value)
+  function onChange(event) {
+    setEmail(event.target.value)
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       const emailData = {
         email
@@ -61,8 +61,8 @@ function ForgotPassword() {
       setAlert({ message: 'E-Mail erfolgreich gesendet' })
       setEmail('')
       setErrors('')
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

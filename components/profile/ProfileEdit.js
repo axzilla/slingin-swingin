@@ -100,8 +100,8 @@ function ProfileEdit() {
   const rgbaColor = `rgba(${color && color.r}, ${color && color.g}, ${color && color.b}, ${color &&
     color.a})`
 
-  async function onSubmit(e) {
-    e.preventDefault()
+  async function onSubmit(event) {
+    event.preventDefault()
 
     const profileData = {
       name: state.name,
@@ -127,8 +127,8 @@ function ProfileEdit() {
     setAlert({ message: 'Profil erfolgreich geändert' })
   }
 
-  function onChange(e) {
-    setState({ ...state, [e.target.name]: e.target.value })
+  function onChange(event) {
+    setState({ ...state, [event.target.name]: event.target.value })
   }
 
   function handleColorPickerClick() {

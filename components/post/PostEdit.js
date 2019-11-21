@@ -105,43 +105,43 @@ function PostEdit({ id }) {
       const updatedPost = res.data
       const { shortId, urlSlug } = updatedPost
       Router.push(`/post/${shortId}/${urlSlug}`)
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 
-  function onPostTitleImageChange(e) {
-    e.preventDefault()
-    setTitleImagePreview(URL.createObjectURL(e.target.files[0]))
-    setTitleImage(e.target.files[0])
+  function onPostTitleImageChange(event) {
+    event.preventDefault()
+    setTitleImagePreview(URL.createObjectURL(event.target.files[0]))
+    setTitleImage(event.target.files[0])
   }
 
-  function onDeleteTitleImageClick(e) {
-    e.preventDefault()
+  function onDeleteTitleImageClick(event) {
+    event.preventDefault()
     if (window.confirm('Bild löschen?')) {
       setTitleImagePreview(null)
       setTitleImage('deleted')
     }
   }
 
-  function onTextChange(e) {
-    setText(e.target.value)
+  function onTextChange(event) {
+    setText(event.target.value)
   }
 
-  function onTitleChange(e) {
-    setTitle(e.target.value)
+  function onTitleChange(event) {
+    setTitle(event.target.value)
   }
 
-  function onTypeChange(e) {
-    setType(e.target.value)
+  function onTypeChange(event) {
+    setType(event.target.value)
   }
 
-  function onTagsInputChange(e) {
-    setTagsInput(slugify(e.target.value))
+  function onTagsInputChange(event) {
+    setTagsInput(slugify(event.target.value))
   }
 
-  function onTagsKeyPress(e) {
-    if (e.keyCode === 13 || e.keyCode === 32) {
+  function onTagsKeyPress(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
       if (!tags.includes(tagsInput)) {
         setTags([...tags, tagsInput])
       }

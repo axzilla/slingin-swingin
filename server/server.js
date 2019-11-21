@@ -37,8 +37,8 @@ app
     mongoose.connect(db, { useNewUrlParser: true }).then(() => {
       console.log(`MongoDB Connected on ${db}`)
 
-      server.listen(port, err => {
-        if (err) throw err
+      server.listen(port, error => {
+        if (error) throw error
         console.log(`> next.js App Ready on ${port}`) // eslint-disable-line no-console
       })
     })

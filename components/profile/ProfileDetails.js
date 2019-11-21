@@ -48,7 +48,7 @@ function ProfileDetails({ handle }) {
       setSubCommentsByUserId(foundSubCommentsByUserId.data)
 
       setIsLoading(false)
-    } catch (err) {
+    } catch (error) {
       Router.push('/not-found')
     }
   }

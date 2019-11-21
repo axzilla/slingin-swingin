@@ -20,8 +20,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
     const createdSubComment = await SubComment.create(newSubComment)
     const foundSubComment = await SubComment.findById(createdSubComment._id).populate('user')
     res.json(foundSubComment)
-  } catch (err) {
-    console.log(err) // eslint-disable-line no-console
+  } catch (error) {
+    console.log(error) // eslint-disable-line no-console
   }
 })
 
