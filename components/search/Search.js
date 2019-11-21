@@ -12,12 +12,21 @@ function Search() {
   const [searchResult, setSearchResult] = useState()
 
   useEffect(() => {
-    searchFunc(router.query.q).then(res => setSearchResult(res.data))
+    getInitialData()
   }, [])
 
   useEffect(() => {
-    searchFunc(router.query.q).then(res => setSearchResult(res.data))
+    getInitialData()
   }, [router.query.q])
+
+  async function getInitialData() {
+    try {
+      const foundSearchResult = await searchFunc(router.query.q)
+      setSearchResult(foundSearchResult.data)
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   let content
 

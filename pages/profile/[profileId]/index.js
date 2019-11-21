@@ -15,13 +15,17 @@ Profile.propTypes = {
 }
 
 Profile.getInitialProps = async ctx => {
-  isNotLoggedIn(ctx)
-  const { profileId } = ctx.query
-  const res = await getStudentProfileByProfileId(profileId)
-  const profile = res.data
+  try {
+    isNotLoggedIn(ctx)
+    const { profileId } = ctx.query
+    const res = await getStudentProfileByProfileId(profileId)
+    const profile = res.data
 
-  return {
-    profile
+    return {
+      profile
+    }
+  } catch (error) {
+    if (error) throw error
   }
 }
 

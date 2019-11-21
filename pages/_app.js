@@ -45,35 +45,43 @@ class MyApp extends App {
   }
 
   login = async jwtToken => {
-    const cookies = new Cookies()
-    await cookies.set('jwtToken', jwtToken, { path: '/' })
-    await setAuthToken(jwtToken)
-    const decodedUser = jwtDecode(jwtToken)
+    try {
+      const cookies = new Cookies()
+      await cookies.set('jwtToken', jwtToken, { path: '/' })
+      await setAuthToken(jwtToken)
+      const decodedUser = jwtDecode(jwtToken)
 
-    this.setState({
-      isAuthenticated: true,
-      user: decodedUser
-    })
+      this.setState({
+        isAuthenticated: true,
+        user: decodedUser
+      })
 
-    if (decodedUser.role === 'company') {
-      Router.push('/profiles')
-    } else if (decodedUser.role === 'student') {
-      Router.push('/s/dashboard')
-    } else if (decodedUser.role === 'admin') {
-      Router.push('/a/dashboard')
+      if (decodedUser.role === 'company') {
+        Router.push('/profiles')
+      } else if (decodedUser.role === 'student') {
+        Router.push('/s/dashboard')
+      } else if (decodedUser.role === 'admin') {
+        Router.push('/a/dashboard')
+      }
+    } catch (error) {
+      if (error) throw error
     }
   }
 
   logout = async () => {
-    const cookies = new Cookies()
-    cookies.remove('jwtToken', { path: '/' })
+    try {
+      const cookies = new Cookies()
+      cookies.remove('jwtToken', { path: '/' })
 
-    await Router.push('/login')
+      await Router.push('/login')
 
-    this.setState({
-      isAuthenticated: false,
-      user: {}
-    })
+      this.setState({
+        isAuthenticated: false,
+        user: {}
+      })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   render() {

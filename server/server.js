@@ -21,7 +21,6 @@ app
     server.use(express.urlencoded({ extended: true }))
     server.use(express.json())
 
-    server.use('/admin', require('./routes/admin'))
     server.use('/users', require('./routes/users'))
     server.use('/profile', require('./routes/profile'))
     server.use('/posts', require('./routes/posts'))

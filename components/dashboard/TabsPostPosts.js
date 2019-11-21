@@ -11,40 +11,44 @@ function TabsPostPosts({ postsByUserId, setPostsByUserId, auth }) {
     setLimit(limit + 10)
   }
 
-  function onLikeClick(postId) {
-    handlePostLikes(postId).then(res => {
-      const updatedPost = res.data
+  async function onLikeClick(postId) {
+    try {
+      const updatedPost = await handlePostLikes(postId)
 
       const index = postsByUserId.indexOf(
         postsByUserId.filter(post => {
-          return post._id === updatedPost._id
+          return post._id === updatedPost.data._id
         })[0]
       )
 
       setPostsByUserId([
         ...postsByUserId.slice(0, index),
-        updatedPost,
+        updatedPost.data,
         ...postsByUserId.slice(index + 1)
       ])
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
-  function onBookmarkClick(postId) {
-    handlePostBookmarks(postId).then(res => {
-      const updatedPost = res.data
+  async function onBookmarkClick(postId) {
+    try {
+      const updatedPost = await handlePostBookmarks(postId)
 
       const index = postsByUserId.indexOf(
         postsByUserId.filter(post => {
-          return post._id === updatedPost._id
+          return post._id === updatedPost.data._id
         })[0]
       )
 
       setPostsByUserId([
         ...postsByUserId.slice(0, index),
-        updatedPost,
+        updatedPost.data,
         ...postsByUserId.slice(index + 1)
       ])
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   const content =

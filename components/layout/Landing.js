@@ -25,41 +25,52 @@ function Landing() {
   })
 
   useEffect(() => {
-    getPosts().then(res => {
-      setPosts(res.data)
-    })
+    getInitalData()
   }, [])
+
+  async function getInitalData() {
+    try {
+      const foundPosts = await getPosts()
+      setPosts(foundPosts.data)
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   function loadMore() {
     setLimit(limit + 10)
   }
 
-  function onLikeClick(postId) {
-    handlePostLikes(postId).then(res => {
-      const updatedPost = res.data
+  async function onLikeClick(postId) {
+    try {
+      const updatedPost = await handlePostLikes(postId)
 
       const index = posts.indexOf(
         posts.filter(post => {
-          return post._id === updatedPost._id
+          return post._id === updatedPost.data._id
         })[0]
       )
 
-      setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)])
-    })
+      setPosts([...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)])
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
-  function onBookmarkClick(postId) {
-    handlePostBookmarks(postId).then(res => {
-      const updatedPost = res.data
+  async function onBookmarkClick(postId) {
+    try {
+      const updatedPost = await handlePostBookmarks(postId)
 
       const index = posts.indexOf(
         posts.filter(post => {
-          return post._id === updatedPost._id
+          return post._id === updatedPost.data._id
         })[0]
       )
 
-      setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)])
-    })
+      setPosts([...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)])
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   const toggleDrawer = (side, open) => event => {

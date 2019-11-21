@@ -10,8 +10,17 @@ function ProfilesFeed() {
   const [profiles, setProfiles] = useState([])
 
   useEffect(() => {
-    getProfiles().then(res => setProfiles(res.data))
+    getInitialData()
   }, [])
+
+  async function getInitialData() {
+    try {
+      const foundProfiles = await getProfiles()
+      setProfiles(foundProfiles.data)
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   function loadMore() {
     setLimit(limit + 10)

@@ -62,9 +62,9 @@ const Register = () => {
   }
 
   const onSubmit = async e => {
-    e.preventDefault()
-
     try {
+      e.preventDefault()
+
       await registerUser({ ...registerData })
 
       const loggedInUser = await loginUser({

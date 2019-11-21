@@ -34,22 +34,23 @@ function ProfileDetails({ handle }) {
   }, [])
 
   async function getInitialData() {
-    setIsLoading(true)
-
     try {
-      const profileUserId = await getProfileByHandle(handle).then(res => {
-        setProfile(res.data)
-        return res.data.user._id
-      })
+      setIsLoading(true)
 
-      await getPostsByUserId(profileUserId).then(res => setPostsByUserId(res.data))
-      await getCommentsByUserId(profileUserId).then(res => setCommentsByUserId(res.data))
-      await getSubCommentsByUserId(profileUserId).then(res => setSubCommentsByUserId(res.data))
+      const profileUserId = await getProfileByHandle(handle)
+      const foundPostsByUserId = await getPostsByUserId(profileUserId.data.user._id)
+      const foundCommentsByUserId = await getCommentsByUserId(profileUserId.data.user._id)
+      const foundSubCommentsByUserId = await getSubCommentsByUserId(profileUserId.data.user._id)
+
+      setProfile(profileUserId.data)
+      setPostsByUserId(foundPostsByUserId.data)
+      setCommentsByUserId(foundCommentsByUserId.data)
+      setSubCommentsByUserId(foundSubCommentsByUserId.data)
+
+      setIsLoading(false)
     } catch (err) {
       Router.push('/not-found')
     }
-
-    setIsLoading(false)
   }
 
   const rgbaColor =

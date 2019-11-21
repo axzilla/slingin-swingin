@@ -17,85 +17,102 @@ const validatePost = require('../validation/validatePost')
 const mtuPostNew = require('../nodemailer/templates/mtuPostNew')
 
 // Get All Posts
-router.get('/', (req, res) => {
-  Post.find()
-    .populate('user', ['name', 'username', 'avatar'])
-    .sort({ isPinned: -1 })
-    .sort({ dateCreated: -1 })
-    .then(posts => {
-      res.json(posts)
-    })
-    .catch(() => res.status(404).json({ nopostsfound: 'Keine Beiträge gefunden' }))
+router.get('/', async (req, res) => {
+  try {
+    const foundPosts = await Post.find()
+      .populate('user', ['name', 'username', 'avatar'])
+      .sort({ isPinned: -1 })
+      .sort({ dateCreated: -1 })
+
+    res.json(foundPosts)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Get Posts By User ID
-router.get('/getPosts/published/userId/:id', (req, res) => {
-  Post.find({ user: req.params.id })
-    .sort({ dateCreated: -1 })
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(posts => {
-      res.json(posts)
-    })
-    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
+router.get('/getPosts/published/userId/:id', async (req, res) => {
+  try {
+    const foundPost = await Post.find({ user: req.params.id })
+      .sort({ dateCreated: -1 })
+      .populate('user', ['name', 'username', 'avatar'])
+
+    res.json(foundPost)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Get Posts By User Bookmarks
-router.get('/getposts/bookmark/:user_id', (req, res) => {
-  Post.find({ 'bookmarks.user': req.params.user_id })
-    .sort({ dateCreated: -1 })
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(posts => {
-      res.json(posts)
-    })
-    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
+router.get('/getposts/bookmark/:user_id', async (req, res) => {
+  try {
+    const foundPosts = Post.find({ 'bookmarks.user': req.params.user_id })
+      .sort({ dateCreated: -1 })
+      .populate('user', ['name', 'username', 'avatar'])
+
+    res.json(foundPosts)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Get Posts By Tag
-router.get('/getposts/tag/:tag', (req, res) => {
-  Post.find({ tags: req.params.tag })
-    .sort({ dateCreated: -1 })
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(posts => {
-      res.json(posts)
-    })
-    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge gefunden' }))
+router.get('/getposts/tag/:tag', async (req, res) => {
+  try {
+    const foundPost = await Post.find({ tags: req.params.tag })
+      .sort({ dateCreated: -1 })
+      .populate('user', ['name', 'username', 'avatar'])
+
+    res.json(foundPost)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Get All Posts Tag Once With Count
-router.get('/getAllTags', (req, res) => {
-  Post.distinct('tags')
-  Post.aggregate([{ $unwind: '$tags' }, { $group: { _id: '$tags', count: { $sum: 1 } } }])
-    .sort({ count: -1 })
-    .then(tags => res.json(tags))
-    .catch(() => res.status(404).json({ notagsfound: 'Keine Tags gefunden' }))
+router.get('/getAllTags', async (req, res) => {
+  try {
+    await Post.distinct('tags')
+
+    const foundPostTags = await Post.aggregate([
+      { $unwind: '$tags' },
+      { $group: { _id: '$tags', count: { $sum: 1 } } }
+    ]).sort({ count: -1 })
+
+    res.json(foundPostTags)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Get Post By ID
-router.get('/get-post/:postId', (req, res) => {
-  Post.findById(req.params.postId)
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(post => {
-      if (!post) {
-        res.status(404)
-      }
+router.get('/get-post/:postId', async (req, res) => {
+  try {
+    const foundPost = await Post.findById(req.params.postId).populate('user', [
+      'name',
+      'username',
+      'avatar'
+    ])
 
-      res.json(post)
-    })
-    .catch(() => res.status(404).json({ nopostfound: 'Keinen Betrag mit dieser ID gefunden' }))
+    res.json(foundPost)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Get Post By Short ID
-router.get('/short/:post_id', (req, res) => {
-  Post.findOne({ shortId: req.params.post_id })
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(post => {
-      if (!post) {
-        res.status(404)
-      }
+router.get('/short/:post_id', async (req, res) => {
+  try {
+    const foundPost = await Post.findOne({ shortId: req.params.post_id }).populate('user', [
+      'name',
+      'username',
+      'avatar'
+    ])
 
-      res.json(post)
-    })
-    .catch(() => res.status(404).json({ nopostfound: 'Keine Beträge mit dieser ID gefunden' }))
+    res.json(foundPost)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Create Post
@@ -103,64 +120,59 @@ router.post(
   '/create',
   passport.authenticate('jwt', { session: false }),
   upload.single('titleImage'),
-  (req, res) => {
-    console.log(req.user)
-    const { errors, isValid } = validatePost(req.body)
+  async (req, res) => {
+    try {
+      const { errors, isValid } = validatePost(req.body)
 
-    if (!isValid) {
-      return res.status(400).json(errors)
-    }
+      if (!isValid) {
+        return res.status(400).json(errors)
+      }
 
-    const { title, text, type, tags } = req.body
-    const { user } = req
+      const { title, text, type, tags } = req.body
+      const { user } = req
+      const postFields = {}
 
-    const postFields = {}
+      Object.assign(postFields, {
+        urlSlug: slugify(title),
+        user: user.id,
+        title,
+        text,
+        type,
+        tags: tags ? tags.split(',') : []
+      })
 
-    Object.assign(postFields, {
-      urlSlug: slugify(title),
-      user: user.id,
-      title,
-      text,
-      type,
-      tags: tags ? tags.split(',') : []
-    })
+      const createdPost = await Post.create(postFields)
 
-    Post.create(postFields).then(post => {
       if (req.file) {
         const { mimetype, buffer } = req.file
         const file = `data:${mimetype};base64,${buffer.toString('base64')}`
 
-        cloudinary.v2.uploader
-          .upload(file, {
-            folder: process.env.CLOUDINARY_PATH_POST_TITLE,
-            public_id: `post-title-image-${post.id}`
-          })
-          .then((result, err) => {
-            if (err) {
-              console.log(err) // eslint-disable-line no-console
-            } else {
-              console.log('Avatar uploaded') // eslint-disable-line no-console
-              post.titleImage = result
-              post.save().then(() => {
-                res.json(post)
-              })
-            }
-          })
+        const uploadedFile = await cloudinary.v2.uploader.upload(file, {
+          folder: process.env.CLOUDINARY_PATH_POST_TITLE,
+          public_id: `post-title-image-${createdPost.id}`
+        })
+
+        console.log('Avatar uploaded') // eslint-disable-line no-console
+        createdPost.titleImage = uploadedFile // eslint-disable-line
+        const savedPost = await createdPost.save()
+        res.json(savedPost)
       } else {
-        res.json(post)
+        res.json(createdPost)
       }
 
       // Send Mail to User - New POST - If onNewPost
-      User.find().then(users => {
-        users
-          .filter(user => {
-            return user.notifications.onNewPost
-          })
-          .map(user => {
-            mtuPostNew(post, user)
-          })
-      })
-    })
+      const foundUsers = await User.find()
+
+      foundUsers
+        .filter(user => {
+          return user.notifications.onNewPost
+        })
+        .map(user => {
+          mtuPostNew(createdPost, user)
+        })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 )
 
@@ -169,53 +181,53 @@ router.post(
   '/edit',
   passport.authenticate('jwt', { session: false }),
   upload.single('titleImage'),
-  (req, res) => {
-    const { errors, isValid } = validatePost(req.body)
-    if (!isValid) {
-      return res.status(400).json(errors)
-    }
-    const { titleImage, title, text, type, tags } = req.body
-    const postFields = {}
+  async (req, res) => {
+    try {
+      const { errors, isValid } = validatePost(req.body)
 
-    Object.assign(postFields, {
-      urlSlug: slugify(title),
-      title,
-      text,
-      type,
-      tags: tags ? tags.split(',') : []
-    })
+      if (!isValid) {
+        return res.status(400).json(errors)
+      }
 
-    Post.findByIdAndUpdate(req.body.id, postFields)
-      .populate('bookmarks.user', ['email', 'username'])
-      .then(post => {
-        if (req.file) {
-          const { mimetype, buffer } = req.file
-          const file = `data:${mimetype};base64,${buffer.toString('base64')}`
-          cloudinary.v2.uploader
-            .upload(file, {
-              folder: process.env.CLOUDINARY_PATH_POST_TITLE,
-              public_id: `post-title-image-${post.id}`
-            })
-            .then(result => {
-              post.titleImage = result
-              post.save()
-              res.json(post)
-            })
-        } else if (titleImage === 'deleted') {
-          cloudinary.v2.uploader.destroy(post.titleImage.public_id).then((result, error) => {
-            if (error) {
-              console.log(error) // eslint-disable-line no-console
-            } else {
-              post.titleImage = {}
-              post.save()
-              res.json(post)
-            }
-          })
-        } else {
-          res.json(post)
-        }
+      const { titleImage, title, text, type, tags } = req.body
+      const postFields = {}
+
+      Object.assign(postFields, {
+        urlSlug: slugify(title),
+        title,
+        text,
+        type,
+        tags: tags ? tags.split(',') : []
       })
-      .catch(err => console.log(err)) // eslint-disable-line no-console
+
+      const foundPost = await Post.findByIdAndUpdate(req.body.id, postFields).populate(
+        'bookmarks.user',
+        ['email', 'username']
+      )
+
+      if (req.file) {
+        const { mimetype, buffer } = req.file
+        const file = `data:${mimetype};base64,${buffer.toString('base64')}`
+        const uploadedFile = await cloudinary.v2.uploader.upload(file, {
+          folder: process.env.CLOUDINARY_PATH_POST_TITLE,
+          public_id: `post-title-image-${foundPost.id}`
+        })
+
+        foundPost.titleImage = uploadedFile // eslint-disable-line
+        foundPost.save()
+        res.json(foundPost)
+      } else if (titleImage === 'deleted') {
+        await cloudinary.v2.uploader.destroy(foundPost.titleImage.public_id)
+
+        foundPost.titleImage = {}
+        foundPost.save()
+        res.json(foundPost)
+      } else {
+        res.json(foundPost)
+      }
+    } catch (error) {
+      if (error) throw error
+    }
   }
 )
 
@@ -227,55 +239,62 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
     await SubComment.deleteMany({ refPost: deletedPost._id })
 
     if (deletedPost.titleImage) {
-      cloudinary.v2.uploader.destroy(deletedPost.titleImage.public_id).then((result, error) => {
-        error ? console.log(error) : console.log('Media on cloudinary successful deleted') // eslint-disable-line no-console
-      })
+      cloudinary.v2.uploader.destroy(deletedPost.titleImage.public_id)
+      console.log('Media on cloudinary successful deleted') // eslint-disable-line no-console
     }
 
     res.json({ success: true })
-  } catch (err) {
-    console.log(err) // eslint-disable-line no-console
+  } catch (error) {
+    if (error) throw error
   }
 })
 
 // Toggle Post Likes
-router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Post.findById(req.params.id)
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(post => {
-      if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-        const removeIndex = post.likes.map(item => item.user.toString()).indexOf(req.user.id)
+router.post('/like/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const foundPost = await Post.findById(req.params.id).populate('user', [
+      'name',
+      'username',
+      'avatar'
+    ])
 
-        post.likes.splice(removeIndex, 1)
-
-        post.save().then(post => res.json(post))
-      } else if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-        post.likes.unshift({ user: req.user.id })
-
-        post.save().then(post => res.json(post))
-      }
-    })
-    .catch(() => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
+    if (foundPost.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+      const removeIndex = foundPost.likes.map(item => item.user.toString()).indexOf(req.user.id)
+      foundPost.likes.splice(removeIndex, 1)
+      const savedPost = await foundPost.save()
+      res.json(savedPost)
+    } else if (foundPost.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+      foundPost.likes.unshift({ user: req.user.id })
+      const savedPost = await foundPost.save()
+      res.json(savedPost)
+    }
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Toggle Post Bookmarks
-router.post('/bookmark/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Post.findById(req.params.id)
-    .populate('user', ['name', 'username', 'avatar'])
-    .then(post => {
-      if (post.bookmarks.filter(bookmark => bookmark.user.toString() === req.user.id).length > 0) {
-        const removeIndex = post.bookmarks.map(item => item.user.toString()).indexOf(req.user.id)
+router.post('/bookmark/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const foundPost = Post.findById(req.params.id).populate('user', ['name', 'username', 'avatar'])
 
-        post.bookmarks.splice(removeIndex, 1)
-
-        post.save().then(post => res.json(post))
-      } else if (post.bookmarks.filter(like => like.user.toString() === req.user.id).length === 0) {
-        post.bookmarks.unshift({ user: req.user.id })
-
-        post.save().then(post => res.json(post))
-      }
-    })
-    .catch(() => res.status(404).json({ postnotfound: 'Keinen Beitrag gefunden' }))
+    if (
+      foundPost.bookmarks.filter(bookmark => bookmark.user.toString() === req.user.id).length > 0
+    ) {
+      const removeIndex = foundPost.bookmarks.map(item => item.user.toString()).indexOf(req.user.id)
+      foundPost.bookmarks.splice(removeIndex, 1)
+      const savedPost = await foundPost
+      res.json(savedPost)
+    } else if (
+      foundPost.bookmarks.filter(like => like.user.toString() === req.user.id).length === 0
+    ) {
+      foundPost.bookmarks.unshift({ user: req.user.id })
+      const savedPost = await foundPost.save()
+      res.json(savedPost)
+    }
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 module.exports = router

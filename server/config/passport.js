@@ -9,15 +9,18 @@ opts.secretOrKey = process.env.SECRET_OR_KEY
 
 module.exports = passport => {
   passport.use(
-    new JwtStrategy(opts, (jwt_payload, done) => {
-      User.findById(jwt_payload.id)
-        .then(user => {
-          if (user) {
-            return done(null, user)
-          }
-          return done(null, false)
-        })
-        .catch(err => console.log(err))
+    new JwtStrategy(opts, async (jwt_payload, done) => {
+      try {
+        const foundUser = await User.findById(jwt_payload.id)
+
+        if (foundUser) {
+          return done(null, foundUser)
+        }
+
+        return done(null, false)
+      } catch (error) {
+        if (error) throw error
+      }
     })
   )
 }

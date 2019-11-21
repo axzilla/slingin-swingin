@@ -6,13 +6,18 @@ import { deletePost } from './_services'
 import { CardActions, Button, Divider } from '@material-ui/core'
 
 function PostDetailsAuthActions({ post, user, isAuthenticated }) {
-  const onDeleteClick = id => {
-    if (
-      window.confirm(
-        'Bist du sicher, dass du diesen Beitrag löschen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden!'
-      )
-    ) {
-      deletePost(id).then(() => Router.push('/'))
+  async function onDeleteClick(id) {
+    try {
+      if (
+        window.confirm(
+          'Bist du sicher, dass du diesen Beitrag löschen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden!'
+        )
+      ) {
+        await deletePost(id)
+        Router.push('/')
+      }
+    } catch (error) {
+      if (error) throw error
     }
   }
 

@@ -58,15 +58,15 @@ function ChangePassword() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-    const passwordData = {
-      id: user.id,
-      oldPassword: passwords.oldPassword,
-      newPassword: passwords.newPassword,
-      newPassword2: passwords.newPassword2
-    }
-
     try {
+      e.preventDefault()
+      const passwordData = {
+        id: user.id,
+        oldPassword: passwords.oldPassword,
+        newPassword: passwords.newPassword,
+        newPassword2: passwords.newPassword2
+      }
+
       const res = await changePassword(passwordData)
       const { token } = res.data
       login(token)

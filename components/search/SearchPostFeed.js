@@ -13,38 +13,42 @@ function SearchPostFeed({ searchResult, setSearchResult }) {
     setLinmit(limit + 10)
   }
 
-  function onLikeClick(postId) {
-    handlePostLikes(postId).then(res => {
-      const updatedPost = res.data
+  async function onLikeClick(postId) {
+    try {
+      const updatedPost = await handlePostLikes(postId)
 
       const index = posts.indexOf(
         posts.filter(post => {
-          return post._id === updatedPost._id
+          return post._id === updatedPost.data._id
         })[0]
       )
 
       setSearchResult({
         ...searchResult,
-        posts: [...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)]
+        posts: [...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)]
       })
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
-  function onBookmarkClick(postId) {
-    handlePostBookmarks(postId).then(res => {
-      const updatedPost = res.data
+  async function onBookmarkClick(postId) {
+    try {
+      const updatedPost = await handlePostBookmarks(postId)
 
       const index = posts.indexOf(
         posts.filter(post => {
-          return post._id === updatedPost._id
+          return post._id === updatedPost.data._id
         })[0]
       )
 
       setSearchResult({
         ...searchResult,
-        posts: [...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)]
+        posts: [...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)]
       })
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   let postContent

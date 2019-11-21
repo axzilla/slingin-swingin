@@ -12,9 +12,9 @@ function NotVerified() {
     getCurrentProfile()
   }, [])
 
-  async function onSendMailClick(e) {
+  function onSendMailClick(e) {
     e.preventDefault()
-    await sendVerificationEmail(user)
+    sendVerificationEmail(user)
   }
 
   return (

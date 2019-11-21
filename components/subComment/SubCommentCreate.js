@@ -11,21 +11,22 @@ function SubCommentCreate({ postId, comment, subComments, setSubComments }) {
     setSubComment(e.target.value)
   }
 
-  function onSubmit(e) {
-    e.preventDefault()
+  async function onSubmit(e) {
+    try {
+      e.preventDefault()
 
-    const subCommentData = {
-      text: subComment,
-      refPost: postId,
-      refComment: comment._id
+      const subCommentData = {
+        text: subComment,
+        refPost: postId,
+        refComment: comment._id
+      }
+
+      const createdSubComment = await createSubComment(subCommentData)
+      setSubComments([...subComments, createdSubComment.data])
+      setSubComment('')
+    } catch (error) {
+      if (error) throw error
     }
-
-    createSubComment(subCommentData).then(res => {
-      const createdSubComment = res.data
-      setSubComments([...subComments, createdSubComment])
-    })
-
-    setSubComment('')
   }
 
   return (

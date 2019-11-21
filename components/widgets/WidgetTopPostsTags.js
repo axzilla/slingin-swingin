@@ -11,10 +11,17 @@ function WidgetTopPostsTags() {
   const [postTags, setPostTags] = useState()
 
   useEffect(() => {
-    getPostsTags().then(res => {
-      setPostTags(res.data)
-    })
+    getInitialData()
   }, [])
+
+  async function getInitialData() {
+    try {
+      const foundPostTags = await getPostsTags()
+      setPostTags(foundPostTags.data)
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   return (
     <Card>

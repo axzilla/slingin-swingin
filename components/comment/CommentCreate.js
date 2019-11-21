@@ -40,21 +40,17 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
   const [errors, setErrors] = useState()
 
   async function onSubmit(e) {
-    e.preventDefault()
-
-    const commentData = {
-      text,
-      refPost: postId
-    }
-
     try {
-      await createComment(commentData).then(res => {
-        const createdComment = res.data
-        setCommentsByPostRef([createdComment, ...commentsByPostRef])
-      })
+      e.preventDefault()
 
+      const commentData = {
+        text,
+        refPost: postId
+      }
+
+      const createdComment = await createComment(commentData)
+      setCommentsByPostRef([createdComment.data, ...commentsByPostRef])
       toggleAnswerMode && toggleAnswerMode()
-
       setText('')
     } catch (err) {
       setErrors(err.response.data)
@@ -70,7 +66,6 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
       <FormControl className={classes.formControl} error>
         <form onSubmit={onSubmit}>
           <MarkdownEditor withPreview setText={setText} onChange={onChange} value={text} />
-
           {errors && errors.text ? (
             <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
           ) : null}

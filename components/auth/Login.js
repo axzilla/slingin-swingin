@@ -59,9 +59,8 @@ function Login() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-
     try {
+      e.preventDefault()
       const loggedInUser = await loginUser({ ...loginData })
       const jwtToken = loggedInUser.data
       await login(jwtToken)

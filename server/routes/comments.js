@@ -7,16 +7,16 @@ const SubComment = require('../models/SubComment')
 
 // Create Comment
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const { text, refPost } = req.body
-  const { id } = req.user
-
-  const newComment = {
-    text,
-    refPost,
-    user: id
-  }
-
   try {
+    const { text, refPost } = req.body
+    const { id } = req.user
+
+    const newComment = {
+      text,
+      refPost,
+      user: id
+    }
+
     const createdComment = await Comment.create(newComment)
     const foundComment = await Comment.findById(createdComment._id).populate('user')
     res.json(foundComment)
@@ -27,9 +27,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
 
 // Get Comments by Post Ref
 router.get('/:refPost', async (req, res) => {
-  const { refPost } = req.params
-
   try {
+    const { refPost } = req.params
+
     const foundComments = await Comment.find({ refPost })
       .sort({ dateCreated: -1 })
       .populate('user', ['name', 'username', 'avatar'])
@@ -41,19 +41,24 @@ router.get('/:refPost', async (req, res) => {
 })
 
 // Get Comments User ID
-router.get('/getByUserId/:userId', (req, res) => {
-  Comment.find({ user: req.params.userId })
-    .sort({ dateCreated: -1 })
-    .populate('user', ['name', 'username', 'avatar'])
-    .populate('refPost', ['title', 'shortId', 'urlSlug'])
-    .then(comments => res.json(comments))
+router.get('/getByUserId/:userId', async (req, res) => {
+  try {
+    const foundComments = await Comment.find({ user: req.params.userId })
+      .sort({ dateCreated: -1 })
+      .populate('user', ['name', 'username', 'avatar'])
+      .populate('refPost', ['title', 'shortId', 'urlSlug'])
+
+    res.json(foundComments)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Update Comment
 router.post('/update', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const { commentId, text } = req.body
-
   try {
+    const { commentId, text } = req.body
+
     const updatedComment = await Comment.findById(commentId).populate('user', [
       'name',
       'username',
@@ -81,84 +86,96 @@ router.post('/delete', passport.authenticate('jwt', { session: false }), async (
 })
 
 // Upvote Comment
-router.post('/upvote/:commentId', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Comment.findById(req.params.commentId)
-    .populate('user')
-    .then(comment => {
+router.post(
+  '/upvote/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const foundComment = await Comment.findById(req.params.commentId).populate('user')
+
       if (
-        comment.votes.upvotes.filter(upvote => {
+        foundComment.votes.upvotes.filter(upvote => {
           return upvote.user.toString() === req.user.id
         }).length > 0
       ) {
-        const removeIndex = comment.votes.upvotes
+        const removeIndex = foundComment.votes.upvotes
           .map(item => item.user.toString())
           .indexOf(req.user.id)
 
-        comment.votes.upvotes.splice(removeIndex, 1)
-        comment.save().then(comment => res.json(comment))
+        foundComment.votes.upvotes.splice(removeIndex, 1)
+        const savedComment = await foundComment.save()
+
+        res.json(savedComment)
       } else if (
-        comment.votes.upvotes.filter(upvote => {
+        foundComment.votes.upvotes.filter(upvote => {
           upvote.user.toString() === req.user.id
         }).length === 0
       ) {
         if (
-          comment.votes.downvotes.filter(downvote => downvote.user.toString() === req.user.id)
+          foundComment.votes.downvotes.filter(downvote => downvote.user.toString() === req.user.id)
             .length > 0
         ) {
-          const downvoteRemoveIndex = comment.votes.downvotes
+          const downvoteRemoveIndex = foundComment.votes.downvotes
             .map(downvote => downvote.user.toString())
             .indexOf(req.user.id)
 
-          comment.votes.downvotes.splice(downvoteRemoveIndex, 1)
+          foundComment.votes.downvotes.splice(downvoteRemoveIndex, 1)
         }
 
-        comment.votes.upvotes.unshift({ user: req.user.id })
-        comment.save().then(comment => res.json(comment))
+        foundComment.votes.upvotes.unshift({ user: req.user.id })
+        const savedComment = await foundComment.save()
+
+        res.json(savedComment)
       }
-    })
-    .catch(() => res.status(404).json({ commentnotfound: 'Keinen Kommentar gefunden' }))
-})
+    } catch (error) {
+      if (error) throw error
+    }
+  }
+)
 
 // Downvote Comment
 router.post(
   '/downvote/:commentId',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Comment.findById(req.params.commentId)
-      .populate('user')
-      .then(comment => {
+  async (req, res) => {
+    try {
+      const foundComment = await Comment.findById(req.params.commentId).populate('user')
+
+      if (
+        foundComment.votes.downvotes.filter(downvote => downvote.user.toString() === req.user.id)
+          .length > 0
+      ) {
+        const downvoteRemoveIndex = foundComment.votes.downvotes
+          .map(downvote => downvote.user.toString())
+          .indexOf(req.user.id)
+
+        foundComment.votes.downvotes.splice(downvoteRemoveIndex, 1)
+
+        const savedComment = await foundComment.save()
+        res.json(savedComment)
+      } else if (
+        foundComment.votes.downvotes.filter(downvote => downvote.user.toString() === req.user.id)
+          .length === 0
+      ) {
         if (
-          comment.votes.downvotes.filter(downvote => downvote.user.toString() === req.user.id)
+          foundComment.votes.upvotes.filter(upvote => upvote.user.toString() === req.user.id)
             .length > 0
         ) {
-          const downvoteRemoveIndex = comment.votes.downvotes
-            .map(downvote => downvote.user.toString())
+          const upvoteRemoveIndex = foundComment.votes.upvotes
+            .map(upvote => upvote.user.toString())
             .indexOf(req.user.id)
 
-          comment.votes.downvotes.splice(downvoteRemoveIndex, 1)
-
-          comment.save().then(comment => res.json(comment))
-        } else if (
-          comment.votes.downvotes.filter(downvote => downvote.user.toString() === req.user.id)
-            .length === 0
-        ) {
-          if (
-            comment.votes.upvotes.filter(upvote => upvote.user.toString() === req.user.id).length >
-            0
-          ) {
-            const upvoteRemoveIndex = comment.votes.upvotes
-              .map(upvote => upvote.user.toString())
-              .indexOf(req.user.id)
-
-            comment.votes.upvotes.splice(upvoteRemoveIndex, 1)
-          }
-
-          comment.votes.downvotes.unshift({ user: req.user.id })
-
-          comment.save().then(comment => res.json(comment))
+          foundComment.votes.upvotes.splice(upvoteRemoveIndex, 1)
         }
-      })
-      .catch(() => res.status(404).json({ commentnotfound: 'Keinen Beitrag gefunden' }))
+
+        foundComment.votes.downvotes.unshift({ user: req.user.id })
+
+        const savedComment = await foundComment.save()
+        res.json(savedComment)
+      }
+    } catch (error) {
+      if (error) throw error
+    }
   }
 )
 

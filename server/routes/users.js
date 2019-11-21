@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer')
 const passport = require('passport')
 var fs = require('fs')
 
+const hashPassword = require('../utils/hashPassword')
 const isEmpty = require('../utils/isEmpty')
 const createJwtToken = require('../utils/createJwtToken')
 const domains = require('disposable-email-domains')
@@ -57,21 +58,16 @@ const validateUsernameChange = require('../validation/validateUsernameChange')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
 
-// // @route   GET api/users/emails
-// // @desc    Get all Users E-Mails for Mailchimp
-// // @access  Public
-// router.get('/emails', (req, res) => {
-//   User.find().then(users => {
-//     userMails = users.map(user => user.email)
-//     res.json(userMails)
-//   })
-// })
-
 // @route   GET api/users/allusers
 // @desc    Get all Users
 // @access  Public
-router.get('/allusers', (req, res) => {
-  User.find().then(users => res.json(users))
+router.get('/allusers', async (req, res) => {
+  try {
+    const foundUsers = await User.find()
+    res.json(foundUsers)
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // @route   POST api/users/avatarUpload
@@ -81,81 +77,73 @@ router.post(
   '/avatarUpload',
   passport.authenticate('jwt', { session: false }),
   upload.single('avatar'),
-  (req, res) => {
-    console.log('1/3 - User avatar on server successful uploaded!')
-    cloudinary.v2.uploader
-      .upload(req.file.path, {
+  async (req, res) => {
+    try {
+      console.log('1/3 - User avatar on server successful uploaded!')
+      const uploadedFile = await cloudinary.v2.uploader.upload(req.file.path, {
         folder: process.env.CLOUDINARY_PATH_USER_AVATAR,
         public_id: req.file.filename
       })
-      .then((result, err) => {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log('2/3 - User avatar on cloudinary successful uploaded!')
-          User.findById(req.user._id).then(user => {
-            user.avatar = result
-            user.save()
 
-            fs.unlink(`${req.file.path}`, error => {
-              error
-                ? console.log(error)
-                : console.log('3/3 - User avatar on server successful deleted!')
-            })
+      console.log('2/3 - User avatar on cloudinary successful uploaded!')
+      const foundUser = await User.findById(req.user._id)
 
-            if (req.user.avatar && !isEmpty(req.user.avatar)) {
-              cloudinary.v2.uploader.destroy(req.user.avatar.public_id).then(() => {
-                console.log('Old avatar on cloudinary successful deleted')
-              })
-            }
+      foundUser.avatar = uploadedFile
+      const savedUser = await foundUser.save()
 
-            const payload = {
-              id: user.id,
-              email: user.email,
-              username: user.username,
-              avatar: user.avatar,
-              isVerified: user.isVerified,
-              notifications: user.notifications,
-              roles: user.roles
-            }
-
-            jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (err, token) => {
-              res.json({
-                success: true,
-                token: 'Bearer ' + token
-              })
-            })
-          })
-        }
+      fs.unlink(`${req.file.path}`, error => {
+        error ? console.log(error) : console.log('3/3 - User avatar on server successful deleted!')
       })
+
+      if (req.user.avatar && !isEmpty(req.user.avatar)) {
+        await cloudinary.v2.uploader.destroy(req.user.avatar.public_id)
+        console.log('Old avatar on cloudinary successful deleted')
+      }
+
+      const payload = {
+        id: savedUser.id,
+        email: savedUser.email,
+        username: savedUser.username,
+        avatar: savedUser.avatar,
+        isVerified: savedUser.isVerified,
+        notifications: savedUser.notifications,
+        roles: savedUser.roles
+      }
+
+      jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 43200 }, (err, token) => {
+        res.json({
+          success: true,
+          token: 'Bearer ' + token
+        })
+      })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 )
 
 // @route   GET api/users/avatar-delete
 // @desc    Delete Avatar
 // @access  Private
-router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), (req, res) => {
-  User.findById(req.user._id).then(user => {
-    user.avatar = {}
-    user.save()
+router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const foundUser = await User.findById(req.user._id)
 
-    cloudinary.v2.uploader.destroy(req.user.avatar.public_id).then((result, error) => {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log('Old avatar on cloudinary successful deleted')
-      }
-    })
+    foundUser.avatar = {}
+    const savedUser = await foundUser.save()
+
+    await cloudinary.v2.uploader.destroy(req.user.avatar.public_id)
+    console.log('Old avatar on cloudinary successful deleted')
 
     const payload = {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      avatar: user.avatar,
-      isVerified: user.isVerified,
-      notifications: user.notifications,
-      roles: user.roles
-    } // Create JWT Payload
+      id: savedUser.id,
+      email: savedUser.email,
+      username: savedUser.username,
+      avatar: savedUser.avatar,
+      isVerified: savedUser.isVerified,
+      notifications: savedUser.notifications,
+      roles: savedUser.roles
+    }
 
     jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
       res.json({
@@ -163,155 +151,134 @@ router.post('/avatarDelete', passport.authenticate('jwt', { session: false }), (
         token: 'Bearer ' + token
       })
     })
-  })
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-router.post('/register', (req, res) => {
-  const { errors, isValid } = validateRegister(req.body)
+router.post('/register', async (req, res) => {
+  try {
+    const { errors, isValid } = validateRegister(req.body)
 
-  if (!isValid) {
-    return res.status(400).json(errors)
-  }
+    const foundEmail = await User.findOne({ email: req.body.email })
+    const foundUsername = await User.findOne({ username: req.body.username })
 
-  if (domains.includes(req.body.email.split('@')[1])) {
-    errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
-    return res.status(400).json(errors)
-  }
-
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
+    if (foundEmail) {
       errors.email = 'Es gibt bereits einen Benutzer mit dieser E-Mail Adresse'
       return res.status(400).json(errors)
-    } else {
-      User.findOne({ username: req.body.username }).then(user => {
-        if (user) {
-          errors.username = 'Dieser Benutzername ist bereits vergeben'
-          return res.status(400).json(errors)
-        } else {
-          const newUser = new User({
-            username: slugify(req.body.username),
-            email: req.body.email,
-            password: req.body.password,
-            conditionsAccepted: req.body.conditionsAccepted
-          })
-
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err
-              newUser.password = hash
-              newUser
-                .save()
-                .then(user => {
-                  const payload = {
-                    id: user.id,
-                    email: user.email,
-                    username: user.username,
-                    avatar: user.avatar,
-                    isVerified: user.isVerified,
-                    notifications: user.notifications,
-                    roles: user.roles
-                  } // Create JWT Payload
-
-                  // Sign Token
-                  jwt.sign(
-                    payload,
-                    process.env.SECRET_OR_KEY,
-                    { expiresIn: sessionTime },
-                    (err, token) => {
-                      // Send info to User
-                      const mailOptions = {
-                        from: process.env.NODEMAILER_USER,
-                        to: newUser.email,
-                        subject: 'Willkommen zu codehustla!',
-                        html: `
-                        <p>Hi ${user.username},</p>
-                        <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
-                        <p><a href="${process.env.ROOT_URL}/verify/${token}">${process.env.ROOT_URL}/verify/${token}</a></p>
-                        <p>Vielen Dank,<br>dein codehustla Team.</p>
-                        `
-                      }
-
-                      transporter.sendMail(mailOptions, err => {
-                        err ? console.log(err) : console.log('Message sent!')
-                      })
-
-                      // Send info to Admin
-                      const adminMailOptions = {
-                        from: process.env.NODEMAILER_USER,
-                        to: 'mail@badazz.dev',
-                        subject: 'Neuer Benutzer!',
-                        html: `
-                        <p>Hi Admin,</p>
-                        <p>Es gibt einen neuen Benutzer.</p>
-                        <p><a href="${process.env.ROOT_URL}/${user.username}">${process.env.ROOT_URL}/${user.username}</a></p>
-                        `
-                      }
-
-                      transporter.sendMail(adminMailOptions, err => {
-                        err ? console.log(err) : console.log('Message sent!')
-                      })
-
-                      Profile.findOne({ handle: user.username }).then(profile => {
-                        if (profile) {
-                          console.log('isProfile')
-                        } else {
-                          const profileFields = {}
-                          profileFields.name = req.body.name
-                          profileFields.user = user.id
-                          profileFields.handle = user.username
-                          new Profile(profileFields).save()
-                        }
-                      })
-
-                      res.json({
-                        success: true,
-                        token: 'Bearer ' + token
-                      })
-                    }
-                  )
-                })
-                .catch(err => console.log(err))
-            })
-          })
-        }
-      })
     }
-  })
+
+    if (foundUsername) {
+      errors.username = 'Dieser Benutzername ist bereits vergeben'
+      return res.status(400).json(errors)
+    }
+
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
+
+    if (domains.includes(req.body.email.split('@')[1])) {
+      errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
+      return res.status(400).json(errors)
+    }
+
+    const newUser = await User.create({
+      username: slugify(req.body.username),
+      email: req.body.email,
+      password: await hashPassword(req.body.password),
+      conditionsAccepted: req.body.conditionsAccepted
+    })
+
+    const payload = {
+      id: newUser.id,
+      email: newUser.email,
+      username: newUser.username,
+      avatar: newUser.avatar,
+      isVerified: newUser.isVerified,
+      notifications: newUser.notifications,
+      roles: newUser.roles
+    }
+
+    const createdJwtToken = await createJwtToken(payload)
+
+    // Send info to User
+    const mailOptions = {
+      from: process.env.NODEMAILER_USER,
+      to: newUser.email,
+      subject: 'Willkommen zu codehustla!',
+      html: `
+      <p>Hi ${newUser.username},</p>
+      <p>willkommen zu codehustla.</p>
+      <p>Vielen Dank,<br>dein codehustla Team.</p>
+      `
+    }
+
+    transporter.sendMail(mailOptions, err => {
+      err ? console.log(err) : console.log('Message sent!')
+    })
+
+    // Send info to Admin
+    const adminMailOptions = {
+      from: process.env.NODEMAILER_USER,
+      to: 'mail@badazz.dev',
+      subject: 'Neuer Benutzer!',
+      html: `
+      <p>Hi Admin,</p>
+      <p>es gibt einen neuen Benutzer.</p>
+      <p><a href="${process.env.ROOT_URL}/${newUser.username}">${process.env.ROOT_URL}/${newUser.username}</a></p>
+      `
+    }
+
+    transporter.sendMail(adminMailOptions, err => {
+      err ? console.log(err) : console.log('Message sent!')
+    })
+
+    new Profile({ user: newUser.id, handle: newUser.username }).save()
+
+    res.json({
+      success: true,
+      token: createdJwtToken
+    })
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // @route   Post api/users/verify
 // @desc    Verify User / Returning JWT Token
 // @access  Public
-router.post('/verify', (req, res) => {
-  const errors = {}
+router.post('/verify', async (req, res) => {
+  try {
+    const errors = {}
 
-  User.findOne({ _id: req.body.id }).then(user => {
-    if (!user) {
+    const foundUser = await User.findOne({ _id: req.body.id })
+
+    if (!foundUser) {
       errors.user = 'Benutzer nicht gefunden'
       return res.status(404).json(errors)
     }
 
-    if (user && !user.isVerified) {
+    if (foundUser && !foundUser.isVerified) {
       // Check for expired token
       const currentTime = Date.now() / 1000
       if (req.body.exp < currentTime) {
         errors.tokenExpired = 'Verifizierungstoken ist abgelaufen'
         return res.status(404).json(errors)
       } else {
-        user.isVerified = true
-        user.save()
+        foundUser.isVerified = true
+        foundUser.save()
 
         const payload = {
-          id: user.id,
-          email: user.email,
-          username: user.username,
-          avatar: user.avatar,
-          isVerified: user.isVerified,
-          notifications: user.notifications,
-          roles: user.roles
+          id: foundUser.id,
+          email: foundUser.email,
+          username: foundUser.username,
+          avatar: foundUser.avatar,
+          isVerified: foundUser.isVerified,
+          notifications: foundUser.notifications,
+          roles: foundUser.roles
         } // Create JWT Payload
 
         // Sign Token
@@ -326,39 +293,43 @@ router.post('/verify', (req, res) => {
       errors.alreadyVerified = 'Benutzer ist bereits verifiziert'
       return res.status(404).json(errors)
     }
-  })
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // @route   Post api/users/verify/send-email
 // @desc    Send verification E-Mail
 // @access  Public
-router.post('/verify/send-email', (req, res) => {
-  const errors = {}
+router.post('/verify/send-email', async (req, res) => {
+  try {
+    const errors = {}
 
-  User.findOne({ _id: req.body.id }).then(user => {
-    if (!user) {
-      errors.user = 'Benutzer nicht gefunden'
+    const foundUser = await User.findOne({ _id: req.body.id })
+
+    if (!foundUser) {
+      errors.foundUser = 'Benutzer nicht gefunden'
       return res.status(404).json(errors)
     }
-    if (user && !user.isVerified) {
+    if (foundUser && !foundUser.isVerified) {
       const payload = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        avatar: user.avatar,
-        isVerified: user.isVerified,
-        notifications: user.notifications,
-        roles: user.roles
+        id: foundUser.id,
+        email: foundUser.email,
+        username: foundUser.username,
+        avatar: foundUser.avatar,
+        isVerified: foundUser.isVerified,
+        notifications: foundUser.notifications,
+        roles: foundUser.roles
       } // Create JWT Payload
 
       // Sign Token
       jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
         const mailOptions = {
           from: process.env.NODEMAILER_USER,
-          to: user.email,
+          to: foundUser.email,
           subject: 'Willkommen zu codehustla!',
           html: `
-              <p>Hi ${user.username},</p>
+              <p>Hi ${foundUser.username},</p>
               <p>Bitte klicke auf den Link oder auf den button, um deinen Account zu bestätigen.</p>
               <p><a href="${process.env.ROOT_URL}/verify/${token}">${process.env.ROOT_URL}/verify/${token}</a></p>
               <p>Vielen Dank,<br>dein codehustla Team.</p>
@@ -374,22 +345,24 @@ router.post('/verify/send-email', (req, res) => {
       errors.alreadyVerified = 'Benutzer ist bereits verifiziert'
       return res.status(404).json(errors)
     }
-  })
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // Login User
 router.post('/login', async (req, res) => {
-  const { errors, isValid } = validateLogin(req.body)
-
-  const email = req.body.login
-  const username = req.body.login
-  const password = req.body.password
-
-  if (!isValid) {
-    return res.status(400).json(errors)
-  }
-
   try {
+    const { errors, isValid } = validateLogin(req.body)
+
+    const email = req.body.login
+    const username = req.body.login
+    const password = req.body.password
+
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
+
     const foundUser = await User.findOne({ $or: [{ email }, { username }] })
 
     if (!foundUser) {
@@ -412,12 +385,6 @@ router.post('/login', async (req, res) => {
 
       const createdJwtToken = await createJwtToken(payload)
       res.json(createdJwtToken)
-      // jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
-      //   res.json({
-      //     success: true,
-      //     token: 'Bearer ' + token
-      //   })
-      // })
     } else {
       errors.password = 'Falsches Password'
       return res.status(400).json(errors)
@@ -430,38 +397,40 @@ router.post('/login', async (req, res) => {
 // @route   Post api/users/forgot-password
 // @desc    Send forgot password E-Mail
 // @access  Public
-router.post('/forgot-password', (req, res) => {
-  const { errors, isValid } = validatePasswordForgot(req.body)
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { errors, isValid } = validatePasswordForgot(req.body)
 
-  if (!isValid) {
-    return res.status(400).json(errors)
-  }
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
 
-  const email = req.body.email
+    const email = req.body.email
 
-  User.findOne({ email }).then(user => {
-    if (!user) {
+    const foundUser = await User.findOne({ email })
+
+    if (!foundUser) {
       errors.email = 'Benutzer nicht gefunden'
       return res.status(404).json(errors)
     }
 
     const payload = {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      avatar: user.avatar,
-      isVerified: user.isVerified,
-      notifications: user.notifications,
-      roles: user.roles
+      id: foundUser.id,
+      email: foundUser.email,
+      username: foundUser.username,
+      avatar: foundUser.avatar,
+      isVerified: foundUser.isVerified,
+      notifications: foundUser.notifications,
+      roles: foundUser.roles
     } // Create JWT Payload
 
     jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
       const mailOptions = {
         from: process.env.NODEMAILER_USER,
-        to: user.email,
+        to: foundUser.email,
         subject: '[codehustla] Passwort zurücksetzen!',
         html: `
-                <p>Hi ${user.username},</p>
+                <p>Hi ${foundUser.username},</p>
                 <p>Bitte klicke auf den Link oder auf den button, um dein Passwort zurückzusetzen.</p>
                 <p><a href="${process.env.ROOT_URL}/reset-password/${token}">${process.env.ROOT_URL}/reset-password/${token}</a></p>
                 <p>Vielen Dank,<br>dein codehustla Team.</p>
@@ -473,42 +442,194 @@ router.post('/forgot-password', (req, res) => {
       })
       res.json({ alert: 'E-Mail erfolgreich versendet' })
     })
-  })
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
 // @route   POST api/users/reset-password
 // @desc    Reset password
 // @access  Public
-router.post('/reset-password', (req, res) => {
-  const { errors, isValid } = validatePasswordReset(req.body)
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { errors, isValid } = validatePasswordReset(req.body)
 
-  // Check Validation
-  if (!isValid) {
-    return res.status(400).json(errors)
-  }
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
 
-  User.findById(req.body.id).then(user => {
-    if (!user) {
+    const foundUser = await User.findById(req.body.id)
+
+    if (!foundUser) {
       res.json('Keinen Benutzer gefunden')
     } else {
-      user.password = req.body.password
+      foundUser.password = req.body.password
 
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(user.password, salt, (err, hash) => {
-          if (err) throw err
-          user.password = hash
-          user
-            .save()
-            .then(user => {
+        bcrypt.hash(foundUser.password, salt, async (err, hash) => {
+          try {
+            if (err) throw err
+            foundUser.password = hash
+            const savedUser = await foundUser.save()
+
+            const payload = {
+              id: savedUser.id,
+              email: savedUser.email,
+              username: savedUser.username,
+              avatar: savedUser.avatar,
+              isVerified: savedUser.isVerified,
+              notifications: savedUser.notifications,
+              roles: savedUser.roles
+            } // Create JWT Payload
+
+            jwt.sign(
+              payload,
+              process.env.SECRET_OR_KEY,
+              { expiresIn: sessionTime },
+              (err, token) => {
+                const mailOptions = {
+                  from: process.env.NODEMAILER_USER,
+                  to: savedUser.email,
+                  subject: '[codehustla] Passwort zurückgesetzt!',
+                  html: `
+                        <p>Hi ${savedUser.username},</p>
+                        <p>Du hast dein Passwort erfolgreich geändert.</p>
+                        <p>Vielen Dank,<br>dein codehustla Team.</p>
+                        `
+                }
+
+                transporter.sendMail(mailOptions, err => {
+                  err ? console.log(err) : console.log('Message sent!')
+                })
+
+                res.json({
+                  success: true,
+                  token: 'Bearer ' + token
+                })
+              }
+            )
+          } catch (error) {
+            if (error) throw error
+          }
+        })
+      })
+    }
+  } catch (error) {
+    if (error) throw error
+  }
+})
+
+// @route   POST api/users/change-username
+// @desc    Change username
+// @access  Private
+router.post('/change-username', async (req, res) => {
+  try {
+    const { errors, isValid } = validateUsernameChange(req.body)
+
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
+
+    const foundUserByUsername = await User.findOne({ username: req.body.username })
+
+    if (foundUserByUsername) {
+      errors.username = 'Benutzername ist bereits vergeben'
+      res.status(404).json(errors)
+      return
+    }
+
+    const foundUserById = await User.findById(req.body.id)
+
+    foundUserById.username = slugify(req.body.username)
+
+    const savedUser = await foundUserById.save()
+
+    // After changing username also change profile handle
+    const foundProfile = await Profile.findOne({ user: savedUser.id })
+
+    foundProfile.handle = savedUser.username
+    foundProfile.save()
+
+    const payload = {
+      id: savedUser.id,
+      email: savedUser.email,
+      username: savedUser.username,
+      avatar: savedUser.avatar,
+      isVerified: savedUser.isVerified,
+      notifications: savedUser.notifications,
+      roles: savedUser.roles
+    } // Create JWT Payload
+
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+      const mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: [savedUser.email],
+        subject: '[codehustla] Benutzername geändert!',
+        html: `
+                <p>Hi ${savedUser.username},</p>
+                <p>Du hast deinen Benutzernamen erfolgreich geändert.</p>
+                <p>Vielen Dank,<br>dein codehustla Team.</p>
+                `
+      }
+
+      transporter.sendMail(mailOptions, err => {
+        err ? console.log(err) : console.log('Message sent!')
+      })
+
+      res.json({
+        alert: 'Benutzername erfolgreich geändert',
+        success: true,
+        token: 'Bearer ' + token
+      })
+    })
+  } catch (error) {
+    if (error) throw error
+  }
+})
+
+// @route   POST api/users/change-password
+// @desc    Change password
+// @access  Private
+router.post('/change-password', async (req, res) => {
+  try {
+    const { errors, isValid } = validatePasswordChange(req.body)
+
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
+
+    const oldPassword = req.body.oldPassword
+    const newPassword = req.body.newPassword
+
+    const foundUser = await User.findById(req.body.id)
+
+    if (!foundUser) {
+      res.json('Keinen Benutzer gefunden')
+    } else {
+      const isMatch = await bcrypt.compare(oldPassword, foundUser.password)
+
+      if (isMatch) {
+        // eslint-disable-next-line
+        foundUser.password = newPassword
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(foundUser.password, salt, async (err, hash) => {
+            try {
+              if (err) throw err
+              foundUser.password = hash
+              const savedUser = await foundUser.save()
+
               const payload = {
-                id: user.id,
-                email: user.email,
-                username: user.username,
-                avatar: user.avatar,
-                isVerified: user.isVerified,
-                notifications: user.notifications,
-                roles: user.roles
-              } // Create JWT Payload
+                id: savedUser.id,
+                email: savedUser.email,
+                username: savedUser.username,
+                avatar: savedUser.avatar,
+                isVerified: savedUser.isVerified,
+                notifications: savedUser.notifications,
+                roles: savedUser.roles
+              }
 
               jwt.sign(
                 payload,
@@ -517,13 +638,13 @@ router.post('/reset-password', (req, res) => {
                 (err, token) => {
                   const mailOptions = {
                     from: process.env.NODEMAILER_USER,
-                    to: user.email,
-                    subject: '[codehustla] Passwort zurückgesetzt!',
+                    to: savedUser.email,
+                    subject: '[codehustla] Passwort geändert!',
                     html: `
-                      <p>Hi ${user.username},</p>
-                      <p>Du hast dein Passwort erfolgreich geändert.</p>
-                      <p>Vielen Dank,<br>dein codehustla Team.</p>
-                      `
+                          <p>Hi ${savedUser.username},</p>
+                          <p>Du hast dein Passwort erfolgreich geändert.</p>
+                          <p>Vielen Dank,<br>dein codehustla Team.</p>
+                          `
                   }
 
                   transporter.sendMail(mailOptions, err => {
@@ -531,238 +652,115 @@ router.post('/reset-password', (req, res) => {
                   })
 
                   res.json({
+                    alert: 'Passwort erfolgreich geändert',
                     success: true,
                     token: 'Bearer ' + token
                   })
                 }
               )
-            })
-            .catch(err => console.log(err))
-        })
-      })
-    }
-  })
-})
-
-// @route   POST api/users/change-username
-// @desc    Change username
-// @access  Private
-router.post('/change-username', (req, res) => {
-  const { errors, isValid } = validateUsernameChange(req.body)
-
-  if (!isValid) {
-    return res.status(400).json(errors)
-  }
-
-  User.findOne({ username: req.body.username }).then(user => {
-    if (user) {
-      errors.username = 'Benutzername ist bereits vergeben'
-      res.status(404).json(errors)
-    } else {
-      User.findById(req.body.id).then(user => {
-        user.username = slugify(req.body.username)
-        user.save().then(user => {
-          // After changing username also change profile handle
-          Profile.findOne({ user: user.id }).then(profile => {
-            profile.handle = user.username
-            profile.save()
-          })
-
-          const payload = {
-            id: user.id,
-            email: user.email,
-            username: user.username,
-            avatar: user.avatar,
-            isVerified: user.isVerified,
-            notifications: user.notifications,
-            roles: user.roles
-          } // Create JWT Payload
-
-          jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
-            const mailOptions = {
-              from: process.env.NODEMAILER_USER,
-              to: [user.email],
-              subject: '[codehustla] Benutzername geändert!',
-              html: `
-              <p>Hi ${user.username},</p>
-              <p>Du hast deinen Benutzernamen erfolgreich geändert.</p>
-              <p>Vielen Dank,<br>dein codehustla Team.</p>
-              `
+            } catch (error) {
+              if (error) throw error
             }
-
-            transporter.sendMail(mailOptions, err => {
-              err ? console.log(err) : console.log('Message sent!')
-            })
-
-            res.json({
-              alert: 'Benutzername erfolgreich geändert',
-              success: true,
-              token: 'Bearer ' + token
-            })
           })
         })
-      })
+      } else {
+        errors.oldPassword = 'Falsches Password'
+        return res.status(400).json(errors)
+      }
     }
-  })
-})
-
-// @route   POST api/users/change-password
-// @desc    Change password
-// @access  Private
-router.post('/change-password', (req, res) => {
-  const { errors, isValid } = validatePasswordChange(req.body)
-
-  // Check Validation
-  if (!isValid) {
-    return res.status(400).json(errors)
+  } catch (error) {
+    if (error) throw error
   }
-
-  const oldPassword = req.body.oldPassword
-  const newPassword = req.body.newPassword
-
-  User.findById(req.body.id).then(user => {
-    if (!user) {
-      res.json('Keinen Benutzer gefunden')
-    } else {
-      bcrypt.compare(oldPassword, user.password).then(isMatch => {
-        if (isMatch) {
-          user.password = newPassword
-
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(user.password, salt, (err, hash) => {
-              if (err) throw err
-              user.password = hash
-              user
-                .save()
-                .then(user => {
-                  const payload = {
-                    id: user.id,
-                    email: user.email,
-                    username: user.username,
-                    avatar: user.avatar,
-                    isVerified: user.isVerified,
-                    notifications: user.notifications,
-                    roles: user.roles
-                  } // Create JWT Payload
-
-                  jwt.sign(
-                    payload,
-                    process.env.SECRET_OR_KEY,
-                    { expiresIn: sessionTime },
-                    (err, token) => {
-                      const mailOptions = {
-                        from: process.env.NODEMAILER_USER,
-                        to: user.email,
-                        subject: '[codehustla] Passwort geändert!',
-                        html: `
-                      <p>Hi ${user.username},</p>
-                      <p>Du hast dein Passwort erfolgreich geändert.</p>
-                      <p>Vielen Dank,<br>dein codehustla Team.</p>
-                      `
-                      }
-
-                      transporter.sendMail(mailOptions, err => {
-                        err ? console.log(err) : console.log('Message sent!')
-                      })
-
-                      res.json({
-                        alert: 'Passwort erfolgreich geändert',
-                        success: true,
-                        token: 'Bearer ' + token
-                      })
-                    }
-                  )
-                })
-                .catch(err => console.log(err))
-            })
-          })
-        } else {
-          errors.oldPassword = 'Falsches Password'
-          return res.status(400).json(errors)
-        }
-      })
-    }
-  })
 })
 
 // @route   POST api/users/change-email
 // @desc    Change email
 // @access  Private
-router.post('/change-email', (req, res) => {
-  const { errors, isValid } = validateEmailChange(req.body)
+router.post('/change-email', async (req, res) => {
+  try {
+    const { errors, isValid } = validateEmailChange(req.body)
 
-  if (!isValid) {
-    return res.status(400).json(errors)
-  }
+    if (!isValid) {
+      return res.status(400).json(errors)
+    }
 
-  if (domains.includes(req.body.email.split('@')[1])) {
-    errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
-    return res.status(400).json(errors)
-  }
+    if (domains.includes(req.body.email.split('@')[1])) {
+      errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
+      return res.status(400).json(errors)
+    }
 
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
+    const foundUserByEmail = await User.findOne({ email: req.body.email })
+
+    if (foundUserByEmail) {
       errors.email = 'E-Mail Adresse ist bereits vergeben'
       return res.status(400).json(errors)
-    } else {
-      User.findById(req.body.id).then(user => {
-        const newEmail = req.body.email
-        const oldEmail = user.email
-        user.email = newEmail
+    }
 
-        user.save().then(user => {
-          const payload = {
-            id: user.id,
-            email: user.email,
-            username: user.username,
-            avatar: user.avatar,
-            isVerified: user.isVerified,
-            notifications: user.notifications,
-            roles: user.roles
-          } // Create JWT Payload
+    const foundUserById = await User.findById(req.body.id)
 
-          jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
-            const mailOptions = {
-              from: process.env.NODEMAILER_USER,
-              to: [user.email, oldEmail],
-              subject: '[codehustla] E-Mail Adresse geändert!',
-              html: `
-              <p>Hi ${user.username},</p>
+    const newEmail = req.body.email
+    const oldEmail = foundUserById.email
+    foundUserById.email = newEmail
+
+    const savedUser = await foundUserById.save()
+
+    const payload = {
+      id: savedUser.id,
+      email: savedUser.email,
+      username: savedUser.username,
+      avatar: savedUser.avatar,
+      isVerified: savedUser.isVerified,
+      notifications: savedUser.notifications,
+      roles: savedUser.roles
+    }
+
+    jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
+      const mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: [savedUser.email, oldEmail],
+        subject: '[codehustla] E-Mail Adresse geändert!',
+        html: `
+              <p>Hi ${savedUser.username},</p>
               <p>Du hast deine E-Mail Adresse erfolgreich geändert.</p>
               <p>Vielen Dank,<br>dein codehustla Team.</p>
               `
-            }
+      }
 
-            transporter.sendMail(mailOptions, err => {
-              err ? console.log(err) : console.log('Message sent!')
-            })
-
-            res.json({
-              alert: 'E-Mail erfolgreich geändert',
-              success: true,
-              token: 'Bearer ' + token
-            })
-          })
-        })
+      transporter.sendMail(mailOptions, err => {
+        err ? console.log(err) : console.log('Message sent!')
       })
-    }
-  })
+
+      res.json({
+        alert: 'E-Mail erfolgreich geändert',
+        success: true,
+        token: 'Bearer ' + token
+      })
+    })
+  } catch (error) {
+    if (error) throw error
+  }
 })
 
-router.post('/change-settings', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const notifications = req.body
+router.post(
+  '/change-settings',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    try {
+      const notifications = req.body
 
-  User.findById(req.user._id).then(user => {
-    user.notifications = notifications
-    user.save().then(updatedUser => {
+      const foundUser = await User.findById(req.user._id)
+
+      foundUser.notifications = notifications
+      const savedUser = await foundUser.save()
+
       const payload = {
-        id: updatedUser.id,
-        email: updatedUser.email,
-        username: updatedUser.username,
-        avatar: updatedUser.avatar,
-        isVerified: updatedUser.isVerified,
-        notifications: updatedUser.notifications,
-        roles: user.roles
+        id: savedUser.id,
+        email: savedUser.email,
+        username: savedUser.username,
+        avatar: savedUser.avatar,
+        isVerified: savedUser.isVerified,
+        notifications: savedUser.notifications,
+        roles: savedUser.roles
       }
 
       jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: sessionTime }, (err, token) => {
@@ -772,8 +770,10 @@ router.post('/change-settings', passport.authenticate('jwt', { session: false })
           token: 'Bearer ' + token
         })
       })
-    })
-  })
-})
+    } catch (error) {
+      if (error) throw error
+    }
+  }
+)
 
 module.exports = router

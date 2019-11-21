@@ -55,14 +55,14 @@ function ChangeEmail() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-
-    const emailData = {
-      id: user.id,
-      email
-    }
-
     try {
+      e.preventDefault()
+
+      const emailData = {
+        id: user.id,
+        email
+      }
+
       const res = await changeEmail(emailData)
       const { token } = res.data
       login(token)

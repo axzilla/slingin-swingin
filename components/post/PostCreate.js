@@ -83,17 +83,19 @@ function PostCreate() {
   }, [])
 
   async function onSubmit() {
-    const formData = new FormData()
-    formData.append('titleImage', titleImage)
-    formData.append('title', postData.title)
-    formData.append('text', text)
-    formData.append('type', postData.type)
-    formData.append('tags', postData.tags)
-
     try {
+      const formData = new FormData()
+
+      formData.append('titleImage', titleImage)
+      formData.append('title', postData.title)
+      formData.append('text', text)
+      formData.append('type', postData.type)
+      formData.append('tags', postData.tags)
+
       const res = await addPost(formData)
       const createdPost = res.data
       const { shortId, urlSlug } = createdPost
+
       Router.push(`/post/${shortId}/${urlSlug}`)
     } catch (err) {
       setErrors(err.response.data)
