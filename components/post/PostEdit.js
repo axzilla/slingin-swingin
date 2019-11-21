@@ -71,29 +71,36 @@ function PostEdit({ id }) {
   const [labelWidth, setLabelWidth] = React.useState(0)
 
   useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth)
-
-    getPost(id).then(res => {
-      const post = res.data
-
-      setTitle(post.title)
-      setText(post.text)
-      setTags(post.tags)
-      setType(post.type)
-      setTitleImagePreview(post.titleImage && post.titleImage.secure_url)
-    })
+    getInitialData()
   }, [])
 
-  async function onSubmit() {
-    const formData = new FormData()
-    formData.append('id', id)
-    formData.append('titleImage', titleImage)
-    formData.append('title', title)
-    formData.append('text', text)
-    formData.append('tags', tags)
-    formData.append('type', type)
-
+  async function getInitialData() {
     try {
+      setLabelWidth(inputLabel.current.offsetWidth)
+
+      const foundPost = await getPost(id)
+
+      setTitle(foundPost.title)
+      setText(foundPost.text)
+      setTags(foundPost.tags)
+      setType(foundPost.type)
+      setTitleImagePreview(foundPost.titleImage && foundPost.titleImage.secure_url)
+    } catch (error) {
+      if (error) throw error
+    }
+  }
+
+  async function onSubmit() {
+    try {
+      const formData = new FormData()
+
+      formData.append('id', id)
+      formData.append('titleImage', titleImage)
+      formData.append('title', title)
+      formData.append('text', text)
+      formData.append('tags', tags)
+      formData.append('type', type)
+
       const res = await editPost(formData)
       const updatedPost = res.data
       const { shortId, urlSlug } = updatedPost

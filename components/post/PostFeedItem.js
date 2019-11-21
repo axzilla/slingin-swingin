@@ -61,9 +61,13 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
   }, [])
 
   async function getInitialData() {
-    const foundComments = await getCommentsByPostRef(post._id).then(res => res.data)
-    const foundSubComments = await getSubCommentByPostRef(post._id).then(res => res.data)
-    setCommentsLength(foundComments.length + foundSubComments.length)
+    try {
+      const foundComments = await getCommentsByPostRef(post._id)
+      const foundSubComments = await getSubCommentByPostRef(post._id)
+      setCommentsLength(foundComments.data.length + foundSubComments.data.length)
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   // https://materialuicolors.co/ Level 200

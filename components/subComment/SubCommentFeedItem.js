@@ -49,42 +49,47 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
   }
 
   async function onSaveClick(text) {
-    const subCommentData = {
-      text,
-      subCommentId: subComment._id
-    }
+    try {
+      const subCommentData = {
+        text,
+        subCommentId: subComment._id
+      }
 
-    setIsEditMode(false)
+      setIsEditMode(false)
 
-    await updateSubComment(subCommentData).then(res => {
-      const updatedSubComment = res.data
+      const updatedSubComment = await updateSubComment(subCommentData)
+
       const index = subComments.indexOf(
         subComments.filter(comment => {
-          return comment._id === updatedSubComment._id
+          return comment._id === updatedSubComment.data._id
         })[0]
       )
 
       setSubComments([
         ...subComments.slice(0, index),
-        updatedSubComment,
+        updatedSubComment.data,
         ...subComments.slice(index + 1)
       ])
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
-  function onDeleteClick(subCommentId) {
-    if (window.confirm('Kommentar löschen?')) {
-      deleteSubComment(subCommentId).then(res => {
-        const deletedSubComment = res.data
+  async function onDeleteClick(subCommentId) {
+    try {
+      if (window.confirm('Kommentar löschen?')) {
+        const deletedSubComment = await deleteSubComment(subCommentId)
 
         const index = subComments.indexOf(
           subComments.filter(subComment => {
-            return subComment._id === deletedSubComment._id
+            return subComment._id === deletedSubComment.data._id
           })[0]
         )
 
         setSubComments([...subComments.slice(0, index), ...subComments.slice(index + 1)])
-      })
+      }
+    } catch (error) {
+      if (error) throw error
     }
   }
 

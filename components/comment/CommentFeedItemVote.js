@@ -21,40 +21,44 @@ function CommentFeedItemVote({ comment, commentsByPostRef, setCommentsByPostRef 
   const { user } = useContext(AuthContext)
   const classes = useStyles()
 
-  function onUpvoteClick() {
-    upvoteComment(comment._id).then(res => {
-      const upvotedComment = res.data
+  async function onUpvoteClick() {
+    try {
+      const upvotedComment = await upvoteComment(comment._id)
 
       const index = commentsByPostRef.indexOf(
         commentsByPostRef.filter(comment => {
-          return comment._id === upvotedComment._id
+          return comment._id === upvotedComment.data._id
         })[0]
       )
 
       setCommentsByPostRef([
         ...commentsByPostRef.slice(0, index),
-        upvotedComment,
+        upvotedComment.data,
         ...commentsByPostRef.slice(index + 1)
       ])
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
-  function onDownvoteClick() {
-    downvoteComment(comment._id).then(res => {
-      const downvotedComment = res.data
+  async function onDownvoteClick() {
+    try {
+      const downvotedComment = await downvoteComment(comment._id)
 
       const index = commentsByPostRef.indexOf(
         commentsByPostRef.filter(comment => {
-          return comment._id === downvotedComment._id
+          return comment._id === downvotedComment.data._id
         })[0]
       )
 
       setCommentsByPostRef([
         ...commentsByPostRef.slice(0, index),
-        downvotedComment,
+        downvotedComment.data,
         ...commentsByPostRef.slice(index + 1)
       ])
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   const upvotes = comment.votes.upvotes.length

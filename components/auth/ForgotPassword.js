@@ -50,13 +50,13 @@ function ForgotPassword() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-
-    const emailData = {
-      email
-    }
-
     try {
+      e.preventDefault()
+
+      const emailData = {
+        email
+      }
+
       await forgotPassword(emailData)
       setAlert({ message: 'E-Mail erfolgreich gesendet' })
       setEmail('')

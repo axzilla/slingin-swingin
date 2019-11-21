@@ -43,21 +43,19 @@ function TabsPost() {
   }, [user.id])
 
   async function getInitialData() {
-    await getPostsByUserId(user.id).then(res => {
-      setPostsByUserId(res.data)
-    })
+    try {
+      const foundPostsByUserId = await getPostsByUserId(user.id)
+      const foundPostsByUserBookmark = await getPostsByUserBookmark(user.id)
+      const foundCommentsByUserId = await getCommentsByUserId(user.id)
+      const foundSubCommentsByUserId = await getSubCommentsByUserId(user.id)
 
-    await getPostsByUserBookmark(user.id).then(res => {
-      setPostsByUserBookmark(res.data)
-    })
-
-    await getCommentsByUserId(user.id).then(res => {
-      setCommentsByUserId(res.data)
-    })
-
-    await getSubCommentsByUserId(user.id).then(res => {
-      setSubCommentsByUserId(res.data)
-    })
+      setPostsByUserId(foundPostsByUserId.data)
+      setPostsByUserBookmark(foundPostsByUserBookmark.data)
+      setCommentsByUserId(foundCommentsByUserId.data)
+      setSubCommentsByUserId(foundSubCommentsByUserId.data)
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   return (

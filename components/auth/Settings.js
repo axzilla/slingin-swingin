@@ -17,7 +17,6 @@ import {
 function Settings() {
   const { user, login } = useContext(AuthContext)
   const { setAlert } = useAlert()
-  console.log(user)
 
   const [notifications, setNotifications] = useState({
     onNewPost: false,
@@ -43,11 +42,15 @@ function Settings() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-    const res = await updateSettings(notifications)
-    const { token } = res.data
-    login(token)
-    setAlert({ message: 'E-Mail Einstellungen erfolgreich geändert' })
+    try {
+      e.preventDefault()
+      const res = await updateSettings(notifications)
+      const { token } = res.data
+      login(token)
+      setAlert({ message: 'E-Mail Einstellungen erfolgreich geändert' })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   return (

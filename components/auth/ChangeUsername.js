@@ -56,14 +56,13 @@ function ChangeUsername() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-
-    const emailData = {
-      id: user.id,
-      username
-    }
-
     try {
+      e.preventDefault()
+
+      const emailData = {
+        id: user.id,
+        username
+      }
       const res = await changeUsername(emailData)
       const { token } = res.data
       login(token)

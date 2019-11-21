@@ -59,15 +59,15 @@ function ResetPassword({ token }) {
   }
 
   async function onSubmit(e) {
-    e.preventDefault()
-    const decode = jwtDecode(token)
-
-    const passwordData = {
-      id: decode.id,
-      password: passwords.password,
-      password2: passwords.password2
-    }
     try {
+      e.preventDefault()
+      const decode = jwtDecode(token)
+
+      const passwordData = {
+        id: decode.id,
+        password: passwords.password,
+        password2: passwords.password2
+      }
       await setNewPassword(passwordData)
       setAlert({ message: 'E-Mail erfolgreich gesendet' })
     } catch (err) {

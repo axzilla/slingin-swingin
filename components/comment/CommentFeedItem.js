@@ -32,8 +32,12 @@ function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRe
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   async function getInitialProps() {
-    const res = await getSubCommentByCommentRef(comment._id)
-    setSubComments(res.data)
+    try {
+      const res = await getSubCommentByCommentRef(comment._id)
+      setSubComments(res.data)
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   useEffect(() => {
@@ -53,38 +57,41 @@ function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRe
   }
 
   async function onSaveClick(text) {
-    const commentData = {
-      text,
-      commentId: comment._id,
-      refPost: comment.refPost
-    }
+    try {
+      const commentData = {
+        text,
+        commentId: comment._id,
+        refPost: comment.refPost
+      }
 
-    setIsEditMode(false)
+      setIsEditMode(false)
 
-    await updateComment(commentData).then(res => {
-      const updatedComment = res.data
+      const updatedComment = await updateComment(commentData)
+
       const index = commentsByPostRef.indexOf(
         commentsByPostRef.filter(comment => {
-          return comment._id === updatedComment._id
+          return comment._id === updatedComment.data._id
         })[0]
       )
 
       setCommentsByPostRef([
         ...commentsByPostRef.slice(0, index),
-        updatedComment,
+        updatedComment.data,
         ...commentsByPostRef.slice(index + 1)
       ])
-    })
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
-  function onDeleteClick(commentId) {
-    if (window.confirm('Kommentar löschen?')) {
-      deleteComment(commentId).then(res => {
-        const deletedComment = res.data
+  async function onDeleteClick(commentId) {
+    try {
+      if (window.confirm('Kommentar löschen?')) {
+        const deletedComment = await deleteComment(commentId)
 
         const index = commentsByPostRef.indexOf(
           commentsByPostRef.filter(comment => {
-            return comment._id === deletedComment._id
+            return comment._id === deletedComment.data_id
           })[0]
         )
 
@@ -92,7 +99,9 @@ function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRe
           ...commentsByPostRef.slice(0, index),
           ...commentsByPostRef.slice(index + 1)
         ])
-      })
+      }
+    } catch (error) {
+      if (error) throw error
     }
   }
 

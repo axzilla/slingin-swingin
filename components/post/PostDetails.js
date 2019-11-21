@@ -42,47 +42,49 @@ function PostDetails({ postId }) {
   }, [])
 
   async function getInitialProps() {
-    setIsloading(true)
-
     try {
-      const postByShortId = await getPostByShortId(postId).then(res => res.data)
-      setPost(postByShortId)
+      setIsloading(true)
 
-      const commentsByPostRef = await getCommentsByPostRef(postByShortId._id).then(res => res.data)
-      setCommentsByPostRef(commentsByPostRef)
+      const postByShortId = await getPostByShortId(postId)
+      const commentsByPostRef = await getCommentsByPostRef(postByShortId.data._id)
+      const subCommentsByPostRef = await getSubCommentByPostRef(postByShortId.data._id)
 
-      const subCommentsByPostRef = await getSubCommentByPostRef(postByShortId._id).then(
-        res => res.data
-      )
-      setSubCommentsByPostRef(subCommentsByPostRef)
-    } catch (err) {
+      setPost(postByShortId.data)
+      setCommentsByPostRef(commentsByPostRef.data)
+      setSubCommentsByPostRef(subCommentsByPostRef.data)
+    } catch (error) {
       Router.push('/not-found')
+      if (error) throw error
     }
 
     setIsloading(false)
   }
 
-  function onLikeClick(id) {
-    if (isAuthenticated) {
-      handlePostLikes(id).then(() => {
-        getPostByShortId(postId).then(res => {
-          setPost(res.data)
-        })
-      })
-    } else {
-      Router.push('/login')
+  async function onLikeClick(id) {
+    try {
+      if (!isAuthenticated) {
+        Router.push('/login')
+      }
+
+      await handlePostLikes(id)
+      const updatedPost = await getPostByShortId(postId)
+      setPost(updatedPost.data)
+    } catch (error) {
+      if (error) throw error
     }
   }
 
-  function onBookmarkClick(id) {
-    if (isAuthenticated) {
-      handlePostBookmarks(id).then(() => {
-        getPostByShortId(postId).then(res => {
-          setPost(res.data)
-        })
-      })
-    } else {
-      Router.push('/login')
+  async function onBookmarkClick(id) {
+    try {
+      if (!isAuthenticated) {
+        Router.push('/login')
+      }
+
+      await handlePostBookmarks(id)
+      const updatedPost = await getPostByShortId(postId)
+      setPost(updatedPost.data)
+    } catch (error) {
+      if (error) throw error
     }
   }
 

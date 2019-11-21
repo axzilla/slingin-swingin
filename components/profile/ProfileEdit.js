@@ -61,8 +61,17 @@ function ProfileEdit() {
   })
 
   useEffect(() => {
-    getCurrentProfile().then(res => setProfile(res.data))
+    getInitialData()
   }, [])
+
+  async function getInitialData() {
+    try {
+      const foundCurrentProfile = await getCurrentProfile()
+      setProfile(foundCurrentProfile.data)
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   useEffect(() => {
     setState({

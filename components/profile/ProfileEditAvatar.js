@@ -9,20 +9,24 @@ function ProfileEditAvatar() {
   const { user, login } = useContext(AuthContext)
 
   async function onChange(e) {
-    e.preventDefault()
+    try {
+      e.preventDefault()
 
-    const formData = new FormData()
-    formData.append('avatar', e.target.files[0])
+      const formData = new FormData()
+      formData.append('avatar', e.target.files[0])
 
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       }
-    }
 
-    const res = await uploadAvatar(formData, config)
-    const { token } = res.data
-    login(token)
+      const res = await uploadAvatar(formData, config)
+      const { token } = res.data
+      login(token)
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   function onDeleteAvatarClick(e) {
