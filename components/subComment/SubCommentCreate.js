@@ -7,13 +7,13 @@ import { Button } from '@material-ui/core'
 function SubCommentCreate({ postId, comment, subComments, setSubComments }) {
   const [subComment, setSubComment] = useState('')
 
-  function onChange(e) {
-    setSubComment(e.target.value)
+  function onChange(event) {
+    setSubComment(event.target.value)
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       const subCommentData = {
         text: subComment,

@@ -34,16 +34,16 @@ function Settings() {
     })
   }, [user.notifications])
 
-  function onChange(e) {
+  function onChange(event) {
     setNotifications({
       ...notifications,
-      [e.target.name]: !notifications[e.target.name]
+      [event.target.name]: !notifications[event.target.name]
     })
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
       const res = await updateSettings(notifications)
       const { token } = res.data
       login(token)

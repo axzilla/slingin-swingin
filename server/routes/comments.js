@@ -20,8 +20,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
     const createdComment = await Comment.create(newComment)
     const foundComment = await Comment.findById(createdComment._id).populate('user')
     res.json(foundComment)
-  } catch (err) {
-    console.log(err) // eslint-disable-line no-console
+  } catch (error) {
+    console.log(error) // eslint-disable-line no-console
   }
 })
 
@@ -35,8 +35,8 @@ router.get('/:refPost', async (req, res) => {
       .populate('user', ['name', 'username', 'avatar'])
 
     res.json(foundComments)
-  } catch (err) {
-    console.log(err) // eslint-disable-line no-console
+  } catch (error) {
+    console.log(error) // eslint-disable-line no-console
   }
 })
 
@@ -69,8 +69,8 @@ router.post('/update', passport.authenticate('jwt', { session: false }), async (
     updatedComment.save()
 
     res.json(updatedComment)
-  } catch (err) {
-    console.log(err) // eslint-disable-line no-console
+  } catch (error) {
+    console.log(error) // eslint-disable-line no-console
   }
 })
 
@@ -80,8 +80,8 @@ router.post('/delete', passport.authenticate('jwt', { session: false }), async (
     const deletedComment = await Comment.findByIdAndDelete(req.body.commentId)
     await SubComment.deleteMany({ refComment: deletedComment._id })
     res.json(deletedComment)
-  } catch (err) {
-    console.log(err) // eslint-disable-line no-console
+  } catch (error) {
+    console.log(error) // eslint-disable-line no-console
   }
 })
 

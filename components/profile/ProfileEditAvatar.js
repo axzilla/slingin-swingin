@@ -8,12 +8,12 @@ import AuthContext from '../../contexts/AuthContext'
 function ProfileEditAvatar() {
   const { user, login } = useContext(AuthContext)
 
-  async function onChange(e) {
+  async function onChange(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       const formData = new FormData()
-      formData.append('avatar', e.target.files[0])
+      formData.append('avatar', event.target.files[0])
 
       const config = {
         headers: {
@@ -29,8 +29,8 @@ function ProfileEditAvatar() {
     }
   }
 
-  function onDeleteAvatarClick(e) {
-    e.preventDefault()
+  function onDeleteAvatarClick(event) {
+    event.preventDefault()
     if (window.confirm('Profilbild löschen?')) {
       deleteAvatar()
     }

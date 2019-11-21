@@ -166,15 +166,15 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
     })
   }
 
-  function onChange(e) {
+  function onChange(event) {
     setToolbarData({
       ...toolbarData,
-      searchText: e.target.value
+      searchText: event.target.value
     })
   }
 
-  function onSubmit(e) {
-    e.preventDefault()
+  function onSubmit(event) {
+    event.preventDefault()
     if (!isEmpty(toolbarData.searchText)) {
       searchFunc(toolbarData.searchText)
       Router.push(`/search?q=${toolbarData.searchText}`)

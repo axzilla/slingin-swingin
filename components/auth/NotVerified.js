@@ -12,8 +12,8 @@ function NotVerified() {
     getCurrentProfile()
   }, [])
 
-  function onSendMailClick(e) {
-    e.preventDefault()
+  function onSendMailClick(event) {
+    event.preventDefault()
     sendVerificationEmail(user)
   }
 

@@ -50,16 +50,16 @@ function ChangePassword() {
     newPassword2: ''
   })
 
-  function onChange(e) {
+  function onChange(event) {
     setPasswords({
       ...passwords,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     })
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
       const passwordData = {
         id: user.id,
         oldPassword: passwords.oldPassword,
@@ -77,8 +77,8 @@ function ChangePassword() {
         newPassword2: ''
       })
       setErrors('')
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

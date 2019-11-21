@@ -10,8 +10,8 @@ function SubCommentEdit({ subComment, onSaveClick }) {
     setText(subComment.text)
   }, [])
 
-  function onChange(e) {
-    setText(e.target.value)
+  function onChange(event) {
+    setText(event.target.value)
   }
 
   return (

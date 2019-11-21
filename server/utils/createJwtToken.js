@@ -9,7 +9,7 @@ module.exports = async function createJwtToken(payload) {
     })
 
     return `Bearer ${createdJwtToken}`
-  } catch (err) {
-    if (err) throw err
+  } catch (error) {
+    if (error) throw error
   }
 }

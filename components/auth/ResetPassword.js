@@ -51,16 +51,16 @@ function ResetPassword({ token }) {
     password2: ''
   })
 
-  function onChange(e) {
+  function onChange(event) {
     setPasswords({
       ...passwords,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     })
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
       const decode = jwtDecode(token)
 
       const passwordData = {
@@ -70,8 +70,8 @@ function ResetPassword({ token }) {
       }
       await setNewPassword(passwordData)
       setAlert({ message: 'E-Mail erfolgreich gesendet' })
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

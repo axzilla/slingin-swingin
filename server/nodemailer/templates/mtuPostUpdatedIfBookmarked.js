@@ -13,7 +13,7 @@ module.exports = (post, bookmark) => {
         `
   }
 
-  transporter.sendMail(mailOptions, err => {
-    err ? console.log(err) : console.log('Message sent!')
+  transporter.sendMail(mailOptions, error => {
+    error ? console.log(error) : console.log('Message sent!')
   })
 }

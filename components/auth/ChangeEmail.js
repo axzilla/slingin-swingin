@@ -50,13 +50,13 @@ function ChangeEmail() {
     setEmail(user.email)
   }, [user.email])
 
-  function onChange(e) {
-    setEmail(e.target.value)
+  function onChange(event) {
+    setEmail(event.target.value)
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       const emailData = {
         id: user.id,
@@ -67,8 +67,8 @@ function ChangeEmail() {
       const { token } = res.data
       login(token)
       setAlert({ message: 'E-Mail Adresse erfolgreich geändert' })
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

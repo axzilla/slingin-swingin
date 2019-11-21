@@ -51,22 +51,22 @@ function Login() {
     password: ''
   })
 
-  function onChange(e) {
+  function onChange(event) {
     setLoginData({
       ...loginData,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     })
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
       const loggedInUser = await loginUser({ ...loginData })
       const jwtToken = loggedInUser.data
       await login(jwtToken)
       Router.push('/')
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

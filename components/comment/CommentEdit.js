@@ -43,8 +43,8 @@ function CommentEdit({ comment, onSaveClick }) {
     setText(comment.text)
   }, [])
 
-  function onChange(e) {
-    setText(e.target.value)
+  function onChange(event) {
+    setText(event.target.value)
   }
 
   return (

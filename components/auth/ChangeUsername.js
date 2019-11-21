@@ -51,13 +51,13 @@ function ChangeUsername() {
     setUsername(user.username)
   }, [user.username])
 
-  function onChange(e) {
-    setUsername(e.target.value)
+  function onChange(event) {
+    setUsername(event.target.value)
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(event) {
     try {
-      e.preventDefault()
+      event.preventDefault()
 
       const emailData = {
         id: user.id,
@@ -68,8 +68,8 @@ function ChangeUsername() {
       login(token)
       setAlert({ message: 'Benutzername erfolgreich geändert' })
       localStorage.setItem('jwtToken', token)
-    } catch (err) {
-      setErrors(err.response.data)
+    } catch (error) {
+      setErrors(error.response.data)
     }
   }
 

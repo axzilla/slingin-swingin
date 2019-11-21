@@ -50,8 +50,8 @@
 //       const decoded = jwtDecode(token)
 //       setAuth({ isAuthenticated: true, user: decoded })
 //       localStorage.setItem('jwtToken', token)
-//     } catch (err) {
-//       setErrors(err.response.data)
+//     } catch (error) {
+//       setErrors(error.response.data)
 //     }
 //   }
 
