@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const cors = require('cors')
+const http = require('http')
 const app = express()
 
 app.use(cors())
@@ -19,6 +20,10 @@ app.use('/subcomments', require('./routes/subComments'))
 app.use('/search', require('./routes/search'))
 
 require('./utils/passport')(passport)
+
+setInterval(function() {
+  http.get('https://codehustla-api-production.herokuapp.com')
+}, 1500000) // every 25 minutes (1500000)
 
 const db = process.env.MONGO_URI
 const port = process.env.PORT || 5000
