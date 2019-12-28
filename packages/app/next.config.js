@@ -5,6 +5,6 @@ dotenv.config()
 
 module.exports = withImages({
   env: {
-    ROOT_URL: process.env.ROOT_URL
+    CODEHUSTLA_API_URL: process.env.CODEHUSTLA_API_URL
   }
 })

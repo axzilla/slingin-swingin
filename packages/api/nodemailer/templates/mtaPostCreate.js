@@ -8,7 +8,7 @@ function mtaPostCreate(post) {
     html: `
       <p>Hi Admin,</p>
       <p>Es gibt einen neuen Beitrag.</p>
-      <p><a href="${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}</a></p>
+      <p><a href="${process.env.CODEHUSTLA_API_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.CODEHUSTLA_API_URL}/post/${post.shortId}/${post.urlSlug}</a></p>
     `
   }
 

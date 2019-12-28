@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.ROOT_URL}/posts`
+const rootUrl = `${process.env.CODEHUSTLA_API_URL}/posts`
 
 export function postCreate(postData) {
   return axios.post(`${rootUrl}/post-create`, postData)

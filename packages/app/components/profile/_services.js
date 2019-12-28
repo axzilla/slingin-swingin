@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.ROOT_URL}/profile`
+const rootUrl = `${process.env.CODEHUSTLA_API_URL}/profile`
 
 export function getCurrentProfile() {
   return axios.get(`${rootUrl}/get-profile-by-current-user`)

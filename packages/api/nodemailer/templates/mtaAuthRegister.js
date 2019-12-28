@@ -8,7 +8,7 @@ function mtaAuthRegister(user) {
     html: `
       <p>Hi Admin,</p>
       <p>es gibt einen neuen Benutzer.</p>
-      <p><a href="${process.env.ROOT_URL}/${user.username}">${process.env.ROOT_URL}/${user.username}</a></p>
+      <p><a href="${process.env.CODEHUSTLA_API_URL}/${user.username}">${process.env.CODEHUSTLA_API_URL}/${user.username}</a></p>
     `
   }
 
