@@ -8,7 +8,7 @@ function mtuAuthVerification(user, token) {
     html: `
       <p>Hi ${user.username},</p>
       <p>Bitte klicke auf den Link, um deinen Account zu bestätigen.</p>
-      <p><a href="${process.env.ROOT_URL}/verify/${token}">${process.env.ROOT_URL}/verify/${token}</a></p>
+      <p><a href="${process.env.CODEHUSTLA_API_URL}/verify/${token}">${process.env.CODEHUSTLA_API_URL}/verify/${token}</a></p>
       <p>Vielen Dank,<br>dein codehustla Team.</p>
     `
   }

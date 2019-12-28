@@ -5,7 +5,8 @@
     "client": "npm run dev --prefix packages/app",
     "test": "eslint \"**/*.js\"",
     "deploy-api-production": "git subtree push --prefix packages/api heroku-api-production master",
-    "deploy-api-production-force": "git push heroku-api-production `git subtree split --prefix packages/api master`:master --force"
+    "deploy-api-production-force": "git push heroku-api-production `git subtree split --prefix packages/api master`:master --force",
+    "deploy-app-production": "cd packages/app && now --prod"
   },
   "husky": {
     "hooks": {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.ROOT_URL}/subcomments`
+const rootUrl = `${process.env.CODEHUSTLA_API_URL}/subcomments`
 
 export function subCommentCreate(subCommentData) {
   return axios.post(`${rootUrl}/create`, subCommentData)

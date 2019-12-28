@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.ROOT_URL}/auth`
+const rootUrl = `${process.env.CODEHUSTLA_API_URL}/auth`
 
 export function userRegister(userData) {
   return axios.post(`${rootUrl}/register`, userData)
