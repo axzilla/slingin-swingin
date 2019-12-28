@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "codehustla-app",
+  "env": {
+    "API_URL": "@api_url",
+    "FT_PAYPAL_SANDBOX_CLIENT_ID": "@ft_paypal_sandbox_client_id",
+    "FT_PAYPAL_PRODUCTION_CLIENT_ID": "@ft_paypal_production_client_id"
+  },
+  "build": {
+    "env": {
+      "API_URL": "@api_url",
+      "FT_PAYPAL_SANDBOX_CLIENT_ID": "@ft_paypal_sandbox_client_id",
+      "FT_PAYPAL_PRODUCTION_CLIENT_ID": "@ft_paypal_production_client_id"
+    }
+  }
+}
