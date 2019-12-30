@@ -8,7 +8,7 @@ function mtuAuthPasswordChange(user, token) {
     html: `
       <p>Hi ${user.username},</p>
       <p>Bitte klicke auf den Link, um dein Passwort zurückzusetzen.</p>
-      <p><a href="${process.env.CODEHUSTLA_API_URL}/reset-password/${token}">${process.env.CODEHUSTLA_API_URL}/reset-password/${token}</a></p>
+      <p><a href="${process.env.ROOT_URL}/reset-password/${token}">${process.env.ROOT_URL}/reset-password/${token}</a></p>
       <p>Vielen Dank,<br>dein codehustla Team.</p>
     `
   }
