@@ -26,6 +26,7 @@
     "react-scripts": "3.2.0",
     "react-select": "3.0.8",
     "react-syntax-highlighter": "10.3.0",
+    "sitemap": "5.1.0",
     "styled-components": "4.4.1",
     "styled-jsx": "3.2.4",
     "styled-system": "5.1.2",
