@@ -2,11 +2,13 @@
   "version": 2,
   "name": "codehustla-app",
   "env": {
-    "CODEHUSTLA_API_URL": "@codehustla_api_url"
+    "CODEHUSTLA_API_URL": "@codehustla_api_url",
+    "CODEHUSTLA_GOOGLE_ANALYTICS": "@codehustla_google_analytics"
   },
   "build": {
     "env": {
-      "CODEHUSTLA_API_URL": "@codehustla_api_url"
+      "CODEHUSTLA_API_URL": "@codehustla_api_url",
+      "CODEHUSTLA_GOOGLE_ANALYTICS": "@codehustla_google_analytics"
     }
   }
 }
