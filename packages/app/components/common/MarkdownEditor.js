@@ -43,7 +43,7 @@ function MarkdownEditor({ withPreview, setText, onChange, value, name, label, ro
     code: '  \n```\nCODE \n```',
     ul: '- UL',
     ol: '1. ',
-    link: '[codehustla](https://codehustla-production.herokuapp.com/)',
+    link: '[codehustla](https://www.codehustla.dev/)',
     quote: '> Zitat',
     img: '![Image](https://source.unsplash.com/random/100x100)'
   }

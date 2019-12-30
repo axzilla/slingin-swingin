@@ -29,8 +29,8 @@ function PrivacyPolicy() {
         <br />
         <br />
         E-Mail:{' '}
-        <a href="mailto:mail@badazz.dev" style={{ color: '#2196f3' }}>
-          mail@badazz.dev
+        <a href="mailto:mail@codehustla.dev" style={{ color: '#2196f3' }}>
+          mail@codehustla.dev
         </a>
         <br />
         <br />

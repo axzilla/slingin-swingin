@@ -3,7 +3,7 @@ const sendMail = require('../../utils/sendMail')
 function mtaPostCreate(post) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
-    to: 'mail@badazz.dev',
+    to: 'mail@codehustla.dev',
     subject: 'Neuer Beitrag!',
     html: `
       <p>Hi Admin,</p>
