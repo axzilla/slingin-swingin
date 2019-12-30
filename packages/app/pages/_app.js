@@ -82,7 +82,7 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <title>hustler.dev</title>
+          <title>codehustla.dev - Gemeinsam werden wir bessere Entwickler</title>
         </Head>
         <CssBaseline />
         <AuthContext.Provider

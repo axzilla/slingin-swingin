@@ -8,9 +8,9 @@ function mtuCommentCreateIfPostOwner(post, user) {
     html: `
       <p>Hi ${user.username},</p>
       <p>Es gibt neue Aktivitäten auf deinem Beitrag. Schau doch mal wieder vorbei.</p>
-      <p><a href="${process.env.CODEHUSTLA_API_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.CODEHUSTLA_API_URL}/post/${post.shortId}/${post.urlSlug}<a/></p>
+      <p><a href="${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}<a/></p>
       <p>Vielen Dank,<br> dein codehustla Team.</p>
-      <p>Du möchtest <a href="${process.env.CODEHUSTLA_API_URL}/edit-settings">keine weiteren E-Mails</a> mehr erhalten oder deine <a href="${process.env.CODEHUSTLA_API_URL}/edit-settings">E-Mail Einstellungen ändern</a>?</p>
+      <p>Du möchtest <a href="${process.env.ROOT_URL}/edit-settings">keine weiteren E-Mails</a> mehr erhalten oder deine <a href="${process.env.ROOT_URL}/edit-settings">E-Mail Einstellungen ändern</a>?</p>
     `
   }
 

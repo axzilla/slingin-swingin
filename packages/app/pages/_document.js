@@ -53,6 +53,10 @@ class MyDocument extends Document {
             integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
             crossOrigin="anonymous"
           />
+          <meta
+            name="google-site-verification"
+            content="ehV9USkda3cusLdS9ErSgTI43ekLZKQhCMQyVMJHA5Y"
+          />
         </Head>
         <body>
           <Main />
