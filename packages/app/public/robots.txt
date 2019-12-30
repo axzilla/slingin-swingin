@@ -1,3 +1,5 @@
+Sitemap: http://www.codehustla.dev/api/sitemap
+
 User-agent: *
 Disallow: /dashboard/
 Disallow: /dashboard
