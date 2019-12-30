@@ -10,7 +10,7 @@ export default async (req, res) => {
   // Add any static entries here
   sitemap.add({ url: '/', changefreq: EnumChangefreq.DAILY })
 
-  // To add dynamic entries
+  // Add dynamic entries
 
   // Posts
   const postsResponse = await getPosts()
@@ -33,7 +33,6 @@ export default async (req, res) => {
     sitemap.add({ url: `/${profile.handle}`, changefreq: EnumChangefreq.DAILY })
   }
 
-  // res.contentType('application/xml')
   res.setHeader('Content-Type', 'application/xml')
   res.send(sitemap.toString())
 }
