@@ -3,7 +3,7 @@ const sendMail = require('../../utils/sendMail')
 function mtaAuthRegister(user) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
-    to: 'mail@badazz.dev',
+    to: 'mail@codehustla.dev',
     subject: 'Neuer Benutzer!',
     html: `
       <p>Hi Admin,</p>

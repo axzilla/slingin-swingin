@@ -1,10 +1,10 @@
 # codehustla - Developer Community 💻
 
-Willkommen in der Codebasis von [codehustla](https://codehustla-production.herokuapp.com/). Ich freue mich sehr, dich hier zu haben. Mit deiner Hilfe können wir [codehustla](https://codehustla-production.herokuapp.com/) ausbauen, weiter entwickeln und debuggen.
+Willkommen in der Codebasis von [codehustla](https://www.codehustla.dev/). Ich freue mich sehr, dich hier zu haben. Mit deiner Hilfe können wir [codehustla](https://www.codehustla.dev/) ausbauen, weiter entwickeln und debuggen.
 
 ## Was ist codehustla?
 
-[codehustla](https://codehustla-production.herokuapp.com/) ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen. Wir legen Wert auf einen unterstützenden und konstruktiven Dialog bei der Verfolgung eines guten Kodex und einer guten Karriere für alle Mitglieder. Das Ökosystem erstreckt sich von Anfängern bis hin zu fortgeschrittenen Entwicklern und alle sind herzlich eingeladen, ihren Platz in unserer Community zu finden. ❤️
+[codehustla](https://www.codehustla.dev/) ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen. Wir legen Wert auf einen unterstützenden und konstruktiven Dialog bei der Verfolgung eines guten Kodex und einer guten Karriere für alle Mitglieder. Das Ökosystem erstreckt sich von Anfängern bis hin zu fortgeschrittenen Entwicklern und alle sind herzlich eingeladen, ihren Platz in unserer Community zu finden. ❤️
 
 ## Inhaltsverzeichnis
 
@@ -116,7 +116,7 @@ Starte das Projekt mit "npm run dev". Das Projekt startet auf http://localhost:3
 
 ## Offenlegung von Sicherheitslücken
 
-Solltest du eine Sicherheitslücke in diesem Projekt gefunden oder aufgedeckt haben, freuen wir uns sehr von dir eine E-Mail an mail@badazz.dev mit allen benötigten Informationen zu erhalten.
+Solltest du eine Sicherheitslücke in diesem Projekt gefunden oder aufgedeckt haben, freuen wir uns sehr von dir eine E-Mail an mail@codehustla.dev mit allen benötigten Informationen zu erhalten.
 
 ## Lizenz
 
@@ -126,6 +126,6 @@ Wie bei vielen Open Source-Projekten ist es erforderlich, dass Mitwirkende uns e
 
 Unsere Version des CLA wurde aus der Microsoft Contributor-Lizenzvereinbarung übernommen, die sie unter Creative Commons CC0 1.0 Universal großzügig öffentlich zugänglich machte.
 
-Bei Fragen sende uns eine E-Mail an mail@badazz.dev
+Bei Fragen sende uns eine E-Mail an mail@codehustla.dev
 
 **Happy Coding ❤️**

@@ -12,7 +12,7 @@ function Footer() {
         </Typography>
       </Grid>
       <div>
-        <MuiLink color="inherit" href="mailto:mail@badazz.dev">
+        <MuiLink color="inherit" href="mailto:mail@codehustla.dev">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <i className="far fa-envelope-open fa-2x" />
           </Typography>
