@@ -1,7 +1,4 @@
 {
-  "name": "jobs-app",
-  "version": "1.0.0",
-  "description": "",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -21,6 +18,7 @@
     "react": "16.11.0",
     "react-color": "^2.14.1",
     "react-dom": "16.11.0",
+    "react-ga": "2.7.0",
     "react-https-redirect": "1.1.0",
     "react-markdown": "4.2.2",
     "react-moment": "0.9.6",

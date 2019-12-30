@@ -1,7 +1,4 @@
 {
-  "name": "jobs-app",
-  "version": "1.0.0",
-  "description": "",
   "scripts": {
     "server": "node server.js",
     "dev": "nodemon server.js"
