@@ -83,6 +83,7 @@ class MyApp extends App {
       <>
         <Head>
           <title>codehustla.dev - Gemeinsam werden wir bessere Entwickler</title>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <CssBaseline />
         <AuthContext.Provider
