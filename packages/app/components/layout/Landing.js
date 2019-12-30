@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { initGA, logPageView } from '../../utils/googleAnalytics'
+import { setGaPageView } from '../../utils/googleAnalytics'
 
 import { postToggleLikes, postToggleBookmarks } from '../post/_services'
 import { getPosts } from '../post/_services'
@@ -29,16 +29,7 @@ function Landing() {
 
   useEffect(() => {
     getInitalData()
-  }, [])
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      if (!window.GA_INITIALIZED) {
-        initGA()
-        window.GA_INITIALIZED = true
-      }
-      logPageView()
-    }
+    setGaPageView()
   }, [])
 
   async function getInitalData() {
