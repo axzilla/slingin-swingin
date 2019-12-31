@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { usernameChange } from '../../services/auth'
-import AuthContext from '../../contexts/AuthContext'
-import { useAlert } from '../../contexts/AlertContext'
+import { usernameChange } from '../../../services/auth'
+import AuthContext from '../../../contexts/AuthContext'
+import { useAlert } from '../../../contexts/AlertContext'
 
 import { makeStyles } from '@material-ui/styles'
 

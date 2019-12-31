@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { postToggleLikes, postToggleBookmarks } from '../../services/post'
-import { PostFeedItem } from '../../components'
+import { postToggleLikes, postToggleBookmarks } from '../../../services/post'
+import { PostFeedItem } from '../../../components'
 import { Grid, Button } from '@material-ui/core'
 
 function TabsPostPosts({ postsByUserId, setPostsByUserId, auth }) {

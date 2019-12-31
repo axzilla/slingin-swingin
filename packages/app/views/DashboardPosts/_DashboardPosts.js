@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import AuthContext from '../../contexts/AuthContext'
 import { makeStyles } from '@material-ui/core/styles'
 import { AppBar, Tabs, Tab } from '@material-ui/core'
-import TabsPostPosts from './TabsPostPosts'
-import TabsPostBookmarks from './TabsPostBookmarks'
-import TabsPostComments from './TabsPostComments'
+
+import { Posts, Bookmarks, Comments } from './components'
 
 import { getCommentsByUserId } from '../../services/comment'
 import { getSubCommentsByUserId } from '../../services/subComment'
@@ -79,20 +78,15 @@ function TabsPost() {
           />
         </Tabs>
       </AppBar>
-      {value === 0 && (
-        <TabsPostPosts postsByUserId={postsByUserId} setPostsByUserId={setPostsByUserId} />
-      )}
+      {value === 0 && <Posts postsByUserId={postsByUserId} setPostsByUserId={setPostsByUserId} />}
       {value === 1 && (
-        <TabsPostBookmarks
+        <Bookmarks
           postsByUserBookmark={postsByUserBookmark}
           setPostsByUserBookmark={setPostsByUserBookmark}
         />
       )}
       {value === 2 && (
-        <TabsPostComments
-          commentsByUserId={commentsByUserId}
-          subCommentsByUserId={subCommentsByUserId}
-        />
+        <Comments commentsByUserId={commentsByUserId} subCommentsByUserId={subCommentsByUserId} />
       )}
     </div>
   )

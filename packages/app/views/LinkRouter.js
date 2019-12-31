@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link as RouterLink } from 'next/link'
+import Link from 'next/link'
 
 import { makeStyles } from '@material-ui/styles'
-import Link from '@material-ui/core/Link'
+// import Link from '@material-ui/core/Link'
 
 const useStyles = makeStyles({
   link: {
@@ -20,7 +20,7 @@ function LinkRouter({ children, href }) {
   const classes = useStyles()
 
   return (
-    <Link component={RouterLink} href={href} className={classes.link}>
+    <Link href={href} className={classes.link}>
       {children}
     </Link>
   )

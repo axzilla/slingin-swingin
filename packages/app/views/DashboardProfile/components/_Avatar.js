@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import isEmpty from '../../utils/isEmpty'
-import { avatarUpload, avatarDelete } from '../../services/auth'
+import isEmpty from '../../../utils/isEmpty'
+import { avatarUpload, avatarDelete } from '../../../services/auth'
 import { Button, Typography, Avatar, Grid } from '@material-ui/core'
 
-import AuthContext from '../../contexts/AuthContext'
+import AuthContext from '../../../contexts/AuthContext'
 
 function ProfileEditAvatar() {
   const { user, login } = useContext(AuthContext)

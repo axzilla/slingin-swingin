@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 import { useAlert } from '../../contexts/AlertContext'
 import { createProfile, getCurrentProfile } from '../../services/profile'
-import ProfileEditColorPicker from './ProfileEditColorPicker'
-import ProfileEditAvatar from './ProfileEditAvatar'
+
+import { ColorPicker, Avatar } from './components'
+
 import { makeStyles } from '@material-ui/styles'
 import {
   Grid,
@@ -259,7 +260,7 @@ function ProfileEdit() {
       <Grid item xs>
         <Card>
           <CardContent>
-            <ProfileEditAvatar />
+            <Avatar />
             <form onSubmit={onSubmit}>
               <FormControl className={classes.formControl} error>
                 <TextField
@@ -376,7 +377,7 @@ function ProfileEdit() {
                 />
               </FormControl>
               <Typography>Profilfarbe</Typography>
-              <ProfileEditColorPicker
+              <ColorPicker
                 rgbaColor={rgbaColor}
                 handleColorPickerChange={handleColorPickerChange}
                 handleColorPickerClick={handleColorPickerClick}
