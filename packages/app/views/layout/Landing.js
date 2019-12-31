@@ -5,7 +5,7 @@ import { setGaPageView } from '../../utils/googleAnalytics'
 import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/post'
 import AuthContext from '../../contexts/AuthContext'
 
-import PostFeedItem from '../post/PostFeedItem'
+import { PostFeedItem } from '../../components'
 import WidgetLatestUsers from '../../views/widgets/WidgetLatestUsers'
 import WidgetTopPostsTags from '../../views/widgets/WidgetTopPostsTags'
 import WidgetSidebarRight from '../../views/widgets/WidgetSidebarRight'
