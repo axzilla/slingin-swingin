@@ -1,4 +1,4 @@
-import NotFound from '../views/not-found/NotFound'
+import { NotFound } from '../views'
 
 function notFound() {
   return <NotFound />

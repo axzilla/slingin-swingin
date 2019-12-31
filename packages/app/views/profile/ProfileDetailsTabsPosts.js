@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { postToggleLikes, postToggleBookmarks } from '../../services/post'
 import Spinner from '../common/Spinner'
-import PostFeedItem from '../post/PostFeedItem'
+import { PostFeedItem } from '../../components'
 import { Grid, Button } from '@material-ui/core'
 
 function ProfileDetailsTabsPosts({ postsByUserId, setPostsByUserId }) {
