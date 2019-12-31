@@ -1,4 +1,4 @@
-import NotVerified from '../views/auth/NotVerified'
+import { NotVerified } from '../views'
 
 function notVerified() {
   return <NotVerified />
