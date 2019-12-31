@@ -13,17 +13,21 @@ import { getSubCommentByPostRef } from '../../services/subComment'
 import Spinner from '../common/Spinner'
 import CommentCreate from '../comment/CommentCreate'
 import CommentFeedItem from '../comment/CommentFeedItem'
-import PostDetailsType from './PostDetailsType'
-import PostDetailsTitle from './PostDetailsTitle'
-import PostDetailsTags from './PostDetailsTags'
-import PostDetailsTitleImage from './PostDetailsTitleImage'
-import PostDetailsAvatar from './PostDetailsAvatar'
-import PostDetailsCreator from './PostDetailsCreator'
-import PostDetailsDate from './PostDetailsDate'
-import PostDetailsLikes from './PostDetailsLikes'
-import PostDetailsBookmarks from './PostDetailsBookmarks'
-import PostDetailsAuthActions from './PostDetailsAuthActions'
-import PostDetailsContent from './PostDetailsContent'
+
+import {
+  AuthActions,
+  Avatar,
+  Bookmarks,
+  Content,
+  Creator,
+  Date,
+  Likes,
+  Tags,
+  Title,
+  TitleImage,
+  Type
+} from './components'
+
 import { makeStyles } from '@material-ui/styles'
 import { Card, CardContent, Grid, Typography } from '@material-ui/core'
 
@@ -102,26 +106,26 @@ function PostDetails({ postId }) {
       <Grid item xs={12} sm={8}>
         <Grid>
           <Card>
-            <PostDetailsTitleImage post={post} />
+            <TitleImage post={post} />
             <CardContent>
               <div style={{ width: '100%' }}>
-                <PostDetailsType post={post} classes={classes} />
-                <PostDetailsTitle post={post} />
-                <PostDetailsTags post={post} />
+                <Type post={post} classes={classes} />
+                <Title post={post} />
+                <Tags post={post} />
                 <div style={{ margin: '30px 0' }}>
-                  <PostDetailsAvatar post={post} />
-                  <PostDetailsCreator post={post} />
+                  <Avatar post={post} />
+                  <Creator post={post} />
                   <Typography style={{ display: 'inline' }}> - </Typography>
-                  <PostDetailsDate post={post} />
+                  <Date post={post} />
                 </div>
-                <PostDetailsContent post={post} />
+                <Content post={post} />
                 <div style={{ display: 'flex' }}>
-                  <PostDetailsLikes post={post} user={user} onLikeClick={onLikeClick} />
-                  <PostDetailsBookmarks post={post} user={user} onBookmarkClick={onBookmarkClick} />
+                  <Likes post={post} user={user} onLikeClick={onLikeClick} />
+                  <Bookmarks post={post} user={user} onBookmarkClick={onBookmarkClick} />
                 </div>
               </div>
             </CardContent>
-            <PostDetailsAuthActions
+            <AuthActions
               post={post}
               user={user}
               isAuthenticated={isAuthenticated}

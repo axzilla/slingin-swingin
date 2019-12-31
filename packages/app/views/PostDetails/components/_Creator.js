@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../views/LinkRouter'
+import LinkRouter from '../../../views/LinkRouter'
 import { Typography } from '@material-ui/core'
 
 function PostDetailsCreator({ post }) {

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import PostDetails from '../../../views/post/PostDetails'
+import { PostDetails } from '../../../views'
 import SeoMeta from '../../../views/common/SeoMeta'
 
 function postDetails({ postId, urlSlug }) {
