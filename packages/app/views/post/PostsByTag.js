@@ -8,8 +8,8 @@ import {
 } from '../../services/post'
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
-import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
-import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
+import WidgetTopPostsTags from '../../views/widgets/WidgetTopPostsTags'
+import WidgetLatestUsers from '../../views/widgets/WidgetLatestUsers'
 import { Button, Grid, Hidden } from '@material-ui/core'
 
 function PostsByTag({ tag }) {

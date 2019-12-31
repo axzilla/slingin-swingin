@@ -1,7 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import { postDelete } from '../../services/post'
 import { CardActions, Button, Divider } from '@material-ui/core'
 

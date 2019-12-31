@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 import { Grid, Avatar, Card, CardContent, Typography } from '@material-ui/core'

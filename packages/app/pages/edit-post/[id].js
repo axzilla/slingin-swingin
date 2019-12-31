@@ -1,7 +1,7 @@
 import { isNotLoggedIn } from '../../utils/initialize'
 
 import PropTypes from 'prop-types'
-import PostEdit from '../../components/post/PostEdit'
+import PostEdit from '../../views/post/PostEdit'
 
 function editPost({ id }) {
   return <PostEdit id={id} />

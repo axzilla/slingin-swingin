@@ -1,4 +1,4 @@
-import Search from '../components/search/Search'
+import Search from '../views/search/Search'
 
 function search() {
   return <Search />

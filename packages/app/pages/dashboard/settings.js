@@ -1,6 +1,6 @@
 import { isNotLoggedIn } from '../../utils/initialize'
-import Dashboard from '../../components/dashboard/Dashboard'
-import DashboardSettings from '../../components/dashboard/DashboardSettings'
+import Dashboard from '../../views/dashboard/Dashboard'
+import DashboardSettings from '../../views/dashboard/DashboardSettings'
 
 function settings() {
   return (

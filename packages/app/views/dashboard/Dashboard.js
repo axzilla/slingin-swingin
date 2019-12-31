@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import AuthContext from '../../contexts/AuthContext'
 
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {

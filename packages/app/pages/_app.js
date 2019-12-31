@@ -12,7 +12,7 @@ import setAuthToken from '../utils/setAuthToken'
 import AuthContext from '../contexts/AuthContext'
 import { AlertContextProvider } from '../contexts/AlertContext'
 
-import Layout from '../components/layout/Layout'
+import Layout from '../views/layout/Layout'
 
 class MyApp extends App {
   state = {

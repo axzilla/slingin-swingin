@@ -6,10 +6,10 @@ import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/p
 import AuthContext from '../../contexts/AuthContext'
 
 import PostFeedItem from '../post/PostFeedItem'
-import WidgetLatestUsers from '../../components/widgets/WidgetLatestUsers'
-import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'
-import WidgetSidebarRight from '../../components/widgets/WidgetSidebarRight'
-import WidgetSidebarLeft from '../../components/widgets/WidgetSidebarLeft'
+import WidgetLatestUsers from '../../views/widgets/WidgetLatestUsers'
+import WidgetTopPostsTags from '../../views/widgets/WidgetTopPostsTags'
+import WidgetSidebarRight from '../../views/widgets/WidgetSidebarRight'
+import WidgetSidebarLeft from '../../views/widgets/WidgetSidebarLeft'
 import LandingWelcome from './LandingWelcome'
 
 import { Button, Grid, Hidden } from '@material-ui/core'

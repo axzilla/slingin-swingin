@@ -1,5 +1,5 @@
 import React from 'react'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import { Grid, Typography, Button, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 

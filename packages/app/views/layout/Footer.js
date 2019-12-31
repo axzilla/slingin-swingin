@@ -1,5 +1,5 @@
 import React from 'react'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import { Typography, Grid, Link as MuiLink } from '@material-ui/core'
 
 function Footer() {

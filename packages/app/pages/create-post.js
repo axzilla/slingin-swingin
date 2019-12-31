@@ -1,5 +1,5 @@
 import { isNotLoggedIn } from '../utils/initialize'
-import PostCreate from '../components/post/PostCreate'
+import PostCreate from '../views/post/PostCreate'
 
 function postCreate() {
   return <PostCreate />

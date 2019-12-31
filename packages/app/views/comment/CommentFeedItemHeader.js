@@ -5,7 +5,7 @@ import 'moment/locale/de'
 
 import AuthContext from '../../contexts/AuthContext'
 
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 
 import { makeStyles } from '@material-ui/styles'
 import { CardHeader, Avatar, IconButton } from '@material-ui/core'

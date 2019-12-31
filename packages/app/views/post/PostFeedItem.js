@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import Moment from 'react-moment'
 import AuthContext from '../../contexts/AuthContext'
 import { getCommentsByPostRef } from '../../services/comment'

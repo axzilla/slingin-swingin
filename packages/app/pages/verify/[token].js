@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Verify from '../../components/auth/Verify'
+import Verify from '../../views/auth/Verify'
 
 function verify({ token }) {
   return <Verify token={token} />

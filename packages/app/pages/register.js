@@ -1,5 +1,5 @@
 import { isLoggedIn } from '../utils/initialize'
-import UserRegister from '../components/auth/UserRegister'
+import UserRegister from '../views/auth/UserRegister'
 
 function register() {
   return <UserRegister />
