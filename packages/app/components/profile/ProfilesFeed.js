@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAllProfiles } from './_services'
+import { getAllProfiles } from '../../services/profile'
 import ProfilesFeedItem from './ProfilesFeedItem'
 import CardSponsors from '../../components/cards/CardSponsors'
 import CardUserLatest from '../../components/cards/CardUserLatest'

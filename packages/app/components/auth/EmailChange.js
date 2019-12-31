@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import AuthContext from '../../contexts/AuthContext'
 import { useAlert } from '../../contexts/AlertContext'
-import { emailChange } from './_services'
+import { emailChange } from '../../services/auth'
 
 import { makeStyles } from '@material-ui/styles'
 import {

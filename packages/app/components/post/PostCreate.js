@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
-import { postCreate } from './_services'
+import { postCreate } from '../../services/post'
 import MarkdownEditor from '../common/MarkdownEditor'
 import placeholder from '../../assets/img/post-title-placeholder.png'
 import isEmpty from '../../utils/isEmpty'

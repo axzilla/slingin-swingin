@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { postToggleLikes, postToggleBookmarks } from '../post/_services'
+import { postToggleLikes, postToggleBookmarks } from '../../services/post'
 import Spinner from '../common/Spinner'
 import PostFeedItem from '../post/PostFeedItem'
 import { Grid, Button } from '@material-ui/core'

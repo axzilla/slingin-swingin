@@ -7,9 +7,9 @@ import TabsPostPosts from './TabsPostPosts'
 import TabsPostBookmarks from './TabsPostBookmarks'
 import TabsPostComments from './TabsPostComments'
 
-import { getCommentsByUserId } from '../comment/_services'
-import { getSubCommentsByUserId } from '../subComment/_services'
-import { getPostsByUserBookmark, getPostsByUserId } from '../post/_services'
+import { getCommentsByUserId } from '../../services/comment'
+import { getSubCommentsByUserId } from '../../services/subComment'
+import { getPostsByUserBookmark, getPostsByUserId } from '../../services/post'
 
 const useStyles = makeStyles({
   root: {

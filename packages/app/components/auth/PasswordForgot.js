@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { useAlert } from '../../contexts/AlertContext'
-import { passwordForgot } from './_services'
+import { passwordForgot } from '../../services/auth'
 
 import { makeStyles } from '@material-ui/styles'
 import {

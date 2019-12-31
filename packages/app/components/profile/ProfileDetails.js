@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 
 import AuthContext from '../../contexts/AuthContext'
 
-import { getPostsByUserId } from '../post/_services'
-import { getProfileByHandle } from './_services'
-import { getCommentsByUserId } from '../comment/_services'
-import { getSubCommentsByUserId } from '../subComment/_services'
+import { getPostsByUserId } from '../../services/post'
+import { getProfileByHandle } from '../../services/profile'
+import { getCommentsByUserId } from '../../services/comment'
+import { getSubCommentsByUserId } from '../../services/subComment'
 
 import Spinner from '../common/Spinner'
 import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
-import { getAllProfiles } from '../profile/_services'
+import { getAllProfiles } from '../../services/profile'
 
 import LinkRouter from '../../components/LinkRouter'
 

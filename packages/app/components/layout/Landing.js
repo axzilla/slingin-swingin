@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import { setGaPageView } from '../../utils/googleAnalytics'
 
-import { postToggleLikes, postToggleBookmarks } from '../post/_services'
-import { getPosts } from '../post/_services'
+import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/post'
 import AuthContext from '../../contexts/AuthContext'
 
 import PostFeedItem from '../post/PostFeedItem'

@@ -4,7 +4,7 @@ import AuthContext from '../../contexts/AuthContext'
 import Router from 'next/router'
 
 import LinkRouter from '../../components/LinkRouter'
-import { searchFunc } from '../search/_services'
+import { searchFunc } from '../../services/search'
 import isEmpty from '../../utils/isEmpty'
 import {
   AppBar,

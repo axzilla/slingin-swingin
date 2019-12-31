@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import AuthContext from '../../contexts/AuthContext'
-import { commentUpvote, commentDownvote } from './_services'
+import { commentUpvote, commentDownvote } from '../../services/comment'
 
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button } from '@material-ui/core'
