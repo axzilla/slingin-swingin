@@ -1,4 +1,4 @@
-import PrivacyPolicy from '../views/privacy/PrivacyPolicy'
+import { PrivacyPolicy } from '../views'
 
 function privacyPolicy() {
   return <PrivacyPolicy />
