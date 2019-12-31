@@ -1,8 +1,8 @@
 import { isLoggedIn } from '../utils/initialize'
-import UserLogin from '../views/auth/UserLogin'
+import { Login } from '../views'
 
 function login() {
-  return <UserLogin />
+  return <Login />
 }
 
 login.getInitialProps = ctx => {
