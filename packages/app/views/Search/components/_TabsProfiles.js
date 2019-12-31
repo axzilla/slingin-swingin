@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Spinner from '../common/Spinner'
-import ProfilesFeedItem from '../profile/ProfilesFeedItem'
+import Spinner from '../../common/Spinner'
+import ProfilesFeedItem from '../../profile/ProfilesFeedItem'
 import { Grid, Button } from '@material-ui/core'
 
 function SearchProfileFeed({ searchResult }) {

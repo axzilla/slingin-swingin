@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import SearchPostFeed from './SearchPostFeed'
-import SearchProfileFeed from './SearchProfileFeed'
+import { TabsPosts, TabsProfiles } from './'
 import { makeStyles } from '@material-ui/styles'
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
 
@@ -50,7 +49,7 @@ function CenteredTabs({ searchResult, searchString, setSearchResult }) {
       </Tabs>
       {value === 0 && (
         <TabContainer>
-          <SearchPostFeed
+          <TabsPosts
             searchResult={searchResult}
             searchString={searchString}
             setSearchResult={setSearchResult}
@@ -59,7 +58,7 @@ function CenteredTabs({ searchResult, searchString, setSearchResult }) {
       )}
       {value === 1 && (
         <TabContainer>
-          <SearchProfileFeed searchResult={searchResult} searchString={searchString} />
+          <TabsProfiles searchResult={searchResult} searchString={searchString} />
         </TabContainer>
       )}
     </Grid>
