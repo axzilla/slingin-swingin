@@ -1,4 +1,4 @@
-import Imprint from '../views/imprint/Imprint'
+import { Imprint } from '../views'
 
 function imprint() {
   return <Imprint />
