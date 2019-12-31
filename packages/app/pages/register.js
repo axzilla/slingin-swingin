@@ -1,8 +1,8 @@
 import { isLoggedIn } from '../utils/initialize'
-import UserRegister from '../views/auth/UserRegister'
+import { Register } from '../views'
 
 function register() {
-  return <UserRegister />
+  return <Register />
 }
 
 register.getInitialProps = ctx => {
