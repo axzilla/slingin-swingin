@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 
 import AuthContext from '../../contexts/AuthContext'
 import { useAlert } from '../../contexts/AlertContext'
-import { passwordChange } from './_services'
+import { passwordChange } from '../../services/auth'
 
 import { makeStyles } from '@material-ui/styles'
 import {

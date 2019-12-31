@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
-import { userRegister } from './_services'
+import { userRegister } from '../../services/auth'
 import LinkRouter from '../LinkRouter'
 
 import { makeStyles } from '@material-ui/styles'

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import AuthContext from '../../contexts/AuthContext'
-import { commentUpdate, commentDelete } from './_services'
-import { getSubCommentsByCommentRef } from '../subComment/_services'
+import { commentUpdate, commentDelete } from '../../services/comment'
+import { getSubCommentsByCommentRef } from '../../services/subComment'
 
 import CommentEdit from './CommentEdit'
 import CommentFeedItemHeader from './CommentFeedItemHeader'

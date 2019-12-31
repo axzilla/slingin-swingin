@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 
 import AuthContext from '../../contexts/AuthContext'
-import { userLogin } from './_services'
+import { userLogin } from '../../services/auth'
 
 import LinkRouter from '../LinkRouter'
 

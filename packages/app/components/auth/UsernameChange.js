@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { usernameChange } from './_services'
+import { usernameChange } from '../../services/auth'
 import AuthContext from '../../contexts/AuthContext'
 import { useAlert } from '../../contexts/AlertContext'
 

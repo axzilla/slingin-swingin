@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 
 import AuthContext from '../../contexts/AuthContext'
-import { sendVerificationEmail } from './_services'
-import { getCurrentProfile } from '../profile/_services'
+import { sendVerificationEmail } from '../../services/auth'
+import { getCurrentProfile } from '../../services/profile'
 import { Grid, Typography, Card, CardContent, Button } from '@material-ui/core'
 
 function NotVerified() {

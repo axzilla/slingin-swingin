@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 
 import { useAlert } from '../../contexts/AlertContext'
-import { passwordReset } from './_services'
+import { passwordReset } from '../../services/auth'
 
 import { makeStyles } from '@material-ui/styles'
 import {

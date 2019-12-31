@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getPostsByTag, getPostsTags } from './_services'
-import { postToggleLikes, postToggleBookmarks } from '../post/_services'
+import {
+  getPostsByTag,
+  getPostsTags,
+  postToggleLikes,
+  postToggleBookmarks
+} from '../../services/post'
 import PostFeedItem from './PostFeedItem'
 import PostsByTagHeaderCard from './PostsByTagHeaderCard'
 import WidgetTopPostsTags from '../../components/widgets/WidgetTopPostsTags'

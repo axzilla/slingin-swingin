@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Spinner from '../common/Spinner'
 import SearchTabs from './SearchTabs'
 import isEmpty from '../../utils/isEmpty'
-import { searchFunc } from './_services'
+import { searchFunc } from '../../services/search'
 import { Grid } from '@material-ui/core'
 
 function Search() {

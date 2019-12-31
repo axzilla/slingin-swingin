@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import MarkdownEditor from '../common/MarkdownEditor'
 
-import { commentCreate } from './_services'
+import { commentCreate } from '../../services/comment'
 
 import { makeStyles } from '@material-ui/styles'
 import { Grid, FormControl, FormHelperText, Button } from '@material-ui/core'

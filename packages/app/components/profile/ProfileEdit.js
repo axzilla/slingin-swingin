@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { useAlert } from '../../contexts/AlertContext'
-import { createProfile, getCurrentProfile } from './_services'
+import { createProfile, getCurrentProfile } from '../../services/profile'
 import ProfileEditColorPicker from './ProfileEditColorPicker'
 import ProfileEditAvatar from './ProfileEditAvatar'
 import { makeStyles } from '@material-ui/styles'

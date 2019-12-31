@@ -2,9 +2,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import AuthContext from '../../contexts/AuthContext'
-import { getPostByShortId, postDelete, postToggleLikes, postToggleBookmarks } from './_services'
-import { getCommentsByPostRef } from '../comment/_services'
-import { getSubCommentByPostRef } from '../subComment/_services'
+import {
+  getPostByShortId,
+  postDelete,
+  postToggleLikes,
+  postToggleBookmarks
+} from '../../services/post'
+import { getCommentsByPostRef } from '../../services/comment'
+import { getSubCommentByPostRef } from '../../services/subComment'
 import Spinner from '../common/Spinner'
 import CommentCreate from '../comment/CommentCreate'
 import CommentFeedItem from '../comment/CommentFeedItem'
