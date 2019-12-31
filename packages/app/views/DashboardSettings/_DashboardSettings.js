@@ -1,9 +1,6 @@
 import React from 'react'
 
-import EmailChange from '../auth/EmailChange'
-import PasswordChange from '../auth/PasswordChange'
-import UsernameChange from '../auth/UsernameChange'
-import Settings from '../auth/Settings'
+import { Subscriptions, ChangeEmail, ChangePassword, ChangeUsername } from './components'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
@@ -20,16 +17,16 @@ function DashboardSettings() {
   return (
     <Grid container>
       <Grid item xs={12} className={classes.container}>
-        <EmailChange />
+        <ChangeEmail />
       </Grid>
       <Grid item xs={12} className={classes.container}>
-        <PasswordChange />
+        <ChangePassword />
       </Grid>
       <Grid item xs={12} className={classes.container}>
-        <UsernameChange />
+        <ChangeUsername />
       </Grid>
       <Grid item xs={12} className={classes.container}>
-        <Settings />
+        <Subscriptions />
       </Grid>
     </Grid>
   )
