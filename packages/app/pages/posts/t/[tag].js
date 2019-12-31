@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import PostsByTag from '../../../views/post/PostsByTag'
+import { PostFeedByTag } from '../../../views'
 import SeoMeta from '../../../views/common/SeoMeta'
 
 function postsByTag({ tag }) {
@@ -10,7 +10,7 @@ function postsByTag({ tag }) {
         desc={`codehustla.dev - Hier dreht sich alles um ${tag}`}
         canonical={`https://www.codehustla.dev/posts/t/${tag}`}
       />
-      <PostsByTag tag={tag} />
+      <PostFeedByTag tag={tag} />
     </>
   )
 }
