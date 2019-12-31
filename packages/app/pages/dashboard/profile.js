@@ -1,6 +1,6 @@
 import { isNotLoggedIn } from '../../utils/initialize'
-import Dashboard from '../../components/dashboard/Dashboard'
-import ProfileEdit from '../../components/profile/ProfileEdit'
+import Dashboard from '../../views/dashboard/Dashboard'
+import ProfileEdit from '../../views/profile/ProfileEdit'
 
 function profile() {
   return (

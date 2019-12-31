@@ -1,6 +1,6 @@
 import { isNotLoggedIn } from '../../utils/initialize'
-import Dashboard from '../../components/dashboard/Dashboard'
-import TabsPost from '../../components/dashboard/TabsPost'
+import Dashboard from '../../views/dashboard/Dashboard'
+import TabsPost from '../../views/dashboard/TabsPost'
 
 function posts() {
   return (

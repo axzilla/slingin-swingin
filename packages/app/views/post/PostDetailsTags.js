@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Typography } from '@material-ui/core'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 
 function PostDetailsTags({ post }) {
   return (

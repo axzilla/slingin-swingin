@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 
 function PostDetailsTitleImage({ post }) {
   return (

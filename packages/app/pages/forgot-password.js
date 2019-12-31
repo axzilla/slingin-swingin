@@ -1,5 +1,5 @@
 import { isLoggedIn } from '../utils/initialize'
-import PasswordForgot from '../components/auth/PasswordForgot'
+import PasswordForgot from '../views/auth/PasswordForgot'
 
 function passwordForgot() {
   return <PasswordForgot />

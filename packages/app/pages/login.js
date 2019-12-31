@@ -1,5 +1,5 @@
 import { isLoggedIn } from '../utils/initialize'
-import UserLogin from '../components/auth/UserLogin'
+import UserLogin from '../views/auth/UserLogin'
 
 function login() {
   return <UserLogin />

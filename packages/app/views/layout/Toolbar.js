@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import AuthContext from '../../contexts/AuthContext'
 import Router from 'next/router'
 
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import { searchFunc } from '../../services/search'
 import isEmpty from '../../utils/isEmpty'
 import {

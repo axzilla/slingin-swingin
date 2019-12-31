@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../components/LinkRouter'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 import StyledReactMarkdown from '../common/StyledReactMarkdown'
-import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
+import LinkRouter from '../../views/LinkRouter'
+import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
-function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
+function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {
   const [limit, setLimit] = useState(10)
 
   function loadMore() {
@@ -14,8 +14,7 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
   }
 
   const mergedComments = [...commentsByUserId, ...subCommentsByUserId]
-
-  const commentsItem = mergedComments
+  const content = mergedComments
     .sort((a, b) => a.dateCreated < b.dateCreated)
     .slice(0, limit)
     .map(comment => {
@@ -32,7 +31,7 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
               }}
             >
               <div>
-                <LinkRouter href={`post/${shortId}/${urlSlug}`}>
+                <LinkRouter to={`/post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.refPost.title}</Typography>
                 </LinkRouter>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
@@ -47,24 +46,21 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
         </Card>
       )
     })
-
   return (
-    <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item xs={12} sm={8} md={6}>
-        {commentsItem}
-        {commentsByUserId && commentsItem.length === commentsByUserId.length ? null : (
-          <Button onClick={loadMore} variant="outlined" color="primary">
-            Mehr...
-          </Button>
-        )}
-      </Grid>
+    <Grid>
+      {content}
+      {mergedComments && content.length === mergedComments.length ? null : (
+        <Button onClick={loadMore} variant="outlined" color="primary">
+          Mehr...
+        </Button>
+      )}
     </Grid>
   )
 }
 
-ProfileDetailsTabsComments.propTypes = {
+TabsPostComments.propTypes = {
   commentsByUserId: PropTypes.array,
   subCommentsByUserId: PropTypes.array
 }
 
-export default ProfileDetailsTabsComments
+export default TabsPostComments

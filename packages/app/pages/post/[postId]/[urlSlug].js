@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import PostDetails from '../../../components/post/PostDetails'
-import SeoMeta from '../../../components/common/SeoMeta'
+import PostDetails from '../../../views/post/PostDetails'
+import SeoMeta from '../../../views/common/SeoMeta'
 
 function postDetails({ postId, urlSlug }) {
   return (

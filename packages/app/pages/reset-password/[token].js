@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import PasswordReset from '../../components/auth/PasswordReset'
+import PasswordReset from '../../views/auth/PasswordReset'
 
 function resetPassword({ token }) {
   return <PasswordReset token={token} />

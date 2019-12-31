@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import PostsByTag from '../../../components/post/PostsByTag'
-import SeoMeta from '../../../components/common/SeoMeta'
+import PostsByTag from '../../../views/post/PostsByTag'
+import SeoMeta from '../../../views/common/SeoMeta'
 
 function postsByTag({ tag }) {
   return (

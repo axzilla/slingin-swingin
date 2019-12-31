@@ -1,4 +1,4 @@
-import Imprint from '../components/imprint/Imprint'
+import Imprint from '../views/imprint/Imprint'
 
 function imprint() {
   return <Imprint />

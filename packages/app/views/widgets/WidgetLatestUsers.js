@@ -5,7 +5,7 @@ import 'moment/locale/de'
 
 import { getAllProfiles } from '../../services/profile'
 
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {

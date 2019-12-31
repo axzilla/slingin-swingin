@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../components/LinkRouter'
+import LinkRouter from '../../views/LinkRouter'
 import Button from '../button/Button'
 
 function ProfilesFeedItemEditButton({ profile, auth }) {
