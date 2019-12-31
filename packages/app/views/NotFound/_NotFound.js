@@ -1,6 +1,6 @@
 import React from 'react'
 import notFound from '../../assets/img/404.png'
-import LinkRouter from '../LinkRouter'
+import { Link } from '../../components'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Button } from '@material-ui/core'
 
@@ -26,11 +26,11 @@ function NotFound() {
       className={classes.container}
     >
       <img src={notFound} className={classes.image} />
-      <LinkRouter href="/">
+      <Link href="/">
         <Button variant="contained" color="primary">
           Zurück
         </Button>
-      </LinkRouter>
+      </Link>
     </Grid>
   )
 }

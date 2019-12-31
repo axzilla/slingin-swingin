@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import AuthContext from '../../contexts/AuthContext'
 
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -89,44 +89,44 @@ function Dashboard({ children }) {
         >
           <div className={classes.toolbar} />
           <List>
-            <LinkRouter href={`/${user.username}`}>
+            <Link href={`/${user.username}`}>
               <ListItem button>
                 <ListItemIcon>
                   <Avatar src={user.avatar && user.avatar.secure_url} className={classes.avatar} />
                 </ListItemIcon>
                 <ListItemText>@{user.username}</ListItemText>
               </ListItem>
-            </LinkRouter>
+            </Link>
           </List>
           <Divider />
           <List>
-            <LinkRouter href="/dashboard/posts">
+            <Link href="/dashboard/posts">
               <ListItem button>
                 <ListItemIcon>
                   <ViewComfy />
                 </ListItemIcon>
                 <ListItemText>Beiträge</ListItemText>
               </ListItem>
-            </LinkRouter>
+            </Link>
           </List>
           <Divider />
           <List>
-            <LinkRouter href="/dashboard/profile">
+            <Link href="/dashboard/profile">
               <ListItem button>
                 <ListItemIcon>
                   <AccountBox />
                 </ListItemIcon>
                 <ListItemText>Profil</ListItemText>
               </ListItem>
-            </LinkRouter>
-            <LinkRouter href="/dashboard/settings">
+            </Link>
+            <Link href="/dashboard/settings">
               <ListItem button>
                 <ListItemIcon>
                   <Settings />
                 </ListItemIcon>
                 <ListItemText>Einstellungen</ListItemText>
               </ListItem>
-            </LinkRouter>
+            </Link>
           </List>
         </Drawer>
         {children}

@@ -6,7 +6,7 @@ import 'moment/locale/de'
 import StyledReactMarkdown from '../common/StyledReactMarkdown'
 import AuthContext from '../../contexts/AuthContext'
 import { subCommentUpdate, subCommentDelete } from '../../services/subComment'
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 import SubCommentEdit from './SubCommentEdit'
 import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
 import SubCommentFeedItemMenu from './SubCommentFeedItemMenu'
@@ -103,11 +103,11 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
               primary={<StyledReactMarkdown source={subComment.text} escapeHtml={false} />}
               secondary={
                 <React.Fragment>
-                  <LinkRouter href={`/${subComment.user.username}`}>
+                  <Link href={`/${subComment.user.username}`}>
                     <Typography component="span" variant="body2" className={classes.inline}>
                       {subComment.user.username}
                     </Typography>
-                  </LinkRouter>
+                  </Link>
                   {' — '}
                   <Moment fromNow locale="de">
                     {subComment.dateCreated}

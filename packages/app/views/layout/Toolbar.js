@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import AuthContext from '../../contexts/AuthContext'
 import Router from 'next/router'
 
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 import { searchFunc } from '../../services/search'
 import isEmpty from '../../utils/isEmpty'
 import {
@@ -190,7 +190,7 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
   const sideList = (
     <div className={classes.list}>
       <List>
-        <LinkRouter href="/">
+        <Link href="/">
           <ListItem style={{ display: 'flex', justifyContent: 'space-around' }}>
             <Typography
               className={isLightTheme ? classes.logoLight : classes.logoDark}
@@ -200,12 +200,12 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
               CODEHUSTLA
             </Typography>
           </ListItem>
-        </LinkRouter>
+        </Link>
         {!isAuthenticated ? (
           <React.Fragment>
             <ListItem>
               <ListItemText>
-                <LinkRouter href="/register">
+                <Link href="/register">
                   <Button
                     fullWidth
                     className={classes.mobileButton}
@@ -214,12 +214,12 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
                   >
                     Registrieren
                   </Button>
-                </LinkRouter>
+                </Link>
               </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemText>
-                <LinkRouter href="/login">
+                <Link href="/login">
                   <Button
                     color="primary"
                     fullWidth
@@ -228,7 +228,7 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
                   >
                     Einloggen
                   </Button>
-                </LinkRouter>
+                </Link>
               </ListItemText>
             </ListItem>
           </React.Fragment>
@@ -238,14 +238,14 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
         <React.Fragment>
           <Divider />
 
-          <LinkRouter href="/create-post">
+          <Link href="/create-post">
             <ListItem button>
               <ListItemIcon>
                 <AddBox />
               </ListItemIcon>
               <ListItemText>Beitrag erstellen</ListItemText>
             </ListItem>
-          </LinkRouter>
+          </Link>
         </React.Fragment>
       ) : null}
       <Divider />
@@ -272,7 +272,7 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
           >
             <MenuIcon />
           </IconButton>
-          <LinkRouter href="/">
+          <Link href="/">
             <Typography
               className={`${classes.title} ${isLightTheme ? classes.logoLight : classes.logoDark}`}
               variant="h6"
@@ -280,7 +280,7 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
             >
               CODEHUSTLA
             </Typography>
-          </LinkRouter>
+          </Link>
 
           <div className={isLightTheme ? classes.searchLight : classes.searchDark}>
             <div className={classes.searchIcon}>
@@ -303,11 +303,11 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
           <div className={classes.grow} />
           {isAuthenticated ? (
             <div className={classes.sectionDesktop}>
-              <LinkRouter href="/create-post">
+              <Link href="/create-post">
                 <Button className={classes.button} variant="outlined" color="primary">
                   Beitrag erstellen
                 </Button>
-              </LinkRouter>
+              </Link>
             </div>
           ) : null}
 
@@ -319,27 +319,27 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
 
           {isAuthenticated ? (
             <>
-              <LinkRouter href="/dashboard/profile">
+              <Link href="/dashboard/profile">
                 <IconButton>
                   <AccountCircle />
                 </IconButton>
-              </LinkRouter>
+              </Link>
               <IconButton onClick={onLogoutClick}>
                 <ExitToApp />
               </IconButton>
             </>
           ) : (
             <div className={classes.sectionDesktop}>
-              <LinkRouter href="/register">
+              <Link href="/register">
                 <Button className={classes.button} variant="outlined" color="secondary">
                   Registrieren
                 </Button>
-              </LinkRouter>
-              <LinkRouter href="/login">
+              </Link>
+              <Link href="/login">
                 <Button color="primary" className={classes.button} variant="outlined">
                   Einloggen
                 </Button>
-              </LinkRouter>
+              </Link>
             </div>
           )}
         </Toolbar>

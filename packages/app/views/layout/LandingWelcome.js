@@ -1,5 +1,5 @@
 import React from 'react'
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 import { Grid, Typography, Button, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
@@ -39,16 +39,16 @@ function CardLanding() {
           Melde dich jetzt kostenlos an und werde Teil einer genialen Community.
         </Typography>
         <Grid className={classes.gridButtons}>
-          <LinkRouter href="/register">
+          <Link href="/register">
             <Button className={classes.button} variant="outlined" color="secondary">
               Registrieren
             </Button>
-          </LinkRouter>
-          <LinkRouter href="/login">
+          </Link>
+          <Link href="/login">
             <Button className={classes.button} variant="outlined" color="primary">
               Einloggen
             </Button>
-          </LinkRouter>
+          </Link>
         </Grid>
         <Typography gutterBottom className={classes.checks}>
           <i className="fas fa-check-circle" style={{ color: '#38d3b6', marginRight: '10px' }} />{' '}

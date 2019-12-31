@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../../views/LinkRouter'
+import { Link } from '../../../components'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 import StyledReactMarkdown from '../../common/StyledReactMarkdown'
@@ -32,9 +32,9 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
               }}
             >
               <div>
-                <LinkRouter href={`post/${shortId}/${urlSlug}`}>
+                <Link href={`post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.refPost.title}</Typography>
-                </LinkRouter>
+                </Link>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow locale="de">
                     {comment.dateCreated}

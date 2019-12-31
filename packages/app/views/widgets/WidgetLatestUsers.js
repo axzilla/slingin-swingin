@@ -5,7 +5,7 @@ import 'moment/locale/de'
 
 import { getAllProfiles } from '../../services/profile'
 
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -61,7 +61,7 @@ function LandingWidgetUsers() {
             profiles.slice(0, 10).map(profile => {
               return (
                 <ListItem key={profile._id}>
-                  <LinkRouter key={profile._id} href={`/${profile.handle}`}>
+                  <Link key={profile._id} href={`/${profile.handle}`}>
                     <ListItemAvatar>
                       {profile.user.avatar && profile.user.avatar.secure_url ? (
                         <Avatar
@@ -74,12 +74,12 @@ function LandingWidgetUsers() {
                         </Avatar>
                       )}
                     </ListItemAvatar>
-                  </LinkRouter>
+                  </Link>
                   <ListItemText
                     primary={
-                      <LinkRouter key={profile._id} href={`/${profile.handle}`}>
+                      <Link key={profile._id} href={`/${profile.handle}`}>
                         {profile.user.username}
-                      </LinkRouter>
+                      </Link>
                     }
                     secondary={
                       <Moment fromNow locale="de">

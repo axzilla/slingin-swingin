@@ -5,7 +5,7 @@ import 'moment/locale/de'
 
 import AuthContext from '../../contexts/AuthContext'
 
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 
 import { makeStyles } from '@material-ui/styles'
 import { CardHeader, Avatar, IconButton } from '@material-ui/core'
@@ -27,19 +27,19 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
     <CardHeader
       avatar={
         comment.user.avatar ? (
-          <LinkRouter href={`/${comment.user.username}`}>
+          <Link href={`/${comment.user.username}`}>
             <Avatar
               src={comment.user.avatar ? comment.user.avatar.secure_url : null}
               aria-label="Recipe"
               className={classes.avatar}
             />
-          </LinkRouter>
+          </Link>
         ) : (
-          <LinkRouter href={`/${comment.user.username}`}>
+          <Link href={`/${comment.user.username}`}>
             <Avatar aria-label="Recipe" className={classes.avatar}>
               {comment.user.username.substring(0, 1)}
             </Avatar>
-          </LinkRouter>
+          </Link>
         )
       }
       action={
@@ -53,7 +53,7 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
           </IconButton>
         ) : null
       }
-      title={<LinkRouter href={`/${comment.user.username}`}>{comment.user.username}</LinkRouter>}
+      title={<Link href={`/${comment.user.username}`}>{comment.user.username}</Link>}
       subheader={
         <Moment fromNow locale="de">
           {comment.dateCreated}

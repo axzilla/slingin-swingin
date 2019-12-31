@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 import StyledReactMarkdown from '../../common/StyledReactMarkdown'
-import LinkRouter from '../../../views/LinkRouter'
+import { Link } from '../../../components'
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
 function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {
@@ -31,9 +31,9 @@ function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {
               }}
             >
               <div>
-                <LinkRouter to={`/post/${shortId}/${urlSlug}`}>
+                <Link to={`/post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.refPost.title}</Typography>
-                </LinkRouter>
+                </Link>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow locale="de">
                     {comment.dateCreated}
