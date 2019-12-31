@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
 import { userRegister } from '../../services/auth'
-import LinkRouter from '../LinkRouter'
+import { Link } from '../../components'
 
 import { makeStyles } from '@material-ui/styles'
 
@@ -131,7 +131,7 @@ const Register = () => {
             </Button>
           </form>
           <Divider className={classes.divider} />
-          <LinkRouter
+          <Link
             href={'/login'}
             style={{
               display: 'block',
@@ -139,7 +139,7 @@ const Register = () => {
             }}
           >
             <Button className={classes.passwordButton}>Du hast schon einen Account?</Button>
-          </LinkRouter>
+          </Link>
         </CardContent>
       </Card>
     </Grid>

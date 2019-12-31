@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../views/LinkRouter'
+import { Link } from '../../components'
 import Moment from 'react-moment'
 import AuthContext from '../../contexts/AuthContext'
 import { getCommentsByPostRef } from '../../services/comment'
@@ -106,7 +106,7 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
       {post.titleImage ? (
-        <LinkRouter href={`/post/${post.shortId}/${post.urlSlug}`}>
+        <Link href={`/post/${post.shortId}/${post.urlSlug}`}>
           <CardMedia
             component="img"
             alt="Post Tittle Image"
@@ -114,13 +114,13 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
             height="140"
             image={post.titleImage.secure_url}
           />
-        </LinkRouter>
+        </Link>
       ) : null}
 
       <CardContent>
         <Grid container wrap="nowrap">
           <Grid item>
-            <LinkRouter href={`/${post.user.username}`}>
+            <Link href={`/${post.user.username}`}>
               {post.user.avatar && post.user.avatar.secure_url ? (
                 <Avatar
                   className={classes.bigAvatar}
@@ -132,7 +132,7 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
                   {post.user.username.substring(0, 1)}
                 </Avatar>
               )}
-            </LinkRouter>
+            </Link>
           </Grid>
 
           <Grid>
@@ -142,27 +142,27 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
               className={classes.chip}
               style={{ border: `2px solid ${color}` }}
             />
-            <LinkRouter href={`/post/${post.shortId}/${post.urlSlug}`}>
+            <Link href={`/post/${post.shortId}/${post.urlSlug}`}>
               <Typography variant="h5" component="h2" color="textSecondary">
                 {post.title}
               </Typography>
-            </LinkRouter>
+            </Link>
             <Grid container>
               {post.tags.map(tag => {
                 return (
-                  <LinkRouter key={tag} href={`/posts/t/${tag}`}>
+                  <Link key={tag} href={`/posts/t/${tag}`}>
                     <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
                       #{tag}
                     </Typography>
-                  </LinkRouter>
+                  </Link>
                 )
               })}
             </Grid>
-            <LinkRouter href={`/${post.user.username}`}>
+            <Link href={`/${post.user.username}`}>
               <Typography gutterBottom className={classes.inlineText}>
                 {post.user.username}
               </Typography>
-            </LinkRouter>
+            </Link>
             <Typography variant="caption" gutterBottom className={classes.inlineText}>
               {' '}
               -{' '}
@@ -190,12 +190,12 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
               &nbsp;
               <Typography>{post.likes.length}</Typography>
             </Button>
-            <LinkRouter href={`/post/${post.shortId}/${post.urlSlug}`}>
+            <Link href={`/post/${post.shortId}/${post.urlSlug}`}>
               <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
                 <i className="far fa-comment fa-lg" /> &nbsp;
                 {commentsLength}
               </Button>
-            </LinkRouter>
+            </Link>
           </span>
           <Button
             onClick={toggleIsPostBookmarked}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 
 import { makeStyles } from '@material-ui/styles'
-// import Link from '@material-ui/core/Link'
+import { Link as MuiLink } from '@material-ui/core'
 
 const useStyles = makeStyles({
   link: {
@@ -20,8 +20,8 @@ function LinkRouter({ children, href }) {
   const classes = useStyles()
 
   return (
-    <Link href={href} className={classes.link}>
-      {children}
+    <Link href={href}>
+      <MuiLink className={classes.link}>{children}</MuiLink>
     </Link>
   )
 }

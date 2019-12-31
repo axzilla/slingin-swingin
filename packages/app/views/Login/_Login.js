@@ -4,7 +4,7 @@ import Router from 'next/router'
 import AuthContext from '../../contexts/AuthContext'
 import { userLogin } from '../../services/auth'
 
-import LinkRouter from '../LinkRouter'
+import { Link } from '../../components'
 
 import { makeStyles } from '@material-ui/styles'
 import {
@@ -119,12 +119,12 @@ function UserLogin() {
             </Button>
           </form>
           <Divider className={classes.divider} />
-          <LinkRouter href={'/forgot-password'}>
+          <Link href={'/forgot-password'}>
             <Button className={classes.passwordButton}>Passwort vergessen?</Button>
-          </LinkRouter>
-          <LinkRouter href={'/register'}>
+          </Link>
+          <Link href={'/register'}>
             <Button className={classes.passwordButton}>Noch keinen Account?</Button>
-          </LinkRouter>
+          </Link>
         </CardContent>
       </Card>
     </Grid>

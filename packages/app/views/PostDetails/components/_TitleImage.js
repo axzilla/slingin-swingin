@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../../views/LinkRouter'
+import { Link } from '../../../components'
 
 function PostDetailsTitleImage({ post }) {
   return (
-    <LinkRouter href={`/post/${post.shortId}/${post.urlSlug}`}>
+    <Link href={`/post/${post.shortId}/${post.urlSlug}`}>
       {post.titleImage ? (
         <img
           alt="post-title"
@@ -17,7 +17,7 @@ function PostDetailsTitleImage({ post }) {
           }}
         />
       ) : null}
-    </LinkRouter>
+    </Link>
   )
 }
 
