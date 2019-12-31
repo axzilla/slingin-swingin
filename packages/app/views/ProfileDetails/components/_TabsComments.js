@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../views/LinkRouter'
+import LinkRouter from '../../../views/LinkRouter'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import StyledReactMarkdown from '../common/StyledReactMarkdown'
+import StyledReactMarkdown from '../../common/StyledReactMarkdown'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
 function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {

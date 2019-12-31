@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import isEmpty from '../../utils/isEmpty'
-import Avatar from './ProfileDetailsAvatar'
-import ProfileDetailsName from './ProfileDetailsName'
-import ProfileDetailsUsername from './ProfileDetailsUsername'
-import ProfileDetailsSocials from './ProfileDetailsSocials'
-import ProfileDetailsBio from './ProfileDetailsBio'
-import ProfileDetailsInfos from './ProfileDetailsInfos'
-import ProfileDetailsButtonEdit from './ProfileDetailsButtonEdit'
+
+import isEmpty from '../../../utils/isEmpty'
+
+import { Avatar, Name, Username, Socials, Bio, Infos, ButtonEdit } from './'
+
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
 import { Grid, Card, CardContent } from '@material-ui/core'
@@ -41,12 +38,12 @@ function ProfileDetailsCardHeader({ rgbaColor, profile, auth }) {
           <Grid item xs={12} md={9}>
             <Grid container>
               <Grid item xs={12}>
-                <ProfileDetailsName profile={profile} rgbaColor={rgbaColor} />
-                <ProfileDetailsUsername profile={profile} rgbaColor={rgbaColor} />
-                <ProfileDetailsBio profile={profile} />
-                <ProfileDetailsSocials profile={profile} rgbaColor={rgbaColor} />
-                <ProfileDetailsInfos profile={profile} />
-                <ProfileDetailsButtonEdit profile={profile} auth={auth} />
+                <Name profile={profile} rgbaColor={rgbaColor} />
+                <Username profile={profile} rgbaColor={rgbaColor} />
+                <Bio profile={profile} />
+                <Socials profile={profile} rgbaColor={rgbaColor} />
+                <Infos profile={profile} />
+                <ButtonEdit profile={profile} auth={auth} />
               </Grid>
             </Grid>
           </Grid>

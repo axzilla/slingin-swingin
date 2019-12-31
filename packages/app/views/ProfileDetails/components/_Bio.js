@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import isEmpty from '../../utils/isEmpty'
+import isEmpty from '../../../utils/isEmpty'
 import { Typography } from '@material-ui/core'
 
 function ProfileDetailsBio({ profile }) {

@@ -10,8 +10,8 @@ import { getCommentsByUserId } from '../../services/comment'
 import { getSubCommentsByUserId } from '../../services/subComment'
 
 import Spinner from '../common/Spinner'
-import ProfileDetailsCardHeader from './ProfileDetailsCardHeader'
-import ProfileDetailsTabs from './ProfileDetailsTabs'
+import { CardHeader, Tabs } from './components'
+
 import { makeStyles } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
 
@@ -65,14 +65,14 @@ function ProfileDetails({ handle }) {
       ) : (
         <>
           <Grid item xs={12} className={classes.cardHeader}>
-            <ProfileDetailsCardHeader
+            <CardHeader
               profile={profile}
               auth={AuthContext}
               setProfile={setProfile}
               rgbaColor={rgbaColor}
             />
           </Grid>
-          <ProfileDetailsTabs
+          <Tabs
             profile={profile}
             postsByUserId={postsByUserId}
             setPostsByUserId={setPostsByUserId}

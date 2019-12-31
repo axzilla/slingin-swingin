@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import isEmpty from '../../utils/isEmpty'
+import isEmpty from '../../../utils/isEmpty'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography } from '@material-ui/core'
 

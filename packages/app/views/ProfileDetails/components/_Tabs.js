@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
-import ProfileDetailsTabsPosts from './ProfileDetailsTabsPosts'
-import ProfileDetailsTabsComments from './ProfileDetailsTabsComments'
+import { TabsComments, TabsPosts } from './'
 
 function TabContainer({ children, dir }) {
   return (
@@ -60,15 +59,12 @@ function ProfileDetailsTabs({
       </Tabs>
       {value === 0 && (
         <TabContainer>
-          <ProfileDetailsTabsPosts
-            postsByUserId={postsByUserId}
-            setPostsByUserId={setPostsByUserId}
-          />
+          <TabsPosts postsByUserId={postsByUserId} setPostsByUserId={setPostsByUserId} />
         </TabContainer>
       )}
       {value === 1 && (
         <TabContainer>
-          <ProfileDetailsTabsComments
+          <TabsComments
             commentsByUserId={commentsByUserId}
             subCommentsByUserId={subCommentsByUserId}
           />
