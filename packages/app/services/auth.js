@@ -18,14 +18,6 @@ export function avatarDelete() {
   return axios.post(`${rootUrl}/avatar-delete`)
 }
 
-export function verify(decoded) {
-  return axios.post(`${rootUrl}/verify`, decoded)
-}
-
-export function sendVerificationEmail(user) {
-  return axios.post(`${rootUrl}/verify/send-email`, user)
-}
-
 export function passwordForgot(emailData) {
   return axios.post(`${rootUrl}/password-forgot`, emailData)
 }

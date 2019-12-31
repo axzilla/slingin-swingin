@@ -21,9 +21,5 @@ Disallow: /search/
 Disallow: /search
 Disallow: /not-found/
 Disallow: /not-found
-Disallow: /not-verified/
-Disallow: /not-verified
 Disallow: /privacy-policy/
 Disallow: /privacy-policy
-Disallow: /verify/
-Disallow: /verify
