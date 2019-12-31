@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import Spinner from '../common/Spinner'
-import SearchTabs from './SearchTabs'
+import { Tabs } from './components'
 import isEmpty from '../../utils/isEmpty'
 import { searchFunc } from '../../services/search'
 import { Grid } from '@material-ui/core'
@@ -36,7 +36,7 @@ function Search() {
     const searchString = router.query.q
     content = (
       <React.Fragment>
-        <SearchTabs
+        <Tabs
           searchResult={searchResult}
           searchString={searchString}
           setSearchResult={setSearchResult}

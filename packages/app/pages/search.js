@@ -1,4 +1,4 @@
-import Search from '../views/search/Search'
+import { Search } from '../views'
 
 function search() {
   return <Search />
