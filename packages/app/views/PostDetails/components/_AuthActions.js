@@ -1,8 +1,8 @@
 import React from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import LinkRouter from '../../views/LinkRouter'
-import { postDelete } from '../../services/post'
+import LinkRouter from '../../../views/LinkRouter'
+import { postDelete } from '../../../services/post'
 import { CardActions, Button, Divider } from '@material-ui/core'
 
 function PostDetailsAuthActions({ post, user, isAuthenticated }) {
