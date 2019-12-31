@@ -1,8 +1,18 @@
 import PropTypes from 'prop-types'
 import PostsByTag from '../../../components/post/PostsByTag'
+import SeoMeta from '../../../components/common/SeoMeta'
 
 function postsByTag({ tag }) {
-  return <PostsByTag tag={tag} />
+  return (
+    <>
+      <SeoMeta
+        title={`${tag} - codehustla.dev - Gemeinsam werden wir bessere Entwickler`}
+        desc={`codehustla.dev - Hier dreht sich alles um ${tag}`}
+        canonical={`https://www.codehustla.dev/posts/t/${tag}`}
+      />
+      <PostsByTag tag={tag} />
+    </>
+  )
 }
 
 postsByTag.getInitialProps = ({ query }) => {

@@ -57,10 +57,6 @@ class MyDocument extends Document {
             name="google-site-verification"
             content="ehV9USkda3cusLdS9ErSgTI43ekLZKQhCMQyVMJHA5Y"
           />
-          <meta
-            name="description"
-            content="codehustla.dev ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen."
-          ></meta>
         </Head>
         <body>
           <Main />

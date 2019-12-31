@@ -1,8 +1,19 @@
 import PropTypes from 'prop-types'
 import PostDetails from '../../../components/post/PostDetails'
+import SeoMeta from '../../../components/common/SeoMeta'
 
 function postDetails({ postId, urlSlug }) {
-  return <PostDetails postId={postId} urlSlug={urlSlug} />
+  return (
+    <>
+      <SeoMeta
+        title={`${urlSlug} - codehustla.dev`}
+        // If data comes in getInitialProps please fill out desc with post body!?
+        // desc={}
+        canonical={`https://www.codehustla.dev/post/${postId}/${urlSlug}`}
+      />
+      <PostDetails postId={postId} urlSlug={urlSlug} />
+    </>
+  )
 }
 
 postDetails.getInitialProps = ({ query }) => {
