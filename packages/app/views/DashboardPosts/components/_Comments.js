@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import StyledReactMarkdown from '../../common/StyledReactMarkdown'
-import { Link } from '../../../components'
+import { Link, StyledReactMarkdown } from '../../../components'
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
 function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {

@@ -1,5 +1,5 @@
 import Landing from '../views/layout/Landing'
-import SeoMeta from '../views/common/SeoMeta'
+import { SeoMeta } from '../components'
 
 function landing() {
   return (

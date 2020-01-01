@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import MarkdownEditor from '../../common/MarkdownEditor'
+import { MarkdownEditor } from '../../../components'
 
 import { commentCreate } from '../../../services/comment'
 

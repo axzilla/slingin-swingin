@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import MarkdownEditor from '../common/MarkdownEditor'
+import { MarkdownEditor } from '../../components'
 import { postUpdate, getPostById } from '../../services/post'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'

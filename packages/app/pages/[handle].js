@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 import { ProfileDetails } from '../views'
-import SeoMeta from '../views/common/SeoMeta'
+import { SeoMeta } from '../components'
 
 function profileDetails({ handle }) {
   return (

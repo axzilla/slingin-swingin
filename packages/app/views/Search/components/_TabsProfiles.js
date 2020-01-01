@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Spinner from '../../common/Spinner'
+import { Spinner } from '../../../components'
 import ProfilesFeedItem from '../../profile/ProfilesFeedItem'
 import { Grid, Button } from '@material-ui/core'
 
