@@ -7,9 +7,8 @@ import {
   postToggleBookmarks
 } from '../../services/post'
 import { Header } from './components'
-import { PostFeedItem } from '../../components'
-import WidgetTopPostsTags from '../../views/widgets/WidgetTopPostsTags'
-import WidgetLatestUsers from '../../views/widgets/WidgetLatestUsers'
+import { PostFeedItem, WidgetTopPostsTags, WidgetLatestUsers } from '../../components'
+
 import { Button, Grid, Hidden } from '@material-ui/core'
 
 function PostFeedByTag({ tag }) {

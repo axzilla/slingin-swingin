@@ -5,11 +5,13 @@ import { setGaPageView } from '../../utils/googleAnalytics'
 import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/post'
 import AuthContext from '../../contexts/AuthContext'
 
-import { PostFeedItem } from '../../components'
-import WidgetLatestUsers from '../../views/widgets/WidgetLatestUsers'
-import WidgetTopPostsTags from '../../views/widgets/WidgetTopPostsTags'
-import WidgetSidebarRight from '../../views/widgets/WidgetSidebarRight'
-import WidgetSidebarLeft from '../../views/widgets/WidgetSidebarLeft'
+import {
+  PostFeedItem,
+  WidgetLatestUsers,
+  WidgetTopPostsTags,
+  WidgetSidebarRight,
+  WidgetSidebarLeft
+} from '../../components'
 import { Welcome } from './components'
 
 import { Button, Grid, Hidden } from '@material-ui/core'
