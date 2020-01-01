@@ -10,7 +10,7 @@ import {
 } from '../../services/post'
 import { getCommentsByPostRef } from '../../services/comment'
 import { getSubCommentByPostRef } from '../../services/subComment'
-import Spinner from '../common/Spinner'
+import { Spinner } from '../../components'
 
 import {
   AuthActions,

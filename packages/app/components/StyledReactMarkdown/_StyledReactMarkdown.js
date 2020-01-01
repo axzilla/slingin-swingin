@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CodeBlock from '../common/CodeBlock'
+import { CodeBlock } from '../'
 import ReactMarkdown from 'react-markdown'
 import { Typography } from '@material-ui/core'
 import Link from '@material-ui/core/Link'

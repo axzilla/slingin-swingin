@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from '../../../components'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import StyledReactMarkdown from '../../common/StyledReactMarkdown'
+import { StyledReactMarkdown } from '../../../components'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
 function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { postCreate } from '../../services/post'
-import MarkdownEditor from '../common/MarkdownEditor'
+import { MarkdownEditor } from '../../components'
 import placeholder from '../../assets/img/post-title-placeholder.png'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'

@@ -9,7 +9,7 @@ import { getProfileByHandle } from '../../services/profile'
 import { getCommentsByUserId } from '../../services/comment'
 import { getSubCommentsByUserId } from '../../services/subComment'
 
-import Spinner from '../common/Spinner'
+import { Spinner } from '../../components'
 import { CardHeader, Tabs } from './components'
 
 import { makeStyles } from '@material-ui/styles'

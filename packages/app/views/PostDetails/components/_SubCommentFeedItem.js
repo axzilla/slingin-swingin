@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import StyledReactMarkdown from '../../common/StyledReactMarkdown'
+import { StyledReactMarkdown } from '../../../components'
 
 import AuthContext from '../../../contexts/AuthContext'
 import { subCommentUpdate, subCommentDelete } from '../../../services/subComment'
