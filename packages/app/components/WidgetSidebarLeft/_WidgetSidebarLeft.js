@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 
-import WidgetTopPostsTags from './WidgetTopPostsTags'
+import { WidgetTopPostsTags } from '../'
 
 const useStyles = makeStyles({
   list: {
