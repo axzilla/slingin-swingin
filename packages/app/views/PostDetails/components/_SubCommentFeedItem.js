@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react'
-
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import StyledReactMarkdown from '../common/StyledReactMarkdown'
-import AuthContext from '../../contexts/AuthContext'
-import { subCommentUpdate, subCommentDelete } from '../../services/subComment'
-import { Link } from '../../components'
-import SubCommentEdit from './SubCommentEdit'
-import SubCommentFeedItemAvatar from './SubCommentFeedItemAvatar'
-import SubCommentFeedItemMenu from './SubCommentFeedItemMenu'
+import StyledReactMarkdown from '../../common/StyledReactMarkdown'
+
+import AuthContext from '../../../contexts/AuthContext'
+import { subCommentUpdate, subCommentDelete } from '../../../services/subComment'
+
+import { Link } from '../../../components'
+
+import { SubCommentEdit, SubCommentFeedItemAvatar, SubCommentFeedItemMenu } from './'
+
 import { makeStyles } from '@material-ui/styles'
 import { MoreVert } from '@material-ui/icons'
 import {

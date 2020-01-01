@@ -11,14 +11,14 @@ import {
 import { getCommentsByPostRef } from '../../services/comment'
 import { getSubCommentByPostRef } from '../../services/subComment'
 import Spinner from '../common/Spinner'
-import CommentCreate from '../comment/CommentCreate'
-import CommentFeedItem from '../comment/CommentFeedItem'
 
 import {
   AuthActions,
   Avatar,
   Bookmarks,
   Content,
+  CommentCreate,
+  CommentFeedItem,
   Creator,
   Date,
   Likes,

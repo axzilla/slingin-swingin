@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
 
-import AuthContext from '../../contexts/AuthContext'
+import AuthContext from '../../../contexts/AuthContext'
 
-import { Link } from '../../components'
+import { Link } from '../../../components'
 
 import { makeStyles } from '@material-ui/styles'
 import { CardHeader, Avatar, IconButton } from '@material-ui/core'
