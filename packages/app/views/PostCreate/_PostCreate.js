@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { postCreate } from '../../services/post'
 import { MarkdownEditor } from '../../components'
-import placeholder from '../../assets/img/post-title-placeholder.png'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
 import { makeStyles } from '@material-ui/core/styles'
@@ -157,7 +156,7 @@ function PostCreate() {
         <CardContent>
           <img
             className={classes.media}
-            src={isEmpty(titleImagePreview) ? placeholder : titleImagePreview}
+            src={isEmpty(titleImagePreview) ? '/post-title-placeholder.png' : titleImagePreview}
             alt="Titel"
           />
           <Typography>*max 10MB</Typography>
