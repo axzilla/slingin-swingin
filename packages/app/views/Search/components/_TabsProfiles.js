@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Spinner } from '../../../components'
-import ProfilesFeedItem from '../../profile/ProfilesFeedItem'
+import { Spinner, ProfileFeedItem } from '../../../components'
 import { Grid, Button } from '@material-ui/core'
 
 function SearchProfileFeed({ searchResult }) {
@@ -19,7 +18,7 @@ function SearchProfileFeed({ searchResult }) {
     const location = 'getProfilesBySearch'
     profileItems = searchResult.profiles
       .slice(0, limit)
-      .map(profile => <ProfilesFeedItem location={location} key={profile._id} profile={profile} />)
+      .map(profile => <ProfileFeedItem location={location} key={profile._id} profile={profile} />)
   }
 
   return (
