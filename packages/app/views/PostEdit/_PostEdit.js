@@ -5,7 +5,6 @@ import { MarkdownEditor } from '../../components'
 import { postUpdate, getPostById } from '../../services/post'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
-import placeholder from '../../assets/img/post-title-placeholder.png'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
@@ -160,7 +159,7 @@ function PostEdit({ id }) {
         <CardContent>
           <img
             className={classes.media}
-            src={isEmpty(titleImagePreview) ? placeholder : titleImagePreview}
+            src={isEmpty(titleImagePreview) ? '/post-title-placeholder.png' : titleImagePreview}
             alt="Titel"
           />
           <Typography>*max 10MB</Typography>

@@ -1,5 +1,4 @@
 import React from 'react'
-import notFound from '../../assets/img/404.png'
 import { Link } from '../../components'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Button } from '@material-ui/core'
@@ -25,7 +24,7 @@ function NotFound() {
       alignItems="center"
       className={classes.container}
     >
-      <img src={notFound} className={classes.image} />
+      <img src="/404.png" className={classes.image} />
       <Link href="/">
         <Button variant="contained" color="primary">
           Zurück
