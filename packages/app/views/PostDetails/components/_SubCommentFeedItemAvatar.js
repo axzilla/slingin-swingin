@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '../../components'
+import { Link } from '../../../components'
 import { Avatar, ListItemAvatar } from '@material-ui/core'
 
 function SubCommentFeedItemAvatar({ subComment }) {

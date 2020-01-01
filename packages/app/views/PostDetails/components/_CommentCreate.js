@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import MarkdownEditor from '../common/MarkdownEditor'
+import MarkdownEditor from '../../common/MarkdownEditor'
 
-import { commentCreate } from '../../services/comment'
+import { commentCreate } from '../../../services/comment'
 
 import { makeStyles } from '@material-ui/styles'
 import { Grid, FormControl, FormHelperText, Button } from '@material-ui/core'

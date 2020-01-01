@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../../contexts/AuthContext'
-import { commentUpdate, commentDelete } from '../../services/comment'
-import { getSubCommentsByCommentRef } from '../../services/subComment'
+import AuthContext from '../../../contexts/AuthContext'
+import { commentUpdate, commentDelete } from '../../../services/comment'
+import { getSubCommentsByCommentRef } from '../../../services/subComment'
 
-import CommentEdit from './CommentEdit'
-import CommentFeedItemHeader from './CommentFeedItemHeader'
-import CommentFeedItemText from './CommentFeedItemText'
-import CommentFeedItemMenu from './CommentFeedItemMenu'
-import CommentFeedItemVote from './CommentFeedItemVote'
-import SubCommentFeedItem from '../subComment/SubCommentFeedItem'
-import SubCommentCreate from '../subComment/SubCommentCreate'
+import {
+  CommentEdit,
+  CommentFeedItemHeader,
+  CommentFeedItemText,
+  CommentFeedItemMenu,
+  CommentFeedItemVote,
+  SubCommentFeedItem,
+  SubCommentCreate
+} from './'
 
 import { makeStyles } from '@material-ui/styles'
 import { Card, CardContent, CardActions, Divider, List } from '@material-ui/core'

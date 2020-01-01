@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { subCommentCreate } from '../../services/subComment'
-import MarkdownEditor from '../common/MarkdownEditor'
+import { subCommentCreate } from '../../../services/subComment'
+import MarkdownEditor from '../../common/MarkdownEditor'
 import { Button } from '@material-ui/core'
 
 function SubCommentCreate({ postId, comment, subComments, setSubComments }) {
