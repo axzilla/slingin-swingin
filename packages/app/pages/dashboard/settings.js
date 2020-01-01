@@ -1,11 +1,11 @@
 import { isNotLoggedIn } from '../../utils/initialize'
 import { Dashboard as DashboardView } from '../../layouts'
-import { DashboardSettings } from '../../views'
+import { DashboardSettings as DashboardSettingsView } from '../../views'
 
 function settings() {
   return (
     <DashboardView>
-      <DashboardSettings />
+      <DashboardSettingsView />
     </DashboardView>
   )
 }

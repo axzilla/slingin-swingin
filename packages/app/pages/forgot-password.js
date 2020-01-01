@@ -1,8 +1,14 @@
 import { isLoggedIn } from '../utils/initialize'
-import { PasswordForgot } from '../views'
+
+import { Main as MainLayout } from '../layouts'
+import { PasswordForgot as PasswordForgotView } from '../views'
 
 function passwordForgot() {
-  return <PasswordForgot />
+  return (
+    <MainLayout>
+      <PasswordForgotView />
+    </MainLayout>
+  )
 }
 
 passwordForgot.getInitialProps = ctx => {

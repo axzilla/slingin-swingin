@@ -12,8 +12,6 @@ import setAuthToken from '../utils/setAuthToken'
 import AuthContext from '../contexts/AuthContext'
 import { AlertContextProvider } from '../contexts/AlertContext'
 
-import Layout from '../views/layout/Layout'
-
 class MyApp extends App {
   state = {
     isAuthenticated: false,
@@ -94,9 +92,7 @@ class MyApp extends App {
           }}
         >
           <AlertContextProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <Component {...pageProps} />
           </AlertContextProvider>
         </AuthContext.Provider>
       </>

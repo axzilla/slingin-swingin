@@ -1,8 +1,14 @@
 import { isLoggedIn } from '../utils/initialize'
-import { Login } from '../views'
+
+import { Main as MainLayout } from '../layouts'
+import { Login as LoginView } from '../views'
 
 function login() {
-  return <Login />
+  return (
+    <MainLayout>
+      <LoginView />
+    </MainLayout>
+  )
 }
 
 login.getInitialProps = ctx => {

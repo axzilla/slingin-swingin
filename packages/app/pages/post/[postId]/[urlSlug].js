@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
-import { PostDetails } from '../../../views'
+
+import { Main as MainLayout } from '../../../layouts'
+import { PostDetails as PostDetailsView } from '../../../views'
 import { SeoMeta } from '../../../components'
 
 function postDetails({ postId, urlSlug }) {
@@ -11,7 +13,9 @@ function postDetails({ postId, urlSlug }) {
         // desc={}
         canonical={`https://www.codehustla.dev/post/${postId}/${urlSlug}`}
       />
-      <PostDetails postId={postId} urlSlug={urlSlug} />
+      <MainLayout>
+        <PostDetailsView postId={postId} urlSlug={urlSlug} />
+      </MainLayout>
     </>
   )
 }

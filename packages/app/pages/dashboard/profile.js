@@ -1,11 +1,11 @@
 import { isNotLoggedIn } from '../../utils/initialize'
 import { Dashboard as DashboardView } from '../../layouts'
-import { DashboardProfile } from '../../views'
+import { DashboardProfile as DashboardProfileView } from '../../views'
 
 function profile() {
   return (
     <DashboardView>
-      <DashboardProfile />
+      <DashboardProfileView />
     </DashboardView>
   )
 }

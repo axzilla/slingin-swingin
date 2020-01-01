@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import AuthContext from '../../contexts/AuthContext'
+import AuthContext from '../../../../contexts/AuthContext'
 import Router from 'next/router'
 
-import { Link } from '../../components'
-import { searchFunc } from '../../services/search'
-import isEmpty from '../../utils/isEmpty'
+import { Link } from '../../../../components'
+import { searchFunc } from '../../../../services/search'
+import isEmpty from '../../../../utils/isEmpty'
 import {
   AppBar,
   Toolbar,
