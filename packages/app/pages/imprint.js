@@ -1,7 +1,12 @@
-import { Imprint } from '../views'
+import { Main as MainLayout } from '../layouts'
+import { Imprint as ImprintView } from '../views'
 
 function imprint() {
-  return <Imprint />
+  return (
+    <MainLayout>
+      <ImprintView />
+    </MainLayout>
+  )
 }
 
 export default imprint

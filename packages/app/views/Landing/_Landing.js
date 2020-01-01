@@ -10,7 +10,7 @@ import WidgetLatestUsers from '../../views/widgets/WidgetLatestUsers'
 import WidgetTopPostsTags from '../../views/widgets/WidgetTopPostsTags'
 import WidgetSidebarRight from '../../views/widgets/WidgetSidebarRight'
 import WidgetSidebarLeft from '../../views/widgets/WidgetSidebarLeft'
-import LandingWelcome from './LandingWelcome'
+import { Welcome } from './components'
 
 import { Button, Grid, Hidden } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
@@ -92,7 +92,7 @@ function Landing() {
         </Grid>
       </Hidden>
       <Grid item xs={12} md={6}>
-        {!isAuthenticated ? <LandingWelcome /> : null}
+        {!isAuthenticated ? <Welcome /> : null}
         <Hidden mdUp>
           <Grid container direction="row" justify="space-between" alignItems="center">
             <IconButton onClick={toggleDrawer('left', true)}>

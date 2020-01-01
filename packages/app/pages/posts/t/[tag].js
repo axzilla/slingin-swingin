@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
-import { PostFeedByTag } from '../../../views'
+
+import { Main as MainLayout } from '../../../layouts'
+import { PostFeedByTag as PostFeedByTagView } from '../../../views'
 import { SeoMeta } from '../../../components'
 
 function postsByTag({ tag }) {
@@ -10,7 +12,9 @@ function postsByTag({ tag }) {
         desc={`codehustla.dev - Hier dreht sich alles um ${tag}`}
         canonical={`https://www.codehustla.dev/posts/t/${tag}`}
       />
-      <PostFeedByTag tag={tag} />
+      <MainLayout>
+        <PostFeedByTagView tag={tag} />
+      </MainLayout>
     </>
   )
 }

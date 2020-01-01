@@ -1,10 +1,14 @@
-import { isNotLoggedIn } from '../../utils/initialize'
-
 import PropTypes from 'prop-types'
-import { PostEdit } from '../../views'
+import { isNotLoggedIn } from '../../utils/initialize'
+import { Main as MainLayout } from '../../layouts'
+import { PostEdit as PostEditView } from '../../views'
 
 function editPost({ id }) {
-  return <PostEdit id={id} />
+  return (
+    <MainLayout>
+      <PostEditView id={id} />
+    </MainLayout>
+  )
 }
 
 editPost.getInitialProps = ctx => {

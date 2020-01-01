@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
+import { Main as MainLayout } from '../layouts'
 
-import { ProfileDetails } from '../views'
+import { ProfileDetails as ProfileDetailsView } from '../views'
 import { SeoMeta } from '../components'
 
 function profileDetails({ handle }) {
@@ -12,7 +13,9 @@ function profileDetails({ handle }) {
         // desc={}
         canonical={`https://www.codehustla.dev/${handle}`}
       />
-      <ProfileDetails handle={handle} />
+      <MainLayout>
+        <ProfileDetailsView handle={handle} />
+      </MainLayout>
     </>
   )
 }

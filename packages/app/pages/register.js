@@ -1,8 +1,14 @@
 import { isLoggedIn } from '../utils/initialize'
-import { Register } from '../views'
+
+import { Main as MainLayout } from '../layouts'
+import { Register as RegisterView } from '../views'
 
 function register() {
-  return <Register />
+  return (
+    <MainLayout>
+      <RegisterView />
+    </MainLayout>
+  )
 }
 
 register.getInitialProps = ctx => {

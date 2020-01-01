@@ -1,8 +1,14 @@
 import { isNotLoggedIn } from '../utils/initialize'
-import { PostCreate } from '../views'
+
+import { Main as MainLayout } from '../layouts'
+import { PostCreate as PostCreateView } from '../views'
 
 function postCreate() {
-  return <PostCreate />
+  return (
+    <MainLayout>
+      <PostCreateView />
+    </MainLayout>
+  )
 }
 
 postCreate.getInitialProps = ctx => {

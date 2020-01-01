@@ -1,4 +1,6 @@
-import Landing from '../views/layout/Landing'
+import { Main as MainLayout } from '../layouts'
+import { Landing as LandingView } from '../views'
+
 import { SeoMeta } from '../components'
 
 function landing() {
@@ -11,7 +13,9 @@ function landing() {
         }
         canonical="https://www.codehustla.dev"
       />
-      <Landing />
+      <MainLayout>
+        <LandingView />
+      </MainLayout>
     </>
   )
 }

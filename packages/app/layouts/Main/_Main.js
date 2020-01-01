@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import Footer from './Footer'
-import Toolbar from './Toolbar'
+import { Topbar, Footer } from './components'
 import { Alert } from '../../components'
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { CssBaseline, Grid } from '@material-ui/core'
@@ -36,7 +35,7 @@ function Layout({ children }) {
   const [isLightTheme, setIsLightTheme] = useState(true)
 
   const useStyles = makeStyles(theme => ({
-    toolbar: theme.mixins.toolbar,
+    topbar: theme.mixins.toolbar,
     control: {
       padding: theme.spacing(2),
 
@@ -74,10 +73,9 @@ function Layout({ children }) {
     <MuiThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
       <CssBaseline />
       <Grid container className={classes.control}>
-        <Toolbar onThemeToggleClick={onThemeToggleClick} isLightTheme={isLightTheme} />
-        <div className={classes.toolbar} />
+        <Topbar onThemeToggleClick={onThemeToggleClick} isLightTheme={isLightTheme} />
+        <div className={classes.topbar} />
         {children}
-        {/* {isDashboardUrl ? null : <Footer />} */}
         <Footer />
       </Grid>
       <Alert />
