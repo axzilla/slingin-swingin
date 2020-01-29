@@ -4,7 +4,7 @@ function validateUsernameChange(data) {
   let errors = {}
 
   if (Validator.isEmpty(data.username)) {
-    errors.username = 'Benutzername ist ein Pflichtfeld'
+    errors.username = 'Username is required'
   }
 
   return { errors }
