@@ -4,11 +4,11 @@ function mtuAuthRegister(user) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: user.email,
-    subject: 'Willkommen zu codehustla!',
+    subject: 'Welcome to codehustla!',
     html: `
       <p>Hi ${user.username},</p>
-      <p>willkommen zu codehustla.</p>
-      <p>Vielen Dank,<br>dein codehustla Team.</p>
+      <p>welcome to codehustla.</p>
+      <p>Thanks,<br>your codehustla Team.</p>
     `
   }
 
