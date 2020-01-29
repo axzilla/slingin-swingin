@@ -4,11 +4,11 @@ function validatePasswordForgot(data) {
   let errors = {}
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = 'Keine gültige E-Mail Adresse'
+    errors.email = 'No valid email'
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'E-Mail ist ein Pflichtfeld'
+    errors.email = 'Email is required'
   }
 
   return { errors }

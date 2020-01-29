@@ -4,11 +4,11 @@ function validateLogin(data) {
   let errors = {}
 
   if (Validator.isEmpty(data.login)) {
-    errors.login = 'Benutzername oder E-Mail ist ein Pflichtfeld'
+    errors.login = 'Username oder email is required'
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'Passwort ist ein Pflichtfeld'
+    errors.password = 'Password is required'
   }
 
   return { errors }
