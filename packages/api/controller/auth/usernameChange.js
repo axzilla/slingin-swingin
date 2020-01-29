@@ -17,7 +17,7 @@ async function usernameChange(req, res) {
     const foundUserByUsername = await User.findOne({ username: req.body.username })
 
     if (foundUserByUsername) {
-      errors.username = 'Benutzername ist bereits vergeben'
+      errors.username = 'Username is already taken'
       res.status(404).json(errors)
       return
     }
@@ -42,7 +42,7 @@ async function usernameChange(req, res) {
 
     mtuAuthUsernameChange(savedUser)
     const token = await createJwtToken(payload)
-    res.json({ alert: 'Benutzername erfolgreich geändert', success: true, token })
+    res.json({ alert: 'Username changed successfully', success: true, token })
   } catch (error) {
     if (error) throw error
   }

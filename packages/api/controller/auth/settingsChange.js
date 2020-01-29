@@ -21,7 +21,7 @@ async function settingsChange(req, res) {
     }
 
     const token = await createJwtToken(payload)
-    res.json({ alert: 'E-Mail erfolgreich geändert', success: true, token })
+    res.json({ alert: 'Email changed successfully', success: true, token })
   } catch (error) {
     if (error) throw error
   }

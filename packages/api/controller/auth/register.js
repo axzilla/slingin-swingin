@@ -21,17 +21,17 @@ async function register(req, res) {
     const foundUsername = await User.findOne({ username: req.body.username })
 
     if (foundEmail) {
-      errors.email = 'Es gibt bereits einen Benutzer mit dieser E-Mail Adresse'
+      errors.email = 'There is already a user with this email address'
       return res.status(400).json(errors)
     }
 
     if (foundUsername) {
-      errors.username = 'Dieser Benutzername ist bereits vergeben'
+      errors.username = 'This username is already taken'
       return res.status(400).json(errors)
     }
 
     if (domains.includes(req.body.email.split('@')[1])) {
-      errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
+      errors.email = 'This email address is not allowed'
       return res.status(400).json(errors)
     }
 
