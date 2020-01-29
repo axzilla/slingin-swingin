@@ -17,12 +17,12 @@ async function emailChange(req, res) {
     const foundUserById = await User.findById(req.body.id)
 
     if (domains.includes(req.body.email.split('@')[1])) {
-      errors.email = 'Diese E-Mail Adresse ist nicht erlaubt'
+      errors.email = 'This email address is not allowed'
       return res.status(400).json(errors)
     }
 
     if (foundUserByEmail) {
-      errors.email = 'E-Mail Adresse ist bereits vergeben'
+      errors.email = 'This email adress is already in use'
       return res.status(400).json(errors)
     }
 
@@ -44,7 +44,7 @@ async function emailChange(req, res) {
 
     mtuAuthEmailChange(savedUser, oldEmail)
     const token = await createJwtToken(payload)
-    res.json({ alert: 'E-Mail erfolgreich geändert', success: true, token })
+    res.json({ alert: 'Email changed successfully', success: true, token })
   } catch (error) {
     if (error) throw error
   }

@@ -16,7 +16,7 @@ async function passwordForgot(req, res) {
     const foundUser = await User.findOne({ email })
 
     if (!foundUser) {
-      errors.email = 'Benutzer nicht gefunden'
+      errors.email = 'User not found'
       return res.status(404).json(errors)
     }
 
@@ -32,7 +32,7 @@ async function passwordForgot(req, res) {
 
     const token = await createJwtToken(payload)
     mtuAuthPasswordForgot(foundUser, token)
-    res.json({ alert: 'E-Mail erfolgreich versendet' })
+    res.json({ alert: 'Email successfully sent' })
   } catch (error) {
     if (error) throw error
   }

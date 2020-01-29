@@ -16,7 +16,7 @@ async function passwordReset(req, res) {
     const foundUser = await User.findById(req.body.id)
 
     if (!foundUser) {
-      res.json('Keinen Benutzer gefunden')
+      res.json('No user found')
     } else {
       foundUser.password = req.body.password
 

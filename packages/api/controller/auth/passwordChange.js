@@ -19,7 +19,7 @@ async function passwordChange(req, res) {
     const foundUser = await User.findById(req.body.id)
 
     if (!foundUser) {
-      res.json('Keinen Benutzer gefunden')
+      res.json('User not found')
     } else {
       const isMatch = await bcrypt.compare(oldPassword, foundUser.password)
 
@@ -46,14 +46,14 @@ async function passwordChange(req, res) {
 
               mtuAuthPasswordChange(savedUser)
               const token = await createJwtToken(payload)
-              res.json({ alert: 'Passwort erfolgreich geändert', success: true, token })
+              res.json({ alert: 'Password successfully changed', success: true, token })
             } catch (error) {
               if (error) throw error
             }
           })
         })
       } else {
-        errors.oldPassword = 'Falsches Password'
+        errors.oldPassword = 'Wrong password'
         return res.status(400).json(errors)
       }
     }

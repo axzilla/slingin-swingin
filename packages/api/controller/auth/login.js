@@ -16,14 +16,14 @@ async function login(req, res) {
     const foundUser = await User.findOne({ $or: [{ email: login }, { username: login }] })
 
     if (!foundUser) {
-      errors.login = 'Benutzer nicht gefunden'
+      errors.login = 'User not found'
       return res.status(400).json(errors)
     }
 
     const isPasswordMatched = await bcrypt.compare(password, foundUser.password)
 
     if (!isPasswordMatched) {
-      errors.password = 'Falsches Password'
+      errors.password = 'Wrong password'
       return res.status(400).json(errors)
     }
 
