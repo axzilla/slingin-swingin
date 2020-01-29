@@ -4,11 +4,11 @@ function mtuAuthUsernameChange(user) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: [user.email],
-    subject: '[codehustla] Benutzername geändert!',
+    subject: '[codehustla] Username changed!',
     html: `
       <p>Hi ${user.username},</p>
-      <p>du hast deinen Benutzernamen erfolgreich geändert.</p>
-      <p>Vielen Dank,<br>dein codehustla Team.</p>
+      <p>you have successfully changed your username.</p>
+      <p>Thanks,<br>your codehustla Team.</p>
     `
   }
 

@@ -4,11 +4,11 @@ function mtuAuthPasswordReset(user) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: user.email,
-    subject: '[codehustla] Passwort zurückgesetzt!',
+    subject: '[codehustla] Passwort reset!',
     html: `
       <p>Hi ${user.username},</p>
-      <p>Du hast dein Passwort erfolgreich geändert.</p>
-      <p>Vielen Dank,<br>dein codehustla Team.</p>
+      <p>You have successfully changed your password.</p>
+      <p>Thanks,<br>your codehustla Team.</p>
     `
   }
 

@@ -4,11 +4,11 @@ function mtuAuthEmailChange(user, oldEmail) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: [user.email, oldEmail],
-    subject: '[codehustla] E-Mail Adresse geändert!',
+    subject: '[codehustla] Email address changed!',
     html: `
       <p>Hi ${user.username},</p>
-      <p>du hast deine E-Mail Adresse erfolgreich geändert.</p>
-      <p>Vielen Dank,<br>dein codehustla Team.</p>
+      <p>you have successfully changed your email address.</p>
+      <p>Thanks,<br>your codehustla Team.</p>
     `
   }
 

@@ -4,10 +4,10 @@ function mtaPostCreate(post) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: 'mail@codehustla.dev',
-    subject: 'Neuer Beitrag!',
+    subject: 'New Post!',
     html: `
       <p>Hi Admin,</p>
-      <p>Es gibt einen neuen Beitrag.</p>
+      <p>there is a new post.</p>
       <p><a href="${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}</a></p>
     `
   }

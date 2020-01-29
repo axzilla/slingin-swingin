@@ -4,13 +4,13 @@ function mtuPostCreate(post, user) {
   const mailOptions = {
     from: process.env.NODEMAILER_USER,
     to: user.email,
-    subject: '[codehustla] Neuigkeiten im Forum!',
+    subject: '[codehustla] News in the forum!',
     html: `
       <p>Hi ${user.username},</p>
-      <p>Soeben wurde ein neuer Beitrag erstellt. Schau doch mal wieder vorbei.</p>
+      <p>A new post has just been created. Have a look again.</p>
       <p><a href="${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.ROOT_URL}/post/${post.shortId}/${post.urlSlug}<a/></p>
-      <p>Vielen Dank,<br> dein codehustla Team.</p>
-      <p>Du möchtest <a href="${process.env.ROOT_URL}/edit-settings">keine weiteren E-Mails</a> mehr erhalten oder deine <a href="${process.env.ROOT_URL}/edit-settings">E-Mail Einstellungen ändern</a>?</p>
+      <p>Thanks,<br> your codehustla Team.</p>
+      <p><a href="${process.env.ROOT_URL}/edit-settings">You don't want to receive any more emails or change your email settings?</a></p>
     `
   }
 
