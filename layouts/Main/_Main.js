@@ -1,51 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import Router from 'next/router'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Topbar, Footer } from './components'
-import { Alert } from '../../components'
-import { makeStyles } from '@material-ui/core/styles'
-import { CssBaseline, Grid } from '@material-ui/core'
 
-function Layout({ children }) {
-  const [isDashboardUrl, setIsDashboardUrl] = useState(false)
+import Topbar from './components/Topbar'
+import Footer from './components/Footer'
 
-  const useStyles = makeStyles(theme => ({
-    topbar: theme.mixins.toolbar,
-    control: {
-      padding: theme.spacing(2),
+import Alert from '../../components/Alert'
 
-      [theme.breakpoints.up('md')]: {
-        padding: !isDashboardUrl ? `${theme.spacing(2)}px ${theme.spacing(18)}px` : null
-      }
-    }
-  }))
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
 
-  const classes = useStyles()
-
-  useEffect(() => {
-    setIsDashboardUrl(Router.pathname.includes('dashboard'))
-  }, [])
-
-  useEffect(() => {
-    setIsDashboardUrl(Router.pathname.includes('dashboard'))
-  }, [Router])
-
+function Main({ children }) {
   return (
-    <>
-      <CssBaseline />
-      <Grid container className={classes.control}>
+    <Container>
+      <Grid container>
         <Topbar />
-        <div className={classes.topbar} />
         {children}
         <Footer />
       </Grid>
       <Alert />
-    </>
+    </Container>
   )
 }
 
-Layout.propTypes = {
+Main.propTypes = {
   children: PropTypes.node
 }
 
-export default Layout
+export default Main
