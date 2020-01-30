@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types'
-import { PasswordReset } from '../../views'
+import { PasswordReset as PasswordResetView } from '../../views'
+import { Auth as AuthLayout } from '../../layouts'
 
 function resetPassword({ token }) {
-  return <PasswordReset token={token} />
+  return (
+    <AuthLayout>
+      <PasswordResetView token={token} />
+    </AuthLayout>
+  )
 }
 
 resetPassword.getInitialProps = ({ query }) => {
