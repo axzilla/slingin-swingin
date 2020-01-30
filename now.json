@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "bounce-app",
+  "env": {
+    "BOUNCE_API_URL": "@BOUNCE_api_url",
+    "BOUNCE_GOOGLE_ANALYTICS": "@BOUNCE_google_analytics"
+  },
+  "build": {
+    "env": {
+      "BOUNCE_API_URL": "@BOUNCE_api_url",
+      "BOUNCE_GOOGLE_ANALYTICS": "@BOUNCE_google_analytics"
+    }
+  }
+}
