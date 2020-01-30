@@ -1,7 +1,7 @@
-import { Main as MainLayout } from '../layouts'
-import { Landing as LandingView } from '../views'
+import { Main as MainLayout } from '../../layouts'
+import { Landing as LandingView } from '../../views'
 
-import { SeoMeta } from '../components'
+import { SeoMeta } from '../../components'
 
 function landing() {
   return (

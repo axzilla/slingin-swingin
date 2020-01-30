@@ -1,7 +1,7 @@
-import { isLoggedIn } from '../utils/initialize'
+import { isLoggedIn } from '../../utils/initialize'
 
-import { Auth as AuthLayout } from '../layouts'
-import { Register as RegisterView } from '../views'
+import { Auth as AuthLayout } from '../../layouts'
+import { Register as RegisterView } from '../../views'
 
 function register() {
   return (

@@ -1,7 +1,7 @@
-import { isLoggedIn } from '../utils/initialize'
+import { isLoggedIn } from '../../utils/initialize'
 
-import { Main as MainLayout } from '../layouts'
-import { PasswordForgot as PasswordForgotView } from '../views'
+import { Main as MainLayout } from '../../layouts'
+import { PasswordForgot as PasswordForgotView } from '../../views'
 
 function passwordForgot() {
   return (
