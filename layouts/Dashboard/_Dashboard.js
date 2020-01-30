@@ -19,7 +19,7 @@ import {
   Avatar
 } from '@material-ui/core'
 
-import { ViewComfy, AccountBox, Settings } from '@material-ui/icons'
+import { AccountBox, Settings } from '@material-ui/icons'
 
 const drawerWidth = 240
 
