@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import { Main as MainLayout } from '../layouts'
+import { Main as MainLayout } from '../../layouts'
 
-import { ProfileDetails as ProfileDetailsView } from '../views'
+import { ProfileDetails as ProfileDetailsView } from '../../views'
 import { SeoMeta } from '../components'
 
 function profileDetails({ handle }) {
