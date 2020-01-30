@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { getPostsTags } from '../../services/post'
 
-import { Link } from '../../components'
+import { NextLink } from '../../components'
 
 import { Card, CardContent, Typography, Box } from '@material-ui/core'
 
@@ -28,17 +28,17 @@ function WidgetTopPostsTags() {
       <CardContent>
         <Typography gutterBottom variant="h5" component="h3">
           <Box fontFamily="Monospace" fontWeight={900}>
-            @beliebt
+            @popular
           </Box>
         </Typography>
         {postTags &&
           postTags.slice(0, 20).map(item => {
             return (
-              <Link key={item._id} href={`/posts/t/${item._id}`}>
+              <NextLink key={item._id} href={`/posts/t/${item._id}`}>
                 <Typography color="textSecondary" component="h3">
                   #{item._id}
                 </Typography>
-              </Link>
+              </NextLink>
             )
           })}
       </CardContent>

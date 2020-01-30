@@ -1,7 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import { Link } from '../../../components'
+import { NextLink } from '../../../components'
 import { postDelete } from '../../../services/post'
 import { CardActions, Button, Divider } from '@material-ui/core'
 
@@ -30,9 +30,9 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
               <Divider />
               <CardActions>
                 <React.Fragment>
-                  <Link href={`/edit-post/${post._id}`}>
+                  <NextLink href={`/edit-post/${post._id}`}>
                     <Button color="primary">Bearbeiten</Button>
-                  </Link>
+                  </NextLink>
                   <Button onClick={onDeleteClick.bind(this, post._id)} color="primary">
                     Löschen
                   </Button>

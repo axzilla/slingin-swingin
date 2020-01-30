@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-function LinkRouter({ children, href }) {
+function NextLink({ children, href }) {
   const classes = useStyles()
 
   return (
@@ -26,9 +26,9 @@ function LinkRouter({ children, href }) {
   )
 }
 
-LinkRouter.propTypes = {
+NextLink.propTypes = {
   children: PropTypes.node,
   href: PropTypes.string
 }
 
-export default LinkRouter
+export default NextLink

@@ -38,6 +38,7 @@ async function login(req, res) {
     }
 
     const token = await createJwtToken(payload)
+    console.log(token)
     res.json(token)
   } catch (error) {
     if (error) throw error

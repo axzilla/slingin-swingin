@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { setGaPageView } from '../../utils/googleAnalytics'
 
 import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/post'
-import AuthContext from '../../contexts/AuthContext'
 
 import {
   PostFeedItem,
@@ -12,7 +11,6 @@ import {
   WidgetSidebarRight,
   WidgetSidebarLeft
 } from '../../components'
-import { Welcome } from './components'
 
 import { Button, Grid, Hidden } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
@@ -20,7 +18,6 @@ import CloudIcon from '@material-ui/icons/Cloud'
 import FolderSharedIcon from '@material-ui/icons/FolderShared'
 
 function Landing() {
-  const { isAuthenticated } = useContext(AuthContext)
   const [limit, setLimit] = useState(10)
   const [posts, setPosts] = useState()
   const [state, setState] = useState({
@@ -94,7 +91,6 @@ function Landing() {
         </Grid>
       </Hidden>
       <Grid item xs={12} md={6}>
-        {!isAuthenticated ? <Welcome /> : null}
         <Hidden mdUp>
           <Grid container direction="row" justify="space-between" alignItems="center">
             <IconButton onClick={toggleDrawer('left', true)}>

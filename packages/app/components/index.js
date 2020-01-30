@@ -1,6 +1,6 @@
 export { default as Alert } from './Alert'
 export { default as CodeBlock } from './CodeBlock'
-export { default as Link } from './Link'
+export { default as NextLink } from './NextLink'
 export { default as MarkdownEditor } from './MarkdownEditor'
 export { default as PostFeedItem } from './PostFeedItem'
 export { default as ProfileFeedItem } from './ProfileFeedItem'

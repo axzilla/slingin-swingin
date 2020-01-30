@@ -1,7 +1,7 @@
 import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 import Router from 'next/router'
 import { withRouter } from 'next/router'
@@ -12,8 +12,24 @@ import setAuthToken from '../utils/setAuthToken'
 import AuthContext from '../contexts/AuthContext'
 import { AlertContextProvider } from '../contexts/AlertContext'
 
+const lightTheme = createMuiTheme({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#212121'
+    },
+    secondary: {
+      main: '#009688'
+    }
+  },
+  typography: {
+    useNextVariants: true
+  }
+})
+
 class MyApp extends App {
   state = {
+    isLightTheme: true,
     isAuthenticated: false,
     user: {}
   }
@@ -22,6 +38,12 @@ class MyApp extends App {
     const cookies = new Cookies()
     const jwtToken = cookies.get('jwtToken')
     setAuthToken(jwtToken)
+
+    if (localStorage.theme === 'dark') {
+      this.setState({ ...this.state, isLightTheme: false })
+    } else if (localStorage.theme === 'light') {
+      this.setState({ ...this.state, isLightTheme: true })
+    }
 
     if (jwtToken) {
       const decodedUser = jwtDecode(jwtToken)
@@ -82,7 +104,7 @@ class MyApp extends App {
         <Head>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <CssBaseline />
+
         <AuthContext.Provider
           value={{
             isAuthenticated: this.state.isAuthenticated,
@@ -92,7 +114,9 @@ class MyApp extends App {
           }}
         >
           <AlertContextProvider>
-            <Component {...pageProps} />
+            <MuiThemeProvider theme={lightTheme}>
+              <Component {...pageProps} />
+            </MuiThemeProvider>
           </AlertContextProvider>
         </AuthContext.Provider>
       </>

@@ -47,7 +47,7 @@ function Settings() {
       const res = await settingsUpdate(notifications)
       const { token } = res.data
       login(token)
-      setAlert({ message: 'E-Mail Einstellungen erfolgreich geändert' })
+      setAlert({ message: 'Email settings changed successfully' })
     } catch (error) {
       if (error) throw error
     }
@@ -57,7 +57,7 @@ function Settings() {
     <Grid item xs={12}>
       <Card>
         <CardContent>
-          <Typography variant="subtitle1">E-Mail Einstellungen</Typography>
+          <Typography variant="subtitle1">Email settings</Typography>
           <form onSubmit={onSubmit}>
             <Grid>
               <FormControlLabel

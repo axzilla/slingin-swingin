@@ -7,7 +7,7 @@ import { StyledReactMarkdown } from '../../../components'
 import AuthContext from '../../../contexts/AuthContext'
 import { subCommentUpdate, subCommentDelete } from '../../../services/subComment'
 
-import { Link } from '../../../components'
+import { NextLink } from '../../../components'
 
 import { SubCommentEdit, SubCommentFeedItemAvatar, SubCommentFeedItemMenu } from './'
 
@@ -104,11 +104,11 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
               primary={<StyledReactMarkdown source={subComment.text} escapeHtml={false} />}
               secondary={
                 <React.Fragment>
-                  <Link href={`/${subComment.user.username}`}>
+                  <NextLink href={`/${subComment.user.username}`}>
                     <Typography component="span" variant="body2" className={classes.inline}>
                       {subComment.user.username}
                     </Typography>
-                  </Link>
+                  </NextLink>
                   {' — '}
                   <Moment fromNow locale="de">
                     {subComment.dateCreated}
