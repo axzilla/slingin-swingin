@@ -13,44 +13,54 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 import InputBase from '@material-ui/core/InputBase'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
 
-import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import AddBox from '@material-ui/icons/AddBox'
 import ExitToApp from '@material-ui/icons/ExitToApp'
+import GroupIcon from '@material-ui/icons/Group'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  logo: { width: '150px' },
+  logo: {
+    width: '150px',
+    marginRight: theme.spacing(2),
+
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
+  },
   list: { width: 250 },
   root: { width: '100%' },
   grow: { flexGrow: 1 },
   menuButton: { marginLeft: -12, marginRight: 20 },
+  menuContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '100%',
+
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
+  },
   searchField: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': { backgroundColor: fade(theme.palette.common.black, 0.25) },
-    marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
+      marginRight: theme.spacing(2),
       marginLeft: theme.spacing(3),
       width: 'auto'
     }
   },
   searchIcon: {
-    width: theme.spacing(9),
+    width: theme.spacing(5),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -60,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputRoot: { width: '100%' },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
+    padding: theme.spacing(1, 1, 1, 5),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -93,13 +103,6 @@ function ToolbarApp() {
     searchText: ''
   })
 
-  function toggleDrawer() {
-    setToolbarData({
-      ...toolbarData,
-      drawerOpen: !toolbarData.drawerOpen
-    })
-  }
-
   function onChange(event) {
     setToolbarData({
       ...toolbarData,
@@ -121,143 +124,95 @@ function ToolbarApp() {
     Router.push('/login')
   }
 
-  const sideList = (
-    <div className={classes.list}>
-      <List>
-        <NextLink href="/">
-          <ListItem style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <Typography variant="h6" noWrap>
-              bounce
-            </Typography>
-          </ListItem>
-        </NextLink>
-        {!isAuthenticated ? (
-          <React.Fragment>
-            <ListItem>
-              <ListItemText>
-                <NextLink href="/register">
-                  <Button
-                    fullWidth
-                    className={classes.mobileButton}
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Sign Up
-                  </Button>
-                </NextLink>
-              </ListItemText>
-            </ListItem>
-            <ListItem>
-              <ListItemText>
-                <NextLink href="/login">
-                  <Button
-                    color="primary"
-                    fullWidth
-                    className={classes.mobileButton}
-                    variant="outlined"
-                  >
-                    Log in
-                  </Button>
-                </NextLink>
-              </ListItemText>
-            </ListItem>
-          </React.Fragment>
-        ) : null}
-      </List>
-      {isAuthenticated ? (
-        <React.Fragment>
-          <Divider />
-
-          <NextLink href="/create-post">
-            <ListItem button>
-              <ListItemIcon>
-                <AddBox />
-              </ListItemIcon>
-              <ListItemText>Create Post</ListItemText>
-            </ListItem>
-          </NextLink>
-        </React.Fragment>
-      ) : null}
-    </div>
-  )
-
   return (
-    <div className={classes.root}>
+    <Toolbar className={classes.root}>
       <AppBar position="fixed" color="inherit">
         <Toolbar>
-          <IconButton
-            className={`${classes.menuButton} ${classes.drawerIcon}`}
-            aria-label="Open drawer"
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
-          <NextLink href="/">
-            <img src={logo} className={classes.logo} />
-          </NextLink>
-
-          <div className={classes.searchField}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <div className={classes.menuContainer}>
+            <div style={{ display: 'flex', alignItems: 'center', height: '64px' }}>
+              <NextLink href="/">
+                <Grid container alignItems="center">
+                  <img src={logo} className={classes.logo} />
+                </Grid>
+              </NextLink>
+              {/* <Grid container justifyContent="flex-end"> */}
+              <div className={classes.searchField}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <form noValidate onSubmit={onSubmit}>
+                  <InputBase
+                    placeholder="Search..."
+                    name="searchText"
+                    type="text"
+                    onChange={onChange}
+                    value={toolbarData.searchText}
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput
+                    }}
+                  />
+                </form>
+              </div>
+              {/* </Grid> */}
             </div>
-            <form noValidate onSubmit={onSubmit}>
-              <InputBase
-                placeholder="Search..."
-                name="searchText"
-                type="text"
-                onChange={onChange}
-                value={toolbarData.searchText}
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-              />
-            </form>
+
+            <div style={{ display: 'flex', alignItems: 'center', overflow: 'scroll' }}>
+              {isAuthenticated ? (
+                <>
+                  <Box>
+                    <NextLink href="/dashboard/profile">
+                      <Button>
+                        <AccountCircle />
+                        &nbsp;Profile
+                      </Button>
+                    </NextLink>
+                  </Box>
+                  <Box>
+                    <NextLink href="/dashboard/profile">
+                      <Button>
+                        <GroupIcon />
+                        &nbsp;Members
+                      </Button>
+                    </NextLink>
+                  </Box>
+                  <Box>
+                    <Button onClick={onLogoutClick}>
+                      <ExitToApp />
+                      &nbsp;Logout
+                    </Button>
+                  </Box>
+                  <Box>
+                    <NextLink href="/create-post">
+                      <Button className={classes.button} variant="contained" color="secondary">
+                        Post+
+                      </Button>
+                    </NextLink>
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <Box>
+                    <NextLink href="/register">
+                      <Button className={classes.button} variant="contained" color="secondary">
+                        Sign Up
+                      </Button>
+                    </NextLink>
+                  </Box>
+                  <Box>
+                    <NextLink href="/login">
+                      <Button color="primary" className={classes.button} variant="outlined">
+                        Log in
+                      </Button>
+                    </NextLink>
+                  </Box>
+                </>
+              )}
+            </div>
           </div>
-          <div className={classes.grow} />
-          {isAuthenticated ? (
-            <div className={classes.sectionDesktop}>
-              <NextLink href="/create-post">
-                <Button className={classes.button} variant="outlined" color="primary">
-                  Create Post
-                </Button>
-              </NextLink>
-            </div>
-          ) : null}
-
-          {isAuthenticated ? (
-            <>
-              <NextLink href="/dashboard/profile">
-                <IconButton>
-                  <AccountCircle />
-                </IconButton>
-              </NextLink>
-              <IconButton onClick={onLogoutClick}>
-                <ExitToApp />
-              </IconButton>
-            </>
-          ) : (
-            <div className={classes.sectionDesktop}>
-              <NextLink href="/register">
-                <Button className={classes.button} variant="contained" color="secondary">
-                  Sign Up
-                </Button>
-              </NextLink>
-              <NextLink href="/login">
-                <Button color="primary" className={classes.button} variant="outlined">
-                  Log in
-                </Button>
-              </NextLink>
-            </div>
-          )}
         </Toolbar>
       </AppBar>
-      <Drawer open={toolbarData.drawerOpen} onClose={toggleDrawer}>
-        <div tabIndex={0} role="button" onClick={toggleDrawer} onKeyDown={toggleDrawer}>
-          {sideList}
-        </div>
-      </Drawer>
-    </div>
+    </Toolbar>
   )
 }
 
