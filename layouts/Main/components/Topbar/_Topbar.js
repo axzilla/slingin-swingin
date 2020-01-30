@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import AuthContext from '../../../../contexts/AuthContext'
 import Router from 'next/router'
+import logo from './_logo.png'
 
 import { NextLink } from '../../../../components'
 import { searchFunc } from '../../../../services/search'
@@ -30,6 +31,7 @@ import AddBox from '@material-ui/icons/AddBox'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 
 const useStyles = makeStyles(theme => ({
+  logo: { width: '150px' },
   list: { width: 250 },
   root: { width: '100%' },
   grow: { flexGrow: 1 },
@@ -137,7 +139,7 @@ function ToolbarApp() {
                   <Button
                     fullWidth
                     className={classes.mobileButton}
-                    variant="outlined"
+                    variant="contained"
                     color="secondary"
                   >
                     Sign Up
@@ -171,7 +173,7 @@ function ToolbarApp() {
               <ListItemIcon>
                 <AddBox />
               </ListItemIcon>
-              <ListItemText>Beitrag erstellen</ListItemText>
+              <ListItemText>Create Post</ListItemText>
             </ListItem>
           </NextLink>
         </React.Fragment>
@@ -190,7 +192,9 @@ function ToolbarApp() {
           >
             <MenuIcon />
           </IconButton>
-          <NextLink href="/">LOGO</NextLink>
+          <NextLink href="/">
+            <img src={logo} className={classes.logo} />
+          </NextLink>
 
           <div className={classes.searchField}>
             <div className={classes.searchIcon}>
@@ -198,7 +202,7 @@ function ToolbarApp() {
             </div>
             <form noValidate onSubmit={onSubmit}>
               <InputBase
-                placeholder="Suche..."
+                placeholder="Search..."
                 name="searchText"
                 type="text"
                 onChange={onChange}
@@ -215,7 +219,7 @@ function ToolbarApp() {
             <div className={classes.sectionDesktop}>
               <NextLink href="/create-post">
                 <Button className={classes.button} variant="outlined" color="primary">
-                  Beitrag erstellen
+                  Create Post
                 </Button>
               </NextLink>
             </div>
@@ -235,7 +239,7 @@ function ToolbarApp() {
           ) : (
             <div className={classes.sectionDesktop}>
               <NextLink href="/register">
-                <Button className={classes.button} variant="outlined" color="secondary">
+                <Button className={classes.button} variant="contained" color="secondary">
                   Sign Up
                 </Button>
               </NextLink>
