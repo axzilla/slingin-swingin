@@ -1,39 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import { NextLink } from '../../components'
 import Moment from 'react-moment'
+
+import { NextLink } from '../../components'
 import AuthContext from '../../contexts/AuthContext'
-import { getCommentsByPostRef } from '../../services/comment'
-import { getSubCommentByPostRef } from '../../services/subComment'
+import { postToggleLikes, postToggleBookmarks } from '../../services/post'
+
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
-import {
-  Grid,
-  Avatar,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  Button,
-  Chip
-} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Chip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles({
-  buttonTag: {
-    maxWidth: 'auto',
-    minWidth: 'auto',
-    textTransform: 'lowercase'
-  },
-  chipPostType: {
-    borderRadius: '5px',
-    height: '24px'
-  },
-  tagContent: {
-    paddingTop: '0',
-    paddingBottom: '0'
-  },
   media: {
     objectFit: 'cover'
   },
@@ -50,41 +36,27 @@ const useStyles = makeStyles({
   }
 })
 
-function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
+function PostFeedItem({ post }) {
+  const [postData, setPostData] = useState(post)
   const { isAuthenticated, user } = useContext(AuthContext)
   const classes = useStyles()
-  const [commentsLength, setCommentsLength] = useState(0)
-  let color
 
-  useEffect(() => {
-    getInitialData()
-  }, [])
-
-  async function getInitialData() {
+  async function onLikeClick(postId) {
     try {
-      const foundComments = await getCommentsByPostRef(post._id)
-      const foundSubComments = await getSubCommentByPostRef(post._id)
-      setCommentsLength(foundComments.data.length + foundSubComments.data.length)
+      const updatedPost = await postToggleLikes(postId)
+      setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
     }
   }
 
-  // https://materialuicolors.co/ Level 200
-  if (post.type === 'Tutorial') {
-    color = '#F48FB1' // Pink 200
-  } else if (post.type === 'Blogartikel') {
-    color = '#B39DDB' // Purple 200
-  } else if (post.type === 'Diskussion') {
-    color = '#90CAF9' // Blue 200
-  } else if (post.type === 'Idee') {
-    color = '#80CBC4' // Teal 200
-  } else if (post.type === 'Projekt') {
-    color = '#A5D6A7' // Green 200
-  } else if (post.type === 'Frage') {
-    color = '#FFCC80' // Orange 200
-  } else if (post.type === 'Fun') {
-    color = '#FFE082' // Amber 200
+  async function onBookmarkClick(postId) {
+    try {
+      const updatedPost = await postToggleBookmarks(postId)
+      setPostData(updatedPost.data)
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   function toggleIsPostLiked() {
@@ -105,14 +77,14 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
 
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
-      {post.titleImage ? (
-        <NextLink href={`/post/${post.shortId}/${post.urlSlug}`}>
+      {postData.titleImage ? (
+        <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
           <CardMedia
             component="img"
             alt="Post Tittle Image"
             className={classes.media}
             height="140"
-            image={post.titleImage.secure_url}
+            image={postData.titleImage.secure_url}
           />
         </NextLink>
       ) : null}
@@ -120,35 +92,30 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
       <CardContent>
         <Grid container wrap="nowrap">
           <Grid item>
-            <NextLink href={`/${post.user.username}`}>
-              {post.user.avatar && post.user.avatar.secure_url ? (
+            <NextLink href={`/${postData.user.username}`}>
+              {postData.user.avatar && postData.user.avatar.secure_url ? (
                 <Avatar
                   className={classes.bigAvatar}
-                  alt={post.user.username}
-                  src={post.user.avatar.secure_url}
+                  alt={postData.user.username}
+                  src={postData.user.avatar.secure_url}
                 />
               ) : (
-                <Avatar className={classes.bigAvatar} alt={post.user.username}>
-                  {post.user.username.substring(0, 1)}
+                <Avatar className={classes.bigAvatar} alt={postData.user.username}>
+                  {postData.user.username.substring(0, 1)}
                 </Avatar>
               )}
             </NextLink>
           </Grid>
 
           <Grid>
-            <Chip
-              variant="outlined"
-              label={post.type}
-              className={classes.chip}
-              style={{ border: `2px solid ${color}` }}
-            />
-            <NextLink href={`/post/${post.shortId}/${post.urlSlug}`}>
+            <Chip variant="outlined" label={postData.type} className={classes.chip} />
+            <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
               <Typography variant="h5" component="h2" color="textSecondary">
-                {post.title}
+                {postData.title}
               </Typography>
             </NextLink>
             <Grid container>
-              {post.tags.map(tag => {
+              {postData.tags.map(tag => {
                 return (
                   <NextLink key={tag} href={`/posts/t/${tag}`}>
                     <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
@@ -158,16 +125,16 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
                 )
               })}
             </Grid>
-            <NextLink href={`/${post.user.username}`}>
+            <NextLink href={`/${postData.user.username}`}>
               <Typography gutterBottom className={classes.inlineText}>
-                {post.user.username}
+                {postData.user.username}
               </Typography>
             </NextLink>
             <Typography variant="caption" gutterBottom className={classes.inlineText}>
               {' '}
               -{' '}
               <Moment fromNow locale="de">
-                {post.dateCreated}
+                {postData.dateCreated}
               </Moment>
             </Typography>
           </Grid>
@@ -182,18 +149,17 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
               style={{ color: red[500] }}
               className={classes.button}
             >
-              {post.likes.map(like => like.user).includes(user.id) ? (
+              {postData.likes.map(like => like.user).includes(user.id) ? (
                 <i className="fas fa-heart fa-lg" />
               ) : (
                 <i className="far fa-heart fa-lg" />
               )}
               &nbsp;
-              <Typography>{post.likes.length}</Typography>
+              <Typography>{postData.likes.length}</Typography>
             </Button>
-            <NextLink href={`/post/${post.shortId}/${post.urlSlug}`}>
+            <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
               <Button disableRipple style={{ color: blue[500] }} className={classes.button}>
-                <i className="far fa-comment fa-lg" /> &nbsp;
-                {commentsLength}
+                <i className="far fa-comment fa-lg" />
               </Button>
             </NextLink>
           </span>
@@ -203,12 +169,11 @@ function PostFeedItem({ post, onLikeClick, onBookmarkClick }) {
             style={{ color: blue[500] }}
             className={classes.button}
           >
-            {post.bookmarks.map(bookmark => bookmark.user).includes(user.id) ? (
+            {postData.bookmarks.map(bookmark => bookmark.user).includes(user.id) ? (
               <i className="fas fa-bookmark fa-lg" />
             ) : (
               <i className="far fa-bookmark fa-lg" />
             )}
-            &nbsp;
           </Button>
         </Grid>
       </CardActions>
