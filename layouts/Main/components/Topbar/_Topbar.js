@@ -156,21 +156,21 @@ function ToolbarApp() {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', overflow: 'scroll' }}>
-              <Box>
-                <NextLink href="/dashboard/profile">
+              {/* <Box>
+                <NextLink href="">
                   <Button>
                     <GroupIcon />
                     &nbsp;Members
                   </Button>
                 </NextLink>
-              </Box>
+              </Box> */}
               {isAuthenticated ? (
                 <>
                   <Box>
-                    <NextLink href="/dashboard/profile">
+                    <NextLink href="/dashboard">
                       <Button>
                         <AccountCircle />
-                        &nbsp;Profile
+                        &nbsp;Dashboard
                       </Button>
                     </NextLink>
                   </Box>

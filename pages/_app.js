@@ -2,6 +2,8 @@ import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
 import { MuiThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+
 import { lightTheme } from '../themes'
 
 import Router from 'next/router'
@@ -94,6 +96,7 @@ class MyApp extends App {
         >
           <AlertContextProvider>
             <MuiThemeProvider theme={lightTheme}>
+              <CssBaseline />
               <Component {...pageProps} />
             </MuiThemeProvider>
           </AlertContextProvider>

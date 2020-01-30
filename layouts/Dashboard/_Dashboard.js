@@ -100,18 +100,7 @@ function Dashboard({ children }) {
           </List>
           <Divider />
           <List>
-            <NextLink href="/dashboard/posts">
-              <ListItem button>
-                <ListItemIcon>
-                  <ViewComfy />
-                </ListItemIcon>
-                <ListItemText>Beiträge</ListItemText>
-              </ListItem>
-            </NextLink>
-          </List>
-          <Divider />
-          <List>
-            <NextLink href="/dashboard/profile">
+            <NextLink href="/profile/profile">
               <ListItem button>
                 <ListItemIcon>
                   <AccountBox />
@@ -119,7 +108,7 @@ function Dashboard({ children }) {
                 <ListItemText>Profil</ListItemText>
               </ListItem>
             </NextLink>
-            <NextLink href="/dashboard/settings">
+            <NextLink href="/profile/settings">
               <ListItem button>
                 <ListItemIcon>
                   <Settings />
