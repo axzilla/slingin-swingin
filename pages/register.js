@@ -1,13 +1,13 @@
 import { isLoggedIn } from '../utils/initialize'
 
-import { Main as MainLayout } from '../layouts'
+import { Auth as AuthLayout } from '../layouts'
 import { Register as RegisterView } from '../views'
 
 function register() {
   return (
-    <MainLayout>
+    <AuthLayout>
       <RegisterView />
-    </MainLayout>
+    </AuthLayout>
   )
 }
 

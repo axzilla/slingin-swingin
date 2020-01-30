@@ -1,51 +1,21 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
+
 import { userRegister } from '../../services/auth'
-import { NextLink } from '../../components'
+import NextLink from '../../components/NextLink'
+import TextField from '../../components/TextField'
 
-import { makeStyles } from '@material-ui/styles'
-
-import {
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  TextField,
-  Button,
-  Divider
-} from '@material-ui/core'
-
-const useStyles = makeStyles({
-  formControl: {
-    width: '100%'
-  },
-  card: {
-    maxWidth: '400px'
-  },
-  error: {
-    lineHeight: '20px',
-    display: 'inline',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  }
-})
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 const Register = () => {
-  const classes = useStyles()
   const [errors, setErrors] = useState('')
 
   const [registerData, setRegisterData] = useState({
-    username: '',
     email: '',
     password: ''
   })
@@ -68,81 +38,41 @@ const Register = () => {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="h3">
-            @Sign Up
-          </Typography>
-          <form onSubmit={onSubmit}>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="text"
-                error={errors && errors.username ? true : false}
-                label="Username"
-                margin="normal"
-                variant="outlined"
-                name="username"
-                value={registerData.username}
-                onChange={onChange}
-              />
-              {errors && errors.username ? (
-                <FormHelperText className={classes.error}>{errors.username}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="email"
-                error={errors && errors.email ? true : false}
-                label="Email"
-                margin="normal"
-                variant="outlined"
-                name="email"
-                value={registerData.email}
-                onChange={onChange}
-              />
-              {errors && errors.email ? (
-                <FormHelperText className={classes.error}>{errors.email}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="password"
-                error={errors && errors.password ? true : false}
-                label="Password"
-                margin="normal"
-                variant="outlined"
-                name="password"
-                value={registerData.password}
-                onChange={onChange}
-              />
-              {errors && errors.password ? (
-                <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <Button
-              fullWidth
-              type="submit"
-              color="primary"
-              variant="outlined"
-              className={classes.registerButton}
-            >
+    <Card style={{ maxWidth: '400px' }}>
+      <CardContent>
+        <Typography variant="h5" align="center" gutterBottom>
+          Ready to sign up?
+        </Typography>
+        <form onSubmit={onSubmit}>
+          <Box mb={2}>
+            <TextField
+              error={errors && errors.email}
+              type="email"
+              label="Email"
+              name="email"
+              value={registerData.email}
+              onChange={onChange}
+            />
+            <TextField
+              type="password"
+              error={errors && errors.password}
+              label="Password"
+              name="password"
+              value={registerData.password}
+              onChange={onChange}
+            />
+          </Box>
+          <Box mb={2}>
+            <Button fullWidth type="submit" color="secondary" variant="contained">
               Sign Up
             </Button>
-          </form>
-          <Divider className={classes.divider} />
-          <NextLink
-            href={'/login'}
-            style={{
-              display: 'block',
-              textDecoration: 'none'
-            }}
-          >
-            <Button className={classes.passwordButton}>You already have an account?</Button>
-          </NextLink>
-        </CardContent>
-      </Card>
-    </Grid>
+          </Box>
+        </form>
+        <NextLink href={'/login'}>
+          <Typography align="center">You already have an account?</Typography>
+        </NextLink>
+      </CardContent>
+    </Card>
   )
 }
 

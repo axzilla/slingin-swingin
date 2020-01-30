@@ -19,7 +19,7 @@ const lightTheme = createMuiTheme({
       main: '#212121'
     },
     secondary: {
-      main: '#009688'
+      main: '#90caf9'
     }
   },
   typography: {

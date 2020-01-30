@@ -4,40 +4,18 @@ import Router from 'next/router'
 import AuthContext from '../../contexts/AuthContext'
 import { userLogin } from '../../services/auth'
 import NextLink from '../../components/NextLink'
+import TextField from '../../components/TextField'
 
-import { makeStyles } from '@material-ui/styles'
-import FormControl from '@material-ui/core/FormControl'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-
-const useStyles = makeStyles({
-  formControl: {
-    width: '100%'
-  },
-  card: {
-    maxWidth: '400px'
-  },
-  error: {
-    lineHeight: '20px',
-    display: 'inline',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  }
-})
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 
 function UserLogin() {
-  const classes = useStyles()
   const { login } = useContext(AuthContext)
   const [errors, setErrors] = useState('')
+
   const [loginData, setLoginData] = useState({
     login: '',
     password: ''
@@ -63,55 +41,44 @@ function UserLogin() {
   }
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <FormControl className={classes.formControl} error>
-          <TextField
-            type="text"
-            error={errors && errors.login ? true : false}
-            label="Username or email"
-            margin="normal"
-            variant="outlined"
-            name="login"
-            value={loginData.login}
-            onChange={onChange}
-          />
-          {errors && errors.login ? (
-            <FormHelperText className={classes.error}>{errors.login}</FormHelperText>
-          ) : null}
-        </FormControl>
-        <FormControl className={classes.formControl} error>
-          <TextField
-            type="password"
-            error={errors && errors.password ? true : false}
-            label="Password"
-            margin="normal"
-            variant="outlined"
-            name="password"
-            value={loginData.password}
-            onChange={onChange}
-          />
-          {errors && errors.password ? (
-            <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
-          ) : null}
-        </FormControl>
-        <Button
-          fullWidth
-          type="submit"
-          color="secondary"
-          variant="outlined"
-          className={classes.loginButton}
-        >
-          Login
-        </Button>
-      </form>
-      <NextLink href={'/forgot-password'}>
-        <Button className={classes.passwordButton}>Forgot password?</Button>
-      </NextLink>
-      <NextLink href={'/register'}>
-        <Button className={classes.passwordButton}>Don’t have an account? </Button>
-      </NextLink>
-    </>
+    <Card style={{ maxWidth: '400px' }}>
+      <CardContent>
+        {' '}
+        <Typography variant="h5" align="center" gutterBottom>
+          Ready to log in?
+        </Typography>
+        <form onSubmit={onSubmit} style={{ width: '100%' }}>
+          <Box mb={2}>
+            <TextField
+              error={errors && errors.login}
+              label="Username or email"
+              name="login"
+              value={loginData.login}
+              onChange={onChange}
+            />
+            <TextField
+              type="password"
+              error={errors && errors.password}
+              label="Password"
+              name="password"
+              value={loginData.password}
+              onChange={onChange}
+            />
+          </Box>
+          <Box mb={2}>
+            <Button fullWidth type="submit" color="secondary" variant="contained">
+              Login
+            </Button>
+          </Box>
+        </form>
+        <NextLink href={'/forgot-password'}>
+          <Typography align="center">Forgot password?</Typography>
+        </NextLink>
+        <NextLink href={'/register'}>
+          <Typography align="center">Don’t have an account? </Typography>
+        </NextLink>
+      </CardContent>
+    </Card>
   )
 }
 
