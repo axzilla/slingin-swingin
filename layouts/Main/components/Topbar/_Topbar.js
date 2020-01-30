@@ -11,6 +11,7 @@ import isEmpty from '../../../../utils/isEmpty'
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
+import { Grid } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box'
@@ -20,8 +21,6 @@ import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToApp from '@material-ui/icons/ExitToApp'
-import GroupIcon from '@material-ui/icons/Group'
-import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   logo: {
