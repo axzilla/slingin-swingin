@@ -3,94 +3,42 @@ import PropTypes from 'prop-types'
 import AuthContext from '../../../../contexts/AuthContext'
 import Router from 'next/router'
 
-import { Link } from '../../../../components'
+import { NextLink } from '../../../../components'
 import { searchFunc } from '../../../../services/search'
 import isEmpty from '../../../../utils/isEmpty'
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  InputBase,
-  Button,
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Drawer,
-  List
-} from '@material-ui/core'
-import {
-  Menu as MenuIcon,
-  Search as SearchIcon,
-  AccountCircle,
-  AddBox,
-  InvertColors as InvertColorsIcon,
-  ExitToApp
-} from '@material-ui/icons'
-import { blue } from '@material-ui/core/colors'
+
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import InputBase from '@material-ui/core/InputBase'
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+
+import MenuIcon from '@material-ui/icons/Menu'
+import SearchIcon from '@material-ui/icons/Search'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import AddBox from '@material-ui/icons/AddBox'
+import ExitToApp from '@material-ui/icons/ExitToApp'
+
 const useStyles = makeStyles(theme => ({
-  icon: {
-    color: blue[500]
-  },
-  logoLight: {
-    letterSpacing: '2px',
-    background: 'black',
-    color: 'white',
-    borderRadius: '2px',
-    padding: '5px 10px'
-  },
-  logoDark: {
-    letterSpacing: '2px',
-    background: 'white',
-    color: 'black',
-    borderRadius: '2px',
-    padding: '5px 10px'
-  },
-  list: {
-    width: 250
-  },
-  root: {
-    width: '100%'
-  },
-  grow: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    }
-  },
-  searchDark: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto'
-    }
-  },
-  searchLight: {
+  list: { width: 250 },
+  root: { width: '100%' },
+  grow: { flexGrow: 1 },
+  menuButton: { marginLeft: -12, marginRight: 20 },
+  searchField: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.black, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.black, 0.25)
-    },
+    '&:hover': { backgroundColor: fade(theme.palette.common.black, 0.25) },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
@@ -108,9 +56,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  inputRoot: {
-    width: '100%'
-  },
+  inputRoot: { width: '100%' },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
@@ -124,35 +70,21 @@ const useStyles = makeStyles(theme => ({
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex'
-    }
+    [theme.breakpoints.up('md')]: { display: 'flex' }
   },
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
+    [theme.breakpoints.up('md')]: { display: 'none' }
   },
   drawerIcon: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
+    [theme.breakpoints.up('md')]: { display: 'none' }
   },
-  button: {
-    margin: theme.spacing(1)
-  },
-  mobileButton: {
-    margin: `${theme.spacing(-1)}px 0`
-  },
-  textLink: {
-    flexGrow: 1,
-    display: 'inline'
-  }
+  button: { margin: theme.spacing(1) },
+  mobileButton: { margin: `${theme.spacing(-1)}px 0` }
 }))
 
-function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
+function ToolbarApp() {
   const { isAuthenticated, logout } = useContext(AuthContext)
   const classes = useStyles()
   const [toolbarData, setToolbarData] = useState({
@@ -190,45 +122,41 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
   const sideList = (
     <div className={classes.list}>
       <List>
-        <Link href="/">
+        <NextLink href="/">
           <ListItem style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <Typography
-              className={isLightTheme ? classes.logoLight : classes.logoDark}
-              variant="h6"
-              noWrap
-            >
-              CODEHUSTLA
+            <Typography variant="h6" noWrap>
+              bounce
             </Typography>
           </ListItem>
-        </Link>
+        </NextLink>
         {!isAuthenticated ? (
           <React.Fragment>
             <ListItem>
               <ListItemText>
-                <Link href="/register">
+                <NextLink href="/register">
                   <Button
                     fullWidth
                     className={classes.mobileButton}
                     variant="outlined"
                     color="secondary"
                   >
-                    Registrieren
+                    Sign Up
                   </Button>
-                </Link>
+                </NextLink>
               </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemText>
-                <Link href="/login">
+                <NextLink href="/login">
                   <Button
                     color="primary"
                     fullWidth
                     className={classes.mobileButton}
                     variant="outlined"
                   >
-                    Einloggen
+                    Log in
                   </Button>
-                </Link>
+                </NextLink>
               </ListItemText>
             </ListItem>
           </React.Fragment>
@@ -238,26 +166,16 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
         <React.Fragment>
           <Divider />
 
-          <Link href="/create-post">
+          <NextLink href="/create-post">
             <ListItem button>
               <ListItemIcon>
                 <AddBox />
               </ListItemIcon>
               <ListItemText>Beitrag erstellen</ListItemText>
             </ListItem>
-          </Link>
+          </NextLink>
         </React.Fragment>
       ) : null}
-      <Divider />
-
-      <List>
-        <ListItem button onClick={onThemeToggleClick}>
-          <ListItemIcon>
-            <InvertColorsIcon />
-          </ListItemIcon>
-          <ListItemText>Dark/Light</ListItemText>
-        </ListItem>
-      </List>
     </div>
   )
 
@@ -272,17 +190,9 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
           >
             <MenuIcon />
           </IconButton>
-          <Link href="/">
-            <Typography
-              className={`${classes.title} ${isLightTheme ? classes.logoLight : classes.logoDark}`}
-              variant="h6"
-              noWrap
-            >
-              CODEHUSTLA
-            </Typography>
-          </Link>
+          <NextLink href="/">LOGO</NextLink>
 
-          <div className={isLightTheme ? classes.searchLight : classes.searchDark}>
+          <div className={classes.searchField}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -303,43 +213,37 @@ function ToolbarApp({ isLightTheme, onThemeToggleClick }) {
           <div className={classes.grow} />
           {isAuthenticated ? (
             <div className={classes.sectionDesktop}>
-              <Link href="/create-post">
+              <NextLink href="/create-post">
                 <Button className={classes.button} variant="outlined" color="primary">
                   Beitrag erstellen
                 </Button>
-              </Link>
+              </NextLink>
             </div>
           ) : null}
 
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-haspopup="true" onClick={onThemeToggleClick}>
-              <InvertColorsIcon />
-            </IconButton>
-          </div>
-
           {isAuthenticated ? (
             <>
-              <Link href="/dashboard/profile">
+              <NextLink href="/dashboard/profile">
                 <IconButton>
                   <AccountCircle />
                 </IconButton>
-              </Link>
+              </NextLink>
               <IconButton onClick={onLogoutClick}>
                 <ExitToApp />
               </IconButton>
             </>
           ) : (
             <div className={classes.sectionDesktop}>
-              <Link href="/register">
+              <NextLink href="/register">
                 <Button className={classes.button} variant="outlined" color="secondary">
-                  Registrieren
+                  Sign Up
                 </Button>
-              </Link>
-              <Link href="/login">
+              </NextLink>
+              <NextLink href="/login">
                 <Button color="primary" className={classes.button} variant="outlined">
-                  Einloggen
+                  Log in
                 </Button>
-              </Link>
+              </NextLink>
             </div>
           )}
         </Toolbar>

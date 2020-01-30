@@ -70,7 +70,7 @@ function PasswordReset({ token }) {
         password2: passwords.password2
       }
       await passwordReset(passwordData)
-      setAlert({ message: 'E-Mail erfolgreich gesendet' })
+      setAlert({ message: 'Email sent successfully' })
       Router.push('/login')
     } catch (error) {
       setErrors(error.response.data)
@@ -87,7 +87,7 @@ function PasswordReset({ token }) {
               <TextField
                 type="password"
                 error={errors.password ? true : false}
-                label="Passwort"
+                label="Password"
                 margin="normal"
                 variant="outlined"
                 name="password"
@@ -120,7 +120,7 @@ function PasswordReset({ token }) {
               variant="outlined"
               className={classes.loginButton}
             >
-              Einloggen
+              Login
             </Button>
           </form>
         </CardContent>

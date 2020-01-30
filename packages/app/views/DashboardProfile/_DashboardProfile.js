@@ -329,7 +329,7 @@ function ProfileEdit() {
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  placeholder="Github Benutzername"
+                  placeholder="Github Username"
                   label="Github"
                   margin="normal"
                   variant="outlined"
@@ -341,7 +341,7 @@ function ProfileEdit() {
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  placeholder="Gitlab Benutzername"
+                  placeholder="Gitlab Username"
                   label="Gitlab"
                   margin="normal"
                   variant="outlined"
@@ -353,7 +353,7 @@ function ProfileEdit() {
               <FormControl className={classes.formControl} error>
                 <TextField
                   type="text"
-                  placeholder="Bitbucket Benutzername"
+                  placeholder="Bitbucket Username"
                   label="Bitbucket"
                   margin="normal"
                   variant="outlined"

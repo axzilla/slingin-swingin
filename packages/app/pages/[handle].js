@@ -8,10 +8,10 @@ function profileDetails({ handle }) {
   return (
     <>
       <SeoMeta
-        title={`${handle} - codehustla.dev`}
+        title={`${handle} - bounce.dev`}
         // If data comes in getInitialProps please fill out desc with bio?!
         // desc={}
-        canonical={`https://www.codehustla.dev/${handle}`}
+        canonical={`https://www.bounce.dev/${handle}`}
       />
       <MainLayout>
         <ProfileDetailsView handle={handle} />

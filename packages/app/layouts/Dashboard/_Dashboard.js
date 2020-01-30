@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import AuthContext from '../../contexts/AuthContext'
 
-import { Link } from '../../components'
+import { NextLink } from '../../components'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -89,44 +89,44 @@ function Dashboard({ children }) {
         >
           <div className={classes.toolbar} />
           <List>
-            <Link href={`/${user.username}`}>
+            <NextLink href={`/${user.username}`}>
               <ListItem button>
                 <ListItemIcon>
                   <Avatar src={user.avatar && user.avatar.secure_url} className={classes.avatar} />
                 </ListItemIcon>
                 <ListItemText>@{user.username}</ListItemText>
               </ListItem>
-            </Link>
+            </NextLink>
           </List>
           <Divider />
           <List>
-            <Link href="/dashboard/posts">
+            <NextLink href="/dashboard/posts">
               <ListItem button>
                 <ListItemIcon>
                   <ViewComfy />
                 </ListItemIcon>
                 <ListItemText>Beiträge</ListItemText>
               </ListItem>
-            </Link>
+            </NextLink>
           </List>
           <Divider />
           <List>
-            <Link href="/dashboard/profile">
+            <NextLink href="/dashboard/profile">
               <ListItem button>
                 <ListItemIcon>
                   <AccountBox />
                 </ListItemIcon>
                 <ListItemText>Profil</ListItemText>
               </ListItem>
-            </Link>
-            <Link href="/dashboard/settings">
+            </NextLink>
+            <NextLink href="/dashboard/settings">
               <ListItem button>
                 <ListItemIcon>
                   <Settings />
                 </ListItemIcon>
                 <ListItemText>Einstellungen</ListItemText>
               </ListItem>
-            </Link>
+            </NextLink>
           </List>
         </Drawer>
         {children}

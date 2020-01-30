@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import 'moment/locale/de'
-import { Link, StyledReactMarkdown } from '../../../components'
+import { NextLink, StyledReactMarkdown } from '../../../components'
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core'
 
 function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {
@@ -30,9 +30,9 @@ function TabsPostComments({ commentsByUserId, subCommentsByUserId }) {
               }}
             >
               <div>
-                <Link to={`/post/${shortId}/${urlSlug}`}>
+                <NextLink to={`/post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.refPost.title}</Typography>
-                </Link>
+                </NextLink>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow locale="de">
                     {comment.dateCreated}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
 import { userRegister } from '../../services/auth'
-import { Link } from '../../components'
+import { NextLink } from '../../components'
 
 import { makeStyles } from '@material-ui/styles'
 
@@ -72,14 +72,14 @@ const Register = () => {
       <Card className={classes.card}>
         <CardContent>
           <Typography gutterBottom variant="h6" component="h3">
-            @registrieren
+            @Sign Up
           </Typography>
           <form onSubmit={onSubmit}>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="text"
                 error={errors && errors.username ? true : false}
-                label="Benutzername"
+                label="Username"
                 margin="normal"
                 variant="outlined"
                 name="username"
@@ -94,7 +94,7 @@ const Register = () => {
               <TextField
                 type="email"
                 error={errors && errors.email ? true : false}
-                label="E-Mail"
+                label="Email"
                 margin="normal"
                 variant="outlined"
                 name="email"
@@ -109,7 +109,7 @@ const Register = () => {
               <TextField
                 type="password"
                 error={errors && errors.password ? true : false}
-                label="Passwort"
+                label="Password"
                 margin="normal"
                 variant="outlined"
                 name="password"
@@ -127,19 +127,19 @@ const Register = () => {
               variant="outlined"
               className={classes.registerButton}
             >
-              Registrieren
+              Sign Up
             </Button>
           </form>
           <Divider className={classes.divider} />
-          <Link
+          <NextLink
             href={'/login'}
             style={{
               display: 'block',
               textDecoration: 'none'
             }}
           >
-            <Button className={classes.passwordButton}>Du hast schon einen Account?</Button>
-          </Link>
+            <Button className={classes.passwordButton}>You already have an account?</Button>
+          </NextLink>
         </CardContent>
       </Card>
     </Grid>

@@ -66,7 +66,7 @@ function UsernameChange() {
       const res = await usernameChange(emailData)
       const { token } = res.data
       login(token)
-      setAlert({ message: 'Benutzername erfolgreich geändert' })
+      setAlert({ message: 'Username erfolgreich geändert' })
       localStorage.setItem('jwtToken', token)
     } catch (error) {
       setErrors(error.response.data)
@@ -77,14 +77,14 @@ function UsernameChange() {
     <React.Fragment>
       <Card>
         <CardContent>
-          <Typography variant="subtitle1">Benutzername ändern</Typography>
+          <Typography variant="subtitle1">Username ändern</Typography>
           <form noValidate onSubmit={onSubmit}>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="text"
                 error={errors && errors.username ? true : false}
-                placeholder="Benutzername"
-                label="Benutzername"
+                placeholder="Username"
+                label="Username"
                 margin="normal"
                 variant="outlined"
                 name="username"

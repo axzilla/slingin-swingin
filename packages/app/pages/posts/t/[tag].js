@@ -8,9 +8,9 @@ function postsByTag({ tag }) {
   return (
     <>
       <SeoMeta
-        title={`${tag} - codehustla.dev - Gemeinsam werden wir bessere Entwickler`}
-        desc={`codehustla.dev - Hier dreht sich alles um ${tag}`}
-        canonical={`https://www.codehustla.dev/posts/t/${tag}`}
+        title={`${tag} - bounce.dev - Gemeinsam werden wir bessere Entwickler`}
+        desc={`bounce.dev - Hier dreht sich alles um ${tag}`}
+        canonical={`https://www.bounce.dev/posts/t/${tag}`}
       />
       <MainLayout>
         <PostFeedByTagView tag={tag} />

@@ -3,21 +3,13 @@ import Router from 'next/router'
 
 import AuthContext from '../../contexts/AuthContext'
 import { userLogin } from '../../services/auth'
-
-import { Link } from '../../components'
+import NextLink from '../../components/NextLink'
 
 import { makeStyles } from '@material-ui/styles'
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  TextField,
-  Button,
-  Divider
-} from '@material-ui/core'
+import FormControl from '@material-ui/core/FormControl'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
   formControl: {
@@ -71,63 +63,55 @@ function UserLogin() {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="h3">
-            @login
-          </Typography>
-          <form onSubmit={onSubmit}>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="text"
-                error={errors && errors.login ? true : false}
-                label="Benutzername oder E-Mail"
-                margin="normal"
-                variant="outlined"
-                name="login"
-                value={loginData.login}
-                onChange={onChange}
-              />
-              {errors && errors.login ? (
-                <FormHelperText className={classes.error}>{errors.login}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="password"
-                error={errors && errors.password ? true : false}
-                label="Passwort"
-                margin="normal"
-                variant="outlined"
-                name="password"
-                value={loginData.password}
-                onChange={onChange}
-              />
-              {errors && errors.password ? (
-                <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <Button
-              fullWidth
-              type="submit"
-              color="primary"
-              variant="outlined"
-              className={classes.loginButton}
-            >
-              Einloggen
-            </Button>
-          </form>
-          <Divider className={classes.divider} />
-          <Link href={'/forgot-password'}>
-            <Button className={classes.passwordButton}>Passwort vergessen?</Button>
-          </Link>
-          <Link href={'/register'}>
-            <Button className={classes.passwordButton}>Noch keinen Account?</Button>
-          </Link>
-        </CardContent>
-      </Card>
-    </Grid>
+    <>
+      <form onSubmit={onSubmit}>
+        <FormControl className={classes.formControl} error>
+          <TextField
+            type="text"
+            error={errors && errors.login ? true : false}
+            label="Username or email"
+            margin="normal"
+            variant="outlined"
+            name="login"
+            value={loginData.login}
+            onChange={onChange}
+          />
+          {errors && errors.login ? (
+            <FormHelperText className={classes.error}>{errors.login}</FormHelperText>
+          ) : null}
+        </FormControl>
+        <FormControl className={classes.formControl} error>
+          <TextField
+            type="password"
+            error={errors && errors.password ? true : false}
+            label="Password"
+            margin="normal"
+            variant="outlined"
+            name="password"
+            value={loginData.password}
+            onChange={onChange}
+          />
+          {errors && errors.password ? (
+            <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
+          ) : null}
+        </FormControl>
+        <Button
+          fullWidth
+          type="submit"
+          color="secondary"
+          variant="outlined"
+          className={classes.loginButton}
+        >
+          Login
+        </Button>
+      </form>
+      <NextLink href={'/forgot-password'}>
+        <Button className={classes.passwordButton}>Forgot password?</Button>
+      </NextLink>
+      <NextLink href={'/register'}>
+        <Button className={classes.passwordButton}>Don’t have an account? </Button>
+      </NextLink>
+    </>
   )
 }
 

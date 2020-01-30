@@ -1,13 +1,13 @@
 import { isLoggedIn } from '../utils/initialize'
 
-import { Main as MainLayout } from '../layouts'
+import { Auth as AuthLayout } from '../layouts'
 import { Login as LoginView } from '../views'
 
 function login() {
   return (
-    <MainLayout>
+    <AuthLayout>
       <LoginView />
-    </MainLayout>
+    </AuthLayout>
   )
 }
 

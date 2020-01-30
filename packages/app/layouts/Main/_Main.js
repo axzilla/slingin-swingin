@@ -3,36 +3,11 @@ import Router from 'next/router'
 import PropTypes from 'prop-types'
 import { Topbar, Footer } from './components'
 import { Alert } from '../../components'
-import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { CssBaseline, Grid } from '@material-ui/core'
-
-const darkTheme = createMuiTheme({
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#cfd8dc'
-    }
-  },
-  typography: {
-    useNextVariants: true
-  }
-})
-
-const lightTheme = createMuiTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#212121'
-    }
-  },
-  typography: {
-    useNextVariants: true
-  }
-})
 
 function Layout({ children }) {
   const [isDashboardUrl, setIsDashboardUrl] = useState(false)
-  const [isLightTheme, setIsLightTheme] = useState(true)
 
   const useStyles = makeStyles(theme => ({
     topbar: theme.mixins.toolbar,
@@ -48,12 +23,6 @@ function Layout({ children }) {
   const classes = useStyles()
 
   useEffect(() => {
-    if (localStorage.theme === 'dark') {
-      setIsLightTheme(false)
-    } else if (localStorage.theme === 'light') {
-      setIsLightTheme(true)
-    }
-
     setIsDashboardUrl(Router.pathname.includes('dashboard'))
   }, [])
 
@@ -61,25 +30,17 @@ function Layout({ children }) {
     setIsDashboardUrl(Router.pathname.includes('dashboard'))
   }, [Router])
 
-  function onThemeToggleClick() {
-    setIsLightTheme(!isLightTheme)
-
-    localStorage.theme === 'dark'
-      ? localStorage.setItem('theme', 'light')
-      : localStorage.setItem('theme', 'dark')
-  }
-
   return (
-    <MuiThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
+    <>
       <CssBaseline />
       <Grid container className={classes.control}>
-        <Topbar onThemeToggleClick={onThemeToggleClick} isLightTheme={isLightTheme} />
+        <Topbar />
         <div className={classes.topbar} />
         {children}
         <Footer />
       </Grid>
       <Alert />
-    </MuiThemeProvider>
+    </>
   )
 }
 

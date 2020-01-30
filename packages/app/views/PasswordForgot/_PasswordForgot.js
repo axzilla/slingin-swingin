@@ -58,7 +58,7 @@ function PasswordForgot() {
       }
 
       await passwordForgot(emailData)
-      setAlert({ message: 'E-Mail erfolgreich gesendet' })
+      setAlert({ message: 'Email sent successfully' })
       setEmail('')
       setErrors('')
     } catch (error) {
@@ -70,13 +70,13 @@ function PasswordForgot() {
     <Grid className={classes.root} container justify="center">
       <Card className={classes.card}>
         <CardContent>
-          <Typography variant="subtitle1">#passwortvergessen</Typography>
+          <Typography variant="subtitle1">#forgotpassword</Typography>
           <form onSubmit={onSubmit}>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="email"
                 error={errors.email ? true : false}
-                label="E-Mail"
+                label="Email"
                 margin="normal"
                 variant="outlined"
                 name="email"
@@ -94,7 +94,7 @@ function PasswordForgot() {
               variant="outlined"
               className={classes.sendMailButton}
             >
-              E-Mail senden
+              Send email
             </Button>
           </form>
         </CardContent>

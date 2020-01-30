@@ -66,7 +66,7 @@ function EmailChange() {
       const res = await emailChange(emailData)
       const { token } = res.data
       login(token)
-      setAlert({ message: 'E-Mail Adresse erfolgreich geändert' })
+      setAlert({ message: 'Email changed successfully' })
     } catch (error) {
       setErrors(error.response.data)
     }
@@ -76,14 +76,14 @@ function EmailChange() {
     <React.Fragment>
       <Card>
         <CardContent>
-          <Typography variant="subtitle1">E-Mail ändern</Typography>
+          <Typography variant="subtitle1">Change email</Typography>
           <form noValidate onSubmit={onSubmit}>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="email"
                 error={errors && errors.email ? true : false}
-                placeholder="E-Mail Adress"
-                label="E-Mail Adresse"
+                placeholder="Email"
+                label="Email"
                 margin="normal"
                 variant="outlined"
                 name="email"

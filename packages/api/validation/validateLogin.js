@@ -4,7 +4,7 @@ function validateLogin(data) {
   let errors = {}
 
   if (Validator.isEmpty(data.login)) {
-    errors.login = 'Username oder email is required'
+    errors.login = 'Username or email is required'
   }
 
   if (Validator.isEmpty(data.password)) {

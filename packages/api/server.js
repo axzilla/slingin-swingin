@@ -22,7 +22,7 @@ app.use('/search', require('./routes/search'))
 require('./utils/passport')(passport)
 
 setInterval(function() {
-  http.get('https://codehustla-api-production.herokuapp.com')
+  http.get('https://bounce-api-production.herokuapp.com')
 }, 1500000) // every 25 minutes (1500000)
 
 const db = process.env.MONGO_URI

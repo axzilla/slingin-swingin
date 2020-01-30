@@ -70,7 +70,7 @@ function PasswordChange() {
       const res = await passwordChange(passwordData)
       const { token } = res.data
       login(token)
-      setAlert({ message: 'Passwort erfolgreich geändert' })
+      setAlert({ message: 'Password erfolgreich geändert' })
       setPasswords({
         oldPassword: '',
         newPassword: '',
@@ -86,14 +86,14 @@ function PasswordChange() {
     <React.Fragment>
       <Card>
         <CardContent>
-          <Typography variant="subtitle1">Passwort ändern</Typography>
+          <Typography variant="subtitle1">Password ändern</Typography>
           <form noValidate onSubmit={onSubmit}>
             <FormControl className={classes.formControl} error>
               <TextField
                 type="password"
                 error={errors && errors.oldPassword ? true : false}
-                placeholder="Altes Passwort"
-                label="Altes Passwort"
+                placeholder="Altes Password"
+                label="Altes Password"
                 margin="normal"
                 variant="outlined"
                 name="oldPassword"
@@ -108,8 +108,8 @@ function PasswordChange() {
               <TextField
                 type="password"
                 error={errors && errors.newPassword ? true : false}
-                placeholder="Neues Passwort"
-                label="Neues Passwort"
+                placeholder="Neues Password"
+                label="Neues Password"
                 margin="normal"
                 variant="outlined"
                 name="newPassword"
@@ -124,8 +124,8 @@ function PasswordChange() {
               <TextField
                 type="password"
                 error={errors && errors.newPassword2 ? true : false}
-                placeholder="Neues Passwort wiederholen"
-                label="Neues Passwort wiederholen"
+                placeholder="Neues Password wiederholen"
+                label="Neues Password wiederholen"
                 margin="normal"
                 variant="outlined"
                 name="newPassword2"

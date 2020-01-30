@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '../../../components'
+import { NextLink } from '../../../components'
 
 function PostDetailsTitleImage({ post }) {
   return (
-    <Link href={`/post/${post.shortId}/${post.urlSlug}`}>
+    <NextLink href={`/post/${post.shortId}/${post.urlSlug}`}>
       {post.titleImage ? (
         <img
           alt="post-title"
@@ -17,7 +17,7 @@ function PostDetailsTitleImage({ post }) {
           }}
         />
       ) : null}
-    </Link>
+    </NextLink>
   )
 }
 

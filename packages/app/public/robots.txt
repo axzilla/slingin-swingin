@@ -1,4 +1,4 @@
-Sitemap: http://www.codehustla.dev/api/sitemap
+Sitemap: http://www.bounce.dev/api/sitemap
 
 User-agent: *
 Disallow: /dashboard/
