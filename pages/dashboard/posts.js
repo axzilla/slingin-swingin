@@ -1,12 +1,15 @@
 import { isNotLoggedIn } from '../../utils/initialize'
+import { Main as MainView } from '../../layouts'
 import { Dashboard as DashboardView } from '../../layouts'
 import { DashboardPosts as DashboardPostsView } from '../../views'
 
 function posts() {
   return (
-    <DashboardView>
-      <DashboardPostsView />
-    </DashboardView>
+    <MainView>
+      <DashboardView>
+        <DashboardPostsView />
+      </DashboardView>
+    </MainView>
   )
 }
 

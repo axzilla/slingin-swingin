@@ -135,7 +135,6 @@ function ToolbarApp() {
                   <img src={logo} className={classes.logo} />
                 </Grid>
               </NextLink>
-              {/* <Grid container justifyContent="flex-end"> */}
               <div className={classes.searchField}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
@@ -154,10 +153,17 @@ function ToolbarApp() {
                   />
                 </form>
               </div>
-              {/* </Grid> */}
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', overflow: 'scroll' }}>
+              <Box>
+                <NextLink href="/dashboard/profile">
+                  <Button>
+                    <GroupIcon />
+                    &nbsp;Members
+                  </Button>
+                </NextLink>
+              </Box>
               {isAuthenticated ? (
                 <>
                   <Box>
@@ -165,14 +171,6 @@ function ToolbarApp() {
                       <Button>
                         <AccountCircle />
                         &nbsp;Profile
-                      </Button>
-                    </NextLink>
-                  </Box>
-                  <Box>
-                    <NextLink href="/dashboard/profile">
-                      <Button>
-                        <GroupIcon />
-                        &nbsp;Members
                       </Button>
                     </NextLink>
                   </Box>
@@ -185,7 +183,7 @@ function ToolbarApp() {
                   <Box>
                     <NextLink href="/create-post">
                       <Button className={classes.button} variant="contained" color="secondary">
-                        Post+
+                        Create&nbsp;Post
                       </Button>
                     </NextLink>
                   </Box>
@@ -195,14 +193,14 @@ function ToolbarApp() {
                   <Box>
                     <NextLink href="/register">
                       <Button className={classes.button} variant="contained" color="secondary">
-                        Sign Up
+                        Sign&nbsp;Up
                       </Button>
                     </NextLink>
                   </Box>
                   <Box>
                     <NextLink href="/login">
                       <Button color="primary" className={classes.button} variant="outlined">
-                        Log in
+                        Log&nbsp;in
                       </Button>
                     </NextLink>
                   </Box>

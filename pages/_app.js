@@ -1,7 +1,8 @@
 import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import { lightTheme } from '../themes'
 
 import Router from 'next/router'
 import { withRouter } from 'next/router'
@@ -12,24 +13,8 @@ import setAuthToken from '../utils/setAuthToken'
 import AuthContext from '../contexts/AuthContext'
 import { AlertContextProvider } from '../contexts/AlertContext'
 
-const lightTheme = createMuiTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#212121'
-    },
-    secondary: {
-      main: '#90caf9'
-    }
-  },
-  typography: {
-    useNextVariants: true
-  }
-})
-
 class MyApp extends App {
   state = {
-    isLightTheme: true,
     isAuthenticated: false,
     user: {}
   }
@@ -38,12 +23,6 @@ class MyApp extends App {
     const cookies = new Cookies()
     const jwtToken = cookies.get('jwtToken')
     setAuthToken(jwtToken)
-
-    if (localStorage.theme === 'dark') {
-      this.setState({ ...this.state, isLightTheme: false })
-    } else if (localStorage.theme === 'light') {
-      this.setState({ ...this.state, isLightTheme: true })
-    }
 
     if (jwtToken) {
       const decodedUser = jwtDecode(jwtToken)
