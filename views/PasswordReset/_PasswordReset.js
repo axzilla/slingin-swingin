@@ -5,46 +5,15 @@ import jwtDecode from 'jwt-decode'
 
 import { useAlert } from '../../contexts/AlertContext'
 import { passwordReset } from '../../services/auth'
+import TextField from '../../components/TextField'
 
-import { makeStyles } from '@material-ui/styles'
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  TextField,
-  Button
-} from '@material-ui/core'
-
-const useStyles = makeStyles({
-  formControl: {
-    width: '100%'
-  },
-  card: {
-    maxWidth: '400px'
-  },
-  error: {
-    lineHeight: '20px',
-    display: 'inline',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  }
-})
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
 function PasswordReset({ token }) {
   const { setAlert } = useAlert()
 
-  const classes = useStyles()
   const [errors, setErrors] = useState('')
 
   const [passwords, setPasswords] = useState({
@@ -78,54 +47,34 @@ function PasswordReset({ token }) {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="subtitle1">#passwortzuruecksetzen</Typography>
-          <form onSubmit={onSubmit}>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="password"
-                error={errors.password ? true : false}
-                label="Password"
-                margin="normal"
-                variant="outlined"
-                name="password"
-                value={passwords.password}
-                onChange={onChange}
-              />
-              {errors.password ? (
-                <FormHelperText className={classes.error}>{errors.password}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <FormControl className={classes.formControl} error>
-              <TextField
-                type="password"
-                error={errors.password ? true : false}
-                label="Passwort wiederholen"
-                margin="normal"
-                variant="outlined"
-                name="password2"
-                value={passwords.password2}
-                onChange={onChange}
-              />
-              {errors.password2 ? (
-                <FormHelperText className={classes.error}>{errors.password2}</FormHelperText>
-              ) : null}
-            </FormControl>
-            <Button
-              fullWidth
-              type="submit"
-              color="primary"
-              variant="outlined"
-              className={classes.loginButton}
-            >
-              Login
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </Grid>
+    <>
+      <Typography variant="h5" align="center" gutterBottom>
+        Reset password?
+      </Typography>
+      <form onSubmit={onSubmit}>
+        <Box mb={2}>
+          <TextField
+            type="password"
+            error={errors && errors.password}
+            label="Password"
+            name="password"
+            value={passwords.password}
+            onChange={onChange}
+          />
+          <TextField
+            type="password"
+            error={errors && errors.password}
+            label="Repeat password"
+            name="password2"
+            value={passwords.password2}
+            onChange={onChange}
+          />
+        </Box>
+        <Button fullWidth type="submit" color="secondary" variant="contained">
+          Login
+        </Button>
+      </form>
+    </>
   )
 }
 
