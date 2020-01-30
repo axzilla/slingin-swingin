@@ -5,7 +5,6 @@ import { userRegister } from '../../services/auth'
 import NextLink from '../../components/NextLink'
 import TextField from '../../components/TextField'
 
-import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Box from '@material-ui/core/Box'

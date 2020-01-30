@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 function TextField({ type, value, name, onChange, label, error }) {
   const classes = useStyles()
-
+  console.log(error)
   return (
     <FormControl className={classes.formControl} error>
       <MuiTextField

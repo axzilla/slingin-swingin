@@ -43,7 +43,6 @@ function UserLogin() {
   return (
     <Card style={{ maxWidth: '400px' }}>
       <CardContent>
-        {' '}
         <Typography variant="h5" align="center" gutterBottom>
           Ready to log in?
         </Typography>
