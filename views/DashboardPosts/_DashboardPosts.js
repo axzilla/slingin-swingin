@@ -5,14 +5,17 @@ import Posts from './components/Posts'
 import Comments from './components/Comments'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { AppBar, Tabs, Tab } from '@material-ui/core'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Container from '@material-ui/core/Container'
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     width: 'calc(100% - 240px)'
   },
-  appBar: {
+  tabs: {
     marginBottom: '20px'
   }
 })
@@ -27,8 +30,9 @@ function TabsPost() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="inherit" className={classes.appBar}>
+      <Paper>
         <Tabs
+          className={classes.tabs}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
@@ -39,10 +43,12 @@ function TabsPost() {
           <Tab label="Bookmarks" />
           <Tab label="Comments" />
         </Tabs>
-      </AppBar>
-      {value === 0 && <Posts />}
-      {value === 1 && <Bookmarks />}
-      {value === 2 && <Comments />}
+      </Paper>
+      <Container>
+        {value === 0 && <Posts />}
+        {value === 1 && <Bookmarks />}
+        {value === 2 && <Comments />}
+      </Container>
     </div>
   )
 }

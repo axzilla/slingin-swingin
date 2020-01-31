@@ -11,9 +11,20 @@ const useStyles = makeStyles({
   error: { lineHeight: '20px', margin: '0' }
 })
 
-function TextField({ type, value, name, onChange, label, error }) {
+function TextField({
+  type,
+  value,
+  name,
+  onChange,
+  label,
+  placeholder,
+  error,
+  multiline,
+  rowsMax,
+  rows
+}) {
   const classes = useStyles()
-  console.log(error)
+
   return (
     <FormControl className={classes.formControl} error>
       <MuiTextField
@@ -25,6 +36,10 @@ function TextField({ type, value, name, onChange, label, error }) {
         name={name}
         value={value}
         onChange={onChange}
+        multiline={multiline}
+        rowsMax={rowsMax}
+        rows={rows}
+        placeholder={placeholder}
         fullWidth
       />
       {error && <FormHelperText className={classes.error}>{error}</FormHelperText>}
@@ -38,7 +53,11 @@ TextField.propTypes = {
   type: PropTypes.string,
   onChange: PropTypes.func,
   label: PropTypes.string,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  multiline: PropTypes.bool,
+  rowsMax: PropTypes.string,
+  placeholder: PropTypes.string,
+  rows: PropTypes.string
 }
 
 export default TextField
