@@ -11,6 +11,7 @@ import { withRouter } from 'next/router'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'universal-cookie'
 
+import Alert from '../components/Alert'
 import setAuthToken from '../utils/setAuthToken'
 import AuthContext from '../contexts/AuthContext'
 import { AlertContextProvider } from '../contexts/AlertContext'
@@ -98,6 +99,7 @@ class MyApp extends App {
             <MuiThemeProvider theme={lightTheme}>
               <CssBaseline />
               <Component {...pageProps} />
+              <Alert />
             </MuiThemeProvider>
           </AlertContextProvider>
         </AuthContext.Provider>
