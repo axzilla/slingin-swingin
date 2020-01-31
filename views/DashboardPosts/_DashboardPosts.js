@@ -7,18 +7,9 @@ import Comments from './components/Comments'
 import { makeStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    width: 'calc(100% - 240px)'
-  },
-  tabs: {
-    marginBottom: '20px'
-  }
-})
+const useStyles = makeStyles(theme => ({ tabs: { marginBottom: theme.spacing(3) } }))
 
 function TabsPost() {
   const classes = useStyles()
@@ -44,11 +35,9 @@ function TabsPost() {
           <Tab label="Comments" />
         </Tabs>
       </Paper>
-      <Container>
-        {value === 0 && <Posts />}
-        {value === 1 && <Bookmarks />}
-        {value === 2 && <Comments />}
-      </Container>
+      {value === 0 && <Posts />}
+      {value === 1 && <Bookmarks />}
+      {value === 2 && <Comments />}
     </div>
   )
 }

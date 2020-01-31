@@ -20,7 +20,7 @@ function SubCommentEdit({ subComment, onSaveClick }) {
 
       <Grid container direction="row" justify="space-between" alignItems="center">
         <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
-          Speichern
+          Save
         </Button>
       </Grid>
     </form>

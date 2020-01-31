@@ -274,7 +274,7 @@ function PostCreate() {
                 variant="outlined"
                 onClick={onSubmit}
               >
-                Speichern
+                Save
               </Button>
             </Grid>
           </Grid>

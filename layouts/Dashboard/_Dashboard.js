@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
 import AuthContext from '../../contexts/AuthContext'
+import Container from '../../components/Container'
 import NextLink from '../../components/NextLink'
 import Topbar from '../../components/Topbar'
 import TopbarMixings from '../../components/TopbarMixings'
@@ -20,6 +21,7 @@ import AccountBox from '@material-ui/icons/AccountBox'
 import Settings from '@material-ui/icons/Settings'
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode'
 import EditIcon from '@material-ui/icons/Edit'
+import DashboardIcon from '@material-ui/icons/Dashboard'
 
 const drawerWidth = 240
 
@@ -76,6 +78,14 @@ function Dashboard({ children }) {
           >
             <TopbarMixings />
             <List>
+              <NextLink href="/dashboard/overview">
+                <ListItem button>
+                  <ListItemIcon>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText>Dashboard</ListItemText>
+                </ListItem>
+              </NextLink>
               <NextLink href="/dashboard/posts">
                 <ListItem button>
                   <ListItemIcon>
@@ -110,7 +120,7 @@ function Dashboard({ children }) {
               </NextLink>
             </List>
           </Drawer>
-          {children}
+          <Container>{children}</Container>
         </Grid>
       </Grid>
     </>

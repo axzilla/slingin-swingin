@@ -2,30 +2,21 @@ import React from 'react'
 
 import { Subscriptions, ChangeEmail, ChangePassword, ChangeUsername } from './components'
 
-import { makeStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
-
-const useStyles = makeStyles({
-  container: {
-    marginBottom: '20px'
-  }
-})
+import Grid from '@material-ui/core/Grid'
 
 function DashboardSettings() {
-  const classes = useStyles()
-
   return (
-    <Grid container>
-      <Grid item xs={12} className={classes.container}>
+    <Grid container spacing={2}>
+      <Grid item md={6} xs={12}>
         <ChangeEmail />
       </Grid>
-      <Grid item xs={12} className={classes.container}>
-        <ChangePassword />
-      </Grid>
-      <Grid item xs={12} className={classes.container}>
+      <Grid item md={6} xs={12}>
         <ChangeUsername />
       </Grid>
-      <Grid item xs={12} className={classes.container}>
+      <Grid item md={6} xs={12}>
+        <ChangePassword />
+      </Grid>
+      <Grid item md={6} xs={12}>
         <Subscriptions />
       </Grid>
     </Grid>
