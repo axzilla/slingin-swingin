@@ -8,17 +8,14 @@ import { getAllProfiles } from '../../services/profile'
 import { NextLink } from '../../components'
 
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Card,
-  CardContent,
-  Typography,
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Box
-} from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import Avatar from '@material-ui/core/Avatar'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import ListItemText from '@material-ui/core/ListItemText'
 
 const useStyles = makeStyles({
   avatar: {
@@ -50,12 +47,8 @@ function LandingWidgetUsers() {
 
   return (
     <Card className={classes.card}>
+      <CardHeader title="New Members" />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h3">
-          <Box fontFamily="Monospace" fontWeight={900}>
-            @new members
-          </Box>
-        </Typography>
         <List>
           {profiles &&
             profiles.slice(0, 10).map(profile => {
