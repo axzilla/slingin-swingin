@@ -68,7 +68,7 @@ function Settings() {
                     onChange={onChange}
                   />
                 }
-                label="Bei Aktivitäten eines eigenen Beitrags"
+                label="For activities of your own post"
               />
             </Grid>
             <Grid>
@@ -80,7 +80,7 @@ function Settings() {
                     onChange={onChange}
                   />
                 }
-                label="Bei Aktivitäten eines gebookmarkten Beitrags"
+                label="For activities on a bookmarked post"
               />
             </Grid>
             <Grid>
@@ -92,7 +92,7 @@ function Settings() {
                     onChange={onChange}
                   />
                 }
-                label="Wenn ein neuer Beitrag veröffentlicht wird"
+                label="When a new post is published"
               />
             </Grid>
             <Grid>
@@ -104,7 +104,7 @@ function Settings() {
                     onChange={onChange}
                   />
                 }
-                label="Bei Beiträgen bei denen ich einen Kommentar hinterlassen habe"
+                label="For posts where I left a comment"
               />
             </Grid>
           </CardContent>

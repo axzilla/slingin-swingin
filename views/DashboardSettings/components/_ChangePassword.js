@@ -42,7 +42,7 @@ function PasswordChange() {
       const res = await passwordChange(passwordData)
       const { token } = res.data
       login(token)
-      setAlert({ message: 'Password erfolgreich geändert' })
+      setAlert({ message: 'Password changed successfully' })
       setPasswords({
         oldPassword: '',
         newPassword: '',
