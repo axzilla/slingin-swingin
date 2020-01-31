@@ -39,7 +39,7 @@ function UsernameChange() {
       const { token } = res.data
 
       login(token)
-      setAlert({ message: 'Username erfolgreich geändert' })
+      setAlert({ message: 'Username changed successfully' })
     } catch (error) {
       setErrors(error.response.data)
     }
