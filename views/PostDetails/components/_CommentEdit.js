@@ -60,7 +60,7 @@ function CommentEdit({ comment, onSaveClick }) {
           />
 
           <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
-            Speichern
+            Save
           </Button>
         </form>
       </FormControl>

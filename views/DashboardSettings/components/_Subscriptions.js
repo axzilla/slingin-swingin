@@ -4,15 +4,14 @@ import AuthContext from '../../../contexts/AuthContext'
 import { useAlert } from '../../../contexts/AlertContext'
 import { settingsUpdate } from '../../../services/auth'
 
-import {
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  FormControlLabel,
-  Checkbox
-} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardContent from '@material-ui/core/CardContent'
+import Divider from '@material-ui/core/Divider'
+import Button from '@material-ui/core/Button'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 
 function Settings() {
   const { user, login } = useContext(AuthContext)
@@ -56,9 +55,10 @@ function Settings() {
   return (
     <Grid item xs={12}>
       <Card>
-        <CardContent>
-          <Typography variant="subtitle1">Email settings</Typography>
-          <form onSubmit={onSubmit}>
+        <CardHeader subheader="Change your email settings" title="Email setting" />
+        <Divider />
+        <form onSubmit={onSubmit}>
+          <CardContent>
             <Grid>
               <FormControlLabel
                 control={
@@ -107,11 +107,14 @@ function Settings() {
                 label="Bei Beiträgen bei denen ich einen Kommentar hinterlassen habe"
               />
             </Grid>
+          </CardContent>
+          <Divider />
+          <CardContent>
             <Button type="submit" color="primary" variant="outlined">
-              Speichern
+              Save
             </Button>
-          </form>
-        </CardContent>
+          </CardContent>
+        </form>
       </Card>
     </Grid>
   )

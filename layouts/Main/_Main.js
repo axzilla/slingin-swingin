@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Footer from './components/Footer'
+import Container from '../../components/Container'
 import Topbar from '../../components/Topbar'
 import TopbarMixings from '../../components/TopbarMixings'
 
 import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
 
 function Main({ children }) {
   return (

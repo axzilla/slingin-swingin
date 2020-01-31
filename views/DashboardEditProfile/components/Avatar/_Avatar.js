@@ -47,7 +47,7 @@ function ProfileEditAvatar() {
       event.preventDefault()
       setIsLoading(true)
 
-      if (window.confirm('Profilbild löschen?')) {
+      if (window.confirm('Remove picture?')) {
         const res = await avatarDelete()
         const { token } = res.data
         login(token)

@@ -118,7 +118,6 @@ function ToolbarApp() {
 
   function onLogoutClick() {
     logout()
-    localStorage.removeItem('jwtToken')
     Router.push('/login')
   }
 
@@ -157,7 +156,7 @@ function ToolbarApp() {
               {isAuthenticated ? (
                 <>
                   <Box>
-                    <NextLink href="/dashboard">
+                    <NextLink href="/dashboard/overview">
                       <Button>
                         <AccountCircle />
                         &nbsp;Dashboard

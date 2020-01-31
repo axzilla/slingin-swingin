@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import Container from '../../components/Container'
 import TextField from '../../components/TextField'
 import { useAlert } from '../../contexts/AlertContext'
 import { profileUpdate, getCurrentProfile } from '../../services/profile'
@@ -19,20 +18,6 @@ function ProfileEdit() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState('')
   const [profile, setProfile] = useState({})
-  // const [state, setState] = useState({
-  //   name: '',
-  //   location: '',
-  //   status: '',
-  //   bio: '',
-  //   website: '',
-  //   twitter: '',
-  //   facebook: '',
-  //   linkedin: '',
-  //   xing: '',
-  //   youtube: '',
-  //   instagram: '',
-  //   soundcloud: ''
-  // })
 
   useEffect(() => {
     getInitialData()
@@ -48,29 +33,6 @@ function ProfileEdit() {
       if (error) throw error
     }
   }
-
-  // useEffect(() => {
-  //   setState({
-  //     ...state,
-  //     color: profile.color,
-  //     name: profile.name,
-  //     company: profile.company,
-  //     website: profile.website,
-  //     location: profile.location,
-  //     status: profile.status,
-  //     github: profile.github,
-  //     gitlab: profile.gitlab,
-  //     bitbucket: profile.bitbucket,
-  //     bio: profile.bio,
-
-  //     twitter: profile.social && profile.social.twitter,
-  //     facebook: profile.social && profile.social.facebook,
-  //     linkedin: profile.social && profile.social.linkedin,
-  //     xing: profile.social && profile.social.xing,
-  //     youtube: profile.social && profile.social.youtube,
-  //     instagram: profile.social && profile.social.instagram
-  //   })
-  // }, [profile])
 
   async function onSubmit(event) {
     try {
@@ -106,7 +68,7 @@ function ProfileEdit() {
   }
 
   return (
-    <Container>
+    <>
       {isLoading ? (
         '...Loading'
       ) : (
@@ -264,7 +226,7 @@ function ProfileEdit() {
           </Grid>
         </>
       )}
-    </Container>
+    </>
   )
 }
 

@@ -119,7 +119,6 @@ function ToolbarApp() {
 
   function onLogoutClick() {
     logout()
-    localStorage.removeItem('jwtToken')
     Router.push('/login')
   }
 
