@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react'
-import PropTypes from 'prop-types'
-import AuthContext from '../../../../contexts/AuthContext'
+import AuthContext from '../../contexts/AuthContext'
 import Router from 'next/router'
 import logo from './_logo.png'
 
-import { NextLink } from '../../../../components'
-import { searchFunc } from '../../../../services/search'
-import isEmpty from '../../../../utils/isEmpty'
+import { NextLink } from '../../components'
+import { searchFunc } from '../../services/search'
+import isEmpty from '../../utils/isEmpty'
 
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
@@ -124,8 +123,8 @@ function ToolbarApp() {
   }
 
   return (
-    <Toolbar className={classes.root}>
-      <AppBar position="fixed" color="inherit">
+    <>
+      <AppBar position="sticky" color="inherit">
         <Toolbar>
           <div className={classes.menuContainer}>
             <div style={{ display: 'flex', alignItems: 'center', height: '64px' }}>
@@ -201,13 +200,8 @@ function ToolbarApp() {
           </div>
         </Toolbar>
       </AppBar>
-    </Toolbar>
+    </>
   )
-}
-
-ToolbarApp.propTypes = {
-  isLightTheme: PropTypes.bool,
-  onThemeToggleClick: PropTypes.func
 }
 
 export default ToolbarApp

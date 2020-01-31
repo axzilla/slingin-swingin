@@ -14,6 +14,6 @@ export function getProfileByHandle(handle) {
   return axios.get(`${rootUrl}/get-profile-by-handle/${handle}`)
 }
 
-export function createProfile(profileData) {
-  return axios.post(`${rootUrl}/create-profile`, profileData)
+export function profileUpdate(profileData) {
+  return axios.post(`${rootUrl}/profile-update`, profileData)
 }
