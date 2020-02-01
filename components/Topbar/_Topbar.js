@@ -123,7 +123,7 @@ function ToolbarApp() {
 
   return (
     <>
-      <AppBar position="sticky" color="inherit">
+      <AppBar position="static" color="inherit">
         <Toolbar>
           <div className={classes.menuContainer}>
             <div style={{ display: 'flex', alignItems: 'center', height: '64px' }}>

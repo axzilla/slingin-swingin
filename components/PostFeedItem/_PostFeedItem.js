@@ -6,7 +6,7 @@ import Moment from 'react-moment'
 import NextLink from '../../components/NextLink'
 import Chip from '../../components/Chip'
 import AuthContext from '../../contexts/AuthContext'
-import { postToggleLikes, postToggleBookmarks } from '../../services/post'
+import { postToggleBookmarks } from '../../services/post'
 
 import { makeStyles } from '@material-ui/styles'
 import Grid from '@material-ui/core/Grid'
@@ -18,70 +18,43 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import Divider from '@material-ui/core/Divider'
-
-import FavoriteIcon from '@material-ui/icons/Favorite'
+import Tooltip from '@material-ui/core/Tooltip'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   media: { objectFit: 'cover' },
-  bigAvatar: { marginRight: '10px' },
-  inlineText: { display: 'inline' }
-})
+  card: { marginBottom: theme.spacing(2) }
+}))
 
 function PostFeedItem({ post }) {
+  const classes = useStyles()
   const [postData, setPostData] = useState(post)
   const { isAuthenticated, user } = useContext(AuthContext)
-  const classes = useStyles()
 
-  async function onLikeClick(postId) {
+  const isBookmarked = postData.bookmarks.map(bookmark => bookmark.user).includes(user.id)
+
+  async function toggleIsPostBookmarked() {
     try {
-      const updatedPost = await postToggleLikes(postId)
-      setPostData(updatedPost.data)
+      if (isAuthenticated) {
+        const updatedPost = await postToggleBookmarks(post._id)
+        setPostData(updatedPost.data)
+      } else {
+        Router.push('/login')
+      }
     } catch (error) {
       if (error) throw error
-    }
-  }
-
-  async function onBookmarkClick(postId) {
-    try {
-      const updatedPost = await postToggleBookmarks(postId)
-      setPostData(updatedPost.data)
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
-  function toggleIsPostLiked() {
-    if (isAuthenticated) {
-      onLikeClick(post._id)
-    } else {
-      Router.push('/login')
-    }
-  }
-
-  function toggleIsPostBookmarked() {
-    if (isAuthenticated) {
-      onBookmarkClick(post._id)
-    } else {
-      Router.push('/login')
     }
   }
 
   return (
-    <Card className={classes.card} style={{ marginBottom: '20px' }}>
+    <Card className={classes.card}>
       <CardHeader
         avatar={
           <NextLink href={`/${postData.user.username}`}>
             {postData.user.avatar && postData.user.avatar.secure_url ? (
-              <Avatar
-                className={classes.bigAvatar}
-                alt={postData.user.username}
-                src={postData.user.avatar.secure_url}
-              />
+              <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
             ) : (
-              <Avatar className={classes.bigAvatar} alt={postData.user.username}>
+              <Avatar alt={postData.user.username}>
                 {postData.user.username.substring(0, 1).toUpperCase()}
               </Avatar>
             )}
@@ -90,25 +63,26 @@ function PostFeedItem({ post }) {
         title={<NextLink href={`/${postData.user.username}`}>{postData.user.username}</NextLink>}
         subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
       />
-      {postData.titleImage ? (
+      {postData.titleImage && (
         <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
           <CardMedia
             component="img"
-            alt="Post Tittle Image"
+            alt="Post title"
             className={classes.media}
             height="140"
             image={postData.titleImage.secure_url}
           />
         </NextLink>
-      ) : (
-        <Divider />
       )}
       <CardContent>
         <Grid container wrap="nowrap">
           <Grid>
             <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
-              <Typography variant="h5" component="h2" color="textSecondary" gutterBottom>
+              <Typography variant="h4" component="h2" color="textPrimary" gutterBottom>
                 {postData.title}
+              </Typography>
+              <Typography color="textSecondary" gutterBottom>
+                {postData.text.substring(0, 150)} {postData.text.length > 100 && '...'}
               </Typography>
             </NextLink>
             <Grid container>
@@ -123,42 +97,23 @@ function PostFeedItem({ post }) {
           </Grid>
         </Grid>
       </CardContent>
-      <Divider />
       <CardActions>
-        <Grid container alignItems="center">
+        <Grid container alignItems="center" spacing={2}>
           <Grid item>
-            <Grid container alignItems="center">
+            <Tooltip title={isBookmarked ? 'Unbookmark' : 'Bookmark'}>
               <IconButton onClick={toggleIsPostBookmarked}>
-                {postData.bookmarks.map(bookmark => bookmark.user).includes(user.id) ? (
-                  <BookmarkIcon color="primary" />
-                ) : (
-                  <BookmarkIcon />
-                )}
+                <BookmarkIcon color={isBookmarked ? 'primary' : ''} />
               </IconButton>
-              <Typography>{postData.bookmarks.length} Bookmarks</Typography>
-            </Grid>
+            </Tooltip>
           </Grid>
           <Grid item>
-            <Grid container alignItems="center">
-              <IconButton onClick={toggleIsPostLiked}>
-                {postData.likes.map(like => like.user).includes(user.id) ? (
-                  <FavoriteIcon color="primary" />
-                ) : (
-                  <FavoriteIcon />
-                )}
-              </IconButton>
-              <Typography>{postData.likes.length} Likes</Typography>
-            </Grid>
+            <Typography variant="h6">{postData.likes.length} likes</Typography>
           </Grid>
           <Grid item>
-            <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
-              <Grid container alignItems="center">
-                <IconButton>
-                  <ChatBubbleIcon />
-                </IconButton>
-                <Typography>{postData.postComments.length} Comments</Typography>
-              </Grid>
-            </NextLink>
+            <Typography variant="h6">{postData.postComments.length} replies</Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6">{postData.views} views</Typography>
           </Grid>
         </Grid>
       </CardActions>
