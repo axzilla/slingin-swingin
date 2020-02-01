@@ -43,7 +43,7 @@ function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuCl
         <ListItemIcon>
           <Delete />
         </ListItemIcon>
-        <ListItemText primary="Löschen" />
+        <ListItemText primary="Delete" />
       </MenuItem>
     </Menu>
   )

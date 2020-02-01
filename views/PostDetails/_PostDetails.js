@@ -31,7 +31,7 @@ function PostDetails({ postId }) {
   const { isAuthenticated, user } = useContext(AuthContext)
   const [isLoading, setIsloading] = useState(false)
   const [post, setPost] = useState({})
-  const [postComments, setPostComments] = useState([])
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     getInitialProps()
@@ -43,16 +43,7 @@ function PostDetails({ postId }) {
 
       const foundPost = await getPostByShortId(postId)
       await setPost(foundPost.data)
-
-      const filteredPostComments = foundPost.data.postComments.filter(item => {
-        return item.replies.length > 0
-      })
-
-      // await setPostComments(filteredPostComments)
-      await setPostComments(foundPost.data.postComments)
-
-      console.log(filteredPostComments)
-      console.log(foundPost.data.postComments)
+      await setComments(foundPost.data.postComments)
 
       setIsloading(false)
     } catch (error) {
@@ -125,20 +116,27 @@ function PostDetails({ postId }) {
           </Card>
         </Grid>
         <Grid style={{ marginBottom: '50px' }}>
-          {isAuthenticated ? <CommentCreate postId={post._id} postShortId={post.shortId} /> : null}
+          {isAuthenticated ? (
+            <CommentCreate
+              postId={post._id}
+              postShortId={post.shortId}
+              comments={comments}
+              setComments={setComments}
+            />
+          ) : null}
         </Grid>
         <Typography variant="subtitle1" gutterBottom>
-          Kommentare ({post.postComments.length})
+          Comments ({comments.length})
         </Typography>
-        {postComments &&
-          postComments.map(postComment => {
+        {comments &&
+          comments.map(comment => {
             return (
               <>
                 <CommentFeedItem
-                  key={postComment._id}
-                  post={post}
-                  postComment={postComment}
-                  postComments={postComments}
+                  key={comment._id}
+                  comment={comment}
+                  comments={comments}
+                  setComments={setComments}
                 />
               </>
             )

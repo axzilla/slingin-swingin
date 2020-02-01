@@ -49,8 +49,8 @@ function ProfileDetailsTabs({ commentsByUserId, postsByUserId, setPostsByUserId 
         textColor="primary"
         centered
       >
-        <Tab label={`Beiträge ${postsByUserId.length}`} />
-        <Tab label={`Kommentare ${commentsByUserId.length}`} />
+        <Tab label={`Posts ${postsByUserId.length}`} />
+        <Tab label={`Comments ${commentsByUserId.length}`} />
       </Tabs>
       {value === 0 && (
         <TabContainer>

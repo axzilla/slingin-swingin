@@ -9,9 +9,7 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
   async function onDeleteClick(id) {
     try {
       if (
-        window.confirm(
-          'Bist du sicher, dass du diesen Beitrag löschen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden!'
-        )
+        window.confirm('Are you sure you want to delete this post? This action can not be undone!')
       ) {
         await postDelete(id)
         Router.push('/')
@@ -34,7 +32,7 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
                     <Button color="primary">Bearbeiten</Button>
                   </NextLink>
                   <Button onClick={onDeleteClick.bind(this, post._id)} color="primary">
-                    Löschen
+                    Delete
                   </Button>
                 </React.Fragment>
               </CardActions>

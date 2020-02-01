@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   }
 })
 
-function CommentCreate({ postId, toggleAnswerMode }) {
+function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   const classes = useStyles()
   const [text, setText] = useState('')
   const [errors, setErrors] = useState()
@@ -48,7 +48,8 @@ function CommentCreate({ postId, toggleAnswerMode }) {
         postId
       }
 
-      await commentCreate(commentData)
+      const createdComment = await commentCreate(commentData)
+      await setComments([...comments, createdComment.data])
       toggleAnswerMode && toggleAnswerMode()
       setText('')
     } catch (error) {
@@ -69,7 +70,7 @@ function CommentCreate({ postId, toggleAnswerMode }) {
             <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
           ) : null}
           <Button type="submit" variant="outlined" color="primary">
-            Kommentar &nbsp;
+            Leave a comment &nbsp;
             <i className="fas fa-plus-circle" />
           </Button>
         </form>
@@ -81,8 +82,8 @@ function CommentCreate({ postId, toggleAnswerMode }) {
 CommentCreate.propTypes = {
   postId: PropTypes.string,
   toggleAnswerMode: PropTypes.bool,
-  commentsByPostRef: PropTypes.array,
-  setCommentsByPostRef: PropTypes.func
+  comments: PropTypes.array,
+  setComments: PropTypes.func
 }
 
 export default CommentCreate
