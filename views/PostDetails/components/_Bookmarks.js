@@ -1,22 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
-import { blue } from '@material-ui/core/colors'
+
+import IconButton from '@material-ui/core/IconButton'
+import BookmarkIcon from '@material-ui/icons/Bookmark'
 
 function PostDetailsLikes({ onBookmarkClick, post, user }) {
   return (
-    <Button
-      onClick={() => onBookmarkClick(post._id, post.shortId)}
-      disableRipple
-      style={{ color: blue[500] }}
-    >
+    <IconButton onClick={() => onBookmarkClick(post._id, post.shortId)}>
       {post.bookmarks.map(bookmark => bookmark.user).includes(user.id) ? (
-        <i className="fas fa-bookmark fa-lg" />
+        <BookmarkIcon color="secondary" />
       ) : (
-        <i className="far fa-bookmark fa-lg" />
+        <BookmarkIcon color="primary" />
       )}
-      &nbsp;
-    </Button>
+    </IconButton>
   )
 }
 

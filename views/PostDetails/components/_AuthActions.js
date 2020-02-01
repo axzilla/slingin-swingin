@@ -29,7 +29,7 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
               <CardActions>
                 <React.Fragment>
                   <NextLink href={`/edit-post/${post._id}`}>
-                    <Button color="primary">Bearbeiten</Button>
+                    <Button color="primary">Edit</Button>
                   </NextLink>
                   <Button onClick={onDeleteClick.bind(this, post._id)} color="primary">
                     Delete

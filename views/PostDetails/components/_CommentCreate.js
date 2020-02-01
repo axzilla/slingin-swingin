@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { MarkdownEditor } from '../../../components'
+import TextField from '../../../components/TextField'
 
 import { commentCreate } from '../../../services/comment'
 
@@ -65,13 +65,17 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
     <Grid className={classes.root} container justify="center">
       <FormControl className={classes.formControl} error>
         <form onSubmit={onSubmit}>
-          <MarkdownEditor withPreview setText={setText} onChange={onChange} value={text} />
+          <TextField
+            placeholder="Write a comment"
+            label="Write a comment"
+            onChange={onChange}
+            value={text}
+          />
           {errors && errors.text ? (
             <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
           ) : null}
-          <Button type="submit" variant="outlined" color="primary">
-            Leave a comment &nbsp;
-            <i className="fas fa-plus-circle" />
+          <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
+            Leave a comment
           </Button>
         </form>
       </FormControl>
