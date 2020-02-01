@@ -33,7 +33,7 @@ import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
-import { CardActions } from '@material-ui/core'
+import CardActions from '@material-ui/core/CardActions'
 
 function PostDetails({ postId }) {
   const { isAuthenticated, user } = useContext(AuthContext)
@@ -94,7 +94,7 @@ function PostDetails({ postId }) {
     postContent = <Spinner />
   } else if (post && post.user) {
     postContent = (
-      <Grid item xs={12} sm={8}>
+      <Grid item xs={12} md={8}>
         <Grid item>
           <Card>
             <CardHeader
@@ -119,7 +119,7 @@ function PostDetails({ postId }) {
               }
             />
             <Divider />
-            <TitleImage post={post} />
+            {post.titleImage && <TitleImage post={post} />}
             <CardContent>
               <Title post={post} />
               <Tags post={post} />
@@ -140,6 +140,9 @@ function PostDetails({ postId }) {
             />
           </Card>
         </Grid>
+        <Typography variant="subtitle1" gutterBottom>
+          Comments ({comments.length})
+        </Typography>
         <Grid style={{ marginBottom: '50px' }}>
           {isAuthenticated ? (
             <CommentCreate
@@ -150,9 +153,6 @@ function PostDetails({ postId }) {
             />
           ) : null}
         </Grid>
-        <Typography variant="subtitle1" gutterBottom>
-          Comments ({comments.length})
-        </Typography>
         {comments &&
           comments.map(comment => {
             return (
