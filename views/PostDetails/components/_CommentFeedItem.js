@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { commentUpdate, commentDelete } from '../../../services/comment'
+// import { commentUpdate, commentDelete } from '../../../services/comment'
+import { commentUpdate } from '../../../services/comment'
 
 import {
   CommentEdit,
   CommentFeedItemHeader,
   CommentFeedItemText,
-  CommentFeedItemMenu,
+  // CommentFeedItemMenu,
   CommentFeedItemVote
 } from './'
 

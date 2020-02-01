@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   }
 })
 
-function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setCommentsByPostRef }) {
+function CommentCreate({ postId, toggleAnswerMode }) {
   const classes = useStyles()
   const [text, setText] = useState('')
   const [errors, setErrors] = useState()
@@ -48,7 +48,7 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
         postId
       }
 
-      const createdComment = await commentCreate(commentData)
+      await commentCreate(commentData)
       toggleAnswerMode && toggleAnswerMode()
       setText('')
     } catch (error) {
