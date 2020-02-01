@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// import { commentUpdate, commentDelete } from '../../../services/comment'
-import { commentUpdate } from '../../../services/comment'
+import { commentUpdate, commentDelete } from '../../../services/comment'
 
 import {
   CommentEdit,
   CommentFeedItemHeader,
   CommentFeedItemText,
-  // CommentFeedItemMenu,
+  CommentFeedItemMenu,
   CommentFeedItemVote
 } from './'
 
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardContent, CardActions, Divider } from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Divider from '@material-ui/core/Divider'
 
-const useStyles = makeStyles(theme => ({
-  card: { marginBottom: '20px' },
-  button: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1.5)
-  }
-}))
+const useStyles = makeStyles({ card: { marginBottom: '20px' } })
 
-function CommentFeedItem({ width, post, postComment, postComments }) {
+function CommentFeedItem({ comment, comments, setComments }) {
   const classes = useStyles()
-  const [commentData, setCommentData] = useState(postComment)
+  const [commentData, setCommentData] = useState(comment)
   const [isEditMode, setIsEditMode] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -43,7 +39,7 @@ function CommentFeedItem({ width, post, postComment, postComments }) {
 
   async function onSaveClick(text) {
     try {
-      const commentData = { text, commentId: postComment._id, post: postComment.post }
+      const commentData = { text, commentId: comment._id, post: comment.post }
       setIsEditMode(false)
       const updatedComment = await commentUpdate(commentData)
       setCommentData(updatedComment.data)
@@ -52,71 +48,58 @@ function CommentFeedItem({ width, post, postComment, postComments }) {
     }
   }
 
-  // async function onDeleteClick(commentId) {
-  //   try {
-  //     if (window.confirm('Kommentar löschen?')) {
-  //       const deletedComment = await commentDelete(commentId)
+  async function onDeleteClick(commentId) {
+    try {
+      if (window.confirm('Delete comment?')) {
+        const deletedComment = await commentDelete(commentId)
 
-  //       const index = commentsByPostRef.indexOf(
-  //         commentsByPostRef.filter(comment => {
-  //           return comment._id === deletedComment.data._id
-  //         })[0]
-  //       )
+        const index = comments.indexOf(
+          comments.filter(comment => {
+            return comment._id === deletedComment.data._id
+          })[0]
+        )
 
-  //       setCommentsByPostRef([
-  //         ...commentsByPostRef.slice(0, index),
-  //         ...commentsByPostRef.slice(index + 1)
-  //       ])
-  //     }
-  //   } catch (error) {
-  //     if (error) throw error
-  //   }
-  // }
+        setComments([...comments.slice(0, index), ...comments.slice(index + 1)])
+      }
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   return (
-    <Card className={classes.card} style={{ width: width ? width : '100%' }}>
+    <Card className={classes.card}>
       {!isEditMode ? (
         <>
-          <CommentFeedItemHeader comment={postComment} handleMenuClick={handleMenuClick} />
-
-          {/* <CommentFeedItemMenu
-            comment={comment}
+          <CommentFeedItemHeader comment={comment} handleMenuClick={handleMenuClick} />
+          <CommentFeedItemMenu
+            comment={commentData}
             handleMenuClick={handleMenuClick}
             handleMenuClose={handleMenuClose}
             onEditClick={onEditClick}
             onDeleteClick={onDeleteClick}
             anchorEl={anchorEl}
-          /> */}
-
+          />
           <CardContent>
-            <CommentFeedItemText comment={postComment} />
+            <CommentFeedItemText comment={commentData} />
           </CardContent>
         </>
       ) : (
         <CardContent>
-          <CommentEdit comment={postComment} onSaveClick={onSaveClick} />
+          <CommentEdit comment={commentData} onSaveClick={onSaveClick} />
         </CardContent>
       )}
       <Divider />
-
       <CardActions disableSpacing>
-        <CommentFeedItemVote
-          comment={postComment}
-          // commentsByPostRef={commentsByPostRef}
-          // setCommentsByPostRef={setCommentsByPostRef}
-        />
+        <CommentFeedItemVote comment={commentData} />
       </CardActions>
-
-      <Divider />
     </Card>
   )
 }
 
 CommentFeedItem.propTypes = {
-  post: PropTypes.object,
-  postComment: PropTypes.object,
-  commentsByPostRef: PropTypes.array,
-  setCommentsByPostRef: PropTypes.func
+  comment: PropTypes.object,
+  comments: PropTypes.array,
+  setComments: PropTypes.func
 }
 
 export default CommentFeedItem

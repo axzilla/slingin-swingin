@@ -1,49 +1,19 @@
 import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import TextField from '../../../components/TextField'
 import AuthContext from '../../../contexts/AuthContext'
-import { commentUpvote, commentDownvote, commentCreate } from '../../../services/comment'
+import { commentUpvote, commentDownvote } from '../../../services/comment'
 
-import { makeStyles } from '@material-ui/styles'
-import { Grid, Typography, Button } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+
 import ThumbDownIcon from '@material-ui/icons/ThumbDown'
 import ThumbUpIcon from '@material-ui/icons/ThumbUp'
 
-const useStyles = makeStyles(theme => ({
-  button: { padding: theme.spacing(1.5) }
-}))
-
 function CommentFeedItemVote({ comment }) {
   const { user } = useContext(AuthContext)
-  const classes = useStyles()
   const [commentData, setCommentData] = useState(comment)
-  const [isReplyShown, setIsReplyShown] = useState(false)
-  const [replyText, setReplyText] = useState('')
-
-  function handleIsReplyShown() {
-    setIsReplyShown(!isReplyShown)
-  }
-
-  function handleReplyChange(event) {
-    setReplyText(event.target.value)
-  }
-
-  async function handleReplyCreate() {
-    try {
-      event.preventDefault()
-
-      const commentData = {
-        text: replyText,
-        commentId: comment._id,
-        postId: comment.post
-      }
-
-      await commentCreate(commentData)
-    } catch (error) {
-      // setErrors(error.response.data)
-    }
-  }
 
   async function onUpvoteClick() {
     try {
@@ -73,28 +43,15 @@ function CommentFeedItemVote({ comment }) {
     <Grid container justify="center">
       <Grid item>
         <Grid container alignItems="center">
-          <Button onClick={onDownvoteClick} className={classes.button}>
+          <IconButton onClick={onDownvoteClick}>
             <ThumbDownIcon color={isDownvoted ? 'secondary' : 'primary'} />
-          </Button>
+          </IconButton>
           <Typography>{votes}</Typography>
-          <Button onClick={onUpvoteClick} className={classes.button}>
+          <IconButton onClick={onUpvoteClick}>
             <ThumbUpIcon color={isUpvoted ? 'secondary' : 'primary'} />
-          </Button>
-          <Button onClick={handleIsReplyShown}>Reply</Button>
+          </IconButton>
         </Grid>
       </Grid>
-
-      {isReplyShown && (
-        <>
-          <TextField
-            onChange={handleReplyChange}
-            label="Leave a comment"
-            placeholder="Leave a comment"
-            value={replyText}
-          />
-          <Button onClick={handleReplyCreate}>Create Comment</Button>
-        </>
-      )}
     </Grid>
   )
 }

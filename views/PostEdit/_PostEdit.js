@@ -117,7 +117,7 @@ function PostEdit({ id }) {
 
   function onDeleteTitleImageClick(event) {
     event.preventDefault()
-    if (window.confirm('Bild löschen?')) {
+    if (window.confirm('Delete picture?')) {
       setTitleImagePreview(null)
       setTitleImage('deleted')
     }

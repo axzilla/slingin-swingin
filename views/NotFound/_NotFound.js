@@ -27,7 +27,7 @@ function NotFound() {
       <img src="/404.png" className={classes.image} />
       <NextLink href="/">
         <Button variant="contained" color="primary">
-          Zurück
+          Back
         </Button>
       </NextLink>
     </Grid>
