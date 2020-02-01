@@ -8,8 +8,6 @@ import {
   postToggleLikes,
   postToggleBookmarks
 } from '../../services/post'
-import { getCommentsByPostRef } from '../../services/comment'
-import { getSubCommentByPostRef } from '../../services/subComment'
 import { Spinner } from '../../components'
 
 import {
@@ -32,9 +30,8 @@ import { Card, CardContent, Grid, Typography } from '@material-ui/core'
 function PostDetails({ postId }) {
   const { isAuthenticated, user } = useContext(AuthContext)
   const [isLoading, setIsloading] = useState(false)
-  const [post, setPost] = useState([])
-  const [commentsByPostRef, setCommentsByPostRef] = useState([])
-  const [subCommentsByPostRef, setSubCommentsByPostRef] = useState([])
+  const [post, setPost] = useState({})
+  const [postComments, setPostComments] = useState([])
 
   useEffect(() => {
     getInitialProps()
@@ -44,19 +41,24 @@ function PostDetails({ postId }) {
     try {
       setIsloading(true)
 
-      const postByShortId = await getPostByShortId(postId)
-      const commentsByPostRef = await getCommentsByPostRef(postByShortId.data._id)
-      const subCommentsByPostRef = await getSubCommentByPostRef(postByShortId.data._id)
+      const foundPost = await getPostByShortId(postId)
+      await setPost(foundPost.data)
 
-      setPost(postByShortId.data)
-      setCommentsByPostRef(commentsByPostRef.data)
-      setSubCommentsByPostRef(subCommentsByPostRef.data)
+      const filteredPostComments = foundPost.data.postComments.filter(item => {
+        return item.replies.length > 0
+      })
+
+      // await setPostComments(filteredPostComments)
+      await setPostComments(foundPost.data.postComments)
+
+      console.log(filteredPostComments)
+      console.log(foundPost.data.postComments)
+
+      setIsloading(false)
     } catch (error) {
       Router.push('/not-found')
       if (error) throw error
     }
-
-    setIsloading(false)
   }
 
   async function onLikeClick(id) {
@@ -123,28 +125,22 @@ function PostDetails({ postId }) {
           </Card>
         </Grid>
         <Grid style={{ marginBottom: '50px' }}>
-          {isAuthenticated ? (
-            <CommentCreate
-              postId={post._id}
-              postShortId={post.shortId}
-              setCommentsByPostRef={setCommentsByPostRef}
-              commentsByPostRef={commentsByPostRef}
-            />
-          ) : null}
+          {isAuthenticated ? <CommentCreate postId={post._id} postShortId={post.shortId} /> : null}
         </Grid>
         <Typography variant="subtitle1" gutterBottom>
-          Kommentare ({commentsByPostRef.length + subCommentsByPostRef.length})
+          Kommentare ({post.postComments.length})
         </Typography>
-        {commentsByPostRef &&
-          commentsByPostRef.map(comment => {
+        {postComments &&
+          postComments.map(postComment => {
             return (
-              <CommentFeedItem
-                key={comment._id}
-                post={post}
-                comment={comment}
-                setCommentsByPostRef={setCommentsByPostRef}
-                commentsByPostRef={commentsByPostRef}
-              />
+              <>
+                <CommentFeedItem
+                  key={postComment._id}
+                  post={post}
+                  postComment={postComment}
+                  postComments={postComments}
+                />
+              </>
             )
           })}
       </Grid>

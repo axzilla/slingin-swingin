@@ -6,20 +6,18 @@ import Moment from 'react-moment'
 import { StyledReactMarkdown } from '../../../components'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
-function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
+function ProfileDetailsTabsComments({ commentsByUserId }) {
   const [limit, setLimit] = useState(10)
 
   function loadMore() {
     setLimit(limit + 10)
   }
 
-  const mergedComments = [...commentsByUserId, ...subCommentsByUserId]
-
-  const commentsItem = mergedComments
+  const commentsItem = commentsByUserId
     .sort((a, b) => a.dateCreated < b.dateCreated)
     .slice(0, limit)
     .map(comment => {
-      const { shortId, urlSlug } = comment.refPost
+      const { shortId, urlSlug } = comment.post
 
       return (
         <Card key={comment._id} style={{ marginBottom: '20px' }}>
@@ -33,7 +31,7 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
             >
               <div>
                 <NextLink href={`post/${shortId}/${urlSlug}`}>
-                  <Typography variant="h6">{comment.refPost.title}</Typography>
+                  <Typography variant="h6">{comment.post.title}</Typography>
                 </NextLink>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow>{comment.dateCreated}</Moment>
@@ -61,8 +59,7 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
 }
 
 ProfileDetailsTabsComments.propTypes = {
-  commentsByUserId: PropTypes.array,
-  subCommentsByUserId: PropTypes.array
+  commentsByUserId: PropTypes.array
 }
 
 export default ProfileDetailsTabsComments

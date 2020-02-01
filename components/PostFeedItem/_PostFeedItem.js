@@ -3,7 +3,8 @@ import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import { NextLink } from '../../components'
+import NextLink from '../../components/NextLink'
+import Chip from '../../components/Chip'
 import AuthContext from '../../contexts/AuthContext'
 import { postToggleLikes, postToggleBookmarks } from '../../services/post'
 
@@ -12,6 +13,7 @@ import { blue, red } from '@material-ui/core/colors'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -77,24 +79,27 @@ function PostFeedItem({ post }) {
         </NextLink>
       ) : null}
 
+      <CardHeader
+        avatar={
+          <NextLink href={`/${postData.user.username}`}>
+            {postData.user.avatar && postData.user.avatar.secure_url ? (
+              <Avatar
+                className={classes.bigAvatar}
+                alt={postData.user.username}
+                src={postData.user.avatar.secure_url}
+              />
+            ) : (
+              <Avatar className={classes.bigAvatar} alt={postData.user.username}>
+                {postData.user.username.substring(0, 1).toUpperCase()}
+              </Avatar>
+            )}
+          </NextLink>
+        }
+        title={<NextLink href={`/${postData.user.username}`}>{postData.user.username}</NextLink>}
+        subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
+      />
       <CardContent>
         <Grid container wrap="nowrap">
-          <Grid item>
-            <NextLink href={`/${postData.user.username}`}>
-              {postData.user.avatar && postData.user.avatar.secure_url ? (
-                <Avatar
-                  className={classes.bigAvatar}
-                  alt={postData.user.username}
-                  src={postData.user.avatar.secure_url}
-                />
-              ) : (
-                <Avatar className={classes.bigAvatar} alt={postData.user.username}>
-                  {postData.user.username.substring(0, 1)}
-                </Avatar>
-              )}
-            </NextLink>
-          </Grid>
-
           <Grid>
             <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
               <Typography variant="h5" component="h2" color="textSecondary">
@@ -105,9 +110,7 @@ function PostFeedItem({ post }) {
               {postData.tags.map(tag => {
                 return (
                   <NextLink key={tag} href={`/posts/t/${tag}`}>
-                    <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
-                      #{tag}
-                    </Typography>
+                    <Chip clickable label={tag} variant="outlined" />
                   </NextLink>
                 )
               })}

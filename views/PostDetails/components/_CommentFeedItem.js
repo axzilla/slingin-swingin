@@ -1,22 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../../../contexts/AuthContext'
 import { commentUpdate, commentDelete } from '../../../services/comment'
-import { getSubCommentsByCommentRef } from '../../../services/subComment'
 
 import {
   CommentEdit,
   CommentFeedItemHeader,
   CommentFeedItemText,
   CommentFeedItemMenu,
-  CommentFeedItemVote,
-  SubCommentFeedItem,
-  SubCommentCreate
+  CommentFeedItemVote
 } from './'
 
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardContent, CardActions, Divider, List } from '@material-ui/core'
+import { Card, CardContent, CardActions, Divider } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   card: { marginBottom: '20px' },
@@ -26,25 +22,11 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRef }) {
+function CommentFeedItem({ width, post, postComment, postComments }) {
   const classes = useStyles()
-  const { isAuthenticated } = useContext(AuthContext)
+  const [commentData, setCommentData] = useState(postComment)
   const [isEditMode, setIsEditMode] = useState(false)
-  const [subComments, setSubComments] = useState([])
   const [anchorEl, setAnchorEl] = React.useState(null)
-
-  async function getInitialProps() {
-    try {
-      const res = await getSubCommentsByCommentRef(comment._id)
-      setSubComments(res.data)
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
-  useEffect(() => {
-    getInitialProps()
-  }, [])
 
   function handleMenuClick(event) {
     setAnchorEl(event.currentTarget)
@@ -60,122 +42,78 @@ function CommentFeedItem({ post, comment, commentsByPostRef, setCommentsByPostRe
 
   async function onSaveClick(text) {
     try {
-      const commentData = {
-        text,
-        commentId: comment._id,
-        refPost: comment.refPost
-      }
-
+      const commentData = { text, commentId: postComment._id, post: postComment.post }
       setIsEditMode(false)
-
       const updatedComment = await commentUpdate(commentData)
-
-      const index = commentsByPostRef.indexOf(
-        commentsByPostRef.filter(comment => {
-          return comment._id === updatedComment.data._id
-        })[0]
-      )
-
-      setCommentsByPostRef([
-        ...commentsByPostRef.slice(0, index),
-        updatedComment.data,
-        ...commentsByPostRef.slice(index + 1)
-      ])
+      setCommentData(updatedComment.data)
     } catch (error) {
       if (error) throw error
     }
   }
 
-  async function onDeleteClick(commentId) {
-    try {
-      if (window.confirm('Kommentar löschen?')) {
-        const deletedComment = await commentDelete(commentId)
+  // async function onDeleteClick(commentId) {
+  //   try {
+  //     if (window.confirm('Kommentar löschen?')) {
+  //       const deletedComment = await commentDelete(commentId)
 
-        const index = commentsByPostRef.indexOf(
-          commentsByPostRef.filter(comment => {
-            return comment._id === deletedComment.data._id
-          })[0]
-        )
+  //       const index = commentsByPostRef.indexOf(
+  //         commentsByPostRef.filter(comment => {
+  //           return comment._id === deletedComment.data._id
+  //         })[0]
+  //       )
 
-        setCommentsByPostRef([
-          ...commentsByPostRef.slice(0, index),
-          ...commentsByPostRef.slice(index + 1)
-        ])
-      }
-    } catch (error) {
-      if (error) throw error
-    }
-  }
+  //       setCommentsByPostRef([
+  //         ...commentsByPostRef.slice(0, index),
+  //         ...commentsByPostRef.slice(index + 1)
+  //       ])
+  //     }
+  //   } catch (error) {
+  //     if (error) throw error
+  //   }
+  // }
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={{ width: width ? width : '100%' }}>
       {!isEditMode ? (
         <>
-          <CommentFeedItemHeader comment={comment} handleMenuClick={handleMenuClick} />
+          <CommentFeedItemHeader comment={postComment} handleMenuClick={handleMenuClick} />
 
-          <CommentFeedItemMenu
+          {/* <CommentFeedItemMenu
             comment={comment}
             handleMenuClick={handleMenuClick}
             handleMenuClose={handleMenuClose}
             onEditClick={onEditClick}
             onDeleteClick={onDeleteClick}
             anchorEl={anchorEl}
-          />
+          /> */}
 
           <CardContent>
-            <CommentFeedItemText comment={comment} />
+            <CommentFeedItemText comment={postComment} />
           </CardContent>
         </>
       ) : (
         <CardContent>
-          <CommentEdit comment={comment} onSaveClick={onSaveClick} />
+          <CommentEdit comment={postComment} onSaveClick={onSaveClick} />
         </CardContent>
       )}
       <Divider />
 
       <CardActions disableSpacing>
         <CommentFeedItemVote
-          comment={comment}
-          commentsByPostRef={commentsByPostRef}
-          setCommentsByPostRef={setCommentsByPostRef}
+          comment={postComment}
+          // commentsByPostRef={commentsByPostRef}
+          // setCommentsByPostRef={setCommentsByPostRef}
         />
       </CardActions>
 
       <Divider />
-
-      {subComments.length ? (
-        <List className={classes.root}>
-          {subComments.map((subComment, index) => {
-            return (
-              <SubCommentFeedItem
-                index={index}
-                subComment={subComment}
-                subComments={subComments}
-                setSubComments={setSubComments}
-                key={subComment._id}
-              />
-            )
-          })}
-        </List>
-      ) : null}
-
-      {isAuthenticated ? (
-        <CardContent>
-          <SubCommentCreate
-            postId={post._id}
-            comment={comment}
-            subComments={subComments}
-            setSubComments={setSubComments}
-          />
-        </CardContent>
-      ) : null}
     </Card>
   )
 }
 
 CommentFeedItem.propTypes = {
   post: PropTypes.object,
-  comment: PropTypes.object,
+  postComment: PropTypes.object,
   commentsByPostRef: PropTypes.array,
   setCommentsByPostRef: PropTypes.func
 }

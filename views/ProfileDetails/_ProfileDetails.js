@@ -7,7 +7,6 @@ import AuthContext from '../../contexts/AuthContext'
 import { getPostsByUserId } from '../../services/post'
 import { getProfileByHandle } from '../../services/profile'
 import { getCommentsByUserId } from '../../services/comment'
-import { getSubCommentsByUserId } from '../../services/subComment'
 
 import { Spinner } from '../../components'
 import { CardHeader, Tabs } from './components'
@@ -27,7 +26,6 @@ function ProfileDetails({ handle }) {
   const [profile, setProfile] = useState({})
   const [postsByUserId, setPostsByUserId] = useState([])
   const [commentsByUserId, setCommentsByUserId] = useState([])
-  const [subCommentsByUserId, setSubCommentsByUserId] = useState([])
 
   useEffect(() => {
     getInitialData()
@@ -40,12 +38,10 @@ function ProfileDetails({ handle }) {
       const profileUserId = await getProfileByHandle(handle)
       const foundPostsByUserId = await getPostsByUserId(profileUserId.data.user._id)
       const foundCommentsByUserId = await getCommentsByUserId(profileUserId.data.user._id)
-      const foundSubCommentsByUserId = await getSubCommentsByUserId(profileUserId.data.user._id)
 
       setProfile(profileUserId.data)
       setPostsByUserId(foundPostsByUserId.data)
       setCommentsByUserId(foundCommentsByUserId.data)
-      setSubCommentsByUserId(foundSubCommentsByUserId.data)
 
       setIsLoading(false)
     } catch (error) {
@@ -77,7 +73,6 @@ function ProfileDetails({ handle }) {
             postsByUserId={postsByUserId}
             setPostsByUserId={setPostsByUserId}
             commentsByUserId={commentsByUserId}
-            subCommentsByUserId={subCommentsByUserId}
             rgbaColor={rgbaColor}
           />
         </>
