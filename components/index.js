@@ -1,4 +1,5 @@
 export { default as Alert } from './Alert'
+export { default as Chip } from './Chip'
 export { default as CodeBlock } from './CodeBlock'
 export { default as Container } from './Container'
 export { default as NextLink } from './NextLink'

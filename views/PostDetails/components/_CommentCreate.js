@@ -45,11 +45,10 @@ function CommentCreate({ postId, toggleAnswerMode, commentsByPostRef, setComment
 
       const commentData = {
         text,
-        refPost: postId
+        postId
       }
 
       const createdComment = await commentCreate(commentData)
-      setCommentsByPostRef([createdComment.data, ...commentsByPostRef])
       toggleAnswerMode && toggleAnswerMode()
       setText('')
     } catch (error) {

@@ -39,7 +39,7 @@ function Comments() {
     .sort((a, b) => a.dateCreated < b.dateCreated)
     .slice(0, limit)
     .map(comment => {
-      const { shortId, urlSlug } = comment.refPost
+      const { shortId, urlSlug } = comment.post
 
       return (
         <Card key={comment._id} style={{ marginBottom: '20px' }}>
@@ -53,7 +53,7 @@ function Comments() {
             >
               <div>
                 <NextLink to={`/post/${shortId}/${urlSlug}`}>
-                  <Typography variant="h6">{comment.refPost.title}</Typography>
+                  <Typography variant="h6">{comment.post.title}</Typography>
                 </NextLink>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow>{comment.dateCreated}</Moment>
@@ -85,8 +85,7 @@ function Comments() {
 }
 
 Comments.propTypes = {
-  commentsByUserId: PropTypes.array,
-  subCommentsByUserId: PropTypes.array
+  commentsByUserId: PropTypes.array
 }
 
 export default Comments
