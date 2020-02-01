@@ -24,23 +24,13 @@ import {
   Likes,
   Tags,
   Title,
-  TitleImage,
-  Type
+  TitleImage
 } from './components'
 
-import { makeStyles } from '@material-ui/styles'
 import { Card, CardContent, Grid, Typography } from '@material-ui/core'
-
-const useStyles = makeStyles({
-  chip: {
-    borderRadius: '5px',
-    marginBottom: '5px'
-  }
-})
 
 function PostDetails({ postId }) {
   const { isAuthenticated, user } = useContext(AuthContext)
-  const classes = useStyles()
   const [isLoading, setIsloading] = useState(false)
   const [post, setPost] = useState([])
   const [commentsByPostRef, setCommentsByPostRef] = useState([])
@@ -109,7 +99,6 @@ function PostDetails({ postId }) {
             <TitleImage post={post} />
             <CardContent>
               <div style={{ width: '100%' }}>
-                <Type post={post} classes={classes} />
                 <Title post={post} />
                 <Tags post={post} />
                 <div style={{ margin: '30px 0' }}>

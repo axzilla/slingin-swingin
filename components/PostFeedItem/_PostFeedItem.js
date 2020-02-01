@@ -17,23 +17,11 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import Chip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles({
-  media: {
-    objectFit: 'cover'
-  },
-  bigAvatar: {
-    marginRight: '10px'
-  },
-  inlineText: {
-    display: 'inline'
-  },
-  chip: {
-    borderRadius: '5px',
-    marginBottom: '5px',
-    margin: '5px'
-  }
+  media: { objectFit: 'cover' },
+  bigAvatar: { marginRight: '10px' },
+  inlineText: { display: 'inline' }
 })
 
 function PostFeedItem({ post }) {
@@ -108,7 +96,6 @@ function PostFeedItem({ post }) {
           </Grid>
 
           <Grid>
-            <Chip variant="outlined" label={postData.type} className={classes.chip} />
             <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
               <Typography variant="h5" component="h2" color="textSecondary">
                 {postData.title}
@@ -132,10 +119,7 @@ function PostFeedItem({ post }) {
             </NextLink>
             <Typography variant="caption" gutterBottom className={classes.inlineText}>
               {' '}
-              -{' '}
-              <Moment fromNow locale="de">
-                {postData.dateCreated}
-              </Moment>
+              - <Moment fromNow>{postData.dateCreated}</Moment>
             </Typography>
           </Grid>
         </Grid>

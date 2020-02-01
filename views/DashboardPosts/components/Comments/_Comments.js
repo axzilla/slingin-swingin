@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import 'moment/locale/de'
 
 import AuthContext from '../../../../contexts/AuthContext'
 import { getCommentsByUserId } from '../../../../services/comment'
@@ -57,9 +56,7 @@ function Comments() {
                   <Typography variant="h6">{comment.refPost.title}</Typography>
                 </NextLink>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
-                  <Moment fromNow locale="de">
-                    {comment.dateCreated}
-                  </Moment>
+                  <Moment fromNow>{comment.dateCreated}</Moment>
                 </Typography>
               </div>
             </div>

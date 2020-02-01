@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { NextLink } from '../../../components'
 import Moment from 'react-moment'
-import 'moment/locale/de'
+
 import { StyledReactMarkdown } from '../../../components'
 import { Card, CardContent, Button, Typography, Grid } from '@material-ui/core'
 
@@ -36,9 +36,7 @@ function ProfileDetailsTabsComments({ commentsByUserId, subCommentsByUserId }) {
                   <Typography variant="h6">{comment.refPost.title}</Typography>
                 </NextLink>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
-                  <Moment fromNow locale="de">
-                    {comment.dateCreated}
-                  </Moment>
+                  <Moment fromNow>{comment.dateCreated}</Moment>
                 </Typography>
               </div>
             </div>

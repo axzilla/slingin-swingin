@@ -138,7 +138,7 @@ function ToolbarApp() {
                 </div>
                 <form noValidate onSubmit={onSubmit}>
                   <InputBase
-                    placeholder="Search..."
+                    placeholder="Search"
                     name="searchText"
                     type="text"
                     onChange={onChange}

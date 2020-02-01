@@ -6,9 +6,7 @@ import { Typography } from '@material-ui/core'
 function PostDetailsDate({ post }) {
   return (
     <Typography style={{ display: 'inline' }}>
-      <Moment fromNow locale="de">
-        {post.dateCreated}
-      </Moment>
+      <Moment fromNow>{post.dateCreated}</Moment>
     </Typography>
   )
 }

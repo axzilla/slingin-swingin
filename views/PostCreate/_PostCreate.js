@@ -88,7 +88,6 @@ function PostCreate() {
       formData.append('titleImage', titleImage)
       formData.append('title', postData.title)
       formData.append('text', text)
-      formData.append('type', postData.type)
       formData.append('tags', postData.tags)
 
       const res = await postCreate(formData)
