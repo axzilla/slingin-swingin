@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
+import Moment from 'react-moment'
+
 import AuthContext from '../../contexts/AuthContext'
 import {
   getPostByShortId,
@@ -8,24 +10,30 @@ import {
   postToggleLikes,
   postToggleBookmarks
 } from '../../services/post'
-import { Spinner } from '../../components'
+
+import Spinner from '../../components/Spinner'
+import NextLink from '../../components/NextLink'
 
 import {
   AuthActions,
-  Avatar,
   Bookmarks,
   Content,
   CommentCreate,
   CommentFeedItem,
-  Creator,
-  Date,
   Likes,
   Tags,
   Title,
   TitleImage
 } from './components'
 
-import { Card, CardContent, Grid, Typography } from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
+import CardHeader from '@material-ui/core/CardHeader'
+import Divider from '@material-ui/core/Divider'
+import { CardActions } from '@material-ui/core'
 
 function PostDetails({ postId }) {
   const { isAuthenticated, user } = useContext(AuthContext)
@@ -87,26 +95,43 @@ function PostDetails({ postId }) {
   } else if (post && post.user) {
     postContent = (
       <Grid item xs={12} sm={8}>
-        <Grid>
+        <Grid item>
           <Card>
+            <CardHeader
+              title={
+                <NextLink href={`/${post.user.username}`}>
+                  <Typography color="primary" style={{ display: 'inline' }}>
+                    {post.user.username}
+                  </Typography>
+                </NextLink>
+              }
+              subheader={<Moment fromNow>{post.dateCreated}</Moment>}
+              avatar={
+                <NextLink href={`/${post.user.username}`}>
+                  {post.user.avatar && post.user.avatar.secure_url ? (
+                    <Avatar alt={post.user.username} src={post.user.avatar.secure_url} />
+                  ) : (
+                    <Avatar alt={post.user.username}>
+                      {post.user.username.substring(0, 1).toUpperCase()}
+                    </Avatar>
+                  )}
+                </NextLink>
+              }
+            />
+            <Divider />
             <TitleImage post={post} />
             <CardContent>
-              <div style={{ width: '100%' }}>
-                <Title post={post} />
-                <Tags post={post} />
-                <div style={{ margin: '30px 0' }}>
-                  <Avatar post={post} />
-                  <Creator post={post} />
-                  <Typography style={{ display: 'inline' }}> - </Typography>
-                  <Date post={post} />
-                </div>
-                <Content post={post} />
-                <div style={{ display: 'flex' }}>
-                  <Likes post={post} user={user} onLikeClick={onLikeClick} />
-                  <Bookmarks post={post} user={user} onBookmarkClick={onBookmarkClick} />
-                </div>
-              </div>
+              <Title post={post} />
+              <Tags post={post} />
+              <Content post={post} />
             </CardContent>
+            <Divider />
+            <CardActions>
+              <div style={{ display: 'flex', width: '100%' }}>
+                <Likes post={post} user={user} onLikeClick={onLikeClick} />
+                <Bookmarks post={post} user={user} onBookmarkClick={onBookmarkClick} />
+              </div>
+            </CardActions>
             <AuthActions
               post={post}
               user={user}

@@ -1,19 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Typography, Button } from '@material-ui/core'
-import { red } from '@material-ui/core/colors'
+
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 
 function PostDetailsLikes({ onLikeClick, post, user }) {
   return (
-    <Button disableRipple onClick={() => onLikeClick(post._id)} style={{ color: red[500] }}>
-      {post.likes.map(like => like.user).includes(user.id) ? (
-        <i className="fas fa-heart fa-lg" />
-      ) : (
-        <i className="far fa-heart fa-lg" />
-      )}
-      &nbsp;
+    <Grid container alignItems="center">
+      <IconButton disableRipple onClick={() => onLikeClick(post._id)}>
+        {post.likes.map(like => like.user).includes(user.id) ? (
+          <FavoriteIcon color="secondary" />
+        ) : (
+          <FavoriteIcon color="primary" />
+        )}
+      </IconButton>
       <Typography>{post.likes && post.likes.length}</Typography>
-    </Button>
+    </Grid>
   )
 }
 

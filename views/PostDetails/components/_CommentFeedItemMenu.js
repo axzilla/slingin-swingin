@@ -37,7 +37,7 @@ function CommentFeedItemMenu({ comment, onEditClick, onDeleteClick, handleMenuCl
         <ListItemIcon>
           <Edit />
         </ListItemIcon>
-        <ListItemText primary="Bearbeiten" />
+        <ListItemText primary="Edit" />
       </MenuItem>
       <MenuItem onClick={() => onMenuDeleteClick(comment._id)}>
         <ListItemIcon>

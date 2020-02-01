@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Typography } from '@material-ui/core'
-import { NextLink } from '../../../components'
+
+import Grid from '@material-ui/core/Grid'
+
+import Chip from '../../../components/Chip'
+import NextLink from '../../../components/NextLink'
 
 function PostDetailsTags({ post }) {
   return (
@@ -9,9 +12,7 @@ function PostDetailsTags({ post }) {
       {post.tags.map(tag => {
         return (
           <NextLink key={tag} href={`/posts/t/${tag}`}>
-            <Typography color="textSecondary" style={{ display: 'inline', margin: '5px' }}>
-              #{tag}
-            </Typography>
+            <Chip clickable label={tag} variant="outlined" />
           </NextLink>
         )
       })}

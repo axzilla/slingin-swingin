@@ -9,7 +9,7 @@ function ProfileDetailsButtonEdit({ profile, auth }) {
       {auth.isAuthenticated && profile.user._id === auth.user.id ? (
         <NextLink href="/dashboard/profile">
           <Button size="small" variant="outlined">
-            Bearbeiten
+            Edit
           </Button>
         </NextLink>
       ) : null}
