@@ -5,7 +5,7 @@ import { getPostsTags } from '../../services/post'
 
 import { NextLink } from '../../components'
 
-import { Card, CardContent, Typography, Box } from '@material-ui/core'
+import { Card, CardContent, Typography, CardHeader, Divider } from '@material-ui/core'
 
 function WidgetTopPostsTags() {
   const [postTags, setPostTags] = useState()
@@ -25,12 +25,9 @@ function WidgetTopPostsTags() {
 
   return (
     <Card>
+      <CardHeader title="Popular tags" />
+      <Divider />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h3">
-          <Box fontFamily="Monospace" fontWeight={900}>
-            @popular
-          </Box>
-        </Typography>
         {postTags &&
           postTags.slice(0, 20).map(item => {
             return (

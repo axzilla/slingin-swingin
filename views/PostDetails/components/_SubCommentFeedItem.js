@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import 'moment/locale/de'
+
 import { StyledReactMarkdown } from '../../../components'
 
 import AuthContext from '../../../contexts/AuthContext'
@@ -110,9 +110,7 @@ function SubCommentFeedItem({ subComment, subComments, setSubComments, index }) 
                     </Typography>
                   </NextLink>
                   {' — '}
-                  <Moment fromNow locale="de">
-                    {subComment.dateCreated}
-                  </Moment>
+                  <Moment fromNow>{subComment.dateCreated}</Moment>
                 </React.Fragment>
               }
             />

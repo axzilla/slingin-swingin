@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import 'moment/locale/de'
 
 import AuthContext from '../../../contexts/AuthContext'
 
@@ -54,11 +53,7 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
         ) : null
       }
       title={<NextLink href={`/${comment.user.username}`}>{comment.user.username}</NextLink>}
-      subheader={
-        <Moment fromNow locale="de">
-          {comment.dateCreated}
-        </Moment>
-      }
+      subheader={<Moment fromNow>{comment.dateCreated}</Moment>}
     />
   )
 }

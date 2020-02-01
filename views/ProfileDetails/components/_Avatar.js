@@ -40,7 +40,7 @@ function ProfileDetailsAvatar({ rgbaColor, profile }) {
           alt={profile.user.username}
           className={classes.avatar}
         >
-          {profile.user.username.substring(0, 1)}
+          {profile.user.username.substring(0, 1).toUpperCase()}
         </Avatar>
       )}
     </>

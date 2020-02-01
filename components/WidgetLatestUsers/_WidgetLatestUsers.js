@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import 'moment/locale/de'
 
 import { getAllProfiles } from '../../services/profile'
 
@@ -11,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
+import Divider from '@material-ui/core/Divider'
 import Avatar from '@material-ui/core/Avatar'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -48,6 +48,7 @@ function LandingWidgetUsers() {
   return (
     <Card className={classes.card}>
       <CardHeader title="New Members" />
+      <Divider />
       <CardContent>
         <List>
           {profiles &&
@@ -63,7 +64,7 @@ function LandingWidgetUsers() {
                         ></Avatar>
                       ) : (
                         <Avatar className={classes.avatar}>
-                          {profile.user.username.substring(0, 1)}
+                          {profile.user.username.substring(0, 1).toUpperCase()}
                         </Avatar>
                       )}
                     </ListItemAvatar>
@@ -74,11 +75,7 @@ function LandingWidgetUsers() {
                         {profile.user.username}
                       </NextLink>
                     }
-                    secondary={
-                      <Moment fromNow locale="de">
-                        {profile.dateCreated}
-                      </Moment>
-                    }
+                    secondary={<Moment fromNow>{profile.dateCreated}</Moment>}
                   />
                 </ListItem>
               )

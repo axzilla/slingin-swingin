@@ -59,9 +59,7 @@ function ProfileDetailsInfos({ profile }) {
           beigetreten
         </Typography>
         <Typography variant="subtitle1" className={classes.infoValue}>
-          <Moment fromNow locale="de">
-            {profile.dateCreated}
-          </Moment>
+          <Moment fromNow>{profile.dateCreated}</Moment>
         </Typography>
       </Grid>
     </Grid>

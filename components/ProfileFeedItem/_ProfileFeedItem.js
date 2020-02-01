@@ -63,7 +63,7 @@ function ProfilesFeedItem({ profile }) {
                 />
               ) : (
                 <Avatar className={classes.avatar} alt={profile.user.username}>
-                  {profile.user.username.substring(0, 1)}
+                  {profile.user.username.substring(0, 1).toUpperCase()}
                 </Avatar>
               )}
             </Grid>
