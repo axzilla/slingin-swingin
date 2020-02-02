@@ -1,8 +1,8 @@
 function htmlToMui(text) {
   const replacedText = text
     .replace(
-      /<a>/g,
-      '<a class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-159 MuiTypography-colorPrimary">'
+      /<a /g,
+      '<a class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-159 MuiTypography-colorPrimary"'
     )
     .replace(/<p>/g, '<p class="MuiTypography-root MuiTypography-body1">')
     .replace(/<h1>/g, '<p class="MuiTypography-root MuiTypography-h1">')

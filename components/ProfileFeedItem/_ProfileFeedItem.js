@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NextLink } from '../../components'
+import { Link } from '../../components'
 import { makeStyles } from '@material-ui/styles'
 import { blue, red } from '@material-ui/core/colors'
 import { Grid, Avatar, Card, CardContent, Typography } from '@material-ui/core'
@@ -51,7 +51,7 @@ function ProfilesFeedItem({ profile }) {
 
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
-      <NextLink href={`/${profile.user.username}`}>
+      <Link href={`/${profile.user.username}`}>
         <CardContent>
           <Grid container wrap="nowrap">
             <Grid>
@@ -96,7 +96,7 @@ function ProfilesFeedItem({ profile }) {
             </Grid>
           </Grid>
         </CardContent>
-      </NextLink>
+      </Link>
     </Card>
   )
 }

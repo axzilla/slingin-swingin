@@ -1,5 +1,10 @@
 import React from 'react'
-import { Typography, Grid, Link as MuiLink } from '@material-ui/core'
+
+import Link from '../../../../components/Link'
+
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import MailIcon from '@material-ui/icons/Mail'
 
 function Footer() {
   return (
@@ -11,11 +16,11 @@ function Footer() {
         </Typography>
       </Grid>
       <div>
-        <MuiLink color="inherit" href="mailto:mail@bounce.dev">
+        <Link color="inherit" href="mailto:mail@bounce.dev">
           <Typography style={{ display: 'inline', margin: '15px' }}>
-            <i className="far fa-envelope-open fa-2x" />
+            <MailIcon />
           </Typography>
-        </MuiLink>
+        </Link>
       </div>
     </Grid>
   )

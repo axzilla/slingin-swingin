@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import AuthContext from '../../contexts/AuthContext'
 import Container from '../../components/Container'
-import NextLink from '../../components/NextLink'
+import Link from '../../components/Link'
 import Topbar from '../../components/Topbar'
 import TopbarMixings from '../../components/TopbarMixings'
 
@@ -78,46 +78,46 @@ function Dashboard({ children }) {
           >
             <TopbarMixings />
             <List>
-              <NextLink href="/dashboard/overview">
+              <Link href="/dashboard/overview">
                 <ListItem button>
                   <ListItemIcon>
                     <DashboardIcon />
                   </ListItemIcon>
                   <ListItemText>Dashboard</ListItemText>
                 </ListItem>
-              </NextLink>
-              <NextLink href="/dashboard/posts">
+              </Link>
+              <Link href="/dashboard/posts">
                 <ListItem button>
                   <ListItemIcon>
                     <ChromeReaderModeIcon />
                   </ListItemIcon>
                   <ListItemText>Posts</ListItemText>
                 </ListItem>
-              </NextLink>
-              <NextLink href="/dashboard/edit-profile">
+              </Link>
+              <Link href="/dashboard/edit-profile">
                 <ListItem button>
                   <ListItemIcon>
                     <EditIcon />
                   </ListItemIcon>
                   <ListItemText>Edit Profile</ListItemText>
                 </ListItem>
-              </NextLink>
-              <NextLink href="/dashboard/settings">
+              </Link>
+              <Link href="/dashboard/settings">
                 <ListItem button>
                   <ListItemIcon>
                     <Settings />
                   </ListItemIcon>
                   <ListItemText>Settings</ListItemText>
                 </ListItem>
-              </NextLink>
-              <NextLink href={`/${user.username}`}>
+              </Link>
+              <Link href={`/${user.username}`}>
                 <ListItem button>
                   <ListItemIcon>
                     <AccountBox />
                   </ListItemIcon>
                   <ListItemText>My Profile</ListItemText>
                 </ListItem>
-              </NextLink>
+              </Link>
             </List>
           </Drawer>
           <Container>{children}</Container>

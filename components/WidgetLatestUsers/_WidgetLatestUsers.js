@@ -4,7 +4,7 @@ import Moment from 'react-moment'
 
 import { getAllProfiles } from '../../services/profile'
 
-import { NextLink } from '../../components'
+import { Link } from '../../components'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -55,7 +55,7 @@ function LandingWidgetUsers() {
             profiles.slice(0, 10).map(profile => {
               return (
                 <ListItem key={profile._id}>
-                  <NextLink key={profile._id} href={`/${profile.handle}`}>
+                  <Link key={profile._id} href={`/${profile.handle}`}>
                     <ListItemAvatar>
                       {profile.user.avatar && profile.user.avatar.secure_url ? (
                         <Avatar
@@ -68,12 +68,12 @@ function LandingWidgetUsers() {
                         </Avatar>
                       )}
                     </ListItemAvatar>
-                  </NextLink>
+                  </Link>
                   <ListItemText
                     primary={
-                      <NextLink key={profile._id} href={`/${profile.handle}`}>
+                      <Link key={profile._id} href={`/${profile.handle}`}>
                         {profile.user.username}
-                      </NextLink>
+                      </Link>
                     }
                     secondary={<Moment fromNow>{profile.dateCreated}</Moment>}
                   />

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
 import htmlRemove from '../../utils/htmlRemove'
-import NextLink from '../../components/NextLink'
+import Link from '../../components/Link'
 import Chip from '../../components/Chip'
 import AuthContext from '../../contexts/AuthContext'
 import { postToggleBookmarks } from '../../services/post'
@@ -51,7 +51,7 @@ function PostFeedItem({ post }) {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <NextLink href={`/${postData.user.username}`}>
+          <Link href={`/${postData.user.username}`}>
             {postData.user.avatar && postData.user.avatar.secure_url ? (
               <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
             ) : (
@@ -59,13 +59,13 @@ function PostFeedItem({ post }) {
                 {postData.user.username.substring(0, 1).toUpperCase()}
               </Avatar>
             )}
-          </NextLink>
+          </Link>
         }
-        title={<NextLink href={`/${postData.user.username}`}>{postData.user.username}</NextLink>}
+        title={<Link href={`/${postData.user.username}`}>{postData.user.username}</Link>}
         subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
       />
       {postData.titleImage && (
-        <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
+        <Link href={`/post/${postData.shortId}/${postData.urlSlug}`}>
           <CardMedia
             component="img"
             alt="Post title"
@@ -73,25 +73,25 @@ function PostFeedItem({ post }) {
             height="140"
             image={postData.titleImage.secure_url}
           />
-        </NextLink>
+        </Link>
       )}
       <CardContent>
         <Grid container wrap="nowrap">
           <Grid>
-            <NextLink href={`/post/${postData.shortId}/${postData.urlSlug}`}>
+            <Link href={`/post/${postData.shortId}/${postData.urlSlug}`}>
               <Typography variant="h4" component="h2" color="textPrimary" gutterBottom>
                 {postData.title}
               </Typography>
               <Typography>
                 {htmlRemove(postData.text.substring(0, 250))} {postData.text.length > 250 && '...'}
               </Typography>
-            </NextLink>
+            </Link>
             <Grid container>
               {postData.tags.map(tag => {
                 return (
-                  <NextLink key={tag} href={`/posts/t/${tag}`}>
+                  <Link key={tag} href={`/posts/t/${tag}`}>
                     <Chip clickable label={tag} variant="outlined" />
-                  </NextLink>
+                  </Link>
                 )
               })}
             </Grid>

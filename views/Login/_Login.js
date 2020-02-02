@@ -3,7 +3,7 @@ import Router from 'next/router'
 
 import AuthContext from '../../contexts/AuthContext'
 import { userLogin } from '../../services/auth'
-import NextLink from '../../components/NextLink'
+import Link from '../../components/Link'
 import TextField from '../../components/TextField'
 
 import Button from '@material-ui/core/Button'
@@ -67,12 +67,12 @@ function UserLogin() {
           </Button>
         </Box>
       </form>
-      <NextLink href={'/forgot-password'}>
+      <Link href={'/forgot-password'}>
         <Typography align="center">Forgot password?</Typography>
-      </NextLink>
-      <NextLink href={'/register'}>
+      </Link>
+      <Link href={'/register'}>
         <Typography align="center">Don’t have an account? </Typography>
-      </NextLink>
+      </Link>
     </>
   )
 }

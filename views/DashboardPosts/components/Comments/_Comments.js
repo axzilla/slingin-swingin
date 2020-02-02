@@ -5,7 +5,7 @@ import Moment from 'react-moment'
 import AuthContext from '../../../../contexts/AuthContext'
 import { getCommentsByUserId } from '../../../../services/comment'
 
-import NextLink from '../../../../components/NextLink'
+import Link from '../../../../components/Link'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -51,9 +51,9 @@ function Comments() {
               }}
             >
               <div>
-                <NextLink to={`/post/${shortId}/${urlSlug}`}>
+                <Link to={`/post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.post.title}</Typography>
-                </NextLink>
+                </Link>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow>{comment.dateCreated}</Moment>
                 </Typography>

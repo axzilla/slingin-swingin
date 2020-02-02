@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Router from 'next/router'
 
 import { userRegister } from '../../services/auth'
-import NextLink from '../../components/NextLink'
+import Link from '../../components/Link'
 import TextField from '../../components/TextField'
 
 import Box from '@material-ui/core/Box'
@@ -64,9 +64,9 @@ const Register = () => {
           </Button>
         </Box>
       </form>
-      <NextLink href={'/login'}>
+      <Link href={'/login'}>
         <Typography align="center">You already have an account?</Typography>
-      </NextLink>
+      </Link>
     </>
   )
 }
