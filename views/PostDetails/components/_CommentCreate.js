@@ -4,14 +4,10 @@ import PropTypes from 'prop-types'
 import Quill from '../../../components/Quill'
 import { commentCreate } from '../../../services/comment'
 
-import { makeStyles } from '@material-ui/styles'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
-const useStyles = makeStyles({})
-
 function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
-  const classes = useStyles()
   const [text, setText] = useState('')
 
   async function onSubmit(event) {
@@ -38,11 +34,9 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
+    <Grid>
       <form onSubmit={onSubmit}>
-        <div>
-          <Quill value={text} onChange={onTextChange} placeholder="Write a comment" />
-        </div>
+        <Quill value={text} onChange={onTextChange} placeholder="Write a comment" />
         <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
           Leave a comment
         </Button>

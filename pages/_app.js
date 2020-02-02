@@ -5,6 +5,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import theme from '../themes'
+import '../public/css/quill.css'
 
 import Router from 'next/router'
 import { withRouter } from 'next/router'

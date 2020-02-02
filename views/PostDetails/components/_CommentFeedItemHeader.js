@@ -1,14 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-
-import AuthContext from '../../../contexts/AuthContext'
 
 import { Link } from '../../../components'
 
 import { makeStyles } from '@material-ui/styles'
-import { CardHeader, Avatar, IconButton } from '@material-ui/core'
-import { MoreVert } from '@material-ui/icons'
+import { CardHeader, Avatar } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   card: { marginBottom: '20px' },
@@ -18,9 +15,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function CommentFeedItemHeader({ comment, handleMenuClick }) {
+function CommentFeedItemHeader({ comment }) {
   const classes = useStyles()
-  const { user, isAuthenticated } = useContext(AuthContext)
 
   return (
     <CardHeader
@@ -40,17 +36,6 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
             </Avatar>
           </Link>
         )
-      }
-      action={
-        (isAuthenticated && user.id === comment.user._id) || (user.roles && user.roles.isAdmin) ? (
-          <IconButton
-            aria-label="Settings"
-            aria-controls="customized-menu"
-            onClick={handleMenuClick}
-          >
-            <MoreVert />
-          </IconButton>
-        ) : null
       }
       title={<Link href={`/${comment.user.username}`}>{comment.user.username}</Link>}
       subheader={<Moment fromNow>{comment.dateCreated}</Moment>}
