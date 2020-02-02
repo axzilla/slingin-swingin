@@ -16,10 +16,10 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Container({ children }) {
+function Container({ ...rest }) {
   const classes = useStyles()
 
-  return <MuiContainer className={classes.root}>{children}</MuiContainer>
+  return <MuiContainer className={classes.root} {...rest} />
 }
 
 Container.propTypes = { children: PropTypes.node.isRequired }

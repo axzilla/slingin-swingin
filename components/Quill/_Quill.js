@@ -4,12 +4,7 @@ import 'react-quill/dist/quill.snow.css'
 const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
 
 const modules = {
-  toolbar: [
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    ['link'],
-    ['clean']
-  ],
+  toolbar: [['bold', 'italic', 'link'], []],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false

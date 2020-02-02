@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
 import { setGaPageView } from '../../utils/googleAnalytics'
-
 import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/post'
 
-import {
-  PostFeedItem,
-  WidgetLatestUsers,
-  WidgetTopPostsTags,
-  WidgetSidebarRight,
-  WidgetSidebarLeft
-} from '../../components'
+import Container from '../../components/Container'
+import PostFeedItem from '../../components/PostFeedItem'
+import WidgetLatestUsers from '../../components/WidgetLatestUsers'
+import WidgetTopPostsTags from '../../components/WidgetTopPostsTags'
+import WidgetSidebarRight from '../../components/WidgetSidebarRight'
+import WidgetSidebarLeft from '../../components/WidgetSidebarLeft'
 
-import { Button, Grid, Hidden } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import CloudIcon from '@material-ui/icons/Cloud'
 import FolderSharedIcon from '@material-ui/icons/FolderShared'
@@ -84,50 +84,52 @@ function Landing() {
   }
 
   return (
-    <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
-      <Hidden smDown>
-        <Grid item xs={3}>
-          <WidgetTopPostsTags />
-        </Grid>
-      </Hidden>
-      <Grid item xs={12} md={6}>
-        <Hidden mdUp>
-          <Grid container direction="row" justify="space-between" alignItems="center">
-            <IconButton onClick={toggleDrawer('left', true)}>
-              <CloudIcon />
-            </IconButton>
-            <IconButton onClick={toggleDrawer('right', true)}>
-              <FolderSharedIcon />
-            </IconButton>
+    <Container maxWidth="lg">
+      <Grid container direction="row" justify="center" alignItems="flex-start" spacing={2}>
+        <Hidden smDown>
+          <Grid item xs={3}>
+            <WidgetTopPostsTags />
           </Grid>
-          <WidgetSidebarRight state={state} setState={setState} toggleDrawer={toggleDrawer} />
-          <WidgetSidebarLeft state={state} setState={setState} toggleDrawer={toggleDrawer} />
         </Hidden>
-        <Grid item xs={12}>
-          {posts &&
-            posts
-              .slice(0, limit)
-              .map(post => (
-                <PostFeedItem
-                  key={post._id}
-                  post={post}
-                  onLikeClick={onLikeClick}
-                  onBookmarkClick={onBookmarkClick}
-                />
-              ))}
-          {posts && posts.slice(0, limit).length === posts.length ? null : (
-            <Button onClick={loadMore} variant="outlined" color="primary">
-              Mehr...
-            </Button>
-          )}
+        <Grid item xs={12} md={6}>
+          <Hidden mdUp>
+            <Grid container direction="row" justify="space-between" alignItems="center">
+              <IconButton onClick={toggleDrawer('left', true)}>
+                <CloudIcon />
+              </IconButton>
+              <IconButton onClick={toggleDrawer('right', true)}>
+                <FolderSharedIcon />
+              </IconButton>
+            </Grid>
+            <WidgetSidebarRight state={state} setState={setState} toggleDrawer={toggleDrawer} />
+            <WidgetSidebarLeft state={state} setState={setState} toggleDrawer={toggleDrawer} />
+          </Hidden>
+          <Grid item xs={12}>
+            {posts &&
+              posts
+                .slice(0, limit)
+                .map(post => (
+                  <PostFeedItem
+                    key={post._id}
+                    post={post}
+                    onLikeClick={onLikeClick}
+                    onBookmarkClick={onBookmarkClick}
+                  />
+                ))}
+            {posts && posts.slice(0, limit).length === posts.length ? null : (
+              <Button onClick={loadMore} variant="outlined" color="primary">
+                Mehr...
+              </Button>
+            )}
+          </Grid>
         </Grid>
+        <Hidden smDown>
+          <Grid item xs={3}>
+            <WidgetLatestUsers />
+          </Grid>
+        </Hidden>
       </Grid>
-      <Hidden smDown>
-        <Grid item xs={3}>
-          <WidgetLatestUsers />
-        </Grid>
-      </Hidden>
-    </Grid>
+    </Container>
   )
 }
 
