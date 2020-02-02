@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import TextField from '../../../components/TextField'
+import Quill from '../../../components/Quill'
 import { commentCreate } from '../../../services/comment'
 
 import { makeStyles } from '@material-ui/styles'
@@ -13,7 +13,6 @@ const useStyles = makeStyles({})
 function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   const classes = useStyles()
   const [text, setText] = useState('')
-  const [errors, setErrors] = useState()
 
   async function onSubmit(event) {
     try {
@@ -29,24 +28,21 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
       toggleAnswerMode && toggleAnswerMode()
       setText('')
     } catch (error) {
-      setErrors(error.response.data)
+      console.log(error.response.data)
     }
   }
 
-  function onChange(event) {
-    setText(event.target.value)
+  async function onTextChange(value) {
+    // value instead event.target.value - is quill specified
+    setText(value)
   }
 
   return (
     <Grid className={classes.root} container justify="center">
       <form onSubmit={onSubmit}>
-        <TextField
-          error={errors && errors.text}
-          placeholder="Write a comment"
-          label="Write a comment"
-          onChange={onChange}
-          value={text}
-        />
+        <div>
+          <Quill value={text} onChange={onTextChange} placeholder="Write a comment" />
+        </div>
         <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
           Leave a comment
         </Button>
