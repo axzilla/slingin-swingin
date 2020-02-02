@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Footer from './components/Footer'
-import Container from '../../components/Container'
 import Topbar from '../../components/Topbar'
 import TopbarMixings from '../../components/TopbarMixings'
 
@@ -13,7 +12,7 @@ function Main({ children }) {
     <Grid container>
       <Topbar />
       <TopbarMixings />
-      <Container>{children}</Container>
+      {children}
       <Footer />
     </Grid>
   )

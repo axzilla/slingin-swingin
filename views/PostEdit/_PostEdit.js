@@ -7,6 +7,7 @@ import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
 import TextField from '../../components/TextField'
 import Quill from '../../components/Quill'
+import Container from '../../components/Container'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -112,7 +113,7 @@ function PostEdit({ id }) {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
+    <Container maxWidth="md">
       <Card>
         <CardContent>
           <img
@@ -174,7 +175,9 @@ function PostEdit({ id }) {
                 )
               })}
           </Grid>
-          <Quill value={text} onChange={onTextChange} />
+          <Grid>
+            <Quill value={text} onChange={onTextChange} placeholder="Edit your story..." />
+          </Grid>
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>
               <Button
@@ -190,7 +193,7 @@ function PostEdit({ id }) {
           </Grid>
         </CardContent>
       </Card>
-    </Grid>
+    </Container>
   )
 }
 

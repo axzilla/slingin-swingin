@@ -21,7 +21,7 @@ function CommentEdit({ comment, onSaveClick }) {
   return (
     <Grid>
       <form>
-        <Quill value={text} onChange={onTextChange} placeholder="Edit your comment" />
+        <Quill value={text} onChange={onTextChange} placeholder="Edit your comment..." />
         <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
           Save
         </Button>
