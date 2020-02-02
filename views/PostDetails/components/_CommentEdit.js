@@ -1,42 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { MarkdownEditor } from '../../../components'
+import TextField from '../../../components/TextField'
 
-import { makeStyles } from '@material-ui/styles'
-import { Grid, FormControl, Button } from '@material-ui/core'
+// import { makeStyles } from '@material-ui/styles'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
-const useStyles = makeStyles({
-  formControl: {
-    width: '100%'
-  },
-  error: {
-    lineHeight: '20px',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  },
-  quill: {
-    marginTop: '20px'
-  },
-  button: {
-    margin: '20px 0'
-  },
-  cardPreview: {
-    background: 'transparent',
-    marginBottom: '20px'
-  }
-})
+// const useStyles = makeStyles({})
 
 function CommentEdit({ comment, onSaveClick }) {
-  const classes = useStyles()
+  // const classes = useStyles()
   const [text, setText] = useState('')
 
   useEffect(() => {
@@ -48,22 +22,13 @@ function CommentEdit({ comment, onSaveClick }) {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
-      <FormControl className={classes.formControl} error>
-        <form>
-          <MarkdownEditor
-            withPreview
-            text={text}
-            setText={setText}
-            onChange={onChange}
-            value={text}
-          />
-
-          <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
-            Save
-          </Button>
-        </form>
-      </FormControl>
+    <Grid container justify="center">
+      <form>
+        <TextField onChange={onChange} value={text} />
+        <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
+          Save
+        </Button>
+      </form>
     </Grid>
   )
 }

@@ -1,57 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import { MarkdownEditor } from '../../components'
+
 import { postUpdate, getPostById } from '../../services/post'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
+import TextField from '../../components/TextField'
+
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Card,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  Select,
-  OutlinedInput,
-  MenuItem,
-  Chip
-} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Chip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles({
-  formControl: {
-    width: '100%'
-  },
-  card: {
-    maxWidth: '400px'
-  },
-  error: {
-    lineHeight: '20px',
-    display: 'inline',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  },
-  quill: {
-    marginTop: '20px'
-  },
-  button: {
-    margin: '20px 0'
-  },
-  media: {
-    height: '140px'
-  }
+  button: { margin: '20px 0' },
+  media: { height: '140px' }
 })
 
 function PostEdit({ id }) {
@@ -66,17 +32,12 @@ function PostEdit({ id }) {
   const [tags, setTags] = useState([])
   const [tagsInput, setTagsInput] = useState('')
 
-  const inputLabel = React.useRef(null)
-  const [labelWidth, setLabelWidth] = React.useState(0)
-
   useEffect(() => {
     getInitialData()
   }, [])
 
   async function getInitialData() {
     try {
-      setLabelWidth(inputLabel.current.offsetWidth)
-
       const foundPost = await getPostById(id)
 
       setTitle(foundPost.data.title)
@@ -131,10 +92,6 @@ function PostEdit({ id }) {
     setTitle(event.target.value)
   }
 
-  function onTypeChange(event) {
-    setType(event.target.value)
-  }
-
   function onTagsInputChange(event) {
     setTagsInput(slugify(event.target.value))
   }
@@ -185,80 +142,24 @@ function PostEdit({ id }) {
               <i className="fas fa-trash-alt fa-lg icon" />
             </Button>
           </div>
-          <FormControl className={classes.formControl} error>
-            <TextField
-              type="text"
-              error={errors && errors.title ? true : false}
-              label="Titel"
-              margin="normal"
-              variant="outlined"
-              name="title"
-              value={title}
-              onChange={onTitleChange}
-            />
-            {errors && errors.title ? (
-              <FormHelperText className={classes.error}>{errors.title}</FormHelperText>
-            ) : null}
-          </FormControl>
-          <FormControl className={classes.formControl} error>
-            <MarkdownEditor
-              withPreview
-              value={text}
-              onChange={onTextChange}
-              rows={10}
-              setText={setText}
-            />
-            {errors && errors.text ? (
-              <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
-            ) : null}
-          </FormControl>
-          <FormControl
-            variant="outlined"
-            className={classes.formControl}
-            error={errors && errors.type ? true : false}
-          >
-            <InputLabel
-              ref={inputLabel}
-              htmlFor="outlined-type-simple"
-              error={errors && errors.type ? true : false}
-            >
-              Beitragstyp
-            </InputLabel>
-            <Select
-              value={type}
-              onChange={onTypeChange}
-              input={
-                <OutlinedInput name="type" labelWidth={labelWidth} id="outlined-type-simple" />
-              }
-            >
-              <MenuItem value="Tutorial">Tutorial</MenuItem>
-              <MenuItem value="Blogartikel">Blogartikel</MenuItem>
-              <MenuItem value="Diskussion">Diskussion</MenuItem>
-              <MenuItem value="Idee">Idee</MenuItem>
-              <MenuItem value="Projekt">Projekt</MenuItem>
-              <MenuItem value="Frage">Frage</MenuItem>
-              <MenuItem value="Fun">Fun</MenuItem>
-            </Select>
-            {errors && errors.type ? (
-              <FormHelperText className={classes.error}>{errors.type}</FormHelperText>
-            ) : null}
-          </FormControl>
-          <FormControl className={classes.formControl} error>
-            <TextField
-              type="tags"
-              error={errors && errors.title ? true : false}
-              label="Hashtags"
-              margin="normal"
-              variant="outlined"
-              name="tags"
-              value={tagsInput}
-              onChange={onTagsInputChange}
-              onKeyDown={onTagsKeyPress}
-            />
-            {errors && errors.tags ? (
-              <FormHelperText className={classes.error}>{errors.tags}</FormHelperText>
-            ) : null}
-          </FormControl>
+          <TextField
+            type="text"
+            error={errors && errors.title}
+            label="Titel"
+            name="title"
+            value={title}
+            onChange={onTitleChange}
+          />
+          <TextField value={text} onChange={onTextChange} rows={10} />
+          <TextField
+            type="tags"
+            error={errors && errors.tags}
+            label="Hashtags"
+            name="tags"
+            value={tagsInput}
+            onChange={onTagsInputChange}
+            onKeyDown={onTagsKeyPress}
+          />
           <Grid>
             {tags &&
               tags.map((tag, i) => {
