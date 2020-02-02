@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { getPostsTags } from '../../services/post'
 
-import NextLink from '../../components/NextLink'
+import Link from '../../components/Link'
 import Chip from '../../components/Chip'
 
 import { Card, CardContent, CardHeader, Divider } from '@material-ui/core'
@@ -32,9 +32,9 @@ function WidgetTopPostsTags() {
         {postTags &&
           postTags.slice(0, 20).map(item => {
             return (
-              <NextLink key={item._id} href={`/posts/t/${item._id}`}>
+              <Link key={item._id} href={`/posts/t/${item._id}`}>
                 <Chip clickable label={item._id} variant="outlined" />
-              </NextLink>
+              </Link>
             )
           })}
       </CardContent>

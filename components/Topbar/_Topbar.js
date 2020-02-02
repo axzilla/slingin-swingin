@@ -3,7 +3,7 @@ import AuthContext from '../../contexts/AuthContext'
 import Router from 'next/router'
 import logo from './_logo.png'
 
-import { NextLink } from '../../components'
+import { Link } from '../../components'
 import { searchFunc } from '../../services/search'
 import isEmpty from '../../utils/isEmpty'
 
@@ -127,11 +127,11 @@ function ToolbarApp() {
         <Toolbar>
           <div className={classes.menuContainer}>
             <div style={{ display: 'flex', alignItems: 'center', height: '64px' }}>
-              <NextLink href="/">
+              <Link href="/">
                 <Grid container alignItems="center">
                   <img src={logo} className={classes.logo} />
                 </Grid>
-              </NextLink>
+              </Link>
               <div className={classes.searchField}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
@@ -156,12 +156,12 @@ function ToolbarApp() {
               {isAuthenticated ? (
                 <>
                   <Box>
-                    <NextLink href="/dashboard/overview">
+                    <Link href="/dashboard/overview">
                       <Button>
                         <AccountCircle />
                         &nbsp;Dashboard
                       </Button>
-                    </NextLink>
+                    </Link>
                   </Box>
                   <Box>
                     <Button onClick={onLogoutClick}>
@@ -170,28 +170,28 @@ function ToolbarApp() {
                     </Button>
                   </Box>
                   <Box>
-                    <NextLink href="/create-post">
+                    <Link href="/create-post">
                       <Button className={classes.button} variant="contained" color="secondary">
                         Create&nbsp;Post
                       </Button>
-                    </NextLink>
+                    </Link>
                   </Box>
                 </>
               ) : (
                 <>
                   <Box>
-                    <NextLink href="/register">
+                    <Link href="/register">
                       <Button className={classes.button} variant="contained" color="secondary">
                         Sign&nbsp;Up
                       </Button>
-                    </NextLink>
+                    </Link>
                   </Box>
                   <Box>
-                    <NextLink href="/login">
+                    <Link href="/login">
                       <Button color="primary" className={classes.button} variant="outlined">
                         Log&nbsp;in
                       </Button>
-                    </NextLink>
+                    </Link>
                   </Box>
                 </>
               )}

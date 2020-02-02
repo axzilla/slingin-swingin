@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import { NextLink } from '../../../components'
+import { Link } from '../../../components'
 
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -34,9 +34,9 @@ function ProfileDetailsTabsComments({ commentsByUserId }) {
               }}
             >
               <div>
-                <NextLink href={`post/${shortId}/${urlSlug}`}>
+                <Link href={`post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.post.title}</Typography>
-                </NextLink>
+                </Link>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
                   <Moment fromNow>{comment.dateCreated}</Moment>
                 </Typography>

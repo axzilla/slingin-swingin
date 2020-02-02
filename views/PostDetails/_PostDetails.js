@@ -12,7 +12,7 @@ import {
 } from '../../services/post'
 
 import Spinner from '../../components/Spinner'
-import NextLink from '../../components/NextLink'
+import Link from '../../components/Link'
 
 import {
   AuthActions,
@@ -99,15 +99,15 @@ function PostDetails({ postId }) {
           <Card>
             <CardHeader
               title={
-                <NextLink href={`/${post.user.username}`}>
+                <Link href={`/${post.user.username}`}>
                   <Typography color="primary" style={{ display: 'inline' }}>
                     {post.user.username}
                   </Typography>
-                </NextLink>
+                </Link>
               }
               subheader={<Moment fromNow>{post.dateCreated}</Moment>}
               avatar={
-                <NextLink href={`/${post.user.username}`}>
+                <Link href={`/${post.user.username}`}>
                   {post.user.avatar && post.user.avatar.secure_url ? (
                     <Avatar alt={post.user.username} src={post.user.avatar.secure_url} />
                   ) : (
@@ -115,7 +115,7 @@ function PostDetails({ postId }) {
                       {post.user.username.substring(0, 1).toUpperCase()}
                     </Avatar>
                   )}
-                </NextLink>
+                </Link>
               }
             />
             <Divider />

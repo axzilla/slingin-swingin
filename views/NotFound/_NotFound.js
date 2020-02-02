@@ -1,5 +1,5 @@
 import React from 'react'
-import { NextLink } from '../../components'
+import { Link } from '../../components'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Button } from '@material-ui/core'
 
@@ -25,11 +25,11 @@ function NotFound() {
       className={classes.container}
     >
       <img src="/404.png" className={classes.image} />
-      <NextLink href="/">
+      <Link href="/">
         <Button variant="contained" color="primary">
           Back
         </Button>
-      </NextLink>
+      </Link>
     </Grid>
   )
 }

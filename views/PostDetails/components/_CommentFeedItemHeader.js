@@ -4,7 +4,7 @@ import Moment from 'react-moment'
 
 import AuthContext from '../../../contexts/AuthContext'
 
-import { NextLink } from '../../../components'
+import { Link } from '../../../components'
 
 import { makeStyles } from '@material-ui/styles'
 import { CardHeader, Avatar, IconButton } from '@material-ui/core'
@@ -26,19 +26,19 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
     <CardHeader
       avatar={
         comment.user.avatar ? (
-          <NextLink href={`/${comment.user.username}`}>
+          <Link href={`/${comment.user.username}`}>
             <Avatar
               src={comment.user.avatar ? comment.user.avatar.secure_url : null}
               aria-label="Recipe"
               className={classes.avatar}
             />
-          </NextLink>
+          </Link>
         ) : (
-          <NextLink href={`/${comment.user.username}`}>
+          <Link href={`/${comment.user.username}`}>
             <Avatar aria-label="Recipe" className={classes.avatar}>
               {comment.user.username.substring(0, 1)}
             </Avatar>
-          </NextLink>
+          </Link>
         )
       }
       action={
@@ -52,7 +52,7 @@ function CommentFeedItemHeader({ comment, handleMenuClick }) {
           </IconButton>
         ) : null
       }
-      title={<NextLink href={`/${comment.user.username}`}>{comment.user.username}</NextLink>}
+      title={<Link href={`/${comment.user.username}`}>{comment.user.username}</Link>}
       subheader={<Moment fromNow>{comment.dateCreated}</Moment>}
     />
   )
