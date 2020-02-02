@@ -5,11 +5,11 @@ import { postCreate } from '../../services/post'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
 import TextField from '../../components/TextField'
+import Quill from '../../components/Quill'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Chip from '@material-ui/core/Chip'
@@ -74,8 +74,9 @@ function PostCreate() {
     })
   }
 
-  function onTextChange(event) {
-    setText(event.target.value)
+  async function onTextChange(value) {
+    // value instead event.target.value - is quill specified
+    setText(value)
   }
 
   function onTagsInputChange(event) {
@@ -103,84 +104,87 @@ function PostCreate() {
   }
 
   return (
-    <Grid className={classes.root} container justify="center">
-      <Card>
-        <CardContent>
-          <img
-            className={classes.media}
-            src={isEmpty(titleImagePreview) ? '/post-title-placeholder.png' : titleImagePreview}
-            alt="Titel"
-          />
-          <Typography>*max 10MB</Typography>
-          <input
-            onChange={onPostTitleImageChange}
-            style={{ display: 'none' }}
-            id="raised-button-file"
-            type="file"
-          />
-          <div className="icons">
-            <label htmlFor="raised-button-file">
-              <Button disableRipple component="span">
-                <i className="far fa-edit fa-lg icon" />
+    <>
+      <Grid className={classes.root} container justify="center" direction="column">
+        <Card>
+          <CardContent>
+            <img
+              className={classes.media}
+              src={isEmpty(titleImagePreview) ? '/post-title-placeholder.png' : titleImagePreview}
+              alt="Titel"
+            />
+            <input
+              onChange={onPostTitleImageChange}
+              style={{ display: 'none' }}
+              id="raised-button-file"
+              type="file"
+            />
+            <div className="icons">
+              <label htmlFor="raised-button-file">
+                <Button disableRipple component="span">
+                  <i className="far fa-edit fa-lg icon" />
+                </Button>
+              </label>
+              <Button
+                disableRipple
+                style={{
+                  display: isEmpty(titleImagePreview) ? 'none' : 'inline'
+                }}
+                onClick={onDeleteTitleImageClick}
+              >
+                <i className="fas fa-trash-alt fa-lg icon" />
               </Button>
-            </label>
-            <Button
-              disableRipple
-              style={{
-                display: isEmpty(titleImagePreview) ? 'none' : 'inline'
-              }}
-              onClick={onDeleteTitleImageClick}
-            >
-              <i className="fas fa-trash-alt fa-lg icon" />
-            </Button>
-          </div>
-          <TextField
-            type="text"
-            error={errors && errors.title}
-            label="Title"
-            name="title"
-            value={postData.title}
-            onChange={onChange}
-          />
-          <TextField value={text} onChange={onTextChange} rows={10} />
-          <TextField
-            error={errors && errors.tags}
-            type="tags"
-            label="Tags"
-            name="tags"
-            value={tagsInput}
-            onChange={onTagsInputChange}
-            onKeyDown={onTagsKeyPress}
-          />
-          <Grid>
-            {postData.tags.map((tag, i) => {
-              return (
-                <Chip
-                  key={tag}
-                  label={tag}
-                  onDelete={() => handleTagDelete(i)}
-                  className={classes.chip}
+            </div>
+            <TextField
+              type="text"
+              error={errors && errors.title}
+              label="Title"
+              name="title"
+              value={postData.title}
+              onChange={onChange}
+            />
+            <TextField
+              error={errors && errors.tags}
+              type="tags"
+              label="Tags"
+              name="tags"
+              value={tagsInput}
+              onChange={onTagsInputChange}
+              onKeyDown={onTagsKeyPress}
+            />
+            <Grid>
+              {postData.tags.map((tag, i) => {
+                return (
+                  <Chip
+                    key={tag}
+                    label={tag}
+                    onDelete={() => handleTagDelete(i)}
+                    className={classes.chip}
+                    color="primary"
+                    variant="outlined"
+                  />
+                )
+              })}
+            </Grid>
+            <div>
+              <Quill value={text} onChange={onTextChange} />
+            </div>
+            <Grid container justify="flex-end" spacing={2}>
+              <Grid item>
+                <Button
+                  className={classes.button}
                   color="primary"
                   variant="outlined"
-                />
-              )
-            })}
-          </Grid>
-          <Grid container justify="flex-end" spacing={2}>
-            <Grid item>
-              <Button
-                className={classes.button}
-                color="primary"
-                variant="outlined"
-                onClick={onSubmit}
-              >
-                Save
-              </Button>
+                  onClick={onSubmit}
+                >
+                  Save
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-    </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </>
   )
 }
 

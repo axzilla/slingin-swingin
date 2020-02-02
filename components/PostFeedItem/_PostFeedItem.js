@@ -3,6 +3,7 @@ import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
+import htmlRemove from '../../utils/htmlRemove'
 import NextLink from '../../components/NextLink'
 import Chip from '../../components/Chip'
 import AuthContext from '../../contexts/AuthContext'
@@ -81,8 +82,8 @@ function PostFeedItem({ post }) {
               <Typography variant="h4" component="h2" color="textPrimary" gutterBottom>
                 {postData.title}
               </Typography>
-              <Typography color="textSecondary" gutterBottom>
-                {postData.text.substring(0, 150)} {postData.text.length > 100 && '...'}
+              <Typography>
+                {htmlRemove(postData.text.substring(0, 250))} {postData.text.length > 250 && '...'}
               </Typography>
             </NextLink>
             <Grid container>
