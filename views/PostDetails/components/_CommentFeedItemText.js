@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledReactMarkdown } from '../../../components'
+
+import Typography from '@material-ui/core/Typography'
 
 function CommentFeedItemtext({ comment }) {
-  return <StyledReactMarkdown source={comment.text} escapeHtml={false} type="read" />
+  return <Typography>{comment.text}</Typography>
 }
 
 CommentFeedItemtext.propTypes = {

@@ -6,7 +6,6 @@ import AuthContext from '../../../../contexts/AuthContext'
 import { getCommentsByUserId } from '../../../../services/comment'
 
 import NextLink from '../../../../components/NextLink'
-import StyledReactMarkdown from '../../../../components/StyledReactMarkdown'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -60,7 +59,7 @@ function Comments() {
                 </Typography>
               </div>
             </div>
-            <StyledReactMarkdown source={comment.text} escapeHtml={false} type="read" />
+            <Typography>{comment.text}</Typography>
           </CardContent>
         </Card>
       )

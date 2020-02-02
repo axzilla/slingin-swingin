@@ -2,37 +2,13 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import TextField from '../../../components/TextField'
-
 import { commentCreate } from '../../../services/comment'
 
 import { makeStyles } from '@material-ui/styles'
-import { Grid, FormControl, FormHelperText, Button } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
-const useStyles = makeStyles({
-  formControl: {
-    width: '100%'
-  },
-  error: {
-    lineHeight: '20px',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  },
-  button: {
-    margin: '20px 0'
-  },
-  cardPreview: {
-    background: 'transparent',
-    marginBottom: '20px'
-  }
-})
+const useStyles = makeStyles({})
 
 function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   const classes = useStyles()
@@ -63,22 +39,18 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
 
   return (
     <Grid className={classes.root} container justify="center">
-      <FormControl className={classes.formControl} error>
-        <form onSubmit={onSubmit}>
-          <TextField
-            placeholder="Write a comment"
-            label="Write a comment"
-            onChange={onChange}
-            value={text}
-          />
-          {errors && errors.text ? (
-            <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
-          ) : null}
-          <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
-            Leave a comment
-          </Button>
-        </form>
-      </FormControl>
+      <form onSubmit={onSubmit}>
+        <TextField
+          error={errors && errors.text}
+          placeholder="Write a comment"
+          label="Write a comment"
+          onChange={onChange}
+          value={text}
+        />
+        <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
+          Leave a comment
+        </Button>
+      </form>
     </Grid>
   )
 }

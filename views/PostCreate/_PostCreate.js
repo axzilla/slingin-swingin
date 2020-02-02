@@ -1,64 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Router from 'next/router'
+
 import { postCreate } from '../../services/post'
-import { MarkdownEditor } from '../../components'
 import isEmpty from '../../utils/isEmpty'
 import slugify from '../../utils/slugify'
+import TextField from '../../components/TextField'
+
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Card,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  Select,
-  OutlinedInput,
-  MenuItem,
-  Chip
-} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Chip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
-  },
-  chip: {
-    margin: theme.spacing(0.5)
-  },
-  formControl: {
-    width: '100%'
-  },
-  card: {
-    maxWidth: '400px'
-  },
-  error: {
-    lineHeight: '20px',
-    display: 'inline',
-    margin: '0'
-  },
-  passwordButton: {
-    fontSize: '10px'
-  },
-  loginButton: {
-    margin: '20px 0'
-  },
-  divider: {
-    marginBottom: '10px'
-  },
-  quill: {
-    marginTop: '20px'
-  },
-  button: {
-    margin: '20px 0'
-  },
-  media: {
-    height: '140px'
-  }
+  root: { display: 'flex', justifyContent: 'center', flexWrap: 'wrap' },
+  chip: { margin: theme.spacing(0.5) },
+  button: { margin: '20px 0' },
+  media: { height: '140px' }
 }))
 
 function PostCreate() {
@@ -73,13 +33,6 @@ function PostCreate() {
     type: '',
     tags: []
   })
-
-  const inputLabel = React.useRef(null)
-  const [labelWidth, setLabelWidth] = React.useState(0)
-
-  useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth)
-  }, [])
 
   async function onSubmit() {
     try {
@@ -181,76 +134,24 @@ function PostCreate() {
               <i className="fas fa-trash-alt fa-lg icon" />
             </Button>
           </div>
-          <FormControl className={classes.formControl} error>
-            <TextField
-              type="text"
-              error={errors && errors.title ? true : false}
-              label="Titel"
-              margin="normal"
-              variant="outlined"
-              name="title"
-              value={postData.title}
-              onChange={onChange}
-            />
-            {errors && errors.title ? (
-              <FormHelperText className={classes.error}>{errors.title}</FormHelperText>
-            ) : null}
-          </FormControl>
-          <FormControl className={classes.formControl} error>
-            <MarkdownEditor
-              withPreview
-              value={text}
-              onChange={onTextChange}
-              rows={10}
-              setText={setText}
-            />
-            {errors && errors.text ? (
-              <FormHelperText className={classes.error}>{errors.text}</FormHelperText>
-            ) : null}
-          </FormControl>
-          <FormControl
-            variant="outlined"
-            className={classes.formControl}
-            error={errors && errors.type ? true : false}
-          >
-            <InputLabel
-              ref={inputLabel}
-              htmlFor="outlined-type-simple"
-              error={errors && errors.type ? true : false}
-            >
-              Beitragstyp
-            </InputLabel>
-            <Select
-              value={postData.type}
-              onChange={onChange}
-              input={
-                <OutlinedInput labelWidth={labelWidth} name="type" id="outlined-type-simple" />
-              }
-            >
-              <MenuItem value="Tutorial">Tutorial</MenuItem>
-              <MenuItem value="Blogartikel">Blogartikel</MenuItem>
-              <MenuItem value="Diskussion">Diskussion</MenuItem>
-              <MenuItem value="Idee">Idee</MenuItem>
-              <MenuItem value="Projekt">Projekt</MenuItem>
-              <MenuItem value="Frage">Frage</MenuItem>
-              <MenuItem value="Fun">Fun</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl} error>
-            <TextField
-              type="tags"
-              label="Tags"
-              margin="normal"
-              variant="outlined"
-              name="tags"
-              value={tagsInput}
-              onChange={onTagsInputChange}
-              onKeyDown={onTagsKeyPress}
-            />
-            {errors && errors.tags ? (
-              <FormHelperText className={classes.error}>{errors.tags}</FormHelperText>
-            ) : null}
-          </FormControl>
+          <TextField
+            type="text"
+            error={errors && errors.title}
+            label="Title"
+            name="title"
+            value={postData.title}
+            onChange={onChange}
+          />
+          <TextField value={text} onChange={onTextChange} rows={10} />
+          <TextField
+            error={errors && errors.tags}
+            type="tags"
+            label="Tags"
+            name="tags"
+            value={tagsInput}
+            onChange={onTagsInputChange}
+            onKeyDown={onTagsKeyPress}
+          />
           <Grid>
             {postData.tags.map((tag, i) => {
               return (

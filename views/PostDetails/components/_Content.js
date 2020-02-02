@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledReactMarkdown } from '../../../components'
+
+import Typography from '@material-ui/core/Typography'
 
 function PostDeatilsItemContent({ post }) {
-  return <StyledReactMarkdown source={post.text} escapeHtml={false} type="read" />
+  return <Typography>{post.text}</Typography>
 }
 
 PostDeatilsItemContent.propTypes = {
