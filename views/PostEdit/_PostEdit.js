@@ -174,9 +174,7 @@ function PostEdit({ id }) {
                 )
               })}
           </Grid>
-          <div>
-            <Quill value={text} onChange={onTextChange} />
-          </div>
+          <Quill value={text} onChange={onTextChange} />
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>
               <Button
