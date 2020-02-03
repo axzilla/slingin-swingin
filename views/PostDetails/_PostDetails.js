@@ -13,6 +13,7 @@ import {
 
 import Spinner from '../../components/Spinner'
 import Link from '../../components/Link'
+import Container from '../../components/Container'
 
 import {
   AuthActions,
@@ -94,7 +95,7 @@ function PostDetails({ postId }) {
     postContent = <Spinner />
   } else if (post && post.user) {
     postContent = (
-      <Grid item xs={12} md={8}>
+      <Container maxWidth="md">
         <Grid item>
           <Card>
             <CardHeader
@@ -166,7 +167,7 @@ function PostDetails({ postId }) {
               </>
             )
           })}
-      </Grid>
+      </Container>
     )
   }
 
