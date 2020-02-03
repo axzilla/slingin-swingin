@@ -16,6 +16,7 @@ function TextField({
   value,
   name,
   onChange,
+  onKeyDown,
   label,
   placeholder,
   error,
@@ -36,6 +37,7 @@ function TextField({
         name={name}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         multiline={multiline}
         rowsMax={rowsMax}
         rows={rows}
@@ -52,6 +54,7 @@ TextField.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
   label: PropTypes.string,
   error: PropTypes.bool,
   multiline: PropTypes.bool,
