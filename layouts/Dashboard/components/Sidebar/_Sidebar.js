@@ -3,7 +3,6 @@ import clsx from 'clsx'
 
 import AuthContext from '@contexts/AuthContext'
 import Link from '@components/Link'
-import TopbarMixings from '@components/TopbarMixings'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -31,6 +30,8 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1
   },
   drawerOpen: {
+    position: 'static',
+    minHeight: '100vh',
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       transition: theme.transitions.create('width', {
@@ -66,7 +67,6 @@ function Sidebar() {
         paper: clsx(classes.drawerOpen, classes.drawerClose)
       }}
     >
-      <TopbarMixings />
       <List>
         <Link href="/dashboard/overview">
           <ListItem button>

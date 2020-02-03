@@ -20,12 +20,9 @@ function Dashboard({ children }) {
   return (
     <>
       <Topbar />
-      <Grid container>
-        <Grid item xs className={classes.root}>
-          <CssBaseline />
-          <Sidebar />
-          <Container>{children}</Container>
-        </Grid>
+      <Grid className={classes.root}>
+        <Sidebar />
+        <Container maxWidth="lg">{children}</Container>
       </Grid>
     </>
   )
