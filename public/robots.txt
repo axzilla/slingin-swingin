@@ -5,8 +5,8 @@ Disallow: /dashboard/
 Disallow: /dashboard
 Disallow: /create-post/
 Disallow: /create-post
-Disallow: /edit-post/
-Disallow: /edit-post
+Disallow: /post-edit/
+Disallow: /post-edit
 Disallow: /reset-password/
 Disallow: /reset-password
 Disallow: /forgot-password/
