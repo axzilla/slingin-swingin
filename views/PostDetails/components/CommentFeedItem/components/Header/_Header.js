@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import { Link } from '../../../../../../components'
+import Link from '@components/Link'
 
 import { makeStyles } from '@material-ui/styles'
-import { CardHeader, Avatar } from '@material-ui/core'
+import CardHeader from '@material-ui/core/CardHeader'
+import Avatar from '@material-ui/core/Avatar'
 
 const useStyles = makeStyles(theme => ({
   card: { marginBottom: '20px' },

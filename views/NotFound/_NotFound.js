@@ -1,7 +1,10 @@
 import React from 'react'
-import { Link } from '../../components'
+
+import Link from '@components/Link'
+
 import { makeStyles } from '@material-ui/styles'
-import { Grid, Button } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
   image: {

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getPostsByTag, getPostsTags } from '../../services/post'
-import { Header } from './components'
-import { PostFeedItem, WidgetTopPostsTags, WidgetLatestUsers } from '../../components'
 
-import { Button, Grid, Hidden } from '@material-ui/core'
+import { Header } from './components'
+import { getPostsByTag, getPostsTags } from '@services/post'
+import PostFeedItem from '@components/PostFeedItem'
+import WidgetTopPostsTags from '@components/WidgetTopPostsTags'
+import WidgetLatestUsers from '@components/WidgetLatestUsers'
+
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 
 function PostFeedByTag({ tag }) {
   const [posts, setPosts] = useState()

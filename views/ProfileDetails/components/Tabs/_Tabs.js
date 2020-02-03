@@ -5,7 +5,10 @@ import Comments from './components/Comments'
 import Posts from './components/Posts'
 
 import { makeStyles } from '@material-ui/styles'
-import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 
 function TabContainer({ children, dir }) {
   return (

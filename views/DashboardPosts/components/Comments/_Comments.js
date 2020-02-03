@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import AuthContext from '../../../../contexts/AuthContext'
-import { getCommentsByUserId } from '../../../../services/comment'
-
-import Link from '../../../../components/Link'
+import AuthContext from '@contexts/AuthContext'
+import { getCommentsByUserId } from '@services/comment'
+import Link from '@components/Link'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'

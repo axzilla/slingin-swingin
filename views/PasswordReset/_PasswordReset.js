@@ -3,9 +3,9 @@ import Router from 'next/router'
 import PropTypes from 'prop-types'
 import jwtDecode from 'jwt-decode'
 
-import { useAlert } from '../../contexts/AlertContext'
-import { passwordReset } from '../../services/auth'
-import TextField from '../../components/TextField'
+import { useAlert } from '@contexts/AlertContext'
+import { passwordReset } from '@services/auth'
+import TextField from '@components/TextField'
 
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'

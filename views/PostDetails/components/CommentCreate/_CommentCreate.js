@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import Quill from '../../../../components/Quill'
-import { commentCreate } from '../../../../services/comment'
+import Quill from '@components/Quill'
+import { commentCreate } from '@services/comment'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'

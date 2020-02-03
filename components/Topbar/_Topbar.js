@@ -4,7 +4,7 @@ import Router from 'next/router'
 import logo from './_logo.png'
 
 import AuthContext from '@contexts/AuthContext'
-import { Link } from '@components'
+import Link from '@components/Link'
 import { searchFunc } from '@services/search'
 import isEmpty from '@utils/isEmpty'
 

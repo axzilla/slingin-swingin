@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
 
-import { userRegister } from '../../services/auth'
-import Link from '../../components/Link'
-import TextField from '../../components/TextField'
+import { userRegister } from '@services/auth'
+import Link from '@components/Link'
+import TextField from '@components/TextField'
 
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'

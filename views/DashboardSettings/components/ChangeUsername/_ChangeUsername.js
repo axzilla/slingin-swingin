@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { usernameChange } from '../../../../services/auth'
-import TextField from '../../../../components/TextField'
-import AuthContext from '../../../../contexts/AuthContext'
-import { useAlert } from '../../../../contexts/AlertContext'
+import { usernameChange } from '@services/auth'
+import TextField from '@components/TextField'
+import AuthContext from '@contexts/AuthContext'
+import { useAlert } from '@contexts/AlertContext'
 
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'

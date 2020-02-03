@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 
-import AuthContext from '../../contexts/AuthContext'
-import { userLogin } from '../../services/auth'
-import Link from '../../components/Link'
-import TextField from '../../components/TextField'
+import AuthContext from '@contexts/AuthContext'
+import { userLogin } from '@services/auth'
+import Link from '@components/Link'
+import TextField from '@components/TextField'
 
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
-import { Spinner } from '../../components'
-import { Tabs } from './components'
-import isEmpty from '../../utils/isEmpty'
-import { searchFunc } from '../../services/search'
-import { Grid } from '@material-ui/core'
+
+import Tabs from './components/Tabs'
+
+import Spinner from '@components/Spinner'
+import isEmpty from '@utils/isEmpty'
+import { searchFunc } from '@services/search'
+
+import Grid from '@material-ui/core/Grid'
 
 function Search() {
   const router = useRouter()

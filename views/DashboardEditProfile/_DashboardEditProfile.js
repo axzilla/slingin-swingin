@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-import TextField from '../../components/TextField'
-import { useAlert } from '../../contexts/AlertContext'
-import { profileUpdate, getCurrentProfile } from '../../services/profile'
+import TextField from '@components/TextField'
+import { useAlert } from '@contexts/AlertContext'
+import { profileUpdate, getCurrentProfile } from '@services/profile'
 
 import Avatar from './components/Avatar'
 

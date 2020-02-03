@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Spinner } from '../../../../../../components'
-import { PostFeedItem } from '../../../../../../components'
+import Spinner from '@components/Spinner'
+import PostFeedItem from '@components/Spinner'
 
-import { Grid, Button } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 function ProfileDetailsTabsPosts({ postsByUserId }) {
   const [limit, setLimit] = useState(10)
