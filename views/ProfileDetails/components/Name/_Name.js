@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import isEmpty from '@utils/isEmpty'
-
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 
@@ -16,25 +14,18 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function ProfileDetailsName({ profile, rgbaColor }) {
+function ProfileDetailsName({ profile }) {
   const classes = useStyles()
 
   return (
-    <Typography
-      className={classes.name}
-      variant="h2"
-      style={{
-        color: !isEmpty(profile.color) ? `${rgbaColor}` : null
-      }}
-    >
+    <Typography className={classes.name} variant="h2">
       {profile.name}
     </Typography>
   )
 }
 
 ProfileDetailsName.propTypes = {
-  profile: PropTypes.object,
-  rgbaColor: PropTypes.string
+  profile: PropTypes.object
 }
 
 export default ProfileDetailsName
