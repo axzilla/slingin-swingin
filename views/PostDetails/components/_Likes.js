@@ -10,7 +10,7 @@ function PostDetailsLikes({ onLikeClick, post, user }) {
   return (
     <Grid container alignItems="center">
       <IconButton disableRipple onClick={() => onLikeClick(post._id)}>
-        {post.likes.map(like => like.user).includes(user.id) ? (
+        {post.likes.includes(user.id) ? (
           <FavoriteIcon color="secondary" />
         ) : (
           <FavoriteIcon color="primary" />

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import {
-  getPostsByTag,
-  getPostsTags,
-  postToggleLikes,
-  postToggleBookmarks
-} from '../../services/post'
+import { getPostsByTag, getPostsTags } from '../../services/post'
 import { Header } from './components'
 import { PostFeedItem, WidgetTopPostsTags, WidgetLatestUsers } from '../../components'
 
@@ -36,38 +31,6 @@ function PostFeedByTag({ tag }) {
     setLimit(limit + 10)
   }
 
-  async function onLikeClick(postId) {
-    try {
-      const updatedPost = await postToggleLikes(postId)
-
-      const index = posts.indexOf(
-        posts.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setPosts([...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)])
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
-  async function onBookmarkClick(postId) {
-    try {
-      const updatedPost = await postToggleBookmarks(postId)
-
-      const index = posts.indexOf(
-        posts.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setPosts([...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)])
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
   return (
     <Grid container>
       <Grid item xs>
@@ -80,17 +43,7 @@ function PostFeedByTag({ tag }) {
           </Grid>
         </Hidden>
         <Grid item xs={12} md={6}>
-          {posts &&
-            posts
-              .slice(0, limit)
-              .map(post => (
-                <PostFeedItem
-                  key={post._id}
-                  post={post}
-                  onLikeClick={onLikeClick}
-                  onBookmarkClick={onBookmarkClick}
-                />
-              ))}
+          {posts && posts.slice(0, limit).map(post => <PostFeedItem key={post._id} post={post} />)}
           {posts && posts.slice(0, limit).length === posts.length ? null : (
             <Button onClick={loadMore} variant="outlined" color="primary">
               Mehr...

@@ -1,55 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { postToggleLikes, postToggleBookmarks } from '../../../services/post'
 import { Spinner } from '../../../components'
 import { PostFeedItem } from '../../../components'
 import { Grid, Button } from '@material-ui/core'
 
-function ProfileDetailsTabsPosts({ postsByUserId, setPostsByUserId }) {
+function ProfileDetailsTabsPosts({ postsByUserId }) {
   const [limit, setLimit] = useState(10)
 
   function loadMore() {
     setLimit(limit + 10)
-  }
-
-  async function onLikeClick(postId) {
-    try {
-      const updatedPost = await postToggleLikes(postId)
-
-      const index = postsByUserId.indexOf(
-        postsByUserId.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setPostsByUserId([
-        ...postsByUserId.slice(0, index),
-        updatedPost.data,
-        ...postsByUserId.slice(index + 1)
-      ])
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
-  async function onBookmarkClick(postId) {
-    try {
-      const updatedPost = await postToggleBookmarks(postId)
-
-      const index = postsByUserId.indexOf(
-        postsByUserId.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setPostsByUserId([
-        ...postsByUserId.slice(0, index),
-        updatedPost.data,
-        ...postsByUserId.slice(index + 1)
-      ])
-    } catch (error) {
-      if (error) throw error
-    }
   }
 
   let postContent
@@ -59,14 +18,7 @@ function ProfileDetailsTabsPosts({ postsByUserId, setPostsByUserId }) {
   } else {
     postContent = postsByUserId
       .slice(0, limit)
-      .map(post => (
-        <PostFeedItem
-          key={post._id}
-          post={post}
-          onLikeClick={onLikeClick}
-          onBookmarkClick={onBookmarkClick}
-        />
-      ))
+      .map(post => <PostFeedItem key={post._id} post={post} />)
   }
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { setGaPageView } from '../../utils/googleAnalytics'
-import { postToggleLikes, postToggleBookmarks, getPosts } from '../../services/post'
+import { getPosts } from '../../services/post'
 
 import Container from '../../components/Container'
 import PostFeedItem from '../../components/PostFeedItem'
@@ -43,38 +43,6 @@ function Landing() {
     setLimit(limit + 10)
   }
 
-  async function onLikeClick(postId) {
-    try {
-      const updatedPost = await postToggleLikes(postId)
-
-      const index = posts.indexOf(
-        posts.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setPosts([...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)])
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
-  async function onBookmarkClick(postId) {
-    try {
-      const updatedPost = await postToggleBookmarks(postId)
-
-      const index = posts.indexOf(
-        posts.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setPosts([...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)])
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
@@ -106,16 +74,7 @@ function Landing() {
           </Hidden>
           <Grid item xs={12}>
             {posts &&
-              posts
-                .slice(0, limit)
-                .map(post => (
-                  <PostFeedItem
-                    key={post._id}
-                    post={post}
-                    onLikeClick={onLikeClick}
-                    onBookmarkClick={onBookmarkClick}
-                  />
-                ))}
+              posts.slice(0, limit).map(post => <PostFeedItem key={post._id} post={post} />)}
             {posts && posts.slice(0, limit).length === posts.length ? null : (
               <Button onClick={loadMore} variant="outlined" color="primary">
                 Mehr...
