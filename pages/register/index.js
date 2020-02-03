@@ -12,7 +12,8 @@ function Register() {
 
 Register.getInitialProps = ctx => {
   isLoggedIn(ctx)
-  return {}
+  // https://err.sh/zeit/next.js/empty-object-getInitialProps
+  return { undefined }
 }
 
 export default Register

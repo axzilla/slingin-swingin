@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button'
 
 function PasswordReset({ token }) {
   const { setAlert } = useAlert()
-
   const [errors, setErrors] = useState('')
 
   const [passwords, setPasswords] = useState({

@@ -101,7 +101,7 @@ function PostFeedItem({ post }) {
         <Grid container alignItems="center" spacing={2}>
           <Grid item>
             <IconButton onClick={handleBookmarkClick}>
-              <BookmarkIcon color={isBookmarked ? 'primary' : ''} />
+              {isBookmarked ? <BookmarkIcon color="primary" /> : <BookmarkIcon />}
             </IconButton>
           </Grid>
           <Grid item>

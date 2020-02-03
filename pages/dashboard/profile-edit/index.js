@@ -13,7 +13,8 @@ function ProfileEdit() {
 
 ProfileEdit.getInitialProps = ctx => {
   isNotLoggedIn(ctx)
-  return {}
+  // https://err.sh/zeit/next.js/empty-object-getInitialProps
+  return { undefined }
 }
 
 export default ProfileEdit

@@ -16,7 +16,7 @@ function Footer() {
         </Typography>
       </Grid>
       <div>
-        <Link color="inherit" href="mailto:mail@bounce.dev">
+        <Link variant="MuiLink" color="inherit" href="mailto:mail@bounce.dev">
           <Typography style={{ display: 'inline', margin: '15px' }}>
             <MailIcon />
           </Typography>
