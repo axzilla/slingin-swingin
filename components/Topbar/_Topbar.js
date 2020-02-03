@@ -95,7 +95,7 @@ const useStyles = makeStyles(theme => ({
   mobileButton: { margin: `${theme.spacing(-1)}px 0` }
 }))
 
-function ToolbarApp() {
+function Topbar() {
   const { isAuthenticated, logout } = useContext(AuthContext)
   const classes = useStyles()
   const [toolbarData, setToolbarData] = useState({
@@ -204,4 +204,4 @@ function ToolbarApp() {
   )
 }
 
-export default ToolbarApp
+export default Topbar

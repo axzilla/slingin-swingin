@@ -1,90 +1,36 @@
-import React, { useState, useEffect } from 'react'
-import Router from 'next/router'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import AuthContext from '@contexts/AuthContext'
 
-import { getPostsByUserId } from '@services/post'
-import { getProfileByHandle } from '@services/profile'
-import { getCommentsByUserId } from '@services/comment'
-
-import Spinner from '@components/Spinner'
-
 import CardHeader from './components/CardHeader'
 import Tabs from './components/Tabs'
 
-import { makeStyles } from '@material-ui/styles'
 import Grid from '@material-ui/core/Grid'
 
-const useStyles = makeStyles({
-  cardHeader: {
-    marginBottom: '20px'
-  }
-})
-
-function ProfileDetails({ handle }) {
-  const classes = useStyles()
-  const [isLoading, setIsLoading] = useState(false)
-  const [profile, setProfile] = useState({})
-  const [postsByUserId, setPostsByUserId] = useState([])
-  const [commentsByUserId, setCommentsByUserId] = useState([])
-
-  useEffect(() => {
-    getInitialData()
-  }, [])
-
-  async function getInitialData() {
-    try {
-      setIsLoading(true)
-
-      const profileUserId = await getProfileByHandle(handle)
-      const foundPostsByUserId = await getPostsByUserId(profileUserId.data.user._id)
-      const foundCommentsByUserId = await getCommentsByUserId(profileUserId.data.user._id)
-
-      setProfile(profileUserId.data)
-      setPostsByUserId(foundPostsByUserId.data)
-      setCommentsByUserId(foundCommentsByUserId.data)
-
-      setIsLoading(false)
-    } catch (error) {
-      Router.push('/not-found')
-    }
-  }
-
-  const rgbaColor =
-    profile && profile.color
-      ? `rgba(${profile.color.r}, ${profile.color.g}, ${profile.color.b}, ${profile.color.a})`
-      : null
+function ProfileDetails({ handle, profile, posts, comments }) {
+  const [profileData, setProfileData] = useState(profile)
+  const [postsData, setPostsData] = useState(posts)
+  const [commentsData, setCommentsData] = useState(comments)
 
   return (
     <Grid container>
-      {isLoading || !profile.user ? (
-        <Spinner />
-      ) : (
-        <>
-          <Grid item xs={12} className={classes.cardHeader}>
-            <CardHeader
-              profile={profile}
-              auth={AuthContext}
-              setProfile={setProfile}
-              rgbaColor={rgbaColor}
-            />
-          </Grid>
-          <Tabs
-            profile={profile}
-            postsByUserId={postsByUserId}
-            setPostsByUserId={setPostsByUserId}
-            commentsByUserId={commentsByUserId}
-            rgbaColor={rgbaColor}
-          />
-        </>
-      )}
+      <CardHeader profile={profileData} auth={AuthContext} setProfile={setProfileData} />
+      <Tabs
+        profile={profileData}
+        posts={postsData}
+        setPosts={setPostsData}
+        comments={commentsData}
+      />
     </Grid>
   )
 }
 
 ProfileDetails.propTypes = {
-  handle: PropTypes.string
+  handle: PropTypes.string,
+  profile: PropTypes.object,
+  posts: PropTypes.array,
+  comments: PropTypes.array
 }
 
 export default ProfileDetails

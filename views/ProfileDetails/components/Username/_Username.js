@@ -16,26 +16,18 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function ProfileDetailsUsername({ profile, rgbaColor }) {
+function ProfileDetailsUsername({ profile }) {
   const classes = useStyles()
 
   return (
-    <Typography
-      gutterBottom
-      className={classes.username}
-      variant="h6"
-      style={{
-        color: !isEmpty(profile.color) ? `${rgbaColor}` : null
-      }}
-    >
+    <Typography gutterBottom className={classes.username} variant="h6">
       {profile.user.username}
     </Typography>
   )
 }
 
 ProfileDetailsUsername.propTypes = {
-  profile: PropTypes.object,
-  rgbaColor: PropTypes.string
+  profile: PropTypes.object
 }
 
 export default ProfileDetailsUsername

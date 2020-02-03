@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import isEmpty from '@utils/isEmpty'
-
 import { Avatar, Name, Username, Socials, Bio, Infos, ButtonEdit } from '../'
 
 import { makeStyles } from '@material-ui/styles'
@@ -19,31 +17,25 @@ const useStyles = makeStyles({
   }
 })
 
-function ProfileDetailsCardHeader({ rgbaColor, profile, auth }) {
+function ProfileDetailsCardHeader({ profile, auth }) {
   const classes = useStyles()
 
   return (
-    <Card
-      className={classes.cardHeader}
-      style={{
-        border: !isEmpty(profile.color) ? `3px solid ${rgbaColor}` : null,
-        boxShadow: !isEmpty(profile.color) ? `5px 6px 0px ${rgbaColor}` : null
-      }}
-    >
+    <Card className={classes.cardHeader}>
       <CardContent>
         <Grid container>
           <Grid item xs={12} md={3}>
             <Grid container alignItems="center" direction="column">
-              <Avatar profile={profile} rgbaColor={rgbaColor} />
+              <Avatar profile={profile} />
             </Grid>
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container>
               <Grid item xs={12}>
-                <Name profile={profile} rgbaColor={rgbaColor} />
-                <Username profile={profile} rgbaColor={rgbaColor} />
+                <Name profile={profile} />
+                <Username profile={profile} />
                 <Bio profile={profile} />
-                <Socials profile={profile} rgbaColor={rgbaColor} />
+                <Socials profile={profile} />
                 <Infos profile={profile} />
                 <ButtonEdit profile={profile} auth={auth} />
               </Grid>
@@ -56,7 +48,6 @@ function ProfileDetailsCardHeader({ rgbaColor, profile, auth }) {
 }
 
 ProfileDetailsCardHeader.propTypes = {
-  rgbaColor: PropTypes.string,
   profile: PropTypes.object,
   auth: PropTypes.object
 }

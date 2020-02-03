@@ -16,18 +16,32 @@ const useStyles = makeStyles({
   }
 })
 
-function Link({ underlined, ...rest }) {
+function Link({ children, color, href, variant, underlined }) {
   const classes = useStyles({ underlined })
 
-  return (
-    <NextLink {...rest}>
-      <MuiLink className={classes.link} {...rest} />
-    </NextLink>
-  )
+  if (!variant || variant === 'NextLink') {
+    return (
+      <NextLink href={href} passHref>
+        <MuiLink className={classes.link} color={color}>
+          {children}
+        </MuiLink>
+      </NextLink>
+    )
+  } else if (variant === 'MuiLink') {
+    return (
+      <MuiLink className={classes.link} href={href} color={color}>
+        {children}
+      </MuiLink>
+    )
+  }
 }
 
 Link.propTypes = {
-  underlined: PropTypes.bools
+  children: PropTypes.node,
+  color: PropTypes.string,
+  href: PropTypes.string,
+  variant: PropTypes.string,
+  underlined: PropTypes.bool
 }
 
 export default Link
