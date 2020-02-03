@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import Grid from '@material-ui/core/Grid'
 
-import Chip from '../../../../components/Chip'
-import Link from '../../../../components/Link'
+import Chip from '@components/Chip'
+import Link from '@components/Link'
 
 function PostDetailsTags({ post }) {
   return (

@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { Subscriptions, ChangeEmail, ChangePassword, ChangeUsername } from './components'
+import Subscriptions from './components/Subscriptions'
+import ChangeEmail from './components/ChangeEmail'
+import ChangePassword from './components/ChangePassword'
+import ChangeUsername from './components/ChangeUsername'
 
 import Grid from '@material-ui/core/Grid'
 

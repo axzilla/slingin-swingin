@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import { Link } from '../../../../../../components'
+import Link from '@components/Link'
 
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'

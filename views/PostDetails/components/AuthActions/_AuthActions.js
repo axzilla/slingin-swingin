@@ -1,9 +1,13 @@
 import React from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import { Link } from '../../../../components'
-import { postDelete } from '../../../../services/post'
-import { CardActions, Button, Divider } from '@material-ui/core'
+
+import Link from '@components/Link'
+import { postDelete } from '@services/post'
+
+import CardActions from '@material-ui/core/CardActions'
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
 
 function PostDetailsAuthActions({ post, user, isAuthenticated }) {
   async function onDeleteClick(id) {

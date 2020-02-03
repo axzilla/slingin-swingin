@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../../../../contexts/AuthContext'
-import { getPostsByUserBookmark } from '../../../../services/post'
-import { PostFeedItem } from '../../../../components'
+import AuthContext from '@contexts/AuthContext'
+import { getPostsByUserBookmark } from '@services/post'
+import PostFeedItem from '@components/PostFeedItem'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'

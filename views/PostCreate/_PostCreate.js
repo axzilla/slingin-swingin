@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
 
-import { postCreate } from '../../services/post'
-import isEmpty from '../../utils/isEmpty'
-import slugify from '../../utils/slugify'
-import TextField from '../../components/TextField'
-import Quill from '../../components/Quill'
-import Container from '../../components/Container'
+import { postCreate } from '@services/post'
+import isEmpty from '@utils/isEmpty'
+import slugify from '@utils/slugify'
+import TextField from '@components/TextField'
+import Quill from '@components/Quill'
+import Container from '@components/Container'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'

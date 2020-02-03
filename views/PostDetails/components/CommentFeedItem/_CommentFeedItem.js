@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import { commentUpdate, commentDelete } from '../../../../services/comment'
-import AuthContext from '../../../../contexts/AuthContext'
+import { commentUpdate, commentDelete } from '@services/comment'
+import AuthContext from '@contexts/AuthContext'
 
 import Edit from './components/Edit'
 import Header from './components/Header'

@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import isEmpty from '../../../../utils/isEmpty'
+import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/styles'
-import { Typography } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
   username: {

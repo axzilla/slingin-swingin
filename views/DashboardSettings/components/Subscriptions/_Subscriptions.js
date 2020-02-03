@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import AuthContext from '../../../../contexts/AuthContext'
-import { useAlert } from '../../../../contexts/AlertContext'
-import { settingsUpdate } from '../../../../services/auth'
+import AuthContext from '@contexts/AuthContext'
+import { useAlert } from '@contexts/AlertContext'
+import { settingsUpdate } from '@services/auth'
 
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'

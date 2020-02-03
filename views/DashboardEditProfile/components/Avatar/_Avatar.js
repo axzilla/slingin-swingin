@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 
-import isEmpty from '../../../../utils/isEmpty'
-import { avatarUpload, avatarDelete } from '../../../../services/auth'
-import AuthContext from '../../../../contexts/AuthContext'
+import isEmpty from '@utils/isEmpty'
+import { avatarUpload, avatarDelete } from '@services/auth'
+import AuthContext from '@contexts/AuthContext'
 
 import { makeStyles } from '@material-ui/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'

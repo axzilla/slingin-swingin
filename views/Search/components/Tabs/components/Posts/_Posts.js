@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Spinner } from '../../../../../../components'
-import { PostFeedItem } from '../../../../../../components'
-import { Grid, Button } from '@material-ui/core'
+
+import Spinner from '@components/Spinner'
+import PostFeedItem from '@components/PostFeedItem'
+
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 function SearchPostFeed({ searchResult }) {
   const [limit, setLinmit] = useState(10)

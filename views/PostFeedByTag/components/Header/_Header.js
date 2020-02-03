@@ -1,7 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardContent, Typography, Box } from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles(theme => ({
   card: {

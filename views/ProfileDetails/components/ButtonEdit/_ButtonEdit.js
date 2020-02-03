@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Link } from '../../../../components'
+import Link from '@components/Link'
 
-import { Grid, Button } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 function ProfileDetailsButtonEdit({ profile, auth }) {
   return (

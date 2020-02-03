@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../../../../../../contexts/AuthContext'
-import { commentUpvote, commentDownvote } from '../../../../../../services/comment'
+import AuthContext from '@contexts/AuthContext'
+import { commentUpvote, commentDownvote } from '@services/comment'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'

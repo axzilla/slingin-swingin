@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Spinner, ProfileFeedItem } from '../../../../../../components'
+import Spinner from '@components/Spinner'
+import ProfileFeedItem from '@components/ProfileFeedItem'
 
-import { Grid, Button } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 function SearchProfileFeed({ searchResult }) {
   const [limit, setLimit] = useState(10)

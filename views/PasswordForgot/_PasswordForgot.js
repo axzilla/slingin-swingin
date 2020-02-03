@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import { useAlert } from '../../contexts/AlertContext'
-import { passwordForgot } from '../../services/auth'
-import TextField from '../../components/TextField'
+import { useAlert } from '@contexts/AlertContext'
+import { passwordForgot } from '@services/auth'
+import TextField from '@components/TextField'
 
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'

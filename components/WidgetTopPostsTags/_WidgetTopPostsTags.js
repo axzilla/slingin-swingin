@@ -6,7 +6,10 @@ import { getPostsTags } from '../../services/post'
 import Link from '../../components/Link'
 import Chip from '../../components/Chip'
 
-import { Card, CardContent, CardHeader, Divider } from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import Divider from '@material-ui/core/Divider'
 
 function WidgetTopPostsTags() {
   const [postTags, setPostTags] = useState()

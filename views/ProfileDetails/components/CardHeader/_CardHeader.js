@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import isEmpty from '../../../../utils/isEmpty'
+import isEmpty from '@utils/isEmpty'
 
 import { Avatar, Name, Username, Socials, Bio, Infos, ButtonEdit } from '../'
 
 import { makeStyles } from '@material-ui/styles'
-import { grey } from '@material-ui/core/colors'
-import { Grid, Card, CardContent } from '@material-ui/core'
+import grey from '@material-ui/core/colors/grey'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 const useStyles = makeStyles({
   cardHeader: {

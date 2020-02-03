@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Posts, Profiles } from './components'
+import Posts from './components/Posts'
+import Profiles from './components/Profiles'
 
 import { makeStyles } from '@material-ui/styles'
-import { Tab, Tabs, Typography, Grid } from '@material-ui/core'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 
 function TabContainer({ children, dir }) {
   return (

@@ -3,17 +3,11 @@ import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import AuthContext from '../../contexts/AuthContext'
-import {
-  getPostByShortId,
-  postDelete,
-  postToggleLikes,
-  postToggleBookmarks
-} from '../../services/post'
-
-import Spinner from '../../components/Spinner'
-import Link from '../../components/Link'
-import Container from '../../components/Container'
+import AuthContext from '@contexts/AuthContext'
+import { getPostByShortId, postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
+import Spinner from '@components/Spinner'
+import Link from '@components/Link'
+import Container from '@components/Container'
 
 import {
   AuthActions,

@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 
-import AuthContext from '../../contexts/AuthContext'
+import AuthContext from '@contexts/AuthContext'
 
-import { getPostsByUserId } from '../../services/post'
-import { getProfileByHandle } from '../../services/profile'
-import { getCommentsByUserId } from '../../services/comment'
+import { getPostsByUserId } from '@services/post'
+import { getProfileByHandle } from '@services/profile'
+import { getCommentsByUserId } from '@services/comment'
 
-import { Spinner } from '../../components'
-import { CardHeader, Tabs } from './components'
+import Spinner from '@components/Spinner'
+
+import CardHeader from './components/CardHeader'
+import Tabs from './components/Tabs'
 
 import { makeStyles } from '@material-ui/styles'
-import { Grid } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
   cardHeader: {

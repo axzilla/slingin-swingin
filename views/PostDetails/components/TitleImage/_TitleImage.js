@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Link from '../../../../components/Link'
+import Link from '@components/Link'
 
 import { makeStyles } from '@material-ui/styles'
 import CardMedia from '@material-ui/core/CardMedia'
