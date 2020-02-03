@@ -39,10 +39,10 @@ ProfileDetails.getInitialProps = async ({ query }) => {
 }
 
 ProfileDetails.propTypes = {
-  handle: PropTypes.object,
-  profile: PropTypes.string,
-  posts: PropTypes.string,
-  comments: PropTypes.string
+  handle: PropTypes.string,
+  profile: PropTypes.object,
+  posts: PropTypes.array,
+  comments: PropTypes.array
 }
 
 export default ProfileDetails

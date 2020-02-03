@@ -75,7 +75,7 @@ CenteredTabs.propTypes = {
   posts: PropTypes.array,
   profiles: PropTypes.array,
   searchString: PropTypes.string,
-  searchResult: PropTypes.array,
+  searchResult: PropTypes.object,
   setSearchResult: PropTypes.func
 }
 

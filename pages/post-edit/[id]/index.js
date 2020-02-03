@@ -20,7 +20,7 @@ PostEdit.getInitialProps = ctx => {
 }
 
 PostEdit.propTypes = {
-  id: PropTypes.object
+  id: PropTypes.string
 }
 
 export default PostEdit

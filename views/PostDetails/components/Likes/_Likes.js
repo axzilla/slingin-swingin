@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
-function PostDetailsLikes({ onLikeClick, post, user }) {
+function Likes({ onLikeClick, post, user }) {
   return (
     <Grid container alignItems="center">
       <IconButton disableRipple onClick={() => onLikeClick(post._id)}>
@@ -21,10 +21,10 @@ function PostDetailsLikes({ onLikeClick, post, user }) {
   )
 }
 
-PostDetailsLikes.propTypes = {
+Likes.propTypes = {
   onLikeClick: PropTypes.func,
   post: PropTypes.object,
   user: PropTypes.object
 }
 
-export default PostDetailsLikes
+export default Likes

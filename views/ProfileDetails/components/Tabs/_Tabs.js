@@ -74,7 +74,6 @@ function ProfileDetailsTabs({ comments, posts }) {
 
 ProfileDetailsTabs.propTypes = {
   posts: PropTypes.array,
-  setPosts: PropTypes.func,
   comments: PropTypes.array
 }
 

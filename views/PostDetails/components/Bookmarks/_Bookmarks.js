@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
-function PostDetailsLikes({ onBookmarkClick, post, user }) {
+function Boomarks({ onBookmarkClick, post, user }) {
   return (
     <IconButton onClick={() => onBookmarkClick(post._id, post.shortId)}>
       {post.bookmarks.includes(user.id) ? <BookmarkIcon /> : <BookmarkIcon color="primary" />}
@@ -12,10 +12,10 @@ function PostDetailsLikes({ onBookmarkClick, post, user }) {
   )
 }
 
-PostDetailsLikes.propTypes = {
+Boomarks.propTypes = {
   onBookmarkClick: PropTypes.func,
   post: PropTypes.object,
-  user: PropTypes.string
+  user: PropTypes.object
 }
 
-export default PostDetailsLikes
+export default Boomarks

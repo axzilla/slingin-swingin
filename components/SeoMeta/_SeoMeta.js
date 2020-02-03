@@ -10,9 +10,9 @@ const seoMeta = ({ title, desc, canonical }) => (
 )
 
 seoMeta.propTypes = {
-  title: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
-  canonical: PropTypes.string.isRequired
+  title: PropTypes.string,
+  desc: PropTypes.string,
+  canonical: PropTypes.string
 }
 
 export default seoMeta
