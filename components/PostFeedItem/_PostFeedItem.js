@@ -120,9 +120,7 @@ function PostFeedItem({ post }) {
 }
 
 PostFeedItem.propTypes = {
-  post: PropTypes.object,
-  onLikeClick: PropTypes.func,
-  onBookmarkClick: PropTypes.func
+  post: PropTypes.object
 }
 
 export default PostFeedItem

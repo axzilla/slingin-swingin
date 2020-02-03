@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 
 import { getPostsTags } from '../../services/post'
 
@@ -43,10 +42,6 @@ function WidgetTopPostsTags() {
       </CardContent>
     </Card>
   )
-}
-
-WidgetTopPostsTags.propTypes = {
-  postTags: PropTypes.array
 }
 
 export default WidgetTopPostsTags

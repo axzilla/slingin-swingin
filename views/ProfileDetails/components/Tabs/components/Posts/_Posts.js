@@ -39,8 +39,7 @@ function ProfileDetailsTabsPosts({ postsByUserId }) {
 }
 
 ProfileDetailsTabsPosts.propTypes = {
-  postsByUserId: PropTypes.array,
-  setPostsByUserId: PropTypes.func
+  postsByUserId: PropTypes.array
 }
 
 export default ProfileDetailsTabsPosts

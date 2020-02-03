@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import PropTypes from 'prop-types'
 
 import AuthContext from '@contexts/AuthContext'
 import { getPostsByUserId } from '@services/post'
@@ -48,7 +47,5 @@ function Posts() {
     </Grid>
   )
 }
-
-Posts.propTypes = { auth: PropTypes.object }
 
 export default Posts

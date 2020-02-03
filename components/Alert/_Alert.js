@@ -121,9 +121,4 @@ function CustomizedSnackbars() {
   )
 }
 
-CustomizedSnackbars.propTypes = {
-  alert: PropTypes.object,
-  setAlert: PropTypes.func
-}
-
 export default CustomizedSnackbars

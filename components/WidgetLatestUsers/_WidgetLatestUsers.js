@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
 import { getAllProfiles } from '@services/profile'
@@ -83,10 +82,6 @@ function LandingWidgetUsers() {
       </CardContent>
     </Card>
   )
-}
-
-LandingWidgetUsers.propTypes = {
-  profiles: PropTypes.array
 }
 
 export default LandingWidgetUsers

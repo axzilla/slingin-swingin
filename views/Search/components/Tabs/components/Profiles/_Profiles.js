@@ -40,8 +40,7 @@ function SearchProfileFeed({ searchResult }) {
 }
 
 SearchProfileFeed.propTypes = {
-  searchResult: PropTypes.object,
-  searchString: PropTypes.string
+  searchResult: PropTypes.object
 }
 
 export default SearchProfileFeed
