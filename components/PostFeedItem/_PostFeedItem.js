@@ -32,7 +32,7 @@ function PostFeedItem({ post }) {
   const [postData, setPostData] = useState(post)
   const { isAuthenticated, user } = useContext(AuthContext)
 
-  const isBookmarked = postData.bookmarks.map(bookmark => bookmark.user).includes(user.id)
+  const isBookmarked = postData.bookmarks.includes(user.id)
 
   async function toggleIsPostBookmarked() {
     try {
