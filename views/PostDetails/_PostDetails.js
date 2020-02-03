@@ -9,17 +9,15 @@ import Spinner from '@components/Spinner'
 import Link from '@components/Link'
 import Container from '@components/Container'
 
-import {
-  AuthActions,
-  Bookmarks,
-  Content,
-  CommentCreate,
-  CommentFeedItem,
-  Likes,
-  Tags,
-  Title,
-  TitleImage
-} from './components'
+import AuthActions from './components/AuthActions'
+import Bookmarks from './components/Bookmarks'
+import Content from './components/Content'
+import CommentCreate from './components/CommentCreate'
+import CommentFeedItem from './components/CommentFeedItem'
+import Likes from './components/Likes'
+import Tags from './components/Tags'
+import Title from './components/Title'
+import TitleImage from './components/TitleImage'
 
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
