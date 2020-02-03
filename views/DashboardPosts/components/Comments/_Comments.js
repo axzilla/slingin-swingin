@@ -37,7 +37,6 @@ function Comments() {
     .slice(0, limit)
     .map(comment => {
       const { shortId, urlSlug } = comment.post
-
       return (
         <Card key={comment._id} style={{ marginBottom: '20px' }}>
           <CardContent>
@@ -49,7 +48,7 @@ function Comments() {
               }}
             >
               <div>
-                <Link to={`/post/${shortId}/${urlSlug}`}>
+                <Link href={`/post/${shortId}/${urlSlug}`}>
                   <Typography variant="h6">{comment.post.title}</Typography>
                 </Link>
                 <Typography variant="caption" style={{ fontWeight: '300' }}>
