@@ -3,7 +3,7 @@ import { isNotLoggedIn } from '@utils/initialize'
 import { Dashboard as DashboardLayout } from '@layouts'
 import { DashboardSettings as DashboardSettingsView } from '@views'
 
-function posts() {
+function Settings() {
   return (
     <DashboardLayout>
       <DashboardSettingsView />
@@ -11,9 +11,9 @@ function posts() {
   )
 }
 
-posts.getInitialProps = ctx => {
+Settings.getInitialProps = ctx => {
   isNotLoggedIn(ctx)
   return {}
 }
 
-export default posts
+export default Settings

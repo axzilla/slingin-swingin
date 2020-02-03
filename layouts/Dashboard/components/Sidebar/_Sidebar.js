@@ -84,7 +84,7 @@ function Sidebar() {
             <ListItemText>Posts</ListItemText>
           </ListItem>
         </Link>
-        <Link href="/dashboard/edit-profile">
+        <Link href="/dashboard/profile-edit">
           <ListItem button>
             <ListItemIcon>
               <EditIcon />

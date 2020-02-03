@@ -4,7 +4,7 @@ import { Main as MainLayout } from '@layouts'
 import { ProfileDetails as ProfileDetailsView } from '@views'
 import SeoMeta from '@components/SeoMeta'
 
-function profileDetails({ handle }) {
+function ProfileDetails({ handle }) {
   return (
     <>
       <SeoMeta
@@ -20,13 +20,13 @@ function profileDetails({ handle }) {
   )
 }
 
-profileDetails.getInitialProps = ({ query }) => {
+ProfileDetails.getInitialProps = ({ query }) => {
   const { handle } = query
   return { handle }
 }
 
-profileDetails.propTypes = {
+ProfileDetails.propTypes = {
   handle: PropTypes.object
 }
 
-export default profileDetails
+export default ProfileDetails

@@ -1,7 +1,7 @@
 import { Main as MainLayout } from '@layouts'
 import { Search as SearchView } from '@views'
 
-function search() {
+function Search() {
   return (
     <MainLayout>
       <SearchView />
@@ -9,4 +9,4 @@ function search() {
   )
 }
 
-export default search
+export default Search

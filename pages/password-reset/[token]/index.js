@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { PasswordReset as PasswordResetView } from '@views'
 import { Auth as AuthLayout } from '@layouts'
 
-function resetPassword({ token }) {
+function PasswordReset({ token }) {
   return (
     <AuthLayout>
       <PasswordResetView token={token} />
@@ -11,13 +11,13 @@ function resetPassword({ token }) {
   )
 }
 
-resetPassword.getInitialProps = ({ query }) => {
+PasswordReset.getInitialProps = ({ query }) => {
   const { token } = query
   return { token }
 }
 
-resetPassword.propTypes = {
+PasswordReset.propTypes = {
   token: PropTypes.object
 }
 
-export default resetPassword
+export default PasswordReset

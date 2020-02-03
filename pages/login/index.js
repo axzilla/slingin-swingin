@@ -2,7 +2,7 @@ import { isLoggedIn } from '@utils/initialize'
 import { Auth as AuthLayout } from '@layouts'
 import { Login as LoginView } from '@views'
 
-function login() {
+function Login() {
   return (
     <AuthLayout>
       <LoginView />
@@ -10,9 +10,9 @@ function login() {
   )
 }
 
-login.getInitialProps = ctx => {
+Login.getInitialProps = ctx => {
   isLoggedIn(ctx)
   return {}
 }
 
-export default login
+export default Login

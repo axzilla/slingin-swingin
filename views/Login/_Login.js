@@ -67,7 +67,7 @@ function UserLogin() {
           </Button>
         </Box>
       </form>
-      <Link href={'/forgot-password'}>
+      <Link href={'/password-forgot'}>
         <Typography align="center">Forgot password?</Typography>
       </Link>
       <Link href={'/register'}>

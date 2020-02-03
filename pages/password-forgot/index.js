@@ -2,7 +2,7 @@ import { isLoggedIn } from '@utils/initialize'
 import { Auth as AuthLayout } from '@layouts'
 import { PasswordForgot as PasswordForgotView } from '@views'
 
-function passwordForgot() {
+function PasswordForgot() {
   return (
     <AuthLayout>
       <PasswordForgotView />
@@ -10,9 +10,9 @@ function passwordForgot() {
   )
 }
 
-passwordForgot.getInitialProps = ctx => {
+PasswordForgot.getInitialProps = ctx => {
   isLoggedIn(ctx)
   return {}
 }
 
-export default passwordForgot
+export default PasswordForgot

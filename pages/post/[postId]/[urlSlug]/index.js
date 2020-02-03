@@ -4,7 +4,7 @@ import { Main as MainLayout } from '@layouts'
 import { PostDetails as PostDetailsView } from '@views'
 import { SeoMeta } from '@components'
 
-function postDetails({ postId, urlSlug }) {
+function PostDetails({ postId, urlSlug }) {
   return (
     <>
       <SeoMeta
@@ -20,14 +20,14 @@ function postDetails({ postId, urlSlug }) {
   )
 }
 
-postDetails.getInitialProps = ({ query }) => {
+PostDetails.getInitialProps = ({ query }) => {
   const { postId, urlSlug } = query
   return { postId, urlSlug }
 }
 
-postDetails.propTypes = {
+PostDetails.propTypes = {
   postId: PropTypes.string,
   urlSlug: PropTypes.string
 }
 
-export default postDetails
+export default PostDetails
