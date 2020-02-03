@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import logo from './_logo.png'
 
-import Link from '../../components/Link'
-import Container from '../../components/Container'
+import Link from '@components/Link'
+import Container from '@components/Container'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Link from '../../../../components/Link'
+import Link from '@components/Link'
 
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'

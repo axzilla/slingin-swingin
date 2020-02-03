@@ -1,6 +1,7 @@
 import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
+
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
@@ -12,10 +13,10 @@ import { withRouter } from 'next/router'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'universal-cookie'
 
-import Alert from '../components/Alert'
-import setAuthToken from '../utils/setAuthToken'
-import AuthContext from '../contexts/AuthContext'
-import { AlertContextProvider } from '../contexts/AlertContext'
+import Alert from '@components/Alert'
+import setAuthToken from '@utils/setAuthToken'
+import AuthContext from '@contexts/AuthContext'
+import { AlertContextProvider } from '@contexts/AlertContext'
 
 class MyApp extends App {
   state = {

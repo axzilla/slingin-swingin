@@ -1,7 +1,7 @@
-import { isNotLoggedIn } from '../../../utils/initialize'
+import { isNotLoggedIn } from '@utils/initialize'
 
-import { Dashboard as DashboardLayout } from '../../../layouts'
-import { DashboardSettings as DashboardSettingsView } from '../../../views'
+import { Dashboard as DashboardLayout } from '@layouts'
+import { DashboardSettings as DashboardSettingsView } from '@views'
 
 function posts() {
   return (

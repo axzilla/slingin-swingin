@@ -1,6 +1,6 @@
 import { createSitemap, EnumChangefreq } from 'sitemap'
-import { getPosts, getPostsTags } from '../../services/post'
-import { getAllProfiles } from '../../services/profile'
+import { getPosts, getPostsTags } from '@services/post'
+import { getAllProfiles } from '@services/profile'
 
 export default async (req, res) => {
   const sitemap = createSitemap({

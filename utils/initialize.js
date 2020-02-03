@@ -1,6 +1,6 @@
 import { parseCookies } from 'nookies'
 import jwtDecode from 'jwt-decode'
-import setAuthToken from '../utils/setAuthToken'
+import setAuthToken from '@utils/setAuthToken'
 
 function isValidToken(ctx) {
   const { jwtToken } = parseCookies(ctx)

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import { getAllProfiles } from '../../services/profile'
-
-import { Link } from '../../components'
+import { getAllProfiles } from '@services/profile'
+import Link from '@components/Link'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'

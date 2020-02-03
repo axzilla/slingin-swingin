@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import clsx from 'clsx'
 
-import AuthContext from '../../../../contexts/AuthContext'
-import Link from '../../../../components/Link'
-import TopbarMixings from '../../../../components/TopbarMixings'
+import AuthContext from '@contexts/AuthContext'
+import Link from '@components/Link'
+import TopbarMixings from '@components/TopbarMixings'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'

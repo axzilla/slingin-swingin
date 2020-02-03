@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
-import { Main as MainLayout } from '../../../layouts'
-import { PostDetails as PostDetailsView } from '../../../views'
-import { SeoMeta } from '../../../components'
+import { Main as MainLayout } from '@layouts'
+import { PostDetails as PostDetailsView } from '@views'
+import { SeoMeta } from '@components'
 
 function postDetails({ postId, urlSlug }) {
   return (

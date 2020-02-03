@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
-import { PasswordReset as PasswordResetView } from '../../../views'
-import { Auth as AuthLayout } from '../../../layouts'
+import { PasswordReset as PasswordResetView } from '@views'
+import { Auth as AuthLayout } from '@layouts'
 
 function resetPassword({ token }) {
   return (
