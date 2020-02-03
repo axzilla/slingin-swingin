@@ -36,7 +36,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   return (
     <Grid>
       <form onSubmit={onSubmit}>
-        <Quill value={text} onChange={onTextChange} placeholder="Write a comment..." />
+        <Quill value={text} onChange={onTextChange} placeholder="Write your story..." />
         <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
           Leave a comment
         </Button>
