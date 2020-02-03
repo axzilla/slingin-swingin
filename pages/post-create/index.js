@@ -2,7 +2,7 @@ import { isNotLoggedIn } from '@utils/initialize'
 import { Main as MainLayout } from '@layouts'
 import { PostCreate as PostCreateView } from '@views'
 
-function postCreate() {
+function PostCreate() {
   return (
     <MainLayout>
       <PostCreateView />
@@ -10,9 +10,9 @@ function postCreate() {
   )
 }
 
-postCreate.getInitialProps = ctx => {
+PostCreate.getInitialProps = ctx => {
   isNotLoggedIn(ctx)
   return {}
 }
 
-export default postCreate
+export default PostCreate

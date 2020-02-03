@@ -2,7 +2,7 @@ import { isNotLoggedIn } from '@utils/initialize'
 import { Dashboard as DashboardLayout } from '@layouts'
 import { DashboardPosts as DashboardPostsView } from '@views'
 
-function posts() {
+function Posts() {
   return (
     <DashboardLayout>
       <DashboardPostsView />
@@ -10,9 +10,9 @@ function posts() {
   )
 }
 
-posts.getInitialProps = ctx => {
+Posts.getInitialProps = ctx => {
   isNotLoggedIn(ctx)
   return {}
 }
 
-export default posts
+export default Posts

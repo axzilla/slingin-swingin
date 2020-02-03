@@ -2,7 +2,7 @@ import { isLoggedIn } from '@utils/initialize'
 import { Auth as AuthLayout } from '@layouts'
 import { Register as RegisterView } from '@views'
 
-function register() {
+function Register() {
   return (
     <AuthLayout>
       <RegisterView />
@@ -10,9 +10,9 @@ function register() {
   )
 }
 
-register.getInitialProps = ctx => {
+Register.getInitialProps = ctx => {
   isLoggedIn(ctx)
   return {}
 }
 
-export default register
+export default Register

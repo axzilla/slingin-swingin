@@ -171,7 +171,7 @@ function ToolbarApp() {
                     </Button>
                   </Box>
                   <Box>
-                    <Link href="/create-post">
+                    <Link href="/post-create">
                       <Button className={classes.button} variant="contained" color="secondary">
                         Create&nbsp;Post
                       </Button>

@@ -1,7 +1,7 @@
 import { Main as MainLayout } from '@layouts'
 import { NotFound as NotFoundView } from '@views'
 
-function notFound() {
+function NotFound() {
   return (
     <MainLayout>
       <NotFoundView />
@@ -9,4 +9,4 @@ function notFound() {
   )
 }
 
-export default notFound
+export default NotFound
