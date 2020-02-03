@@ -1,17 +1,18 @@
 import React, { useState, useContext } from 'react'
-import AuthContext from '../../contexts/AuthContext'
 import Router from 'next/router'
+
 import logo from './_logo.png'
 
-import { Link } from '../../components'
-import { searchFunc } from '../../services/search'
-import isEmpty from '../../utils/isEmpty'
+import AuthContext from '@contexts/AuthContext'
+import { Link } from '@components'
+import { searchFunc } from '@services/search'
+import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
-import { Grid } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
+import Grid from '@material-ui/core/Grid'
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box'
 import InputBase from '@material-ui/core/InputBase'

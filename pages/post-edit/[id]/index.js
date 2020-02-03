@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
-import { isNotLoggedIn } from '../../../utils/initialize'
-import { Main as MainLayout } from '../../../layouts'
-import { PostEdit as PostEditView } from '../../../views'
+import { isNotLoggedIn } from '@utils/initialize'
+import { Main as MainLayout } from '@layouts'
+import { PostEdit as PostEditView } from '@views'
 
 function PostEdit({ id }) {
   return (

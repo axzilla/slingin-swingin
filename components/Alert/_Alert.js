@@ -1,24 +1,23 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { useAlert } from '../../contexts/AlertContext'
 
-import isEmpty from '../../utils/isEmpty'
+import { useAlert } from '@contexts/AlertContext'
+import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/core/styles'
-
 import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
+
+import green from '@material-ui/core/colors/green'
+import amber from '@material-ui/core/colors/amber'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
 import InfoIcon from '@material-ui/icons/Info'
 import CloseIcon from '@material-ui/icons/Close'
 import WarningIcon from '@material-ui/icons/Warning'
-
-import green from '@material-ui/core/colors/green'
-import amber from '@material-ui/core/colors/amber'
 
 const variantIcon = {
   success: CheckCircleIcon,

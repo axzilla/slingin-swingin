@@ -1,7 +1,6 @@
-import { isNotLoggedIn } from '../../../utils/initialize'
-
-import { Dashboard as DashboardLayout } from '../../../layouts'
-import { DashboardOverview as DashboardOverviewView } from '../../../views'
+import { isNotLoggedIn } from '@utils/initialize'
+import { Dashboard as DashboardLayout } from '@layouts'
+import { DashboardOverview as DashboardOverviewView } from '@views'
 
 function Overview() {
   return (

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
-import { setGaPageView } from '../../utils/googleAnalytics'
-import { getPosts } from '../../services/post'
+import { setGaPageView } from '@utils/googleAnalytics'
+import { getPosts } from '@services/post'
 
-import Container from '../../components/Container'
-import PostFeedItem from '../../components/PostFeedItem'
-import WidgetLatestUsers from '../../components/WidgetLatestUsers'
-import WidgetTopPostsTags from '../../components/WidgetTopPostsTags'
-import WidgetSidebarRight from '../../components/WidgetSidebarRight'
-import WidgetSidebarLeft from '../../components/WidgetSidebarLeft'
+import Container from '@components/Container'
+import PostFeedItem from '@components/PostFeedItem'
+import WidgetLatestUsers from '@components/WidgetLatestUsers'
+import WidgetTopPostsTags from '@components/WidgetTopPostsTags'
+import WidgetSidebarRight from '@components/WidgetSidebarRight'
+import WidgetSidebarLeft from '@components/WidgetSidebarLeft'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'

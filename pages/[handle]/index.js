@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import { Main as MainLayout } from '../../layouts'
 
-import { ProfileDetails as ProfileDetailsView } from '../../views'
-import SeoMeta from '../../components/SeoMeta'
+import { Main as MainLayout } from '@layouts'
+import { ProfileDetails as ProfileDetailsView } from '@views'
+import SeoMeta from '@components/SeoMeta'
 
 function profileDetails({ handle }) {
   return (

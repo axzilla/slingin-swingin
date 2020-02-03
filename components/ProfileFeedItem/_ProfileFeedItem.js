@@ -1,9 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '../../components'
+
+import Link from '@components/Link'
+
 import { makeStyles } from '@material-ui/styles'
-import { blue, red } from '@material-ui/core/colors'
-import { Grid, Avatar, Card, CardContent, Typography } from '@material-ui/core'
+import red from '@material-ui/core/colors/red'
+import blue from '@material-ui/core/colors/blue'
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
   name: {

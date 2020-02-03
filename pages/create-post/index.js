@@ -1,7 +1,6 @@
-import { isNotLoggedIn } from '../../utils/initialize'
-
-import { Main as MainLayout } from '../../layouts'
-import { PostCreate as PostCreateView } from '../../views'
+import { isNotLoggedIn } from '@utils/initialize'
+import { Main as MainLayout } from '@layouts'
+import { PostCreate as PostCreateView } from '@views'
 
 function postCreate() {
   return (
