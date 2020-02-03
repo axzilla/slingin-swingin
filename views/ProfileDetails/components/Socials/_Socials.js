@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/styles'
-import grey from '@material-ui/core/colors/grey'
 import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({

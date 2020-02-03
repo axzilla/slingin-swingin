@@ -25,7 +25,7 @@ PostsByTag.getInitialProps = ({ query }) => {
 }
 
 PostsByTag.propTypes = {
-  tag: PropTypes.object
+  tag: PropTypes.string
 }
 
 export default PostsByTag

@@ -149,14 +149,12 @@ function PostDetails({ postId }) {
         {comments &&
           comments.map(comment => {
             return (
-              <>
-                <CommentFeedItem
-                  key={comment._id}
-                  comment={comment}
-                  comments={comments}
-                  setComments={setComments}
-                />
-              </>
+              <CommentFeedItem
+                key={comment._id}
+                comment={comment}
+                comments={comments}
+                setComments={setComments}
+              />
             )
           })}
       </Container>

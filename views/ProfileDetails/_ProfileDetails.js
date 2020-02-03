@@ -8,10 +8,10 @@ import Tabs from './components/Tabs'
 
 import Grid from '@material-ui/core/Grid'
 
-function ProfileDetails({ handle, profile, posts, comments }) {
+function ProfileDetails({ profile, posts, comments }) {
   const [profileData, setProfileData] = useState(profile)
   const [postsData, setPostsData] = useState(posts)
-  const [commentsData, setCommentsData] = useState(comments)
+  const [commentsData] = useState(comments)
 
   return (
     <Grid container>
@@ -27,7 +27,6 @@ function ProfileDetails({ handle, profile, posts, comments }) {
 }
 
 ProfileDetails.propTypes = {
-  handle: PropTypes.string,
   profile: PropTypes.object,
   posts: PropTypes.array,
   comments: PropTypes.array
