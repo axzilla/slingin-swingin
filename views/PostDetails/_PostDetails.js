@@ -173,7 +173,6 @@ function PostDetails({ postId }) {
 }
 
 PostDetails.propTypes = {
-  urlSlug: PropTypes.string,
   postId: PropTypes.string
 }
 

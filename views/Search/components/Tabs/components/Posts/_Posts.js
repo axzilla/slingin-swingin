@@ -40,9 +40,7 @@ function SearchPostFeed({ searchResult }) {
 
 SearchPostFeed.propTypes = {
   posts: PropTypes.array,
-  searchString: PropTypes.string,
-  searchResult: PropTypes.object,
-  setSearchResult: PropTypes.func
+  searchResult: PropTypes.object
 }
 
 export default SearchPostFeed

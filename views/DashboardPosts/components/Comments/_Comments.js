@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
 import AuthContext from '@contexts/AuthContext'
@@ -80,10 +79,6 @@ function Comments() {
       )}
     </Grid>
   )
-}
-
-Comments.propTypes = {
-  commentsByUserId: PropTypes.array
 }
 
 export default Comments

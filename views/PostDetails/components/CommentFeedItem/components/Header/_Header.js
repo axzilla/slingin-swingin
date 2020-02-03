@@ -45,8 +45,7 @@ function CommentFeedItemHeader({ comment }) {
 }
 
 CommentFeedItemHeader.propTypes = {
-  comment: PropTypes.object,
-  handleMenuClick: PropTypes.func
+  comment: PropTypes.object
 }
 
 export default CommentFeedItemHeader

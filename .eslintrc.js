@@ -26,7 +26,8 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/react-in-jsx-scope': 'off',
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'react/no-unused-prop-types': 'error'
   },
   settings: {
     react: {

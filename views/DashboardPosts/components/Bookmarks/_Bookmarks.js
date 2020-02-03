@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import PropTypes from 'prop-types'
 
 import AuthContext from '@contexts/AuthContext'
 import { getPostsByUserBookmark } from '@services/post'
@@ -47,12 +46,6 @@ function Bookmarks() {
       )}
     </Grid>
   )
-}
-
-Bookmarks.propTypes = {
-  postsByUserBookmark: PropTypes.array,
-  setPostsByUserBookmark: PropTypes.func,
-  auth: PropTypes.object
 }
 
 export default Bookmarks

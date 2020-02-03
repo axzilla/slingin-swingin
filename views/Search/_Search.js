@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 
 import Tabs from './components/Tabs'
@@ -49,10 +48,6 @@ function Search() {
   }
 
   return <Grid container>{content}</Grid>
-}
-
-Search.propTypes = {
-  location: PropTypes.string
 }
 
 export default Search
