@@ -17,7 +17,7 @@ PasswordReset.getInitialProps = ({ query }) => {
 }
 
 PasswordReset.propTypes = {
-  token: PropTypes.object
+  token: PropTypes.string
 }
 
 export default PasswordReset

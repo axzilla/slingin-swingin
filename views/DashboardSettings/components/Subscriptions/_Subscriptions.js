@@ -64,7 +64,7 @@ function Settings() {
                 control={
                   <Checkbox
                     name="onOwnPost"
-                    checked={notifications.onOwnPost}
+                    checked={notifications.onOwnPost || false}
                     onChange={onChange}
                   />
                 }
@@ -75,8 +75,9 @@ function Settings() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    value={''}
                     name="onBookmarkedPost"
-                    checked={notifications.onBookmarkedPost}
+                    checked={notifications.onBookmarkedPost || false}
                     onChange={onChange}
                   />
                 }
@@ -87,8 +88,9 @@ function Settings() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    value={''}
                     name="onNewPost"
-                    checked={notifications.onNewPost}
+                    checked={notifications.onNewPost || false}
                     onChange={onChange}
                   />
                 }
@@ -99,8 +101,9 @@ function Settings() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    value={''}
                     name="onCommentedPost"
-                    checked={notifications.onCommentedPost}
+                    checked={notifications.onCommentedPost || false}
                     onChange={onChange}
                   />
                 }
