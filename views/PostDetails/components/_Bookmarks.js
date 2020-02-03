@@ -7,11 +7,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 function PostDetailsLikes({ onBookmarkClick, post, user }) {
   return (
     <IconButton onClick={() => onBookmarkClick(post._id, post.shortId)}>
-      {post.bookmarks.includes(user.id) ? (
-        <BookmarkIcon color="secondary" />
-      ) : (
-        <BookmarkIcon color="primary" />
-      )}
+      {post.bookmarks.includes(user.id) ? <BookmarkIcon /> : <BookmarkIcon color="primary" />}
     </IconButton>
   )
 }

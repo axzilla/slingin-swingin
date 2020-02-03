@@ -1,54 +1,15 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { postToggleLikes, postToggleBookmarks } from '../../../services/post'
 import { Spinner } from '../../../components'
 import { PostFeedItem } from '../../../components'
 import { Grid, Button } from '@material-ui/core'
 
-function SearchPostFeed({ searchResult, setSearchResult }) {
+function SearchPostFeed({ searchResult }) {
   const [limit, setLinmit] = useState(10)
   const { posts } = searchResult
 
   function loadMore() {
     setLinmit(limit + 10)
-  }
-
-  async function onLikeClick(postId) {
-    try {
-      const updatedPost = await postToggleLikes(postId)
-
-      const index = posts.indexOf(
-        posts.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setSearchResult({
-        ...searchResult,
-        posts: [...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)]
-      })
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
-  async function onBookmarkClick(postId) {
-    try {
-      const updatedPost = await postToggleBookmarks(postId)
-
-      const index = posts.indexOf(
-        posts.filter(post => {
-          return post._id === updatedPost.data._id
-        })[0]
-      )
-
-      setSearchResult({
-        ...searchResult,
-        posts: [...posts.slice(0, index), updatedPost.data, ...posts.slice(index + 1)]
-      })
-    } catch (error) {
-      if (error) throw error
-    }
   }
 
   let postContent
@@ -57,14 +18,7 @@ function SearchPostFeed({ searchResult, setSearchResult }) {
   } else {
     postContent = searchResult.posts
       .slice(0, limit)
-      .map(post => (
-        <PostFeedItem
-          key={post._id}
-          post={post}
-          onLikeClick={onLikeClick}
-          onBookmarkClick={onBookmarkClick}
-        />
-      ))
+      .map(post => <PostFeedItem key={post._id} post={post} />)
   }
 
   return (

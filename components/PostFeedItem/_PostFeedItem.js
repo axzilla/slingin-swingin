@@ -19,7 +19,6 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +33,7 @@ function PostFeedItem({ post }) {
 
   const isBookmarked = postData.bookmarks.includes(user.id)
 
-  async function toggleIsPostBookmarked() {
+  async function handleBookmarkClick() {
     try {
       if (isAuthenticated) {
         const updatedPost = await postToggleBookmarks(post._id)
@@ -101,11 +100,9 @@ function PostFeedItem({ post }) {
       <CardActions>
         <Grid container alignItems="center" spacing={2}>
           <Grid item>
-            <Tooltip title={isBookmarked ? 'Unbookmark' : 'Bookmark'}>
-              <IconButton onClick={toggleIsPostBookmarked}>
-                <BookmarkIcon color={isBookmarked ? 'primary' : ''} />
-              </IconButton>
-            </Tooltip>
+            <IconButton onClick={handleBookmarkClick}>
+              <BookmarkIcon color={isBookmarked ? 'primary' : ''} />
+            </IconButton>
           </Grid>
           <Grid item>
             <Typography variant="h6">{postData.likes.length} likes</Typography>
