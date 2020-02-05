@@ -6,7 +6,7 @@ import Quill from '@components/Quill'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
-function CommentEdit({ comment, onSaveClick }) {
+function CommentEdit({ comment, handleSaveClick }) {
   const [text, setText] = useState('')
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function CommentEdit({ comment, onSaveClick }) {
     <Grid>
       <form>
         <Quill value={text} onChange={onTextChange} placeholder="Edit your comment..." />
-        <Button onClick={() => onSaveClick(text)} variant="outlined" color="primary">
+        <Button onClick={() => handleSaveClick(text)} variant="outlined" color="primary">
           Save
         </Button>
       </form>
@@ -32,7 +32,7 @@ function CommentEdit({ comment, onSaveClick }) {
 
 CommentEdit.propTypes = {
   comment: PropTypes.string,
-  onSaveClick: PropTypes.func
+  handleSaveClick: PropTypes.func
 }
 
 export default CommentEdit

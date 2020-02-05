@@ -53,18 +53,16 @@ function PostCreate() {
     }
   }
 
-  function onPostTitleImageChange(event) {
+  function handlePostTitleImageChange(event) {
     event.preventDefault()
     setTitleImagePreview(URL.createObjectURL(event.target.files[0]))
     setTitleImage(event.target.files[0])
   }
 
-  function onDeleteTitleImageClick(event) {
+  function handleDeleteTitleImageClick(event) {
     event.preventDefault()
-    if (window.confirm('Delete picture?')) {
-      setTitleImagePreview(null)
-      setTitleImage(null)
-    }
+    setTitleImagePreview(null)
+    setTitleImage(null)
   }
 
   function onChange(event) {
@@ -113,7 +111,7 @@ function PostCreate() {
             alt="Titel"
           />
           <input
-            onChange={onPostTitleImageChange}
+            onChange={handlePostTitleImageChange}
             style={{ display: 'none' }}
             id="raised-button-file"
             type="file"
@@ -129,7 +127,7 @@ function PostCreate() {
               style={{
                 display: isEmpty(titleImagePreview) ? 'none' : 'inline'
               }}
-              onClick={onDeleteTitleImageClick}
+              onClick={handleDeleteTitleImageClick}
             >
               Remove Title Image
             </Button>
