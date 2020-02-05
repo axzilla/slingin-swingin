@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import Quill from '@components/Quill'
+import htmlRemove from '@utils/htmlRemove'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -22,7 +23,12 @@ function CommentEdit({ comment, handleSaveClick }) {
     <Grid>
       <form>
         <Quill value={text} onChange={onTextChange} placeholder="Edit your comment..." />
-        <Button onClick={() => handleSaveClick(text)} variant="outlined" color="primary">
+        <Button
+          disabled={!htmlRemove(text).length}
+          onClick={() => handleSaveClick(text)}
+          variant="outlined"
+          color="primary"
+        >
           Save
         </Button>
       </form>
