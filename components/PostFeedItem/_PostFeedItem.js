@@ -49,7 +49,7 @@ function PostFeedItem({ post }) {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Link href={`/${postData.user.username}`}>
+          <Link href="/[handle]" as={`/${postData.user.username}`}>
             {postData.user.avatar && postData.user.avatar.secure_url ? (
               <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
             ) : (
@@ -59,11 +59,15 @@ function PostFeedItem({ post }) {
             )}
           </Link>
         }
-        title={<Link href={`/${postData.user.username}`}>{postData.user.username}</Link>}
+        title={
+          <Link href="/[handle]" as={`/${postData.user.username}`}>
+            {postData.user.username}
+          </Link>
+        }
         subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
       />
       {postData.titleImage && (
-        <Link href={`/post/${postData.shortId}/${postData.urlSlug}`}>
+        <Link href="/post/[postId]/[urlSlug]" as={`/post/${postData.shortId}/${postData.urlSlug}`}>
           <CardMedia
             component="img"
             alt="Post title"
@@ -76,7 +80,10 @@ function PostFeedItem({ post }) {
       <CardContent>
         <Grid container wrap="nowrap">
           <Grid>
-            <Link href={`/post/${postData.shortId}/${postData.urlSlug}`}>
+            <Link
+              href="/post/[postId]/[urlSlug]"
+              as={`/post/${postData.shortId}/${postData.urlSlug}`}
+            >
               <Typography variant="h4" component="h2" color="textPrimary" gutterBottom>
                 {postData.title}
               </Typography>
@@ -87,7 +94,7 @@ function PostFeedItem({ post }) {
             <Grid container>
               {postData.tags.map(tag => {
                 return (
-                  <Link key={tag} href={`/posts/t/${tag}`}>
+                  <Link key={tag} href="/posts/t/[tag]" as={`/posts/t/${tag}`}>
                     <Chip clickable label={tag} variant="outlined" />
                   </Link>
                 )

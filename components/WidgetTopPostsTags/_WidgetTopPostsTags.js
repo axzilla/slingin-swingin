@@ -34,7 +34,7 @@ function WidgetTopPostsTags() {
         {postTags &&
           postTags.slice(0, 25).map(item => {
             return (
-              <Link key={item._id} href={`/posts/t/${item._id}`}>
+              <Link key={item._id} href="/posts/t/[tag]" as={`/posts/t/${item._id}`}>
                 <Chip clickable label={item._id} variant="outlined" />
               </Link>
             )

@@ -67,7 +67,7 @@ function PostDetails({ post }) {
           <Card>
             <CardHeader
               title={
-                <Link href={`/${postData.user.username}`}>
+                <Link href="/[handle]" as={`/${postData.user.username}`}>
                   <Typography color="primary" style={{ display: 'inline' }}>
                     {postData.user.username}
                   </Typography>
@@ -75,7 +75,7 @@ function PostDetails({ post }) {
               }
               subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
               avatar={
-                <Link href={`/${postData.user.username}`}>
+                <Link href="/[handle]" as={`/${postData.user.username}`}>
                   {postData.user.avatar && postData.user.avatar.secure_url ? (
                     <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
                   ) : (

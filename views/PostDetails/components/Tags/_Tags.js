@@ -11,7 +11,7 @@ function PostDetailsTags({ post }) {
     <Grid container>
       {post.tags.map(tag => {
         return (
-          <Link key={tag} href={`/posts/t/${tag}`}>
+          <Link key={tag} href="/posts/t/[tag]" as={`/posts/t/${tag}`}>
             <Chip clickable label={tag} variant="outlined" />
           </Link>
         )
