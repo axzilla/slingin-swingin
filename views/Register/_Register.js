@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 
-import { userRegister } from '@services/auth'
+import AuthContext from '@contexts/AuthContext'
+import { userRegister, userLogin } from '@services/auth'
 import Link from '@components/Link'
 import TextField from '@components/TextField'
 
@@ -10,6 +11,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
 const Register = () => {
+  const { login } = useContext(AuthContext)
   const [errors, setErrors] = useState('')
 
   const [registerData, setRegisterData] = useState({
@@ -28,7 +30,16 @@ const Register = () => {
     try {
       event.preventDefault()
       await userRegister({ ...registerData })
-      Router.push('/login')
+
+      const loggedInUser = await userLogin({
+        login: registerData.email,
+        password: registerData.password
+      })
+
+      const jwtToken = loggedInUser.data
+      await login(jwtToken)
+
+      Router.push('/dashboard/overview')
     } catch (error) {
       setErrors(error.response.data)
     }
