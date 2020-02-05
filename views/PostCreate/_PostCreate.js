@@ -164,7 +164,12 @@ function PostCreate() {
             })}
           </Grid>
           <div>
-            <Quill value={text} onChange={onTextChange} placeholder="Write your story..." />
+            <Quill
+              error={errors && errors.text}
+              value={text}
+              onChange={onTextChange}
+              placeholder="Write your story..."
+            />
           </div>
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>
