@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import htmlRemove from '@utils/htmlRemove'
 import Quill from '@components/Quill'
 import { commentCreate } from '@services/comment'
 
@@ -21,6 +22,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
 
       const createdComment = await commentCreate(commentData)
       await setComments([...comments, createdComment.data])
+
       toggleAnswerMode && toggleAnswerMode()
       setText('')
     } catch (error) {
@@ -37,7 +39,12 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
     <Grid>
       <form onSubmit={onSubmit}>
         <Quill value={text} onChange={onTextChange} placeholder="Write your story..." />
-        <Button type="submit" variant="outlined" color="primary" disabled={text.length < 1}>
+        <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          disabled={!htmlRemove(text).length}
+        >
           Leave a comment
         </Button>
       </form>
