@@ -21,10 +21,9 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
-const useStyles = makeStyles(theme => ({
-  media: { objectFit: 'cover' },
-  card: { marginBottom: theme.spacing(2) }
-}))
+const useStyles = makeStyles({
+  media: { objectFit: 'cover' }
+})
 
 function PostFeedItem({ post }) {
   const classes = useStyles()

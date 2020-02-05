@@ -32,7 +32,7 @@ function WidgetTopPostsTags() {
       <Divider />
       <CardContent>
         {postTags &&
-          postTags.slice(0, 20).map(item => {
+          postTags.slice(0, 25).map(item => {
             return (
               <Link key={item._id} href={`/posts/t/${item._id}`}>
                 <Chip clickable label={item._id} variant="outlined" />

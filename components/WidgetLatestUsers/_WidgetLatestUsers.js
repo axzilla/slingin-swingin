@@ -15,16 +15,19 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   avatar: {
     height: '50px',
     width: '50px',
     marginRight: '15px'
   },
-  card: {
-    marginBottom: '20px'
+  cardContent: { overflow: 'scroll' },
+  list: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex'
+    }
   }
-})
+}))
 
 function LandingWidgetUsers() {
   const classes = useStyles()
@@ -47,8 +50,8 @@ function LandingWidgetUsers() {
     <Card className={classes.card}>
       <CardHeader title="New Members" />
       <Divider />
-      <CardContent>
-        <List>
+      <CardContent className={classes.cardContent}>
+        <List className={classes.list}>
           {profiles &&
             profiles.slice(0, 10).map(profile => {
               return (
