@@ -3,30 +3,40 @@ import PropTypes from 'prop-types'
 import { Main as MainLayout } from '@layouts'
 import { PostDetails as PostDetailsView } from '@views'
 import { SeoMeta } from '@components'
+import { getPostByShortId } from '@services/post'
 
-function PostDetails({ postId, urlSlug }) {
+function PostDetails({ post, urlSlug }) {
   return (
     <>
       <SeoMeta
         title={`${urlSlug} - bounce.dev`}
         // If data comes in getInitialProps please fill out desc with post body!?
         // desc={}
-        canonical={`https://www.bounce.dev/post/${postId}/${urlSlug}`}
+        canonical={`https://www.bounce.dev/post/${post._id}/${urlSlug}`}
       />
       <MainLayout>
-        <PostDetailsView postId={postId} urlSlug={urlSlug} />
+        <PostDetailsView post={post} urlSlug={urlSlug} />
       </MainLayout>
     </>
   )
 }
 
-PostDetails.getInitialProps = ({ query }) => {
-  const { postId, urlSlug } = query
-  return { postId, urlSlug }
+PostDetails.getInitialProps = async ctx => {
+  try {
+    const { postId, urlSlug } = ctx.query
+    const post = await getPostByShortId(postId)
+
+    return { urlSlug, post: post.data }
+  } catch (error) {
+    if (error) {
+      ctx.res.writeHead(302, { Location: '/not-found' })
+      ctx.res.end()
+    }
+  }
 }
 
 PostDetails.propTypes = {
-  postId: PropTypes.string,
+  post: PropTypes.object,
   urlSlug: PropTypes.string
 }
 
