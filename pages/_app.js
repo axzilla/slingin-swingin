@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import App from 'next/app'
 import Head from 'next/head'
 
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import theme from '../themes'
 import '../public/css/quill.css'
@@ -18,14 +19,26 @@ import setAuthToken from '@utils/setAuthToken'
 import AuthContext from '@contexts/AuthContext'
 import { AlertContextProvider } from '@contexts/AlertContext'
 
-import NProgress from 'nprogress'
+function RouterLoading() {
+  const [isLoading, setIsLoading] = useState(false)
 
-Router.events.on('routeChangeStart', url => {
-  console.log(`Loading: ${url}`)
-  NProgress.start()
-})
-Router.events.on('routeChangeComplete', () => NProgress.done())
-Router.events.on('routeChangeError', () => NProgress.done())
+  Router.events.on('routeChangeStart', url => {
+    setIsLoading(true)
+    console.log(`Loading: ${url}`)
+  })
+
+  Router.events.on('routeChangeComplete', url => {
+    setIsLoading(false)
+    console.log(`Done: ${url}`)
+  })
+
+  Router.events.on('routeChangeError', url => {
+    setIsLoading(false)
+    console.log(`Error: ${url}`)
+  })
+
+  return <>{isLoading && <LinearProgress color="secondary" />}</>
+}
 
 class MyApp extends App {
   state = {
@@ -96,9 +109,6 @@ class MyApp extends App {
       <>
         <Head>
           <link rel="icon" href="/favicon.ico" />
-
-          {/* Import CSS for nprogress */}
-          <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
 
         <AuthContext.Provider
@@ -112,7 +122,8 @@ class MyApp extends App {
           <AlertContextProvider>
             <MuiThemeProvider theme={theme}>
               <CssBaseline />
-              <Component {...pageProps} />
+              <RouterLoading />
+              <Component {...pageProps} RouterLoading={RouterLoading} />
               <Alert />
             </MuiThemeProvider>
           </AlertContextProvider>
