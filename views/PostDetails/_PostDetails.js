@@ -39,7 +39,7 @@ function PostDetails({ post }) {
       }
 
       await postToggleLikes(postData._id)
-      const updatedPost = await getPostByShortId(postData._id)
+      const updatedPost = await getPostByShortId(postData.shortId)
       setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
@@ -53,7 +53,7 @@ function PostDetails({ post }) {
       }
 
       await postToggleBookmarks(postData._id)
-      const updatedPost = await getPostByShortId(postData._id)
+      const updatedPost = await getPostByShortId(postData.shortId)
       setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
