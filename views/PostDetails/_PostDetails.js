@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
 import AuthContext from '@contexts/AuthContext'
 import { getPostByShortId, postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
-import Spinner from '@components/Spinner'
 import Link from '@components/Link'
 import Container from '@components/Container'
 
@@ -28,105 +27,81 @@ import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
 import CardActions from '@material-ui/core/CardActions'
 
-function PostDetails({ postId }) {
+function PostDetails({ post }) {
   const { isAuthenticated, user } = useContext(AuthContext)
-  const [isLoading, setIsloading] = useState(false)
-  const [post, setPost] = useState({})
+  const [postData, setPostData] = useState(post)
   const [comments, setComments] = useState([])
 
-  useEffect(() => {
-    getInitialProps()
-  }, [])
-
-  async function getInitialProps() {
-    try {
-      setIsloading(true)
-
-      const foundPost = await getPostByShortId(postId)
-      await setPost(foundPost.data)
-      await setComments(foundPost.data.postComments)
-
-      setIsloading(false)
-    } catch (error) {
-      Router.push('/not-found')
-      if (error) throw error
-    }
-  }
-
-  async function onLikeClick(id) {
+  async function onLikeClick() {
     try {
       if (!isAuthenticated) {
         Router.push('/login')
       }
 
-      await postToggleLikes(id)
-      const updatedPost = await getPostByShortId(postId)
-      setPost(updatedPost.data)
+      await postToggleLikes(postData._id)
+      const updatedPost = await getPostByShortId(postData._id)
+      setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
     }
   }
 
-  async function onBookmarkClick(id) {
+  async function onBookmarkClick() {
     try {
       if (!isAuthenticated) {
         Router.push('/login')
       }
 
-      await postToggleBookmarks(id)
-      const updatedPost = await getPostByShortId(postId)
-      setPost(updatedPost.data)
+      await postToggleBookmarks(postData._id)
+      const updatedPost = await getPostByShortId(postData._id)
+      setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
     }
   }
 
-  let postContent
-
-  if (isLoading) {
-    postContent = <Spinner />
-  } else if (post && post.user) {
-    postContent = (
+  return (
+    <Grid container justify="center">
       <Container maxWidth="md">
         <Grid item>
           <Card>
             <CardHeader
               title={
-                <Link href={`/${post.user.username}`}>
+                <Link href={`/${postData.user.username}`}>
                   <Typography color="primary" style={{ display: 'inline' }}>
-                    {post.user.username}
+                    {postData.user.username}
                   </Typography>
                 </Link>
               }
-              subheader={<Moment fromNow>{post.dateCreated}</Moment>}
+              subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
               avatar={
-                <Link href={`/${post.user.username}`}>
-                  {post.user.avatar && post.user.avatar.secure_url ? (
-                    <Avatar alt={post.user.username} src={post.user.avatar.secure_url} />
+                <Link href={`/${postData.user.username}`}>
+                  {postData.user.avatar && postData.user.avatar.secure_url ? (
+                    <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
                   ) : (
-                    <Avatar alt={post.user.username}>
-                      {post.user.username.substring(0, 1).toUpperCase()}
+                    <Avatar alt={postData.user.username}>
+                      {postData.user.username.substring(0, 1).toUpperCase()}
                     </Avatar>
                   )}
                 </Link>
               }
             />
             <Divider />
-            {post.titleImage && <TitleImage post={post} />}
+            {postData.titleImage && <TitleImage post={postData} />}
             <CardContent>
-              <Title post={post} />
-              <Tags post={post} />
-              <Content post={post} />
+              <Title post={postData} />
+              <Tags post={postData} />
+              <Content post={postData} />
             </CardContent>
             <Divider />
             <CardActions>
               <div style={{ display: 'flex', width: '100%' }}>
-                <Likes post={post} user={user} onLikeClick={onLikeClick} />
-                <Bookmarks post={post} user={user} onBookmarkClick={onBookmarkClick} />
+                <Likes post={postData} user={user} onLikeClick={onLikeClick} />
+                <Bookmarks post={postData} user={user} onBookmarkClick={onBookmarkClick} />
               </div>
             </CardActions>
             <AuthActions
-              post={post}
+              post={postData}
               user={user}
               isAuthenticated={isAuthenticated}
               postDelete={postDelete}
@@ -139,8 +114,8 @@ function PostDetails({ postId }) {
         <Grid style={{ marginBottom: '50px' }}>
           {isAuthenticated ? (
             <CommentCreate
-              postId={post._id}
-              postShortId={post.shortId}
+              postId={postData._id}
+              postShortId={postData.shortId}
               comments={comments}
               setComments={setComments}
             />
@@ -158,18 +133,12 @@ function PostDetails({ postId }) {
             )
           })}
       </Container>
-    )
-  }
-
-  return (
-    <Grid container justify="center">
-      {postContent}
     </Grid>
   )
 }
 
 PostDetails.propTypes = {
-  postId: PropTypes.string
+  post: PropTypes.object
 }
 
 export default PostDetails

@@ -23,18 +23,25 @@ function ProfileDetails({ handle, profile, posts, comments }) {
   )
 }
 
-ProfileDetails.getInitialProps = async ({ query }) => {
-  const { handle } = query
+ProfileDetails.getInitialProps = async ctx => {
+  try {
+    const { handle } = ctx.query
 
-  const profile = await getProfileByHandle(handle)
-  const posts = await getPostsByUserId(profile.data.user._id)
-  const comments = await getCommentsByUserId(profile.data.user._id)
+    const profile = await getProfileByHandle(handle)
+    const posts = await getPostsByUserId(profile.data.user._id)
+    const comments = await getCommentsByUserId(profile.data.user._id)
 
-  return {
-    handle,
-    profile: profile.data,
-    posts: posts.data,
-    comments: comments.data
+    return {
+      handle,
+      profile: profile.data,
+      posts: posts.data,
+      comments: comments.data
+    }
+  } catch (error) {
+    if (error) {
+      ctx.res.writeHead(302, { Location: '/not-found' })
+      ctx.res.end()
+    }
   }
 }
 
