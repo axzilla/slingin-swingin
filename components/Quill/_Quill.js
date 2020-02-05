@@ -1,5 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import 'react-quill/dist/quill.snow.css'
+
+import { makeStyles } from '@material-ui/styles'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
 
@@ -31,8 +35,22 @@ const formats = [
   'video'
 ]
 
-function Quill({ ...rest }) {
-  return <ReactQuill modules={modules} formats={formats} theme="snow" {...rest} />
+const useStyles = makeStyles(theme => ({
+  error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
+}))
+
+function Quill({ error, ...rest }) {
+  const classes = useStyles()
+  return (
+    <>
+      <ReactQuill modules={modules} formats={formats} theme="snow" {...rest} />
+      {error && <FormHelperText className={classes.error}>{error}</FormHelperText>}
+    </>
+  )
+}
+
+Quill.propTypes = {
+  error: PropTypes.string
 }
 
 export default Quill

@@ -174,7 +174,12 @@ function PostEdit({ id }) {
               })}
           </Grid>
           <Grid>
-            <Quill value={text} onChange={onTextChange} placeholder="Edit your story..." />
+            <Quill
+              error={errors && errors.text}
+              value={text}
+              onChange={onTextChange}
+              placeholder="Edit your story..."
+            />
           </Grid>
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>
