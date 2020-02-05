@@ -58,7 +58,7 @@ function ProfilesFeedItem({ profile }) {
 
   return (
     <Card className={classes.card} style={{ marginBottom: '20px' }}>
-      <Link href={`/${profile.user.username}`}>
+      <Link href="/[handle]" as={`/${profile.handle}`}>
         <CardContent>
           <Grid container wrap="nowrap">
             <Grid>

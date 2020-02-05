@@ -29,7 +29,7 @@ function Comments({ comments }) {
                     }}
                   >
                     <div>
-                      <Link href={`post/${shortId}/${urlSlug}`}>
+                      <Link href="post/[postId]/[urlSlug]" as={`post/${shortId}/${urlSlug}`}>
                         <Typography variant="h6">{comment.post.title}</Typography>
                       </Link>
                       <Typography variant="caption" style={{ fontWeight: '300' }}>

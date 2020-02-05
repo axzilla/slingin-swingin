@@ -16,12 +16,12 @@ const useStyles = makeStyles({
   }
 })
 
-function Link({ children, color, href, variant, underlined }) {
+function Link({ children, color, href, as, variant, underlined }) {
   const classes = useStyles({ underlined })
 
   if (!variant || variant === 'NextLink') {
     return (
-      <NextLink href={href} passHref>
+      <NextLink href={href} as={as} passHref>
         <MuiLink className={classes.link} color={color}>
           {children}
         </MuiLink>

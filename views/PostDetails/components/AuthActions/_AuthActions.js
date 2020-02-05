@@ -42,7 +42,7 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
               <Divider />
               <CardActions>
                 <React.Fragment>
-                  <Link href={`/post-edit/${post._id}`}>
+                  <Link href="/post-edit/[id]" as={`/post-edit/${post._id}`}>
                     <Button color="primary">Edit</Button>
                   </Link>
                   <Button onClick={handleAvatarOpen} color="primary">

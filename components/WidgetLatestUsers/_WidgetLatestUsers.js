@@ -56,7 +56,7 @@ function LandingWidgetUsers() {
             profiles.slice(0, 10).map(profile => {
               return (
                 <ListItem key={profile._id}>
-                  <Link key={profile._id} href={`/${profile.handle}`}>
+                  <Link href="/[handle]" as={`/${profile.handle}`}>
                     <ListItemAvatar>
                       {profile.user.avatar && profile.user.avatar.secure_url ? (
                         <Avatar
@@ -72,7 +72,7 @@ function LandingWidgetUsers() {
                   </Link>
                   <ListItemText
                     primary={
-                      <Link key={profile._id} href={`/${profile.handle}`}>
+                      <Link href="/[handle]" as={`/${profile.handle}`}>
                         {profile.user.username}
                       </Link>
                     }

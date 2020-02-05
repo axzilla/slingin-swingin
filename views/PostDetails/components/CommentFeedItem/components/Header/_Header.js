@@ -23,7 +23,7 @@ function CommentFeedItemHeader({ comment }) {
     <CardHeader
       avatar={
         comment.user.avatar ? (
-          <Link href={`/${comment.user.username}`}>
+          <Link href="/[handle]" as={`/${comment.user.username}`}>
             <Avatar
               src={comment.user.avatar ? comment.user.avatar.secure_url : null}
               aria-label="Recipe"
@@ -31,14 +31,18 @@ function CommentFeedItemHeader({ comment }) {
             />
           </Link>
         ) : (
-          <Link href={`/${comment.user.username}`}>
+          <Link href="/[handle]" as={`/${comment.user.username}`}>
             <Avatar aria-label="Recipe" className={classes.avatar}>
               {comment.user.username.substring(0, 1)}
             </Avatar>
           </Link>
         )
       }
-      title={<Link href={`/${comment.user.username}`}>{comment.user.username}</Link>}
+      title={
+        <Link href="/[handle]" as={`/${comment.user.username}`}>
+          {comment.user.username}
+        </Link>
+      }
       subheader={<Moment fromNow>{comment.dateCreated}</Moment>}
     />
   )
