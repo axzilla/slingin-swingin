@@ -68,16 +68,6 @@ function ProfileDetailsSocials({ profile }) {
           <i className="fab fa-linkedin fa-lg" />
         </a>
       )}
-      {isEmpty(profile.social && profile.social.xing) ? null : (
-        <a
-          className={classes.socialsIcons}
-          href={checkForHttp(profile.social.xing)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-xing" />
-        </a>
-      )}
       {isEmpty(profile.social && profile.social.youtube) ? null : (
         <a
           className={classes.socialsIcons}

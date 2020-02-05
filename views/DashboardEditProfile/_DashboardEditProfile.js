@@ -49,7 +49,6 @@ function ProfileEdit() {
         twitter: profile.twitter,
         facebook: profile.facebook,
         linkedin: profile.linkedin,
-        xing: profile.xing,
         youtube: profile.youtube,
         instagram: profile.instagram,
         soundcloud: profile.soundcloud
@@ -167,16 +166,6 @@ function ProfileEdit() {
                           label="LinkedIn"
                           name="linkedin"
                           value={profile.linkedin}
-                          onChange={onChange}
-                        />
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          error={errors && errors.xing}
-                          placeholder="Xing URL"
-                          label="Xing"
-                          name="xing"
-                          value={profile.xing}
                           onChange={onChange}
                         />
                       </Grid>
