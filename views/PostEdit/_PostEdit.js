@@ -79,10 +79,8 @@ function PostEdit({ id }) {
 
   function onDeleteTitleImageClick(event) {
     event.preventDefault()
-    if (window.confirm('Delete picture?')) {
-      setTitleImagePreview(null)
-      setTitleImage('deleted')
-    }
+    setTitleImagePreview(null)
+    setTitleImage('deleted')
   }
 
   async function onTextChange(value) {

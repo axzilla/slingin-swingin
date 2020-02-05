@@ -8,16 +8,26 @@ import { postDelete } from '@services/post'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 
 function PostDetailsAuthActions({ post, user, isAuthenticated }) {
-  async function onDeleteClick(id) {
+  const [avatarOpen, setAvatarOpen] = React.useState(false)
+
+  const handleAvatarOpen = () => {
+    setAvatarOpen(true)
+  }
+
+  const handleAvatarClose = () => {
+    setAvatarOpen(false)
+  }
+
+  async function handleDeleteClick() {
     try {
-      if (
-        window.confirm('Are you sure you want to delete this post? This action can not be undone!')
-      ) {
-        await postDelete(id)
-        Router.push('/')
-      }
+      await postDelete(post._id)
+      Router.push('/')
     } catch (error) {
       if (error) throw error
     }
@@ -35,7 +45,7 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
                   <Link href={`/post-edit/${post._id}`}>
                     <Button color="primary">Edit</Button>
                   </Link>
-                  <Button onClick={onDeleteClick.bind(this, post._id)} color="primary">
+                  <Button onClick={handleAvatarOpen} color="primary">
                     Delete
                   </Button>
                 </React.Fragment>
@@ -44,6 +54,28 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
           ) : null}
         </span>
       ) : null}
+
+      <Dialog
+        open={avatarOpen}
+        onClose={handleAvatarClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this post? This action can not be undone!
+          </DialogContentText>
+        </DialogContent>
+        <Divider />
+        <DialogActions>
+          <Button onClick={handleAvatarClose} color="primary">
+            No
+          </Button>
+          <Button onClick={handleDeleteClick} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   )
 }
