@@ -37,7 +37,7 @@ function CommentEdit({ comment, handleSaveClick }) {
 }
 
 CommentEdit.propTypes = {
-  comment: PropTypes.string,
+  comment: PropTypes.object,
   handleSaveClick: PropTypes.func
 }
 
