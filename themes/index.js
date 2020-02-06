@@ -1,17 +1,18 @@
 import { createMuiTheme } from '@material-ui/core'
 
 import overrides from './overrides'
-import palette from './_palette'
+import paletteLight from './_paletteLight'
+import paletteDark from './_paletteDark'
 import typography from './_typography'
 
 export const lightTheme = createMuiTheme({
-  palette: { ...palette, type: 'light' },
+  palette: paletteLight,
   typography,
   overrides
 })
 
 export const darkTheme = createMuiTheme({
-  palette: { ...palette, type: 'dark' },
+  palette: paletteDark,
   typography,
   overrides
 })
