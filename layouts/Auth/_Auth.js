@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles(theme => ({
   root: { padding: theme.spacing(5, 1, 0) },
-  logo: { width: '150px', marginBottom: theme.spacing(5) }
+  logo: { height: '50px', marginBottom: theme.spacing(5) }
 }))
 
 function Auth({ children }) {
