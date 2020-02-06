@@ -39,7 +39,7 @@ const Register = () => {
       const jwtToken = loggedInUser.data
       await login(jwtToken)
 
-      Router.push('/dashboard/overview')
+      Router.push('/dashboard/profile-edit')
     } catch (error) {
       setErrors(error.response.data)
     }

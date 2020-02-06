@@ -68,14 +68,14 @@ function Sidebar() {
       }}
     >
       <List>
-        <Link href="/dashboard/overview">
+        {/* <Link href="/dashboard/overview">
           <ListItem button>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText>Dashboard</ListItemText>
           </ListItem>
-        </Link>
+        </Link> */}
         <Link href="/dashboard/posts">
           <ListItem button>
             <ListItemIcon>
