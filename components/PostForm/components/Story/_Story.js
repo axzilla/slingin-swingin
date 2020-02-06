@@ -17,7 +17,7 @@ function PostForm({ text, setText, errors }) {
 
   return (
     <Card>
-      <CardHeader title="Post Story" />
+      <CardHeader title="Story" />
       <Divider />
       <CardContent>
         <div>

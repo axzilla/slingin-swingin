@@ -34,7 +34,7 @@ function PostCreate({ setTitleImage, titleImagePreview, setTitleImagePreview }) 
 
   return (
     <Card>
-      <CardHeader title="Post Title Image" />
+      <CardHeader title="Title Image" />
       <CardMedia
         component="img"
         alt="Post title"

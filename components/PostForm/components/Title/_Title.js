@@ -14,7 +14,7 @@ function Title({ errors, title, setTitle }) {
 
   return (
     <Card>
-      <CardHeader title="Post Title" />
+      <CardHeader title="Title" />
       <Divider />
       <CardContent>
         <TextField
