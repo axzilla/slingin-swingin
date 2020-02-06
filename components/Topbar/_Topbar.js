@@ -157,7 +157,7 @@ function Topbar() {
               {isAuthenticated ? (
                 <>
                   <Box>
-                    <Link href="/dashboard/overview">
+                    <Link href="/dashboard/profile-edit">
                       <Button>
                         <AccountCircle />
                         &nbsp;Dashboard
