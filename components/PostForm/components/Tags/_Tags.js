@@ -41,7 +41,7 @@ function Tags({ tags, setTags, tagsInput, setTagsInput, errors }) {
 
   return (
     <Card>
-      <CardHeader title="Post Tags" />
+      <CardHeader title="Tags" />
       <Divider />
       <CardContent>
         <TextField
