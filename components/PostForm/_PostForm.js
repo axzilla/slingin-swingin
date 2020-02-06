@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button'
 
 function PostForm({ post }) {
   const [errors, setErrors] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   const [titleImage, setTitleImage] = useState(null)
   const [titleImagePreview, setTitleImagePreview] = useState(
     post && post.titleImage ? post.titleImage.secure_url : null
@@ -26,6 +27,8 @@ function PostForm({ post }) {
 
   async function onSubmit() {
     try {
+      setIsLoading(true)
+
       const formData = new FormData()
 
       formData.append('titleImage', titleImage)
@@ -50,6 +53,8 @@ function PostForm({ post }) {
 
         Router.push(`/post/${shortId}/${urlSlug}`)
       }
+
+      setIsLoading(false)
     } catch (error) {
       setErrors(error.response.data)
     }
@@ -81,7 +86,13 @@ function PostForm({ post }) {
           />
         </Grid>
         <Grid item>
-          <Button color="secondary" variant="contained" onClick={onSubmit} fullWidth>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={onSubmit}
+            fullWidth
+            disabled={isLoading}
+          >
             Save
           </Button>
         </Grid>
