@@ -1,27 +1,16 @@
 import React from 'react'
 
-import Link from '@components/Link'
-
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import MailIcon from '@material-ui/icons/Mail'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 
 function Footer() {
   return (
-    <Grid container direction="column" alignItems="center">
-      <Grid item style={{ margin: '20px' }}>
-        <Typography>
-          &copy; bounce.dev {new Date().getFullYear()} - made with{' '}
-          <i className="fas fa-heart" style={{ color: 'red' }} />
-        </Typography>
-      </Grid>
-      <div>
-        <Link variant="MuiLink" color="inherit" href="mailto:mail@bounce.dev">
-          <Typography style={{ display: 'inline', margin: '15px' }}>
-            <MailIcon />
-          </Typography>
-        </Link>
-      </div>
+    <Grid container alignItems="center" justify="center">
+      <Typography variant="h6">
+        &copy; bounce.dev {new Date().getFullYear()} - made with&nbsp;
+      </Typography>
+      <FavoriteIcon style={{ color: 'red' }} />
     </Grid>
   )
 }
