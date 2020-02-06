@@ -4,10 +4,14 @@ import overrides from './overrides'
 import palette from './_palette'
 import typography from './_typography'
 
-const theme = createMuiTheme({
-  palette,
+export const lightTheme = createMuiTheme({
+  palette: { ...palette, type: 'light' },
   typography,
   overrides
 })
 
-export default theme
+export const darkTheme = createMuiTheme({
+  palette: { ...palette, type: 'dark' },
+  typography,
+  overrides
+})

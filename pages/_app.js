@@ -6,7 +6,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-import theme from '../themes'
+import { lightTheme } from '../themes'
 import '../public/css/quill.css'
 
 import Router from 'next/router'
@@ -114,10 +114,8 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          {/* <link rel="icon" href="/favicon.ico" /> */}
           <link rel="icon" href="/favicon.png" />
         </Head>
-
         <AuthContext.Provider
           value={{
             isAuthenticated: this.state.isAuthenticated,
@@ -127,7 +125,7 @@ class MyApp extends App {
           }}
         >
           <AlertContextProvider>
-            <MuiThemeProvider theme={theme}>
+            <MuiThemeProvider theme={lightTheme}>
               <CssBaseline />
               <RouterLoading />
               <Component {...pageProps} RouterLoading={RouterLoading} />
