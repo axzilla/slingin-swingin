@@ -87,7 +87,7 @@ function PostFeedItem({ post }) {
               <Typography variant="h4" component="h2" color="textPrimary" gutterBottom>
                 {postData.title}
               </Typography>
-              <Typography>
+              <Typography gutterBottom>
                 {htmlRemove(postData.text.substring(0, 250))} {postData.text.length > 250 && '...'}
               </Typography>
             </Link>
