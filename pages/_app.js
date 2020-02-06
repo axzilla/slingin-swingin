@@ -114,7 +114,8 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          {/* <link rel="icon" href="/favicon.ico" /> */}
+          <link rel="icon" href="/favicon.png" />
         </Head>
 
         <AuthContext.Provider
