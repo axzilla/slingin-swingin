@@ -1,26 +1,29 @@
 import PropTypes from 'prop-types'
+import { getPostById } from '@services/post'
 
 import { isNotLoggedIn } from '@utils/initialize'
 import { Main as MainLayout } from '@layouts'
 import { PostEdit as PostEditView } from '@views'
 
-function PostEdit({ id }) {
+function PostEdit({ post }) {
   return (
     <MainLayout>
-      <PostEditView id={id} />
+      <PostEditView post={post} />
     </MainLayout>
   )
 }
 
-PostEdit.getInitialProps = ctx => {
+PostEdit.getInitialProps = async ctx => {
   isNotLoggedIn(ctx)
 
   const { id } = ctx.query
-  return { id }
+  const post = await getPostById(id)
+
+  return { post: post.data }
 }
 
 PostEdit.propTypes = {
-  id: PropTypes.string
+  post: PropTypes.object
 }
 
 export default PostEdit
