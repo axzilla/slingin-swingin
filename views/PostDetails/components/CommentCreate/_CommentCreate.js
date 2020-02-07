@@ -5,12 +5,15 @@ import htmlRemove from '@utils/htmlRemove'
 import Quill from '@components/Quill'
 import { commentCreate } from '@services/comment'
 
-import Grid from '@material-ui/core/Grid'
+import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardContent from '@material-ui/core/CardContent'
 
 function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   const [text, setText] = useState('')
-
   async function onSubmit(event) {
     try {
       event.preventDefault()
@@ -36,19 +39,26 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   }
 
   return (
-    <Grid>
+    <Card>
+      <CardHeader title={`Comments (${comments.length})`} />
+      <Divider />
       <form onSubmit={onSubmit}>
-        <Quill value={text} onChange={onTextChange} placeholder="Write your story..." />
-        <Button
-          type="submit"
-          variant="outlined"
-          color="primary"
-          disabled={!htmlRemove(text).length}
-        >
-          Leave a comment
-        </Button>
+        <CardContent>
+          <Quill value={text} onChange={onTextChange} />
+        </CardContent>
+        <Divider />
+        <CardActions>
+          <Button
+            type="submit"
+            variant="outlined"
+            color="primary"
+            disabled={!htmlRemove(text).length}
+          >
+            Leave a comment
+          </Button>
+        </CardActions>
       </form>
-    </Grid>
+    </Card>
   )
 }
 

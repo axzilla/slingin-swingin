@@ -7,14 +7,14 @@ import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
 import CardMedia from '@material-ui/core/CardMedia'
-import CardHeader from '@material-ui/core/CardHeader'
+
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles(theme => ({
-  media: { objectFit: 'cover' },
-  addButton: { marginRight: theme.spacing(1) }
+  media: { objectFit: 'cover', marginBottom: theme.spacing(2) },
+  button: { margin: theme.spacing(0, 1, 1, 0) }
 }))
 
 function PostCreate({ setTitleImage, titleImagePreview, setTitleImagePreview }) {
@@ -33,41 +33,40 @@ function PostCreate({ setTitleImage, titleImagePreview, setTitleImagePreview }) 
   }
 
   return (
-    <Card>
-      <CardHeader title="Title Image" />
-      <CardMedia
-        component="img"
-        alt="Post title"
-        className={classes.media}
-        height="auto"
-        image={isEmpty(titleImagePreview) ? imagePlaceholder : titleImagePreview}
-      />
-      <CardActions>
-        <input
-          onChange={handlePostTitleImageChange}
-          style={{ display: 'none' }}
-          id="raised-button-file"
-          type="file"
+    <>
+      {!isEmpty(titleImagePreview) && (
+        <CardMedia
+          component="img"
+          alt="Post title"
+          className={classes.media}
+          height="auto"
+          image={isEmpty(titleImagePreview) ? imagePlaceholder : titleImagePreview}
         />
-        <div className="icons">
-          <label htmlFor="raised-button-file">
-            <Button
-              component="span"
-              variant="contained"
-              color="secondary"
-              className={classes.addButton}
-            >
-              {isEmpty(titleImagePreview) ? 'Add' : 'Change'}
-            </Button>
-          </label>
-          {!isEmpty(titleImagePreview) && (
-            <Button color="primary" variant="outlined" onClick={handleDeleteTitleImageClick}>
-              Remove
-            </Button>
-          )}
-        </div>
-      </CardActions>
-    </Card>
+      )}
+      <input
+        onChange={handlePostTitleImageChange}
+        style={{ display: 'none' }}
+        id="raised-button-file"
+        type="file"
+      />
+      <div className="icons">
+        <label htmlFor="raised-button-file">
+          <Button component="span" variant="contained" color="secondary" className={classes.button}>
+            <AddAPhotoIcon />
+          </Button>
+        </label>
+        {!isEmpty(titleImagePreview) && (
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={handleDeleteTitleImageClick}
+            className={classes.button}
+          >
+            <DeleteIcon />
+          </Button>
+        )}
+      </div>
+    </>
   )
 }
 

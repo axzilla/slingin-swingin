@@ -6,11 +6,7 @@ import TextField from '@components/TextField'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardHeader from '@material-ui/core/CardHeader'
 import Chip from '@material-ui/core/Chip'
-import Divider from '@material-ui/core/Divider'
 
 const useStyles = makeStyles(theme => ({
   chip: { margin: theme.spacing(0.5) },
@@ -40,36 +36,32 @@ function Tags({ tags, setTags, tagsInput, setTagsInput, errors }) {
   }
 
   return (
-    <Card>
-      <CardHeader title="Tags" />
-      <Divider />
-      <CardContent>
-        <TextField
-          error={errors && errors.tags}
-          type="tags"
-          label="Tags"
-          name="tags"
-          value={tagsInput}
-          onChange={handleTagsInputChange}
-          onKeyDown={handleTagsKeyPress}
-        />
-        <Grid>
-          {tags &&
-            tags.map((tag, i) => {
-              return (
-                <Chip
-                  key={tag}
-                  label={tag}
-                  onDelete={() => handleTagDelete(i)}
-                  className={classes.chip}
-                  color="primary"
-                  variant="outlined"
-                />
-              )
-            })}
-        </Grid>
-      </CardContent>
-    </Card>
+    <>
+      <TextField
+        error={errors && errors.tags}
+        type="tags"
+        label="Tags"
+        name="tags"
+        value={tagsInput}
+        onChange={handleTagsInputChange}
+        onKeyDown={handleTagsKeyPress}
+      />
+      <Grid>
+        {tags &&
+          tags.map((tag, i) => {
+            return (
+              <Chip
+                key={tag}
+                label={tag}
+                onDelete={() => handleTagDelete(i)}
+                className={classes.chip}
+                color="primary"
+                variant="outlined"
+              />
+            )
+          })}
+      </Grid>
+    </>
   )
 }
 
