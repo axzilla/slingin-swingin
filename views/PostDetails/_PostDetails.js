@@ -30,7 +30,7 @@ import CardActions from '@material-ui/core/CardActions'
 function PostDetails({ post }) {
   const { isAuthenticated, user } = useContext(AuthContext)
   const [postData, setPostData] = useState(post)
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState(post.postComments)
 
   async function onLikeClick() {
     try {
@@ -108,9 +108,6 @@ function PostDetails({ post }) {
             />
           </Card>
         </Grid>
-        <Typography variant="subtitle1" gutterBottom>
-          Comments ({comments.length})
-        </Typography>
         <Grid style={{ marginBottom: '50px' }}>
           {isAuthenticated ? (
             <CommentCreate
