@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
-import showdown from 'showdown'
 
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
 import Tags from './components/Tags'
 import Story from './components/Story'
 
+import markdownToHtml from '@utils/markdownToHtml'
+import htmlToMarkdown from '@utils/htmlToMarkdown'
 import { postCreate, postUpdate } from '@services/post'
 import Container from '@components/Container'
 
@@ -28,11 +29,9 @@ function PostForm({ post }) {
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
 
-  const converter = new showdown.Converter()
-
   useEffect(() => {
     if (post) {
-      setContent(converter.makeHtml(JSON.parse(post.content)))
+      setContent(markdownToHtml(post.content))
     } else {
       setContent('')
     }
@@ -45,7 +44,7 @@ function PostForm({ post }) {
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('content', JSON.stringify(converter.makeMarkdown(content)))
+      formData.append('content', htmlToMarkdown(content))
       formData.append('tags', tags)
 
       if (post) {

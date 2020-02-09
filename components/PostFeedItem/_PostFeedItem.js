@@ -2,12 +2,15 @@ import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import showdown from 'showdown'
 
+import markdownToHtml from '@utils/markdownToHtml'
 import htmlRemove from '@utils/htmlRemove'
+
 import Link from '@components/Link'
 import Chip from '@components/Chip'
+
 import AuthContext from '@contexts/AuthContext'
+
 import { postToggleBookmarks } from '@services/post'
 
 import { makeStyles } from '@material-ui/styles'
@@ -20,13 +23,12 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
+
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
 const useStyles = makeStyles({
   media: { objectFit: 'cover' }
 })
-
-const converter = new showdown.Converter()
 
 function PostFeedItem({ post }) {
   const classes = useStyles()
@@ -91,7 +93,7 @@ function PostFeedItem({ post }) {
                 {postData.title}
               </Typography>
               <Typography gutterBottom>
-                {htmlRemove(converter.makeHtml(JSON.parse(post.content.substring(0, 250))))}
+                {htmlRemove(markdownToHtml(post.content.substring(0, 250)))}
                 {postData.content.length > 250 && '...'}
               </Typography>
             </Link>
