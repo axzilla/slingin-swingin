@@ -1,5 +1,5 @@
-function htmlToMui(text) {
-  const replacedText = text
+function htmlToMui(content) {
+  const replacedContent = content
     .replace(
       /<a /g,
       '<a class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-159 MuiTypography-colorPrimary"'
@@ -13,7 +13,7 @@ function htmlToMui(text) {
     .replace(/<h6>/g, '<p class="MuiTypography-root MuiTypography-h6">')
     .replace(/<p><br><\/p>/g, '<p class="MuiTypography-root MuiTypography-h6">')
 
-  return replacedText
+  return replacedContent
 }
 
 export default htmlToMui

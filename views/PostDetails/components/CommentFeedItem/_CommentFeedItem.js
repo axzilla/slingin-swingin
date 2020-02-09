@@ -42,9 +42,9 @@ function CommentFeedItem({ comment, comments, setComments }) {
     setIsEditMode(!isEditMode)
   }
 
-  async function handleSaveClick(text) {
+  async function handleSaveClick(content) {
     try {
-      const commentData = { text, commentId: comment._id, post: comment.post }
+      const commentData = { content, commentId: comment._id, post: comment.post }
       setIsEditMode(false)
       const updatedComment = await commentUpdate(commentData)
       setCommentData(updatedComment.data)

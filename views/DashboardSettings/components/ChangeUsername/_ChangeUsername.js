@@ -53,7 +53,6 @@ function UsernameChange() {
         <form noValidate onSubmit={onSubmit}>
           <CardContent>
             <TextField
-              type="text"
               error={errors && errors.username}
               placeholder="Username"
               label="Username"

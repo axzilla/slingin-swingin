@@ -1,5 +1,5 @@
-function htmlRemove(text) {
-  var stripedHtml = text.replace(/<[^>]+>/g, '')
+function htmlRemove(content) {
+  var stripedHtml = content.replace(/<[^>]+>/g, '')
   return stripedHtml
 }
 

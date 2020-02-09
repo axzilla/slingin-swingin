@@ -13,13 +13,13 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 
 function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
-  const [text, setText] = useState('')
+  const [content, setContent] = useState('')
   async function onSubmit(event) {
     try {
       event.preventDefault()
 
       const commentData = {
-        text,
+        content,
         postId
       }
 
@@ -27,15 +27,15 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
       await setComments([...comments, createdComment.data])
 
       toggleAnswerMode && toggleAnswerMode()
-      setText('')
+      setContent('')
     } catch (error) {
       console.log(error.response.data)
     }
   }
 
-  async function onTextChange(value) {
+  async function handleContentChange(value) {
     // value instead event.target.value - is quill specified
-    setText(value)
+    setContent(value)
   }
 
   return (
@@ -44,7 +44,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
       <Divider />
       <form onSubmit={onSubmit}>
         <CardContent>
-          <Quill value={text} onChange={onTextChange} />
+          <Quill value={content} onChange={handleContentChange} />
         </CardContent>
         <Divider />
         <CardActions>
@@ -52,7 +52,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
             type="submit"
             variant="outlined"
             color="primary"
-            disabled={!htmlRemove(text).length}
+            disabled={!htmlRemove(content).length}
           >
             Leave a comment
           </Button>
