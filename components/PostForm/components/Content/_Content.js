@@ -14,7 +14,7 @@ function Content({ content, setContent, errors }) {
       error={errors && errors.content}
       value={content}
       onChange={handleContentChange}
-      placeholder="Content"
+      placeholder="Write your content..."
     />
   )
 }

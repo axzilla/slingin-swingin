@@ -123,18 +123,20 @@ function PostDetails({ post }) {
         </Card>
       </Grid>
       <Grid item>
-        {isAuthenticated ? (
-          <CommentCreate
-            postId={postData._id}
-            postShortId={postData.shortId}
-            comments={comments}
-            setComments={setComments}
-          />
-        ) : null}
+        <Box mb={5}>
+          {isAuthenticated ? (
+            <CommentCreate
+              postId={postData._id}
+              postShortId={postData.shortId}
+              comments={comments}
+              setComments={setComments}
+            />
+          ) : null}
+        </Box>
       </Grid>
       <Grid item>
         <Grid container direction="column" spacing={2}>
-          <Grid item>
+          <Grid item style={{ padding: '0 8px' }}>
             <Typography variant="subtitle1" color="textSecondary">
               {comments.length} Comments
             </Typography>
