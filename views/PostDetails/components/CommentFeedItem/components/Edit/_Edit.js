@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import Quill from '@components/Quill'
+import Editor from '@components/Editor'
 import htmlRemove from '@utils/htmlRemove'
 
 import Grid from '@material-ui/core/Grid'
@@ -15,14 +15,14 @@ function CommentEdit({ comment, handleSaveClick }) {
   }, [])
 
   async function handleContentChange(value) {
-    // value instead event.target.value - is quill specified
+    // value instead event.target.value - is Quill editor specified
     setContent(value)
   }
 
   return (
     <Grid>
       <form>
-        <Quill value={content} onChange={handleContentChange} placeholder="Edit your comment..." />
+        <Editor value={content} onChange={handleContentChange} placeholder="Edit your comment..." />
         <Button
           disabled={!htmlRemove(content).length}
           onClick={() => handleSaveClick(content)}

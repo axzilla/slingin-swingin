@@ -1,20 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Quill from '@components/Quill'
+import Editor from '@components/Editor'
 
 function PostForm({ content, setContent, errors }) {
   async function handleContentChange(value) {
-    // value instead event.target.value - is quill specified
+    // value instead event.target.value - is Quill editor specified
     setContent(value)
   }
 
   return (
-    <>
-      <div>
-        <Quill error={errors && errors.content} value={content} onChange={handleContentChange} />
-      </div>
-    </>
+    <div>
+      <Editor error={errors && errors.content} value={content} onChange={handleContentChange} />
+    </div>
   )
 }
 

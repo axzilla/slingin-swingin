@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import htmlRemove from '@utils/htmlRemove'
-import Quill from '@components/Quill'
+import Editor from '@components/Editor'
 import { commentCreate } from '@services/comment'
 
 import CardActions from '@material-ui/core/CardActions'
@@ -34,7 +34,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   }
 
   async function handleContentChange(value) {
-    // value instead event.target.value - is quill specified
+    // value instead event.target.value - is Quill editor specified
     setContent(value)
   }
 
@@ -44,7 +44,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
       <Divider />
       <form onSubmit={onSubmit}>
         <CardContent>
-          <Quill value={content} onChange={handleContentChange} />
+          <Editor value={content} onChange={handleContentChange} />
         </CardContent>
         <Divider />
         <CardActions>
