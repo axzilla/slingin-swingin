@@ -37,7 +37,7 @@ const formats = [
 
 const useStyles = makeStyles(theme => ({
   quill: {
-    '& .ql-editor': { fontFamily: 'Roboto' },
+    '& .ql-editor': { fontFamily: 'Roboto', minHeight: '200px' },
 
     '& .ql-snow .ql-tooltip': {
       position: 'relative !important',
