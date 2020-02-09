@@ -8,7 +8,6 @@ import Chip from '../../components/Chip'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
-import Divider from '@material-ui/core/Divider'
 
 function WidgetTopPostsTags() {
   const [postTags, setPostTags] = useState()
@@ -29,7 +28,6 @@ function WidgetTopPostsTags() {
   return (
     <Card>
       <CardHeader title="Popular tags" />
-      <Divider />
       <CardContent>
         {postTags &&
           postTags.slice(0, 25).map(item => {
