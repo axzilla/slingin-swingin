@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import showdown from 'showdown'
 
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
@@ -27,15 +28,24 @@ function PostForm({ post }) {
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
 
+  const converter = new showdown.Converter()
+
+  useEffect(() => {
+    if (post) {
+      setContent(converter.makeHtml(JSON.parse(post.content)))
+    } else {
+      setContent('')
+    }
+  }, [])
+
   async function onSubmit() {
     try {
       setIsLoading(true)
 
       const formData = new FormData()
-
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('content', content)
+      formData.append('content', JSON.stringify(converter.makeMarkdown(content)))
       formData.append('tags', tags)
 
       if (post) {
@@ -46,20 +56,17 @@ function PostForm({ post }) {
         const res = await postUpdate(formData)
         const updatedPost = res.data
         const { shortId, urlSlug } = updatedPost
-
         Router.push(`/post/${shortId}/${urlSlug}`)
       } else if (!post) {
         const res = await postCreate(formData)
         const createdPost = res.data
         const { shortId, urlSlug } = createdPost
-
         Router.push(`/post/${shortId}/${urlSlug}`)
       }
-
-      setIsLoading(false)
     } catch (error) {
       setErrors(error.response.data)
     }
+    setIsLoading(false)
   }
 
   return (
