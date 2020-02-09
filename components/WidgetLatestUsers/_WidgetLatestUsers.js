@@ -48,7 +48,7 @@ function LandingWidgetUsers() {
   return (
     <Card className={classes.card}>
       <CardHeader title="New Members" />
-      <CardContent className={classes.cardContent}>
+      <div className={classes.cardContent}>
         <List className={classes.list}>
           {profiles &&
             profiles.slice(0, 10).map(profile => {
@@ -80,7 +80,7 @@ function LandingWidgetUsers() {
               )
             })}
         </List>
-      </CardContent>
+      </div>
     </Card>
   )
 }
