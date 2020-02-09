@@ -1,1 +1,1 @@
-export { default } from './_Story'
+export { default } from './_Content'
