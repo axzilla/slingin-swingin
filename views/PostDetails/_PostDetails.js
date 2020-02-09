@@ -137,7 +137,7 @@ function PostDetails({ post }) {
       <Grid item xs={12}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
-            <Typography variant="h4" align="center" color="textSecondary">
+            <Typography variant="h5" align="center" color="textSecondary">
               {comments.length} Comments
             </Typography>
           </Grid>

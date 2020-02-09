@@ -39,17 +39,15 @@ function CommentFeedItemVote({ comment }) {
   const isUpvoted = commentData.votes.upvotes.map(upvote => upvote.user).includes(user.id)
 
   return (
-    <Grid container alignItems="center" spacing={2}>
-      <Grid item>
-        <MoodBadIcon onClick={onDownvoteClick} color={isDownvoted ? 'primary' : 'disabled'} />
-      </Grid>
-      <Grid item>
-        <MoodIcon onClick={onUpvoteClick} color={isUpvoted ? 'primary' : 'disabled'} />
-      </Grid>
+    <Grid container alignItems="center" justify="space-between" spacing={2}>
       <Grid item>
         <Typography variant="h6" color="textSecondary">
           {votes} Votes
         </Typography>
+      </Grid>
+      <Grid item>
+        <MoodBadIcon onClick={onDownvoteClick} color={isDownvoted ? 'primary' : 'disabled'} />
+        <MoodIcon onClick={onUpvoteClick} color={isUpvoted ? 'primary' : 'disabled'} />
       </Grid>
     </Grid>
   )
