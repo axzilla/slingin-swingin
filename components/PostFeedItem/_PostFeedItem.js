@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
+import showdown from 'showdown'
 
 import htmlRemove from '@utils/htmlRemove'
 import Link from '@components/Link'
@@ -24,6 +25,8 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 const useStyles = makeStyles({
   media: { objectFit: 'cover' }
 })
+
+const converter = new showdown.Converter()
 
 function PostFeedItem({ post }) {
   const classes = useStyles()
@@ -88,7 +91,7 @@ function PostFeedItem({ post }) {
                 {postData.title}
               </Typography>
               <Typography gutterBottom>
-                {htmlRemove(postData.content.substring(0, 250))}{' '}
+                {htmlRemove(converter.makeHtml(JSON.parse(post.content.substring(0, 250))))}
                 {postData.content.length > 250 && '...'}
               </Typography>
             </Link>
