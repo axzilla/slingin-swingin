@@ -6,6 +6,7 @@ import MuiContainer from '@material-ui/core/Container'
 
 const useStyles = makeStyles(theme => ({
   root: {
+    minHeight: '100vh',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
 

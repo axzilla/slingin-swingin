@@ -65,7 +65,7 @@ function PostFeedItem({ post }) {
         }
         title={
           <Link href="/[handle]" as={`/${postData.user.username}`}>
-            {postData.user.username}
+            <Typography color="primary">{postData.user.username}</Typography>
           </Link>
         }
         subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
@@ -88,10 +88,10 @@ function PostFeedItem({ post }) {
               href="/post/[postId]/[urlSlug]"
               as={`/post/${postData.shortId}/${postData.urlSlug}`}
             >
-              <Typography variant="h4" component="h2" color="textPrimary" gutterBottom>
+              <Typography variant="h4" component="h2" gutterBottom>
                 {postData.title}
               </Typography>
-              <Typography gutterBottom>
+              <Typography color="textSecondary" gutterBottom>
                 {htmlRemove(markdownToHtml(post.content.substring(0, 250)))}
                 {postData.content.length > 250 && '...'}
               </Typography>
@@ -113,13 +113,19 @@ function PostFeedItem({ post }) {
           <Grid item>
             <Grid container alignItems="center" spacing={2}>
               <Grid item>
-                <Typography variant="h6">{postData.likes.length} likes</Typography>
+                <Typography variant="h6" color="textSecondary">
+                  {postData.likes.length} likes
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="h6">{postData.postComments.length} replies</Typography>
+                <Typography variant="h6" color="textSecondary">
+                  {postData.postComments.length} replies
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="h6">{postData.views} views</Typography>
+                <Typography variant="h6" color="textSecondary">
+                  {postData.views} views
+                </Typography>
               </Grid>
             </Grid>
           </Grid>
