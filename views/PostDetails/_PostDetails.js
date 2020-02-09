@@ -4,16 +4,13 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
 import AuthContext from '@contexts/AuthContext'
-import { getPostByShortId, postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
+import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
 import Link from '@components/Link'
-import Container from '@components/Container'
 
 import AuthActions from './components/AuthActions'
-import Bookmarks from './components/Bookmarks'
 import Content from './components/Content'
 import CommentCreate from './components/CommentCreate'
 import CommentFeedItem from './components/CommentFeedItem'
-import Likes from './components/Likes'
 import Tags from './components/Tags'
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
@@ -24,36 +21,39 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import CardHeader from '@material-ui/core/CardHeader'
-import Divider from '@material-ui/core/Divider'
-import CardActions from '@material-ui/core/CardActions'
+import Box from '@material-ui/core/Box'
+
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 
 function PostDetails({ post }) {
   const { isAuthenticated, user } = useContext(AuthContext)
   const [postData, setPostData] = useState(post)
   const [comments, setComments] = useState(post.postComments)
 
-  async function onLikeClick() {
+  const isBookmarked = postData.bookmarks.includes(user.id)
+  const isLiked = postData.likes.includes(user.id)
+
+  async function handleLikeClick() {
     try {
       if (!isAuthenticated) {
         Router.push('/login')
       }
 
-      await postToggleLikes(postData._id)
-      const updatedPost = await getPostByShortId(postData.shortId)
+      const updatedPost = await postToggleLikes(postData._id)
       setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
     }
   }
 
-  async function onBookmarkClick() {
+  async function handleBookmarkClick() {
     try {
       if (!isAuthenticated) {
         Router.push('/login')
       }
 
-      await postToggleBookmarks(postData._id)
-      const updatedPost = await getPostByShortId(postData.shortId)
+      const updatedPost = await postToggleBookmarks(postData._id)
       setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
@@ -61,75 +61,99 @@ function PostDetails({ post }) {
   }
 
   return (
-    <Grid container justify="center">
-      <Container maxWidth="md">
-        <Grid item>
-          <Card>
-            <CardHeader
-              title={
-                <Link href="/[handle]" as={`/${postData.user.username}`}>
-                  <Typography color="primary" style={{ display: 'inline' }}>
-                    {postData.user.username}
-                  </Typography>
-                </Link>
-              }
-              subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
-              avatar={
-                <Link href="/[handle]" as={`/${postData.user.username}`}>
-                  {postData.user.avatar && postData.user.avatar.secure_url ? (
-                    <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
-                  ) : (
-                    <Avatar alt={postData.user.username}>
-                      {postData.user.username.substring(0, 1).toUpperCase()}
-                    </Avatar>
-                  )}
-                </Link>
-              }
-            />
-            <Divider />
-            {postData.titleImage && <TitleImage post={postData} />}
-            <CardContent>
-              <Title post={postData} />
-              <Tags post={postData} />
-              <Content post={postData} />
-            </CardContent>
-            <Divider />
-            <CardActions>
-              <div style={{ display: 'flex', width: '100%' }}>
-                <Likes post={postData} user={user} onLikeClick={onLikeClick} />
-                <Bookmarks post={postData} user={user} onBookmarkClick={onBookmarkClick} />
-              </div>
-            </CardActions>
-            <AuthActions
-              post={postData}
-              user={user}
-              isAuthenticated={isAuthenticated}
-              postDelete={postDelete}
-            />
-          </Card>
+    <Grid container justify="center" direction="column" spacing={2}>
+      <Grid item>
+        <Card>
+          <CardHeader
+            title={
+              <Link href="/[handle]" as={`/${postData.user.username}`}>
+                <Typography color="primary" style={{ display: 'inline' }}>
+                  {postData.user.username}
+                </Typography>
+              </Link>
+            }
+            subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
+            avatar={
+              <Link href="/[handle]" as={`/${postData.user.username}`}>
+                {postData.user.avatar && postData.user.avatar.secure_url ? (
+                  <Avatar alt={postData.user.username} src={postData.user.avatar.secure_url} />
+                ) : (
+                  <Avatar alt={postData.user.username}>
+                    {postData.user.username.substring(0, 1).toUpperCase()}
+                  </Avatar>
+                )}
+              </Link>
+            }
+          />
+          {postData.titleImage && <TitleImage post={postData} />}
+          <CardContent>
+            <Title post={postData} />
+            <Tags post={postData} />
+            <Content post={postData} />
+          </CardContent>
+          <Box m={2}>
+            <Grid container justify="space-between" alignItems="center">
+              <Grid item>
+                <Typography variant="h6">{postData.likes.length} likes</Typography>
+              </Grid>
+              <Grid item>
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item>
+                    <FavoriteIcon
+                      onClick={handleLikeClick}
+                      color={isLiked ? 'secondary' : 'primary'}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <BookmarkIcon
+                      color={isBookmarked ? 'primary' : 'disabled'}
+                      onClick={handleBookmarkClick}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
+          <AuthActions
+            post={postData}
+            user={user}
+            isAuthenticated={isAuthenticated}
+            postDelete={postDelete}
+          />
+        </Card>
+      </Grid>
+      <Grid item>
+        {isAuthenticated ? (
+          <CommentCreate
+            postId={postData._id}
+            postShortId={postData.shortId}
+            comments={comments}
+            setComments={setComments}
+          />
+        ) : null}
+      </Grid>
+      <Grid item>
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Typography variant="subtitle1" color="textSecondary">
+              {comments.length} Comments
+            </Typography>
+          </Grid>
+
+          {comments &&
+            comments.map(comment => {
+              return (
+                <Grid key={comment._id} item>
+                  <CommentFeedItem
+                    comment={comment}
+                    comments={comments}
+                    setComments={setComments}
+                  />
+                </Grid>
+              )
+            })}
         </Grid>
-        <Grid style={{ marginBottom: '50px' }}>
-          {isAuthenticated ? (
-            <CommentCreate
-              postId={postData._id}
-              postShortId={postData.shortId}
-              comments={comments}
-              setComments={setComments}
-            />
-          ) : null}
-        </Grid>
-        {comments &&
-          comments.map(comment => {
-            return (
-              <CommentFeedItem
-                key={comment._id}
-                comment={comment}
-                comments={comments}
-                setComments={setComments}
-              />
-            )
-          })}
-      </Container>
+      </Grid>
     </Grid>
   )
 }

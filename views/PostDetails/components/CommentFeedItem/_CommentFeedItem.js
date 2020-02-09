@@ -10,7 +10,6 @@ import Header from './components/Header'
 import Content from './components/Content'
 import Vote from './components/Vote'
 
-import { makeStyles } from '@material-ui/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
@@ -22,10 +21,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 
-const useStyles = makeStyles({ card: { marginBottom: '20px' } })
-
 function CommentFeedItem({ comment, comments, setComments }) {
-  const classes = useStyles()
   const { user, isAuthenticated } = useContext(AuthContext)
   const [commentData, setCommentData] = useState(comment)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -78,7 +74,7 @@ function CommentFeedItem({ comment, comments, setComments }) {
 
   return (
     <>
-      <Card className={classes.card}>
+      <Card>
         {!isEditMode ? (
           <>
             <Header comment={comment} />
@@ -91,7 +87,6 @@ function CommentFeedItem({ comment, comments, setComments }) {
             <Edit comment={commentData} handleSaveClick={handleSaveClick} />
           </CardContent>
         )}
-        <Divider />
         <CardActions disableSpacing>
           <Vote comment={commentData} />
         </CardActions>

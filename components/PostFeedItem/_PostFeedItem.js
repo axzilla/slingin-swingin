@@ -18,11 +18,10 @@ import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import CardActions from '@material-ui/core/CardActions'
+import Box from '@material-ui/core/Box'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
@@ -109,24 +108,29 @@ function PostFeedItem({ post }) {
           </Grid>
         </Grid>
       </CardContent>
-      <CardActions>
-        <Grid container alignItems="center" spacing={2}>
+      <Box p={2}>
+        <Grid container justify="space-between" alignItems="center">
           <Grid item>
-            <IconButton onClick={handleBookmarkClick}>
-              {isBookmarked ? <BookmarkIcon color="primary" /> : <BookmarkIcon />}
-            </IconButton>
+            <Grid container alignItems="center" spacing={2}>
+              <Grid item>
+                <Typography variant="h6">{postData.likes.length} likes</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">{postData.postComments.length} replies</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">{postData.views} views</Typography>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item>
-            <Typography variant="h6">{postData.likes.length} likes</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6">{postData.postComments.length} replies</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6">{postData.views} views</Typography>
+            <BookmarkIcon
+              onClick={handleBookmarkClick}
+              color={isBookmarked ? 'primary' : 'disabled'}
+            />
           </Grid>
         </Grid>
-      </CardActions>
+      </Box>
     </Card>
   )
 }

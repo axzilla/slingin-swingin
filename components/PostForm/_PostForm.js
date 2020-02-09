@@ -10,7 +10,6 @@ import Content from './components/Content'
 import markdownToHtml from '@utils/markdownToHtml'
 import htmlToMarkdown from '@utils/htmlToMarkdown'
 import { postCreate, postUpdate } from '@services/post'
-import Container from '@components/Container'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -69,48 +68,46 @@ function PostForm({ post }) {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Card>
-        <CardContent>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <TitleImage
-                setTitleImage={setTitleImage}
-                titleImagePreview={titleImagePreview}
-                setTitleImagePreview={setTitleImagePreview}
-              />
-            </Grid>
-
-            <Grid item>
-              <Title title={title} setTitle={setTitle} errors={errors} />
-            </Grid>
-            <Grid item>
-              <Content content={content} setContent={setContent} errors={errors} />
-            </Grid>
-            <Grid item>
-              <Tags
-                tags={tags}
-                setTags={setTags}
-                tagsInput={tagsInput}
-                setTagsInput={setTagsInput}
-                errors={errors}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                color="secondary"
-                variant="contained"
-                onClick={onSubmit}
-                fullWidth
-                disabled={isLoading}
-              >
-                Save
-              </Button>
-            </Grid>
+    <Card>
+      <CardContent>
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <TitleImage
+              setTitleImage={setTitleImage}
+              titleImagePreview={titleImagePreview}
+              setTitleImagePreview={setTitleImagePreview}
+            />
           </Grid>
-        </CardContent>
-      </Card>
-    </Container>
+
+          <Grid item>
+            <Title title={title} setTitle={setTitle} errors={errors} />
+          </Grid>
+          <Grid item>
+            <Content content={content} setContent={setContent} errors={errors} />
+          </Grid>
+          <Grid item>
+            <Tags
+              tags={tags}
+              setTags={setTags}
+              tagsInput={tagsInput}
+              setTagsInput={setTagsInput}
+              errors={errors}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={onSubmit}
+              fullWidth
+              disabled={isLoading}
+            >
+              Save
+            </Button>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   )
 }
 

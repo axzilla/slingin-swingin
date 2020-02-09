@@ -6,12 +6,8 @@ import htmlToMarkdown from '@utils/htmlToMarkdown'
 import Editor from '@components/Editor'
 import { commentCreate } from '@services/comment'
 
-import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardContent from '@material-ui/core/CardContent'
+import Box from '@material-ui/core/Box'
 
 function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   const [content, setContent] = useState('')
@@ -40,26 +36,19 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   }
 
   return (
-    <Card>
-      <CardHeader title={`Comments (${comments.length})`} />
-      <Divider />
-      <form onSubmit={onSubmit}>
-        <CardContent>
-          <Editor value={content} onChange={handleContentChange} />
-        </CardContent>
-        <Divider />
-        <CardActions>
-          <Button
-            type="submit"
-            variant="outlined"
-            color="primary"
-            disabled={!htmlRemove(content).length}
-          >
-            Leave a comment
-          </Button>
-        </CardActions>
-      </form>
-    </Card>
+    <form onSubmit={onSubmit}>
+      <Box mb={1}>
+        <Editor value={content} onChange={handleContentChange} />
+      </Box>
+      <Button
+        type="submit"
+        variant="outlined"
+        color="primary"
+        disabled={!htmlRemove(content).length}
+      >
+        Leave a comment
+      </Button>
+    </form>
   )
 }
 
