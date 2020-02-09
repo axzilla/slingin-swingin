@@ -5,7 +5,7 @@ import Router from 'next/router'
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
 import Tags from './components/Tags'
-import Story from './components/Story'
+import Content from './components/Content'
 
 import markdownToHtml from '@utils/markdownToHtml'
 import htmlToMarkdown from '@utils/htmlToMarkdown'
@@ -85,7 +85,7 @@ function PostForm({ post }) {
               <Title title={title} setTitle={setTitle} errors={errors} />
             </Grid>
             <Grid item>
-              <Story content={content} setContent={setContent} errors={errors} />
+              <Content content={content} setContent={setContent} errors={errors} />
             </Grid>
             <Grid item>
               <Tags
