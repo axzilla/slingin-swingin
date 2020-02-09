@@ -25,9 +25,13 @@ function PostFeedByTag({ tag }) {
   }
 
   return (
-    <Grid>
-      <Header tag={tag} />
-      {posts && posts.map(post => <PostFeedItem key={post._id} post={post} />)}
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Header tag={tag} />
+      </Grid>
+      <Grid item xs={12}>
+        {posts && posts.map(post => <PostFeedItem key={post._id} post={post} />)}
+      </Grid>
     </Grid>
   )
 }
