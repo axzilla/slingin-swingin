@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 import { lightTheme } from '../themes'
-import '../public/css/quill.css'
 
 import Router from 'next/router'
 import { withRouter } from 'next/router'
