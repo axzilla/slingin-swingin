@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
+import markdownToHtml from '@utils/markdownToHtml'
 import Editor from '@components/Editor'
 import htmlRemove from '@utils/htmlRemove'
 
@@ -11,7 +12,7 @@ function CommentEdit({ comment, handleSaveClick }) {
   const [content, setContent] = useState('')
 
   useEffect(() => {
-    setContent(comment.content)
+    setContent(markdownToHtml(comment.content))
   }, [])
 
   async function handleContentChange(value) {

@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
+import htmlToMui from '@utils/htmlToMui'
+import markdownToHtml from '@utils/markdownToHtml'
 import Link from '@components/Link'
 
 import Card from '@material-ui/core/Card'
@@ -37,7 +39,9 @@ function Comments({ comments }) {
                       </Typography>
                     </div>
                   </div>
-                  <Typography>{comment.content}</Typography>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: htmlToMui(markdownToHtml(comment.content)) }}
+                  />
                 </CardContent>
               </Card>
             )

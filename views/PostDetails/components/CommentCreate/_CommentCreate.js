@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import htmlRemove from '@utils/htmlRemove'
+import htmlToMarkdown from '@utils/htmlToMarkdown'
 import Editor from '@components/Editor'
 import { commentCreate } from '@services/comment'
 
@@ -19,7 +20,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
       event.preventDefault()
 
       const commentData = {
-        content,
+        content: htmlToMarkdown(content),
         postId
       }
 

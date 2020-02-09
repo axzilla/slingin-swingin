@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Moment from 'react-moment'
 
+import htmlToMui from '@utils/htmlToMui'
+import markdownToHtml from '@utils/markdownToHtml'
 import AuthContext from '@contexts/AuthContext'
 import { getCommentsByUserId } from '@services/comment'
 import Link from '@components/Link'
@@ -56,7 +58,7 @@ function Comments() {
                 </Typography>
               </div>
             </div>
-            <Typography>{comment.content}</Typography>
+            <div dangerouslySetInnerHTML={{ __html: htmlToMui(markdownToHtml(comment.content)) }} />
           </CardContent>
         </Card>
       )
