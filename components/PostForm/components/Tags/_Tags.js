@@ -55,7 +55,7 @@ function Tags({ tags, setTags, tagsInput, setTagsInput, errors }) {
                 label={tag}
                 onDelete={() => handleTagDelete(i)}
                 className={classes.chip}
-                color="primary"
+                color="textSecondary"
                 variant="outlined"
               />
             )

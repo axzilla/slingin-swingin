@@ -12,7 +12,7 @@ function PostDetailsTags({ post }) {
       {post.tags.map(tag => {
         return (
           <Link key={tag} href="/posts/t/[tag]" as={`/posts/t/${tag}`}>
-            <Chip clickable label={tag} variant="outlined" />
+            <Chip clickable label={tag} variant="outlined" color="textSecondary" />
           </Link>
         )
       })}

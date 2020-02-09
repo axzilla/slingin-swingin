@@ -6,10 +6,9 @@ import { commentUpvote, commentDownvote } from '@services/comment'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 
-import ThumbDownIcon from '@material-ui/icons/ThumbDown'
-import ThumbUpIcon from '@material-ui/icons/ThumbUp'
+import MoodIcon from '@material-ui/icons/Mood'
+import MoodBadIcon from '@material-ui/icons/MoodBad'
 
 function CommentFeedItemVote({ comment }) {
   const { user } = useContext(AuthContext)
@@ -40,16 +39,18 @@ function CommentFeedItemVote({ comment }) {
   const isUpvoted = commentData.votes.upvotes.map(upvote => upvote.user).includes(user.id)
 
   return (
-    <Grid container alignItems="center">
-      <IconButton onClick={onDownvoteClick}>
-        <ThumbDownIcon color={isDownvoted ? 'secondary' : 'primary'} />
-      </IconButton>
-      <Typography variant="h6" color="textSecondary">
-        {votes} Votes
-      </Typography>
-      <IconButton onClick={onUpvoteClick}>
-        <ThumbUpIcon color={isUpvoted ? 'secondary' : 'primary'} />
-      </IconButton>
+    <Grid container alignItems="center" spacing={2}>
+      <Grid item>
+        <MoodBadIcon onClick={onDownvoteClick} color={isDownvoted ? 'primary' : 'disabled'} />
+      </Grid>
+      <Grid item>
+        <MoodIcon onClick={onUpvoteClick} color={isUpvoted ? 'primary' : 'disabled'} />
+      </Grid>
+      <Grid item>
+        <Typography variant="h6" color="textSecondary">
+          {votes} Votes
+        </Typography>
+      </Grid>
     </Grid>
   )
 }

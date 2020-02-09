@@ -67,9 +67,7 @@ function PostDetails({ post }) {
           <CardHeader
             title={
               <Link href="/[handle]" as={`/${postData.user.username}`}>
-                <Typography color="primary" style={{ display: 'inline' }}>
-                  {postData.user.username}
-                </Typography>
+                <Typography color="primary">{postData.user.username}</Typography>
               </Link>
             }
             subheader={<Moment fromNow>{postData.dateCreated}</Moment>}
@@ -88,20 +86,24 @@ function PostDetails({ post }) {
           {postData.titleImage && <TitleImage post={postData} />}
           <CardContent>
             <Title post={postData} />
+            <Box mb={1}>
+              <Content post={postData} />
+            </Box>
             <Tags post={postData} />
-            <Content post={postData} />
           </CardContent>
           <Box m={2}>
             <Grid container justify="space-between" alignItems="center">
               <Grid item>
-                <Typography variant="h6">{postData.likes.length} likes</Typography>
+                <Typography color="textSecondary" variant="h6">
+                  {postData.likes.length} likes
+                </Typography>
               </Grid>
               <Grid item>
                 <Grid container alignItems="center" spacing={2}>
                   <Grid item>
                     <FavoriteIcon
                       onClick={handleLikeClick}
-                      color={isLiked ? 'secondary' : 'primary'}
+                      color={isLiked ? 'secondary' : 'disabled'}
                     />
                   </Grid>
                   <Grid item>
@@ -123,25 +125,22 @@ function PostDetails({ post }) {
         </Card>
       </Grid>
       <Grid item>
-        <Box mb={5}>
-          {isAuthenticated ? (
-            <CommentCreate
-              postId={postData._id}
-              postShortId={postData.shortId}
-              comments={comments}
-              setComments={setComments}
-            />
-          ) : null}
-        </Box>
+        {isAuthenticated ? (
+          <CommentCreate
+            postId={postData._id}
+            postShortId={postData.shortId}
+            comments={comments}
+            setComments={setComments}
+          />
+        ) : null}
       </Grid>
       <Grid item>
         <Grid container direction="column" spacing={2}>
-          <Grid item style={{ padding: '0 8px' }}>
-            <Typography variant="subtitle1" color="textSecondary">
+          <Grid item>
+            <Typography variant="h4" align="center" color="textSecondary">
               {comments.length} Comments
             </Typography>
           </Grid>
-
           {comments &&
             comments.map(comment => {
               return (
