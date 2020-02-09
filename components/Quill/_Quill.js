@@ -36,6 +36,15 @@ const formats = [
 ]
 
 const useStyles = makeStyles(theme => ({
+  quill: {
+    '& .ql-editor': { fontFamily: 'Roboto' },
+
+    '& .ql-snow .ql-tooltip': {
+      position: 'relative !important',
+      left: '0 !important',
+      top: '0 !important'
+    }
+  },
   error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
 }))
 
@@ -43,7 +52,13 @@ function Quill({ error, ...rest }) {
   const classes = useStyles()
   return (
     <>
-      <ReactQuill modules={modules} formats={formats} theme="snow" {...rest} />
+      <ReactQuill
+        className={classes.quill}
+        modules={modules}
+        formats={formats}
+        theme="snow"
+        {...rest}
+      />
       {error && <FormHelperText className={classes.error}>{error}</FormHelperText>}
     </>
   )
