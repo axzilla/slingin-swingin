@@ -39,6 +39,8 @@ const useStyles = makeStyles(theme => ({
   quill: {
     '& .ql-editor': { fontFamily: 'Roboto', minHeight: '200px' },
 
+    '& .ql-blank': { '&:before': { fontStyle: 'normal' } },
+
     '& .ql-snow .ql-tooltip': {
       position: 'relative !important',
       left: '0 !important',
