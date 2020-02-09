@@ -14,6 +14,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import Dialog from '@material-ui/core/Dialog'
@@ -87,9 +88,9 @@ function CommentFeedItem({ comment, comments, setComments }) {
             <Edit comment={commentData} handleSaveClick={handleSaveClick} />
           </CardContent>
         )}
-        <CardActions disableSpacing>
+        <Box m={2}>
           <Vote comment={commentData} />
-        </CardActions>
+        </Box>
         {isAuthenticated && user.id === comment.user._id && (
           <>
             <Divider />
