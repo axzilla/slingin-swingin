@@ -14,7 +14,7 @@ function ProfileDetails({ profile, posts, comments }) {
   const [commentsData] = useState(comments)
 
   return (
-    <Grid container>
+    <Grid>
       <CardHeader profile={profileData} auth={AuthContext} setProfile={setProfileData} />
       <Tabs
         profile={profileData}
