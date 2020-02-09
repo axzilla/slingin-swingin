@@ -10,9 +10,12 @@ function Content({ content, setContent, errors }) {
   }
 
   return (
-    <div>
-      <Editor error={errors && errors.content} value={content} onChange={handleContentChange} />
-    </div>
+    <Editor
+      error={errors && errors.content}
+      value={content}
+      onChange={handleContentChange}
+      placeholder="Content"
+    />
   )
 }
 
