@@ -43,12 +43,22 @@ const useStyles = makeStyles(theme => ({
       position: 'relative !important',
       left: '0 !important',
       top: '0 !important'
+    },
+
+    '& .ql-toolbar': {
+      borderTopLeftRadius: '4px',
+      borderTopRightRadius: '4px'
+    },
+
+    '& .ql-container': {
+      borderBottomLeftRadius: '4px',
+      borderBottomRightRadius: '4px'
     }
   },
   error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
 }))
 
-function Quill({ error, ...rest }) {
+function Editor({ error, ...rest }) {
   const classes = useStyles()
   return (
     <>
@@ -64,8 +74,8 @@ function Quill({ error, ...rest }) {
   )
 }
 
-Quill.propTypes = {
+Editor.propTypes = {
   error: PropTypes.string
 }
 
-export default Quill
+export default Editor
