@@ -61,8 +61,8 @@ function PostDetails({ post }) {
   }
 
   return (
-    <Grid container justify="center" direction="column" spacing={2}>
-      <Grid item>
+    <Grid container justify="center" spacing={2}>
+      <Grid item xs={12}>
         <Card>
           <CardHeader
             title={
@@ -124,7 +124,7 @@ function PostDetails({ post }) {
           />
         </Card>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         {isAuthenticated ? (
           <CommentCreate
             postId={postData._id}
@@ -134,7 +134,7 @@ function PostDetails({ post }) {
           />
         ) : null}
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Typography variant="h4" align="center" color="textSecondary">
