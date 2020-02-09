@@ -23,7 +23,7 @@ function PostForm({ post }) {
     post && post.titleImage ? post.titleImage.secure_url : null
   )
   const [title, setTitle] = useState(post ? post.title : '')
-  const [text, setText] = useState(post ? post.text : '')
+  const [content, setContent] = useState(post ? post.content : '')
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
 
@@ -35,7 +35,7 @@ function PostForm({ post }) {
 
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('text', text)
+      formData.append('content', content)
       formData.append('tags', tags)
 
       if (post) {
@@ -79,7 +79,7 @@ function PostForm({ post }) {
               <Title title={title} setTitle={setTitle} errors={errors} />
             </Grid>
             <Grid item>
-              <Story text={text} setText={setText} errors={errors} />
+              <Story content={content} setContent={setContent} errors={errors} />
             </Grid>
             <Grid item>
               <Tags

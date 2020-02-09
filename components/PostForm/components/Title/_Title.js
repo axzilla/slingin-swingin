@@ -11,7 +11,6 @@ function Title({ errors, title, setTitle }) {
   return (
     <>
       <TextField
-        type="text"
         error={errors && errors.title}
         label="Title"
         name="title"

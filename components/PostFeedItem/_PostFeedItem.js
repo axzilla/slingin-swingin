@@ -88,7 +88,8 @@ function PostFeedItem({ post }) {
                 {postData.title}
               </Typography>
               <Typography gutterBottom>
-                {htmlRemove(postData.text.substring(0, 250))} {postData.text.length > 250 && '...'}
+                {htmlRemove(postData.content.substring(0, 250))}{' '}
+                {postData.content.length > 250 && '...'}
               </Typography>
             </Link>
             <Grid container>

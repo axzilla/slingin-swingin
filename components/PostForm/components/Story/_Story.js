@@ -3,24 +3,24 @@ import PropTypes from 'prop-types'
 
 import Quill from '@components/Quill'
 
-function PostForm({ text, setText, errors }) {
-  async function onTextChange(value) {
+function PostForm({ content, setContent, errors }) {
+  async function handleContentChange(value) {
     // value instead event.target.value - is quill specified
-    setText(value)
+    setContent(value)
   }
 
   return (
     <>
       <div>
-        <Quill error={errors && errors.text} value={text} onChange={onTextChange} />
+        <Quill error={errors && errors.content} value={content} onChange={handleContentChange} />
       </div>
     </>
   )
 }
 
 PostForm.propTypes = {
-  text: PropTypes.string,
-  setText: PropTypes.func,
+  content: PropTypes.string,
+  setContent: PropTypes.func,
   errors: PropTypes.object
 }
 

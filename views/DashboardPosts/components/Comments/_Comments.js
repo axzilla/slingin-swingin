@@ -56,7 +56,7 @@ function Comments() {
                 </Typography>
               </div>
             </div>
-            <Typography>{comment.text}</Typography>
+            <Typography>{comment.content}</Typography>
           </CardContent>
         </Card>
       )
