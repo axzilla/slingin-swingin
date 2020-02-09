@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 
 import { commentUpdate, commentDelete } from '@services/comment'
 import AuthContext from '@contexts/AuthContext'
+import htmlToMarkdown from '@utils/htmlToMarkdown'
 
 import Edit from './components/Edit'
 import Header from './components/Header'
-import Text from './components/Text'
+import Content from './components/Content'
 import Vote from './components/Vote'
 
 import { makeStyles } from '@material-ui/styles'
@@ -44,7 +45,12 @@ function CommentFeedItem({ comment, comments, setComments }) {
 
   async function handleSaveClick(content) {
     try {
-      const commentData = { content, commentId: comment._id, post: comment.post }
+      const commentData = {
+        content: htmlToMarkdown(content),
+        commentId: comment._id,
+        post: comment.post
+      }
+
       setIsEditMode(false)
       const updatedComment = await commentUpdate(commentData)
       setCommentData(updatedComment.data)
@@ -77,7 +83,7 @@ function CommentFeedItem({ comment, comments, setComments }) {
           <>
             <Header comment={comment} />
             <CardContent>
-              <Text comment={commentData} />
+              <Content comment={commentData} />
             </CardContent>
           </>
         ) : (
