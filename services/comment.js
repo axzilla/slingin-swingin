@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.BOUNCE_API_URL}/comments`
+const rootUrl = `${process.env.BOUNCE_APP_API_URL}/comments`
 
 export function commentCreate(commentData) {
   return axios.post(`${rootUrl}/comment-create`, commentData)

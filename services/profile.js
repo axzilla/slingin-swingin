@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.BOUNCE_API_URL}/profile`
+const rootUrl = `${process.env.BOUNCE_APP_API_URL}/profile`
 
 export function getCurrentProfile() {
   return axios.get(`${rootUrl}/get-profile-by-current-user`)

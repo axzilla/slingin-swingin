@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.BOUNCE_API_URL}/posts`
+const rootUrl = `${process.env.BOUNCE_APP_API_URL}/posts`
 
 export function postCreate(postData) {
   return axios.post(`${rootUrl}/post-create`, postData)
