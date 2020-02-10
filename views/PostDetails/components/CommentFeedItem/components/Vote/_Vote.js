@@ -11,13 +11,17 @@ import MoodIcon from '@material-ui/icons/Mood'
 import MoodBadIcon from '@material-ui/icons/MoodBad'
 
 function CommentFeedItemVote({ comment }) {
-  const { user } = useContext(AuthContext)
+  const { user, isAuthenticated, setIsAuthModal } = useContext(AuthContext)
   const [commentData, setCommentData] = useState(comment)
 
   async function onUpvoteClick() {
     try {
-      const upvotedComment = await commentUpvote(commentData._id)
-      setCommentData(upvotedComment.data)
+      if (isAuthenticated) {
+        const upvotedComment = await commentUpvote(commentData._id)
+        setCommentData(upvotedComment.data)
+      } else {
+        setIsAuthModal(true)
+      }
     } catch (error) {
       if (error) throw error
     }
@@ -25,8 +29,12 @@ function CommentFeedItemVote({ comment }) {
 
   async function onDownvoteClick() {
     try {
-      const downvotedComment = await commentDownvote(commentData._id)
-      setCommentData(downvotedComment.data)
+      if (isAuthenticated) {
+        const downvotedComment = await commentDownvote(commentData._id)
+        setCommentData(downvotedComment.data)
+      } else {
+        setIsAuthModal(true)
+      }
     } catch (error) {
       if (error) throw error
     }

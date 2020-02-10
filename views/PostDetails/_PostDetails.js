@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react'
-import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
@@ -27,7 +26,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
 function PostDetails({ post }) {
-  const { isAuthenticated, user } = useContext(AuthContext)
+  const { isAuthenticated, user, setIsAuthModal } = useContext(AuthContext)
   const [postData, setPostData] = useState(post)
   const [comments, setComments] = useState(post.postComments)
 
@@ -37,11 +36,11 @@ function PostDetails({ post }) {
   async function handleLikeClick() {
     try {
       if (!isAuthenticated) {
-        Router.push('/login')
+        setIsAuthModal(true)
+      } else {
+        const updatedPost = await postToggleLikes(postData._id)
+        setPostData(updatedPost.data)
       }
-
-      const updatedPost = await postToggleLikes(postData._id)
-      setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
     }
@@ -50,11 +49,11 @@ function PostDetails({ post }) {
   async function handleBookmarkClick() {
     try {
       if (!isAuthenticated) {
-        Router.push('/login')
+        setIsAuthModal(true)
+      } else {
+        const updatedPost = await postToggleBookmarks(postData._id)
+        setPostData(updatedPost.data)
       }
-
-      const updatedPost = await postToggleBookmarks(postData._id)
-      setPostData(updatedPost.data)
     } catch (error) {
       if (error) throw error
     }
