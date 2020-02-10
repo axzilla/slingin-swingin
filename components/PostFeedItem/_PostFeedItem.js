@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react'
-import Router from 'next/router'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
@@ -22,6 +21,7 @@ import Box from '@material-ui/core/Box'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+import Tooltip from '@material-ui/core/Tooltip'
 
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
@@ -32,8 +32,7 @@ const useStyles = makeStyles({
 function PostFeedItem({ post }) {
   const classes = useStyles()
   const [postData, setPostData] = useState(post)
-  const { isAuthenticated, user } = useContext(AuthContext)
-
+  const { isAuthenticated, user, setIsAuthModal } = useContext(AuthContext)
   const isBookmarked = postData.bookmarks.includes(user.id)
 
   async function handleBookmarkClick() {
@@ -42,7 +41,7 @@ function PostFeedItem({ post }) {
         const updatedPost = await postToggleBookmarks(post._id)
         setPostData(updatedPost.data)
       } else {
-        Router.push('/login')
+        setIsAuthModal(true)
       }
     } catch (error) {
       if (error) throw error
@@ -130,10 +129,12 @@ function PostFeedItem({ post }) {
             </Grid>
           </Grid>
           <Grid item>
-            <BookmarkIcon
-              onClick={handleBookmarkClick}
-              color={isBookmarked ? 'primary' : 'disabled'}
-            />
+            <Tooltip arrow title={isBookmarked ? 'Unbookmark' : 'Bookmark'}>
+              <BookmarkIcon
+                onClick={handleBookmarkClick}
+                color={isBookmarked ? 'primary' : 'disabled'}
+              />
+            </Tooltip>
           </Grid>
         </Grid>
       </Box>
