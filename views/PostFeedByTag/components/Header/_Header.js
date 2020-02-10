@@ -10,7 +10,7 @@ function Header({ tag }) {
     <Card>
       <CardHeader
         title={
-          <Typography variant="h4" component="h1">
+          <Typography variant="h5" component="h1">
             t/{tag}
           </Typography>
         }

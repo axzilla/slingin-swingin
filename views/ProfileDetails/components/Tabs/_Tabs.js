@@ -9,6 +9,7 @@ import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 
 function TabContainer({ children, dir }) {
   return (
@@ -18,19 +19,7 @@ function TabContainer({ children, dir }) {
   )
 }
 
-const useStyles = makeStyles({
-  label: {
-    color: '#FFF000'
-  },
-  indicator: {
-    backgroundColor: 'green'
-  },
-  root: {
-    flexGrow: 1,
-    marginBottom: '20px',
-    width: '100%'
-  }
-})
+const useStyles = makeStyles({})
 
 TabContainer.propTypes = {
   children: PropTypes.object,
@@ -46,28 +35,34 @@ function ProfileDetailsTabs({ comments, posts }) {
   }
 
   return (
-    <Grid item xs={12}>
-      <Tabs
-        className={classes.root}
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label={`Posts ${posts.length}`} />
-        <Tab label={`Comments ${comments.length}`} />
-      </Tabs>
-      {value === 0 && (
-        <TabContainer>
-          <Posts posts={posts} />
-        </TabContainer>
-      )}
-      {value === 1 && (
-        <TabContainer>
-          <Comments comments={comments} />
-        </TabContainer>
-      )}
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Paper>
+          <Tabs
+            className={classes.root}
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+          >
+            <Tab label={`${posts.length} Posts`} />
+            <Tab label={`${comments.length} Comments`} />
+          </Tabs>
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        {value === 0 && (
+          <TabContainer>
+            <Posts posts={posts} />
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>
+            <Comments comments={comments} />
+          </TabContainer>
+        )}
+      </Grid>
     </Grid>
   )
 }

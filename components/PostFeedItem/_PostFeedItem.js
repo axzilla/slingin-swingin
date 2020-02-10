@@ -86,7 +86,7 @@ function PostFeedItem({ post }) {
               href="/post/[postId]/[urlSlug]"
               as={`/post/${postData.shortId}/${postData.urlSlug}`}
             >
-              <Typography variant="h4" component="h2" gutterBottom>
+              <Typography color="textPrimary" variant="h5" component="h2">
                 {postData.title}
               </Typography>
               <Typography color="textSecondary" gutterBottom>
@@ -106,22 +106,22 @@ function PostFeedItem({ post }) {
           </Grid>
         </Grid>
       </CardContent>
-      <Box p={2}>
+      <Box px={2} pb={1}>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
             <Grid container alignItems="center" spacing={2}>
               <Grid item>
-                <Typography variant="h6" color="textSecondary">
+                <Typography variant="subtitle2" color="textSecondary">
                   {postData.likes.length} likes
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="h6" color="textSecondary">
+                <Typography variant="subtitle2" color="textSecondary">
                   {postData.postComments.length} replies
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="h6" color="textSecondary">
+                <Typography variant="subtitle2" color="textSecondary">
                   {postData.views} views
                 </Typography>
               </Grid>

@@ -5,11 +5,9 @@ import { getPostsByUserId } from '@services/post'
 import PostFeedItem from '@components/PostFeedItem'
 
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
 
 function Posts() {
   const { user } = useContext(AuthContext)
-  const [limit, setLimit] = useState(10)
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -24,24 +22,17 @@ function Posts() {
     setIsLoading(false)
   }
 
-  function loadMore() {
-    setLimit(limit + 10)
-  }
-
-  const content = posts.slice(0, limit).map(post => <PostFeedItem key={post._id} post={post} />)
-
   return (
-    <Grid>
+    <Grid container spacing={2}>
       {isLoading ? (
         '...Loading'
       ) : (
         <>
-          {content}
-          {posts && content.length === posts.length ? null : (
-            <Button onClick={loadMore} variant="outlined" color="primary">
-              Mehr...
-            </Button>
-          )}
+          {posts.map(post => (
+            <Grid key={post._id} item xs={12}>
+              <PostFeedItem post={post} />
+            </Grid>
+          ))}
         </>
       )}
     </Grid>

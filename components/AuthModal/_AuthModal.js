@@ -25,11 +25,7 @@ function AuthModal() {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        <Typography variant="h4" align="center">
-          NOT A MEMBER?
-        </Typography>
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">NOT A MEMBER?</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description" align="center">
           This feature is for registered bounce.dev members only.

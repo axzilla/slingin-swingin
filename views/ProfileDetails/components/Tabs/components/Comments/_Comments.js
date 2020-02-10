@@ -13,15 +13,15 @@ import Grid from '@material-ui/core/Grid'
 
 function Comments({ comments }) {
   return (
-    <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item xs={12} sm={8} md={6}>
-        {comments
-          .sort((a, b) => a.dateCreated < b.dateCreated)
-          .map(comment => {
-            const { shortId, urlSlug } = comment.post
+    <Grid container spacing={2}>
+      {comments
+        .sort((a, b) => a.dateCreated < b.dateCreated)
+        .map(comment => {
+          const { shortId, urlSlug } = comment.post
 
-            return (
-              <Card key={comment._id} style={{ marginBottom: '20px' }}>
+          return (
+            <Grid key={comment._id} item xs={12}>
+              <Card>
                 <CardContent>
                   <div
                     style={{
@@ -44,9 +44,9 @@ function Comments({ comments }) {
                   />
                 </CardContent>
               </Card>
-            )
-          })}
-      </Grid>
+            </Grid>
+          )
+        })}
     </Grid>
   )
 }

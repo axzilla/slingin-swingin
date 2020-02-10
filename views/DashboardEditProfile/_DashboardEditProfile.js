@@ -7,11 +7,9 @@ import { profileUpdate, getCurrentProfile } from '@services/profile'
 import Avatar from './components/Avatar'
 
 import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
 
 function ProfileEdit() {
   const { setAlert } = useAlert()
@@ -79,8 +77,6 @@ function ProfileEdit() {
             <Grid item xs={12} md={8}>
               <Card>
                 <form onSubmit={onSubmit}>
-                  <CardHeader subheader="The information can be edited" title="Profile" />
-                  <Divider />
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item md={6} xs={12}>
@@ -203,7 +199,6 @@ function ProfileEdit() {
                       </Grid>
                     </Grid>
                   </CardContent>
-                  <Divider />
                   <CardContent>
                     <Button type="submit" variant="contained" color="secondary">
                       Save

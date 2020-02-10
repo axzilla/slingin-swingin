@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
-import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -55,8 +54,7 @@ function Settings() {
   return (
     <Grid item xs={12}>
       <Card>
-        <CardHeader subheader="Change your email settings" title="Email setting" />
-        <Divider />
+        <CardHeader subheader="Change your email settings" />
         <form onSubmit={onSubmit}>
           <CardContent>
             <Grid>
@@ -111,7 +109,6 @@ function Settings() {
               />
             </Grid>
           </CardContent>
-          <Divider />
           <CardContent>
             <Button type="submit" color="primary" variant="outlined">
               Save

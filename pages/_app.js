@@ -64,6 +64,7 @@ class MyApp extends App {
 
       if (decodedUser.exp > currentTime) {
         this.setState({
+          ...this.state,
           isAuthenticated: true,
           user: decodedUser
         })
@@ -96,6 +97,7 @@ class MyApp extends App {
       const decodedUser = jwtDecode(jwtToken)
 
       this.setState({
+        ...this.state,
         isAuthenticated: true,
         user: decodedUser
       })
@@ -112,12 +114,19 @@ class MyApp extends App {
       await Router.push('/login')
 
       this.setState({
+        ...this.state,
         isAuthenticated: false,
         user: {}
       })
     } catch (error) {
       if (error) throw error
     }
+  }
+
+  getTheme = () => {
+    const cookies = new Cookies()
+    const theme = cookies.get('theme')
+    return theme
   }
 
   render() {
@@ -142,7 +151,7 @@ class MyApp extends App {
             <MuiThemeProvider theme={lightTheme}>
               <CssBaseline />
               <RouterLoading />
-              <Component {...pageProps} RouterLoading={RouterLoading} />
+              <Component {...pageProps} />
               <Alert />
               <AuthModal />
             </MuiThemeProvider>

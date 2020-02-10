@@ -93,7 +93,7 @@ function PostDetails({ post }) {
           <Box m={2}>
             <Grid container justify="space-between" alignItems="center">
               <Grid item>
-                <Typography color="textSecondary" variant="h6">
+                <Typography color="textSecondary" variant="subtitle2">
                   {postData.likes.length} likes
                 </Typography>
               </Grid>
@@ -136,7 +136,7 @@ function PostDetails({ post }) {
       <Grid item xs={12}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
-            <Typography variant="h5" align="center" color="textSecondary">
+            <Typography variant="subtitle1" align="center" color="textSecondary">
               {comments.length} Comments
             </Typography>
           </Grid>
