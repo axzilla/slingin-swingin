@@ -21,7 +21,6 @@ import Box from '@material-ui/core/Box'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import Tooltip from '@material-ui/core/Tooltip'
 
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
@@ -129,12 +128,10 @@ function PostFeedItem({ post }) {
             </Grid>
           </Grid>
           <Grid item>
-            <Tooltip arrow title={isBookmarked ? 'Unbookmark' : 'Bookmark'}>
-              <BookmarkIcon
-                onClick={handleBookmarkClick}
-                color={isBookmarked ? 'primary' : 'disabled'}
-              />
-            </Tooltip>
+            <BookmarkIcon
+              onClick={handleBookmarkClick}
+              color={isBookmarked ? 'primary' : 'disabled'}
+            />
           </Grid>
         </Grid>
       </Box>
