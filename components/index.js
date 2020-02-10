@@ -1,4 +1,5 @@
 export { default as Alert } from './Alert'
+export { default as AuthModal } from './AuthModal'
 export { default as Chip } from './Chip'
 export { default as Container } from './Container'
 export { default as Link } from './Link'

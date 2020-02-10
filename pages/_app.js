@@ -14,6 +14,7 @@ import jwtDecode from 'jwt-decode'
 import Cookies from 'universal-cookie'
 
 import Alert from '@components/Alert'
+import AuthModal from '@components/AuthModal'
 import setAuthToken from '@utils/setAuthToken'
 import AuthContext from '@contexts/AuthContext'
 import { AlertContextProvider } from '@contexts/AlertContext'
@@ -47,6 +48,7 @@ function RouterLoading() {
 
 class MyApp extends App {
   state = {
+    isAuthModal: false,
     isAuthenticated: false,
     user: {}
   }
@@ -72,6 +74,17 @@ class MyApp extends App {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles)
+    }
+  }
+
+  setIsAuthModal = async value => {
+    try {
+      this.setState({
+        ...this.state,
+        isAuthModal: value
+      })
+    } catch (error) {
+      if (error) throw error
     }
   }
 
@@ -117,6 +130,8 @@ class MyApp extends App {
         </Head>
         <AuthContext.Provider
           value={{
+            isAuthModal: this.state.isAuthModal,
+            setIsAuthModal: this.setIsAuthModal,
             isAuthenticated: this.state.isAuthenticated,
             user: this.state.user,
             login: this.login,
@@ -129,6 +144,7 @@ class MyApp extends App {
               <RouterLoading />
               <Component {...pageProps} RouterLoading={RouterLoading} />
               <Alert />
+              <AuthModal />
             </MuiThemeProvider>
           </AlertContextProvider>
         </AuthContext.Provider>
