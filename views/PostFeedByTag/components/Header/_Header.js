@@ -15,7 +15,6 @@ function Header({ tag }) {
             t/{tag}
           </Typography>
         }
-        avatar={<Avatar src="https://source.unsplash.com/featured/?music-studio" />}
       />
     </Card>
   )
