@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.BOUNCE_API_URL}/auth`
+const rootUrl = `${process.env.BOUNCE_APP_API_URL}/auth`
 
 export function userRegister(userData) {
   return axios.post(`${rootUrl}/register`, userData)

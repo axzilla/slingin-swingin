@@ -7,8 +7,8 @@ dotenv.config()
 module.exports = withCSS(
   withImages({
     env: {
-      BOUNCE_API_URL: process.env.BOUNCE_API_URL,
-      BOUNCE_GOOGLE_ANALYTICS: process.env.BOUNCE_GOOGLE_ANALYTICS
+      BOUNCE_APP_API_URL: process.env.BOUNCE_APP_API_URL,
+      BOUNCE_APP_GOOGLE_ANALYTICS: process.env.BOUNCE_APP_GOOGLE_ANALYTICS
     }
   })
 )

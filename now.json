@@ -2,13 +2,13 @@
   "version": 2,
   "name": "bounce-app",
   "env": {
-    "BOUNCE_API_URL": "@BOUNCE_api_url",
-    "BOUNCE_GOOGLE_ANALYTICS": "@BOUNCE_google_analytics"
+    "BOUNCE_APP_API_URL": "@bounce_app_api_url",
+    "BOUNCE_APP_GOOGLE_ANALYTICS": "@bounce_app_google_analytics"
   },
   "build": {
     "env": {
-      "BOUNCE_API_URL": "@BOUNCE_api_url",
-      "BOUNCE_GOOGLE_ANALYTICS": "@BOUNCE_google_analytics"
+      "BOUNCE_APP_API_URL": "@bounce_app_api_url",
+      "BOUNCE_APP_GOOGLE_ANALYTICS": "@bounce_app_google_analytics"
     }
   }
 }
