@@ -14,14 +14,18 @@ function ProfileDetails({ profile, posts, comments }) {
   const [commentsData] = useState(comments)
 
   return (
-    <Grid>
-      <CardHeader profile={profileData} auth={AuthContext} setProfile={setProfileData} />
-      <Tabs
-        profile={profileData}
-        posts={postsData}
-        setPosts={setPostsData}
-        comments={commentsData}
-      />
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <CardHeader profile={profileData} auth={AuthContext} setProfile={setProfileData} />
+      </Grid>
+      <Grid item xs={12}>
+        <Tabs
+          profile={profileData}
+          posts={postsData}
+          setPosts={setPostsData}
+          comments={commentsData}
+        />
+      </Grid>
     </Grid>
   )
 }

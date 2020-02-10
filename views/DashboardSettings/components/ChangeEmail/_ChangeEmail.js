@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
 
 function EmailChange() {
   const { user, login } = useContext(AuthContext)
@@ -46,8 +45,7 @@ function EmailChange() {
 
   return (
     <Card>
-      <CardHeader subheader="Change your email adress" title="Email" />
-      <Divider />
+      <CardHeader subheader="Change your email adress" />
       <form noValidate onSubmit={onSubmit}>
         <CardContent>
           <TextField
@@ -60,7 +58,6 @@ function EmailChange() {
             onChange={onChange}
           />
         </CardContent>
-        <Divider />
         <CardContent>
           <Button type="submit" variant="outlined" color="primary">
             Save

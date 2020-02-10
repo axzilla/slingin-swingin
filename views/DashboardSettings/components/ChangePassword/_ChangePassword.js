@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
 
 function PasswordChange() {
   const { user, login } = useContext(AuthContext)
@@ -56,8 +55,7 @@ function PasswordChange() {
 
   return (
     <Card>
-      <CardHeader subheader="Change your password" title="Password" />
-      <Divider />
+      <CardHeader subheader="Change your password" />
       <form noValidate onSubmit={onSubmit}>
         <CardContent>
           <TextField
@@ -90,7 +88,6 @@ function PasswordChange() {
             onChange={onChange}
           />
         </CardContent>
-        <Divider />
         <CardContent>
           <Button type="submit" variant="outlined" color="primary">
             Save

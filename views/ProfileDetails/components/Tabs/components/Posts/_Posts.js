@@ -7,12 +7,12 @@ import Grid from '@material-ui/core/Grid'
 
 function Post({ posts }) {
   return (
-    <Grid container alignItems="center" justify="center">
-      <Grid item xs={12} md={6}>
-        {posts.map(post => (
-          <PostFeedItem key={post._id} post={post} />
-        ))}
-      </Grid>
+    <Grid container spacing={2}>
+      {posts.map(post => (
+        <Grid key={post._id} item xs={12}>
+          <PostFeedItem post={post} />
+        </Grid>
+      ))}
     </Grid>
   )
 }

@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
 
 function UsernameChange() {
   const { user, login } = useContext(AuthContext)
@@ -48,8 +47,7 @@ function UsernameChange() {
   return (
     <React.Fragment>
       <Card>
-        <CardHeader subheader="Change your username" title="Username" />
-        <Divider />
+        <CardHeader subheader="Change your username" />
         <form noValidate onSubmit={onSubmit}>
           <CardContent>
             <TextField
@@ -61,7 +59,6 @@ function UsernameChange() {
               onChange={onChange}
             />
           </CardContent>
-          <Divider />
           <CardContent>
             <Button variant="outlined" color="primary" type="submit" className="register-button">
               Save

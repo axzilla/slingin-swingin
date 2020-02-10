@@ -49,7 +49,7 @@ function CommentFeedItemVote({ comment }) {
   return (
     <Grid container alignItems="center" justify="space-between" spacing={2}>
       <Grid item>
-        <Typography variant="h6" color="textSecondary">
+        <Typography variant="subtitle2" color="textSecondary">
           {votes} Votes
         </Typography>
       </Grid>

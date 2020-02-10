@@ -10,7 +10,7 @@ function Footer() {
   return (
     <Box width="100%" m={2}>
       <Grid container alignItems="center" justify="center">
-        <Typography variant="h6">
+        <Typography variant="subtitle1">
           &copy; bounce.dev {new Date().getFullYear()} - made with&nbsp;
         </Typography>
         <FavoriteIcon style={{ color: 'red' }} />

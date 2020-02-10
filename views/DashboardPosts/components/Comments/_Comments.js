@@ -8,14 +8,12 @@ import { getCommentsByUserId } from '@services/comment'
 import Link from '@components/Link'
 
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
 function Comments() {
   const { user } = useContext(AuthContext)
-  const [limit, setLimit] = useState(10)
   const [comments, setComments] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -30,52 +28,46 @@ function Comments() {
     setIsLoading(false)
   }
 
-  function loadMore() {
-    setLimit(limit + 10)
-  }
-
-  const content = comments
-    .sort((a, b) => a.dateCreated < b.dateCreated)
-    .slice(0, limit)
-    .map(comment => {
-      const { shortId, urlSlug } = comment.post
-      return (
-        <Card key={comment._id} style={{ marginBottom: '20px' }}>
-          <CardContent>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '10px'
-              }}
-            >
-              <div>
-                <Link href="/post/[postId]/[urlSlug]" as={`/post/${shortId}/${urlSlug}`}>
-                  <Typography variant="h6">{comment.post.title}</Typography>
-                </Link>
-                <Typography variant="caption" style={{ fontWeight: '300' }}>
-                  <Moment fromNow>{comment.dateCreated}</Moment>
-                </Typography>
-              </div>
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: htmlToMui(markdownToHtml(comment.content)) }} />
-          </CardContent>
-        </Card>
-      )
-    })
-
   return (
-    <Grid>
+    <Grid container spacing={2}>
       {isLoading ? (
         '...Loading'
       ) : (
         <>
-          {content}
-          {comments && content.length === comments.length ? null : (
-            <Button onClick={loadMore} variant="outlined" color="primary">
-              Mehr...
-            </Button>
-          )}
+          {comments
+            .sort((a, b) => a.dateCreated < b.dateCreated)
+            .map(comment => {
+              const { shortId, urlSlug } = comment.post
+              return (
+                <Grid key={comment._id} item xs={12}>
+                  <Card>
+                    <CardContent>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginBottom: '10px'
+                        }}
+                      >
+                        <div>
+                          <Link href="/post/[postId]/[urlSlug]" as={`/post/${shortId}/${urlSlug}`}>
+                            <Typography variant="h6">{comment.post.title}</Typography>
+                          </Link>
+                          <Typography variant="caption" style={{ fontWeight: '300' }}>
+                            <Moment fromNow>{comment.dateCreated}</Moment>
+                          </Typography>
+                        </div>
+                      </div>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: htmlToMui(markdownToHtml(comment.content))
+                        }}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              )
+            })}
         </>
       )}
     </Grid>
