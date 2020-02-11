@@ -45,7 +45,7 @@ function LandingWidgetUsers() {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card variant="outlined">
       <CardHeader title="New Members" />
       <div className={classes.cardContent}>
         <List className={classes.list}>

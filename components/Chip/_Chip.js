@@ -9,7 +9,11 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '2px',
     margin: theme.spacing(0, 0.5, 0.5, 0)
   },
-  label: { padding: 0, textTransform: 'uppercase', fontSize: '10px', fontWeight: 'bold' },
+  label: {
+    padding: theme.spacing(0.5)
+    // fontSize: '0.8rem',
+    // fontWeight: 'bold'
+  },
   root: { padding: theme.spacing(0.25, 0.5), height: 'auto' }
 }))
 

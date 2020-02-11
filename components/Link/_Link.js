@@ -22,7 +22,7 @@ function Link({ children, color, href, as, variant, underlined }) {
   if (!variant || variant === 'NextLink') {
     return (
       <NextLink href={href} as={as} passHref>
-        <MuiLink className={classes.link} color={color}>
+        <MuiLink className={classes.link} color="textPrimary">
           {children}
         </MuiLink>
       </NextLink>
