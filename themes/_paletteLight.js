@@ -4,7 +4,7 @@ const white = '#FFFFFF'
 const black = '#000000'
 
 export default {
-  type: 'dark',
+  type: 'light',
   primary: {
     contrastText: white,
     dark: colors.teal[400],
@@ -13,12 +13,18 @@ export default {
   },
   secondary: {
     contrastText: white,
-    dark: colors.purple[400],
-    main: colors.purple[300],
-    light: colors.purple[200]
+    dark: colors.grey[700],
+    main: colors.grey[600],
+    light: colors.grey[500]
   },
   background: {
-    default: colors.grey[900]
+    default: white
     // paper: colors.grey[700]
+  },
+  error: {
+    contrastText: white,
+    dark: colors.red[300],
+    main: colors.red[300],
+    light: colors.red[400]
   }
 }
