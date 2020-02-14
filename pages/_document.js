@@ -16,10 +16,12 @@ class MyDocument extends Document {
           />
           {/* PWA primary color */}
           {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
+
           <link
+            href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap"
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+
           <meta
             name="google-site-verification"
             content="ehV9USkda3cusLdS9ErSgTI43ekLZKQhCMQyVMJHA5Y"
