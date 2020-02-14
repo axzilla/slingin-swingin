@@ -48,8 +48,8 @@ const useStyles = makeStyles(theme => ({
   searchField: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.black, 0.15),
-    '&:hover': { backgroundColor: fade(theme.palette.common.black, 0.25) },
+    border: `1px solid ${fade(theme.palette.common.white, 0.1)}`,
+    '&:hover': { border: `1px solid ${fade(theme.palette.common.white, 0.1)}` },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -160,14 +160,14 @@ function Topbar() {
                     <Link href="/dashboard/profile-edit">
                       <Button>
                         <AccountCircle />
-                        &nbsp;Dashboard
+                        {/* &nbsp;Dashboard */}
                       </Button>
                     </Link>
                   </Box>
                   <Box>
                     <Button onClick={onLogoutClick}>
                       <ExitToApp />
-                      &nbsp;Logout
+                      {/* &nbsp;Logout */}
                     </Button>
                   </Box>
                   <Box>
