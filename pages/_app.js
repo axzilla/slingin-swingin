@@ -6,7 +6,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-import { lightTheme } from '../themes'
+import { theme } from '../theme'
 
 import Router from 'next/router'
 import { withRouter } from 'next/router'
@@ -148,7 +148,7 @@ class MyApp extends App {
           }}
         >
           <AlertContextProvider>
-            <MuiThemeProvider theme={lightTheme}>
+            <MuiThemeProvider theme={theme}>
               <CssBaseline />
               <RouterLoading />
               <Component {...pageProps} />

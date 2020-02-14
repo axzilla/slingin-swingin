@@ -26,8 +26,8 @@ function WidgetTopPostsTags() {
   }
 
   return (
-    <Card>
-      <CardHeader title="Popular tags" />
+    <Card variant="outlined">
+      <CardHeader title="Hot Topics" />
       <CardContent>
         {postTags &&
           postTags.slice(0, 25).map(item => {
