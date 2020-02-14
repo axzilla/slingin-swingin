@@ -1,4 +1,5 @@
 export default {
+  fontFamily: ['Ubuntu'].join(','),
   h1: {
     fontWeight: 500,
     fontSize: '35px',
