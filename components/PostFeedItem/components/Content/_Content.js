@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // import markdownToHtml from '@utils/markdownToHtml'
-// import htmlRemove from '@utils/htmlRemove'
+import htmlRemove from '@utils/htmlRemove'
+
+import rawToHtml from '@utils/rawToHtml'
 
 import Link from '@components/Link'
 import Chip from '@components/Chip'
@@ -11,6 +13,9 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 function Content({ post }) {
+  const limit = 250
+  const noHtmlContent = htmlRemove(rawToHtml(post.content)).substring(0, limit)
+
   return (
     <Grid container>
       <Link href="/post/[postId]/[urlSlug]" as={`/post/${post.shortId}/${post.urlSlug}`}>
@@ -18,10 +23,9 @@ function Content({ post }) {
           {post.title}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {post.content}
-          {/* {JSON.parse(post.content)} */}
-          {/* {htmlRemove(markdownToHtml(post.content)).substring(0, 150)} */}
-          {/* {post.content.length > 250 && '...'} */}
+          {noHtmlContent}
+          {noHtmlContent.length > limit - 1 && ' ...'}
+          <div dangerouslySetInnerHTML={{ __html: rawToHtml(post.content) }} />
         </Typography>
       </Link>
       <Grid container>

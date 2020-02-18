@@ -36,7 +36,6 @@ function PostForm({ post }) {
 
   async function onSubmit() {
     try {
-      console.log(content)
       setIsLoading(true)
 
       const formData = new FormData()

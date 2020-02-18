@@ -65,8 +65,8 @@ function EditorPost({ content, setContent, placeholder }) {
 }
 
 EditorPost.propTypes = {
-  content: PropTypes.object,
-  setContent: PropTypes.func.isRequired,
+  content: PropTypes.string,
+  setContent: PropTypes.func,
   placeholder: PropTypes.string
 }
 

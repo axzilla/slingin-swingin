@@ -1,12 +1,9 @@
-// import React from 'react'
 import PropTypes from 'prop-types'
 
-// import htmlToMui from '@utils/htmlToMui'
-// import markdownToHtml from '@utils/markdownToHtml'
+import rawToHtml from '@utils/rawToHtml'
 
 function PostDetailsItemContent({ post }) {
-  // return <div dangerouslySetInnerHTML={{ __html: htmlToMui(markdownToHtml(post.content)) }} />
-  return post.content
+  return <div dangerouslySetInnerHTML={{ __html: rawToHtml(post.content) }} />
 }
 
 PostDetailsItemContent.propTypes = {
