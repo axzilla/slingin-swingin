@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import { EditorState } from 'draft-js'
-const Editor = dynamic(() => import('draft-js').then(mod => mod.Editor))
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+const Editor = dynamic(() => import('draft-js').then(mod => mod.Editor), { ssr: false })
 
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
@@ -39,19 +40,34 @@ const useStyles = makeStyles(theme => ({
   error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
 }))
 
-function EditorPost() {
+function EditorPost({ content, setContent, placeholder }) {
   const classes = useStyles()
-  const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
+  const [editorState, setEditorState] = useState({})
+
+  useEffect(() => {
+    if (content) {
+      setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(content))))
+    } else if (!content) {
+      setEditorState(EditorState.createEmpty())
+    }
+  }, [])
+
+  function onChange(editorState) {
+    setEditorState(editorState)
+    setContent(convertToRaw(editorState.getCurrentContent()))
+  }
 
   return (
     <div className={classes.wrapper}>
-      <Editor
-        editorState={editorState}
-        onChange={setEditorState}
-        placeholder="Write your story or question"
-      />
+      <Editor editorState={editorState} onChange={onChange} placeholder={placeholder} />
     </div>
   )
+}
+
+EditorPost.propTypes = {
+  content: PropTypes.object,
+  setContent: PropTypes.func.isRequired,
+  placeholder: PropTypes.string
 }
 
 export default EditorPost

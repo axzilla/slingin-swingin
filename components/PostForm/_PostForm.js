@@ -36,12 +36,13 @@ function PostForm({ post }) {
 
   async function onSubmit() {
     try {
+      console.log(content)
       setIsLoading(true)
 
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('content', content)
+      formData.append('content', JSON.stringify(content))
       formData.append('tags', tags)
 
       if (post) {
