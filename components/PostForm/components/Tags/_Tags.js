@@ -40,7 +40,7 @@ function Tags({ tags, setTags, tagsInput, setTagsInput, errors }) {
       <TextField
         error={errors && errors.tags}
         type="tags"
-        label="Tags"
+        placeholder="Tags"
         name="tags"
         value={tagsInput}
         onChange={handleTagsInputChange}

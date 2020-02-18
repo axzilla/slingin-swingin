@@ -62,7 +62,6 @@ function PasswordChange() {
             type="password"
             error={errors && errors.oldPassword}
             placeholder="Old password"
-            label="Old password"
             name="oldPassword"
             value={passwords.oldPassword}
             onChange={onChange}
@@ -72,7 +71,6 @@ function PasswordChange() {
             type="password"
             error={errors && errors.newPassword}
             placeholder="New password"
-            label="New password"
             name="newPassword"
             value={passwords.newPassword}
             onChange={onChange}
@@ -82,7 +80,6 @@ function PasswordChange() {
             type="password"
             error={errors && errors.newPassword2}
             placeholder="New password again"
-            label="New password again"
             name="newPassword2"
             value={passwords.newPassword2}
             onChange={onChange}

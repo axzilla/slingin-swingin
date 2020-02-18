@@ -55,7 +55,7 @@ function PasswordReset({ token }) {
           <TextField
             type="password"
             error={errors && errors.password}
-            label="Password"
+            placeholder="Password"
             name="password"
             value={passwords.password}
             onChange={onChange}
@@ -63,7 +63,7 @@ function PasswordReset({ token }) {
           <TextField
             type="password"
             error={errors && errors.password}
-            label="Repeat password"
+            placeholder="Repeat password"
             name="password2"
             value={passwords.password2}
             onChange={onChange}

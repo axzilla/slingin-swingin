@@ -12,7 +12,7 @@ function Title({ errors, title, setTitle }) {
     <>
       <TextField
         error={errors && errors.title}
-        label="Title"
+        placeholder="Title"
         name="title"
         value={title}
         onChange={handleTitleChange}

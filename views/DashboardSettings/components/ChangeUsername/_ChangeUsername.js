@@ -53,7 +53,6 @@ function UsernameChange() {
             <TextField
               error={errors && errors.username}
               placeholder="Username"
-              label="Username"
               name="username"
               value={username}
               onChange={onChange}

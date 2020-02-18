@@ -11,8 +11,6 @@ const useStyles = makeStyles(theme => ({
   },
   label: {
     padding: theme.spacing(0.5)
-    // fontSize: '0.8rem',
-    // fontWeight: 'bold'
   },
   root: { padding: theme.spacing(0.25, 0.5), height: 'auto' }
 }))

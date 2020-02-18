@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import htmlRemove from '@utils/htmlRemove'
 import htmlToMarkdown from '@utils/htmlToMarkdown'
-import Editor from '@components/Editor'
+import EditorPost from '@components/EditorPost'
 import { commentCreate } from '@services/comment'
 
 import Button from '@material-ui/core/Button'
@@ -38,7 +38,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
   return (
     <form onSubmit={onSubmit}>
       <Box mb={1}>
-        <Editor value={content} onChange={handleContentChange} />
+        <EditorPost value={content} onChange={handleContentChange} />
       </Box>
       <Button
         type="submit"

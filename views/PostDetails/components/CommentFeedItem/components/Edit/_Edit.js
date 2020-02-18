@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import markdownToHtml from '@utils/markdownToHtml'
-import Editor from '@components/Editor'
+import EditorPost from '@components/EditorPost'
 import htmlRemove from '@utils/htmlRemove'
 
 import Grid from '@material-ui/core/Grid'
@@ -23,7 +23,11 @@ function CommentEdit({ comment, handleSaveClick }) {
   return (
     <Grid>
       <form>
-        <Editor value={content} onChange={handleContentChange} placeholder="Edit your comment..." />
+        <EditorPost
+          value={content}
+          onChange={handleContentChange}
+          placeholder="Edit your comment..."
+        />
         <Button
           disabled={!htmlRemove(content).length}
           onClick={() => handleSaveClick(content)}

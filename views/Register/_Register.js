@@ -55,7 +55,7 @@ const Register = () => {
           <TextField
             error={errors && errors.email}
             type="email"
-            label="Email"
+            placeholder="Email"
             name="email"
             value={registerData.email}
             onChange={onChange}
@@ -63,7 +63,7 @@ const Register = () => {
           <TextField
             type="password"
             error={errors && errors.password}
-            label="Password"
+            placeholder="Password"
             name="password"
             value={registerData.password}
             onChange={onChange}
