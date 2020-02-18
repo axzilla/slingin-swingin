@@ -6,9 +6,6 @@ import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import MuiTextField from '@material-ui/core/TextField'
 
-import InputAdornment from '@material-ui/core/InputAdornment'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-
 const useStyles = makeStyles({
   formControl: { width: '100%' },
   error: { lineHeight: '20px', margin: '0', textTransform: 'uppercase', fontWeight: 'bold' }
