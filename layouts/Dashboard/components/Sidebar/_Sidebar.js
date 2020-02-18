@@ -15,7 +15,6 @@ import AccountBox from '@material-ui/icons/AccountBox'
 import Settings from '@material-ui/icons/Settings'
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode'
 import EditIcon from '@material-ui/icons/Edit'
-// import DashboardIcon from '@material-ui/icons/Dashboard'
 
 const drawerWidth = 240
 

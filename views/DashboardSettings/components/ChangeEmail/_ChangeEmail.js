@@ -52,7 +52,6 @@ function EmailChange() {
             type="email"
             error={errors && errors.email}
             placeholder="Email"
-            label="Email"
             name="email"
             value={email}
             onChange={onChange}

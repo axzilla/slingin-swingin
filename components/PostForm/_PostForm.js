@@ -7,8 +7,6 @@ import TitleImage from './components/TitleImage'
 import Tags from './components/Tags'
 import Content from './components/Content'
 
-import markdownToHtml from '@utils/markdownToHtml'
-import htmlToMarkdown from '@utils/htmlToMarkdown'
 import { postCreate, postUpdate } from '@services/post'
 
 import Grid from '@material-ui/core/Grid'
@@ -30,7 +28,7 @@ function PostForm({ post }) {
 
   useEffect(() => {
     if (post) {
-      setContent(markdownToHtml(post.content))
+      setContent(post.content)
     } else {
       setContent('')
     }
@@ -43,7 +41,7 @@ function PostForm({ post }) {
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('content', htmlToMarkdown(content))
+      formData.append('content', content)
       formData.append('tags', tags)
 
       if (post) {
@@ -78,7 +76,6 @@ function PostForm({ post }) {
               setTitleImagePreview={setTitleImagePreview}
             />
           </Grid>
-
           <Grid item>
             <Title title={title} setTitle={setTitle} errors={errors} />
           </Grid>

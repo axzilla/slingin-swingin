@@ -47,7 +47,7 @@ function UserLogin() {
         <Box mb={2}>
           <TextField
             error={errors && errors.login}
-            label="Username or email"
+            placeholder="Username or email"
             name="login"
             value={loginData.login}
             onChange={onChange}
@@ -55,7 +55,7 @@ function UserLogin() {
           <TextField
             type="password"
             error={errors && errors.password}
-            label="Password"
+            placeholder="Password"
             name="password"
             value={loginData.password}
             onChange={onChange}

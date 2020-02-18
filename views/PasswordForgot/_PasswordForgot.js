@@ -43,7 +43,7 @@ function PasswordForgot() {
           <TextField
             type="email"
             error={errors && errors.email}
-            label="Email"
+            placeholder="Email"
             name="email"
             value={email}
             onChange={onChange}

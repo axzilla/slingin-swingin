@@ -82,7 +82,6 @@ function ProfileEdit() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           placeholder="First name"
-                          label="First name"
                           name="firstName"
                           value={profile.firstName}
                           onChange={onChange}
@@ -91,7 +90,6 @@ function ProfileEdit() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           placeholder="Last name"
-                          label="Last name"
                           name="lastName"
                           value={profile.lastName}
                           onChange={onChange}
@@ -100,7 +98,6 @@ function ProfileEdit() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           placeholder="i.e Beat Producer or Audio Engineer"
-                          label="Status"
                           name="status"
                           value={profile.status}
                           onChange={onChange}
@@ -110,7 +107,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.website}
                           placeholder="Website URL"
-                          label="Website"
                           name="website"
                           value={profile.website}
                           onChange={onChange}
@@ -119,7 +115,6 @@ function ProfileEdit() {
                       <Grid item md={6} xs={12}>
                         <TextField
                           placeholder="Location"
-                          label="Location"
                           name="location"
                           value={profile.location}
                           onChange={onChange}
@@ -129,7 +124,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.twitter}
                           placeholder="Twitter URL"
-                          label="Twitter"
                           name="twitter"
                           value={profile.twitter}
                           onChange={onChange}
@@ -139,7 +133,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.facebook}
                           placeholder="Facebook URL"
-                          label="Facebook"
                           name="facebook"
                           value={profile.facebook}
                           onChange={onChange}
@@ -149,7 +142,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.instagram}
                           placeholder="Instagram URL"
-                          label="Instagram"
                           name="instagram"
                           value={profile.instagram}
                           onChange={onChange}
@@ -159,7 +151,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.linkedin}
                           placeholder="LinkedIn URL"
-                          label="LinkedIn"
                           name="linkedin"
                           value={profile.linkedin}
                           onChange={onChange}
@@ -169,7 +160,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.youtube}
                           placeholder="Youtube URL"
-                          label="Youtube"
                           name="youtube"
                           value={profile.youtube}
                           onChange={onChange}
@@ -179,7 +169,6 @@ function ProfileEdit() {
                         <TextField
                           error={errors && errors.soundcloud}
                           placeholder="Soundcloud URL"
-                          label="Soundcloud"
                           name="soundcloud"
                           value={profile.soundcloud}
                           onChange={onChange}
@@ -191,7 +180,6 @@ function ProfileEdit() {
                           rows="4"
                           rowsMax="4"
                           placeholder="About you"
-                          label="About you"
                           name="bio"
                           value={profile.bio}
                           onChange={onChange}

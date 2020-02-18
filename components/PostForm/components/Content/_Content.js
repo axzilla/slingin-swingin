@@ -1,20 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Editor from '@components/Editor'
+import EditorPost from '@components/EditorPost'
+// import TextField from '@material-ui/core/TextField'
 
 function Content({ content, setContent, errors }) {
-  async function handleContentChange(value) {
-    // value instead event.target.value - is Quill editor specified
-    setContent(value)
+  async function handleContentChange(event) {
+    setContent(event.target.value)
   }
 
   return (
-    <Editor
-      error={errors && errors.content}
+    <EditorPost
+      fullWidth
+      variant="outlined"
+      multiline
       value={content}
+      rows="8"
       onChange={handleContentChange}
-      placeholder="Write your content..."
+      error={errors && errors.content}
+      placeholder="Write your story or question"
     />
   )
 }
