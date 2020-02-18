@@ -42,13 +42,11 @@ const useStyles = makeStyles(theme => ({
 
 function EditorPost({ content, setContent, placeholder }) {
   const classes = useStyles()
-  const [editorState, setEditorState] = useState({})
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
   useEffect(() => {
     if (content) {
       setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(content))))
-    } else if (!content) {
-      setEditorState(EditorState.createEmpty())
     }
   }, [])
 
@@ -65,7 +63,7 @@ function EditorPost({ content, setContent, placeholder }) {
 }
 
 EditorPost.propTypes = {
-  content: PropTypes.string,
+  content: PropTypes.object,
   setContent: PropTypes.func,
   placeholder: PropTypes.string
 }
