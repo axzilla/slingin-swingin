@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import markdownToHtml from '@utils/markdownToHtml'
-import htmlRemove from '@utils/htmlRemove'
+// import markdownToHtml from '@utils/markdownToHtml'
+// import htmlRemove from '@utils/htmlRemove'
 
 import Link from '@components/Link'
 import Chip from '@components/Chip'
@@ -18,8 +18,10 @@ function Content({ post }) {
           {post.title}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {htmlRemove(markdownToHtml(post.content)).substring(0, 150)}
-          {post.content.length > 250 && '...'}
+          {post.content}
+          {/* {JSON.parse(post.content)} */}
+          {/* {htmlRemove(markdownToHtml(post.content)).substring(0, 150)} */}
+          {/* {post.content.length > 250 && '...'} */}
         </Typography>
       </Link>
       <Grid container>

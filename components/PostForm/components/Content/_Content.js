@@ -5,18 +5,10 @@ import EditorPost from '@components/EditorPost'
 // import TextField from '@material-ui/core/TextField'
 
 function Content({ content, setContent, errors }) {
-  async function handleContentChange(event) {
-    setContent(event.target.value)
-  }
-
   return (
     <EditorPost
-      fullWidth
-      variant="outlined"
-      multiline
-      value={content}
-      rows="8"
-      onChange={handleContentChange}
+      content={content}
+      setContent={setContent}
       error={errors && errors.content}
       placeholder="Write your story or question"
     />
