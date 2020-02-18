@@ -25,7 +25,6 @@ function Content({ post }) {
         <Typography variant="body1" gutterBottom>
           {noHtmlContent}
           {noHtmlContent.length > limit - 1 && ' ...'}
-          <div dangerouslySetInnerHTML={{ __html: rawToHtml(post.content) }} />
         </Typography>
       </Link>
       <Grid container>
