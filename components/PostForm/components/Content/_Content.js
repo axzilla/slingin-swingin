@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import EditorPost from '@components/EditorPost'
-// import TextField from '@material-ui/core/TextField'
 
 function Content({ content, setContent, errors }) {
   return (
