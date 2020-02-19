@@ -7,7 +7,7 @@ const Editor = dynamic(() => import('draft-js').then(mod => mod.Editor), { ssr: 
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
-import Card from '@material-ui/core/Card'
+import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
 
 import FormatBoldIcon from '@material-ui/icons/FormatBold'
@@ -16,8 +16,7 @@ import FormatItalicIcon from '@material-ui/icons/FormatItalic'
 
 const useStyles = makeStyles(theme => ({
   toolbar: { marginBottom: theme.spacing(1) },
-  wrapper: {
-    padding: '10.5px 14px',
+  wrapperOutter: {
     borderRadius: '4px',
     border: '1px solid #ccc',
 
@@ -28,7 +27,10 @@ const useStyles = makeStyles(theme => ({
     '&:focus-within': {
       border: `2px solid ${theme.palette.primary.main}`,
       margin: '-1px'
-    },
+    }
+  },
+  wrapperInner: {
+    padding: '10.5px 14px',
 
     '& .DraftEditor-root': {
       fontSize: '1rem',
@@ -88,7 +90,7 @@ function EditorPost({ content, setContent, placeholder }) {
 
   return (
     <>
-      <Card className={classes.toolbar}>
+      <div className={classes.wrapperOutter}>
         <Button onClick={onUnderlineClick}>
           <FormatUnderlinedIcon />
         </Button>
@@ -98,14 +100,15 @@ function EditorPost({ content, setContent, placeholder }) {
         <Button onClick={onItalicClick}>
           <FormatItalicIcon />
         </Button>
-      </Card>
-      <div className={classes.wrapper}>
-        <Editor
-          editorState={editorState}
-          onChange={onChange}
-          handleKeyCommand={handleKeyCommand}
-          placeholder={placeholder}
-        />
+        <Divider />
+        <div className={classes.wrapperInner}>
+          <Editor
+            editorState={editorState}
+            onChange={onChange}
+            handleKeyCommand={handleKeyCommand}
+            placeholder={placeholder}
+          />
+        </div>
       </div>
     </>
   )
