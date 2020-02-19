@@ -7,7 +7,15 @@ const Editor = dynamic(() => import('draft-js').then(mod => mod.Editor), { ssr: 
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
+import Card from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
+
+import FormatBoldIcon from '@material-ui/icons/FormatBold'
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
+import FormatItalicIcon from '@material-ui/icons/FormatItalic'
+
 const useStyles = makeStyles(theme => ({
+  toolbar: { marginBottom: theme.spacing(1) },
   wrapper: {
     padding: '10.5px 14px',
     borderRadius: '4px',
@@ -80,13 +88,17 @@ function EditorPost({ content, setContent, placeholder }) {
 
   return (
     <>
-      <button onClick={onUnderlineClick}>U</button>
-      <button onClick={onBoldClick}>
-        <b>B</b>
-      </button>
-      <button onClick={onItalicClick}>
-        <em>I</em>
-      </button>
+      <Card className={classes.toolbar}>
+        <Button onClick={onUnderlineClick}>
+          <FormatUnderlinedIcon />
+        </Button>
+        <Button onClick={onBoldClick}>
+          <FormatBoldIcon />
+        </Button>
+        <Button onClick={onItalicClick}>
+          <FormatItalicIcon />
+        </Button>
+      </Card>
       <div className={classes.wrapper}>
         <Editor
           editorState={editorState}
