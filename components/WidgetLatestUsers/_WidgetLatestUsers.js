@@ -45,7 +45,7 @@ function LandingWidgetUsers() {
   }
 
   return (
-    <Card elevation={3}>
+    <Card>
       <CardHeader title="New Members" />
       <div className={classes.cardContent}>
         <List className={classes.list}>
