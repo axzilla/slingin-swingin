@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
@@ -22,17 +22,9 @@ function PostForm({ post }) {
     post && post.titleImage ? post.titleImage.secure_url : null
   )
   const [title, setTitle] = useState(post ? post.title : '')
-  const [content, setContent] = useState(post ? post.content : '')
+  const [content, setContent] = useState(post ? JSON.parse(post.content) : '')
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
-
-  useEffect(() => {
-    if (post) {
-      setContent(post.content)
-    } else {
-      setContent('')
-    }
-  }, [])
 
   async function onSubmit() {
     try {

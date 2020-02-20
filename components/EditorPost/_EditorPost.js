@@ -56,7 +56,7 @@ function EditorPost({ content, setContent, placeholder }) {
 
   useEffect(() => {
     if (content) {
-      setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(content))))
+      setEditorState(EditorState.createWithContent(convertFromRaw(content)))
     }
   }, [])
 

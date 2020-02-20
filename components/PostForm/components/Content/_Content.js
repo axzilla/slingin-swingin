@@ -15,7 +15,7 @@ function Content({ content, setContent, errors }) {
 }
 
 Content.propTypes = {
-  content: PropTypes.string,
+  content: PropTypes.object,
   setContent: PropTypes.func,
   errors: PropTypes.object
 }
