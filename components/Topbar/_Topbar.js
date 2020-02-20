@@ -23,6 +23,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 
 const useStyles = makeStyles(theme => ({
+  appBar: { borderBottom: `1px solid ${fade(theme.palette.common.black, 0.2)}` },
   logo: {
     width: '150px',
     marginRight: theme.spacing(2),
@@ -31,9 +32,6 @@ const useStyles = makeStyles(theme => ({
       flexDirection: 'row'
     }
   },
-  list: { width: 250 },
-  root: { width: '100%' },
-  grow: { flexGrow: 1 },
   menuButton: { marginLeft: -12, marginRight: 20 },
   menuContainer: {
     display: 'flex',
@@ -48,8 +46,8 @@ const useStyles = makeStyles(theme => ({
   searchField: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    border: `1px solid ${fade(theme.palette.common.white, 0.1)}`,
-    '&:hover': { border: `1px solid ${fade(theme.palette.common.white, 0.1)}` },
+    border: `1px solid ${fade(theme.palette.common.black, 0.1)}`,
+    '&:hover': { border: `1px solid ${fade(theme.palette.common.black, 0.2)}` },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -79,20 +77,7 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: { display: 'flex' }
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: { display: 'none' }
-  },
-  drawerIcon: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: { display: 'none' }
-  },
-  button: { margin: theme.spacing(1) },
-  mobileButton: { margin: `${theme.spacing(-1)}px 0` }
+  button: { margin: theme.spacing(1) }
 }))
 
 function Topbar() {
@@ -124,7 +109,7 @@ function Topbar() {
 
   return (
     <>
-      <AppBar position="static" color="inherit">
+      <AppBar position="static" color="inherit" className={classes.appBar}>
         <Toolbar>
           <div className={classes.menuContainer}>
             <div style={{ display: 'flex', alignItems: 'center', height: '64px' }}>
@@ -160,14 +145,14 @@ function Topbar() {
                     <Link href="/dashboard/profile-edit">
                       <Button>
                         <AccountCircle />
-                        {/* &nbsp;Dashboard */}
+                        &nbsp;Dashboard
                       </Button>
                     </Link>
                   </Box>
                   <Box>
                     <Button onClick={onLogoutClick}>
                       <ExitToApp />
-                      {/* &nbsp;Logout */}
+                      &nbsp;Logout
                     </Button>
                   </Box>
                   <Box>
