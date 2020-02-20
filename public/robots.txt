@@ -1,4 +1,4 @@
-Sitemap: http://www.bounce.dev/api/sitemap
+Sitemap: http://www.noize.dev/api/sitemap
 
 User-agent: *
 Disallow: /dashboard/
