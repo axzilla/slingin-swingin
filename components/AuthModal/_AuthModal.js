@@ -28,7 +28,7 @@ function AuthModal() {
       <DialogTitle id="alert-dialog-title">NOT A MEMBER?</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description" align="center">
-          This feature is for registered bounce.dev members only.
+          This feature is for registered noize.dev members only.
         </DialogContentText>
         <Box my={2}>
           <Link href="/register">
@@ -49,7 +49,7 @@ function AuthModal() {
         </Box>
         <DialogContentText id="alert-dialog-description" align="center">
           Log in to your account or create an account for FREE if you haven`t done so and join the
-          coolest community of music lovers that are already on bounce.dev!
+          coolest community of music lovers that are already on noize.dev!
         </DialogContentText>
       </DialogContent>
     </Dialog>

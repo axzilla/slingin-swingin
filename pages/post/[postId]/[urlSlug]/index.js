@@ -9,10 +9,10 @@ function PostDetails({ post, urlSlug }) {
   return (
     <>
       <SeoMeta
-        title={`${urlSlug} - bounce.dev`}
+        title={`${urlSlug} - noize.dev`}
         // If data comes in getInitialProps please fill out desc with post body!?
         // desc={}
-        canonical={`https://www.bounce.dev/post/${post._id}/${urlSlug}`}
+        canonical={`https://www.noize.dev/post/${post._id}/${urlSlug}`}
       />
       <MainLayout>
         <PostDetailsView post={post} urlSlug={urlSlug} />

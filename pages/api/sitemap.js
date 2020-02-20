@@ -4,7 +4,7 @@ import { getAllProfiles } from '@services/profile'
 
 export default async (req, res) => {
   const sitemap = createSitemap({
-    hostname: 'http://www.bounce.dev'
+    hostname: 'http://www.noize.dev'
   })
 
   // Add any static entries here
