@@ -1,7 +1,7 @@
 import ReactGA from 'react-ga'
 
 const initGA = () => {
-  ReactGA.initialize(process.env.BOUNCE_APP_GOOGLE_ANALYTICS)
+  ReactGA.initialize(process.env.NOIZE_APP_GOOGLE_ANALYTICS)
 }
 
 const logPageView = () => {
