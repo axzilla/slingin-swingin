@@ -24,7 +24,7 @@ class MyDocument extends Document {
 
           <meta
             name="google-site-verification"
-            content="ehV9USkda3cusLdS9ErSgTI43ekLZKQhCMQyVMJHA5Y"
+            content="2Dbqt_hgu96oHsDOkjCLDC-wyKCbiGR7hEEXkyVU7qI"
           />
         </Head>
         <body>
