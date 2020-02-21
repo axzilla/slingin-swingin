@@ -2,13 +2,13 @@
   "version": 2,
   "name": "noize-app",
   "env": {
-    "BOUNCE_APP_API_URL": "@bounce_app_api_url",
-    "BOUNCE_APP_GOOGLE_ANALYTICS": "@bounce_app_google_analytics"
+    "NOIZE_APP_API_URL": "@noize_app_api_url",
+    "NOIZE_APP_GOOGLE_ANALYTICS": "@noize_app_google_analytics"
   },
   "build": {
     "env": {
-      "BOUNCE_APP_API_URL": "@bounce_app_api_url",
-      "BOUNCE_APP_GOOGLE_ANALYTICS": "@bounce_app_google_analytics"
+      "NOIZE_APP_API_URL": "@noize_app_api_url",
+      "NOIZE_APP_GOOGLE_ANALYTICS": "@noize_app_google_analytics"
     }
   }
 }
