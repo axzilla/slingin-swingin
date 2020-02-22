@@ -2,15 +2,19 @@ import { stateToHTML } from 'draft-js-export-html'
 import { convertFromRaw } from 'draft-js'
 
 let options = {
-  // blockRenderers: {
-  //   unstyled: block => {
-  //     if (block.getText()) {
-  //       return `<p class="MuiTypography-root MuiTypography-body1">${block.getText()}</p>`
-  //     } else {
-  //       return '<p class="MuiTypography-root MuiTypography-body1"><br></p>'
-  //     }
-  //   }
-  // }
+  entityStyleFn: entity => {
+    const entityType = entity.get('type').toLowerCase()
+    if (entityType === 'image') {
+      const data = entity.getData()
+      return {
+        element: 'img',
+        attributes: {
+          src: data.src
+        },
+        style: { maxWidth: '100%' }
+      }
+    }
+  }
 }
 
 function rawToHtml(content) {

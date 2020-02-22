@@ -26,6 +26,8 @@ class MyDocument extends Document {
             name="google-site-verification"
             content="2Dbqt_hgu96oHsDOkjCLDC-wyKCbiGR7hEEXkyVU7qI"
           />
+
+          <link rel="stylesheet" href="/style.css" />
         </Head>
         <body>
           <Main />

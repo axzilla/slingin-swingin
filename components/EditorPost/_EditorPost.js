@@ -127,25 +127,20 @@ function EditorPost({ content, setContent, placeholder }) {
   return (
     <>
       <div className={classes.wrapperOutter}>
-        <Button onClick={onUnderlineClick}>
+        <Button color="primary" onClick={onUnderlineClick}>
           <FormatUnderlinedIcon />
         </Button>
-        <Button onClick={onBoldClick}>
+        <Button color="primary" onClick={onBoldClick}>
           <FormatBoldIcon />
         </Button>
-        <Button onClick={onItalicClick}>
+        <Button color="primary" onClick={onItalicClick}>
           <FormatItalicIcon />
         </Button>
 
         <input onChange={onImageClick} style={{ display: 'none' }} id="editor-image" type="file" />
         <span className="icons">
           <label htmlFor="editor-image">
-            <Button
-              component="span"
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-            >
+            <Button component="span" color="primary" className={classes.button}>
               <ImageIcon />
             </Button>
           </label>
