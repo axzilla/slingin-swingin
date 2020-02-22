@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+console.log(process.env.NOIZE_APP_SERVER_URL)
+
 const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/comments`
 
 export function commentCreate(commentData) {
