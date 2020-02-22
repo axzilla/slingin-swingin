@@ -1,0 +1,4 @@
+figure {
+  /* This is because of the <figure> tag margin on draft editor components */
+  margin: 0 !important;
+}
