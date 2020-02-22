@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
-import htmlToMui from '@utils/htmlToMui'
-import markdownToHtml from '@utils/markdownToHtml'
+import rawToHtml from '@utils/rawToHtml'
+import htmlRemove from '@utils/htmlRemove'
+
 import Link from '@components/Link'
 
 import Card from '@material-ui/core/Card'
@@ -40,7 +41,9 @@ function Comments({ comments }) {
                     </div>
                   </div>
                   <div
-                    dangerouslySetInnerHTML={{ __html: htmlToMui(markdownToHtml(comment.content)) }}
+                    dangerouslySetInnerHTML={{
+                      __html: htmlRemove(rawToHtml(comment.content))
+                    }}
                   />
                 </CardContent>
               </Card>
