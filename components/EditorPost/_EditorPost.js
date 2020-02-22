@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js'
-const Editor = dynamic(() => import('draft-js').then(mod => mod.Editor), { ssr: false })
+import { EditorState, RichUtils, convertToRaw, convertFromRaw, AtomicBlockUtils } from 'draft-js'
+import createImagePlugin from 'draft-js-image-plugin'
+const Editor = dynamic(() => import('draft-js-plugins-editor'), {
+  ssr: false
+})
 
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
@@ -13,6 +16,7 @@ import Button from '@material-ui/core/Button'
 import FormatBoldIcon from '@material-ui/icons/FormatBold'
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
 import FormatItalicIcon from '@material-ui/icons/FormatItalic'
+import ImageIcon from '@material-ui/icons/Image'
 
 const useStyles = makeStyles(theme => ({
   toolbar: { marginBottom: theme.spacing(1) },
@@ -32,6 +36,10 @@ const useStyles = makeStyles(theme => ({
   wrapperInner: {
     padding: '10.5px 14px',
 
+    '& img': {
+      maxWidth: '100%'
+    },
+
     '& .DraftEditor-root': {
       fontSize: '1rem',
       fontFamily: 'Ubuntu',
@@ -49,6 +57,9 @@ const useStyles = makeStyles(theme => ({
   },
   error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
 }))
+
+const imagePlugin = createImagePlugin()
+const plugins = [imagePlugin]
 
 function EditorPost({ content, setContent, placeholder }) {
   const classes = useStyles()
@@ -88,6 +99,31 @@ function EditorPost({ content, setContent, placeholder }) {
     onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'))
   }
 
+  function onImageClick() {
+    var reader = new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+
+    reader.onload = function() {
+      const newEditorState = insertImage(editorState, reader.result)
+      onChange(newEditorState)
+    }
+
+    reader.onerror = function(error) {
+      console.log('Error: ', error)
+    }
+  }
+
+  function insertImage(editorState, base64) {
+    const contentState = editorState.getCurrentContent()
+    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', { src: base64 })
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+    const newEditorState = EditorState.set(editorState, {
+      currentContent: contentStateWithEntity
+    })
+
+    return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ')
+  }
+
   return (
     <>
       <div className={classes.wrapperOutter}>
@@ -100,9 +136,25 @@ function EditorPost({ content, setContent, placeholder }) {
         <Button onClick={onItalicClick}>
           <FormatItalicIcon />
         </Button>
+
+        <input onChange={onImageClick} style={{ display: 'none' }} id="editor-image" type="file" />
+        <span className="icons">
+          <label htmlFor="editor-image">
+            <Button
+              component="span"
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
+              <ImageIcon />
+            </Button>
+          </label>
+        </span>
+
         <Divider />
         <div className={classes.wrapperInner}>
           <Editor
+            plugins={plugins}
             editorState={editorState}
             onChange={onChange}
             handleKeyCommand={handleKeyCommand}
