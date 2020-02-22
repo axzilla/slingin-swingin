@@ -1,43 +1,43 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.NOIZE_APP_API_URL}/auth`
+const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/auth`
 
 export function userRegister(userData) {
-  return axios.post(`${rootUrl}/register`, userData)
+  return axios.post(`${serverUrl}/register`, userData)
 }
 
 export function userLogin(userData) {
-  return axios.post(`${rootUrl}/login`, userData)
+  return axios.post(`${serverUrl}/login`, userData)
 }
 
 export function avatarUpload(formData, config) {
-  return axios.post(`${rootUrl}/avatar-upload`, formData, config)
+  return axios.post(`${serverUrl}/avatar-upload`, formData, config)
 }
 
 export function avatarDelete() {
-  return axios.post(`${rootUrl}/avatar-delete`)
+  return axios.post(`${serverUrl}/avatar-delete`)
 }
 
 export function passwordForgot(emailData) {
-  return axios.post(`${rootUrl}/password-forgot`, emailData)
+  return axios.post(`${serverUrl}/password-forgot`, emailData)
 }
 
 export function passwordReset(passwordData) {
-  return axios.post(`${rootUrl}/password-reset`, passwordData)
+  return axios.post(`${serverUrl}/password-reset`, passwordData)
 }
 
 export function usernameChange(usernameData) {
-  return axios.post(`${rootUrl}/username-change`, usernameData)
+  return axios.post(`${serverUrl}/username-change`, usernameData)
 }
 
 export function passwordChange(passwordData) {
-  return axios.post(`${rootUrl}/password-change`, passwordData)
+  return axios.post(`${serverUrl}/password-change`, passwordData)
 }
 
 export function emailChange(emailData) {
-  return axios.post(`${rootUrl}/email-change`, emailData)
+  return axios.post(`${serverUrl}/email-change`, emailData)
 }
 
 export function settingsUpdate(settingData) {
-  return axios.post(`${rootUrl}/settings-change`, settingData)
+  return axios.post(`${serverUrl}/settings-change`, settingData)
 }

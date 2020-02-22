@@ -1,19 +1,19 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.NOIZE_APP_API_URL}/profile`
+const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/profile`
 
 export function getCurrentProfile() {
-  return axios.get(`${rootUrl}/get-profile-by-current-user`)
+  return axios.get(`${serverUrl}/get-profile-by-current-user`)
 }
 
 export function getAllProfiles() {
-  return axios.get(`${rootUrl}/get-all-profiles`)
+  return axios.get(`${serverUrl}/get-all-profiles`)
 }
 
 export function getProfileByHandle(handle) {
-  return axios.get(`${rootUrl}/get-profile-by-handle/${handle}`)
+  return axios.get(`${serverUrl}/get-profile-by-handle/${handle}`)
 }
 
 export function profileUpdate(profileData) {
-  return axios.post(`${rootUrl}/profile-update`, profileData)
+  return axios.post(`${serverUrl}/profile-update`, profileData)
 }

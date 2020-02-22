@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const rootUrl = `${process.env.NOIZE_APP_API_URL}/search`
+const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/search`
 
 export function searchFunc(searchString) {
-  return axios.get(`${rootUrl}/${searchString}`)
+  return axios.get(`${serverUrl}/${searchString}`)
 }
