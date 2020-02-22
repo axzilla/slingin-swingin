@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// import htmlRemove from '@utils/htmlRemove'
-// import htmlToMarkdown from '@utils/htmlToMarkdown'
 import EditorPost from '@components/EditorPost'
 import { commentCreate } from '@services/comment'
 
@@ -36,12 +34,7 @@ function CommentCreate({ postId, toggleAnswerMode, setComments, comments }) {
       <Box mb={1}>
         <EditorPost setContent={setContent} placeholder="Leave a comment" />
       </Box>
-      <Button
-        type="submit"
-        variant="outlined"
-        color="primary"
-        // disabled={!htmlRemove(content).length}
-      >
+      <Button type="submit" variant="outlined" color="primary">
         Leave a comment
       </Button>
     </form>

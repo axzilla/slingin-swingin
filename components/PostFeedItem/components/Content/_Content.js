@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// import markdownToHtml from '@utils/markdownToHtml'
 import htmlRemove from '@utils/htmlRemove'
 
 import rawToHtml from '@utils/rawToHtml'
