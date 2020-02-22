@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import htmlToMui from '@utils/htmlToMui'
-import markdownToHtml from '@utils/markdownToHtml'
+import rawToHtml from '@utils/rawToHtml'
 
 function CommentFeedItemtext({ comment }) {
-  return <div dangerouslySetInnerHTML={{ __html: htmlToMui(markdownToHtml(comment.content)) }} />
+  return <div dangerouslySetInnerHTML={{ __html: rawToHtml(comment.content) }} />
 }
 
 CommentFeedItemtext.propTypes = {
