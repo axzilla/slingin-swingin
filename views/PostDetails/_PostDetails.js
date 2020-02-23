@@ -5,10 +5,10 @@ import Moment from 'react-moment'
 import AuthContext from '@contexts/AuthContext'
 import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
 import Link from '@components/Link'
+import CommentForm from '@components/CommentForm'
 
 import AuthActions from './components/AuthActions'
 import Content from './components/Content'
-import CommentCreate from './components/CommentCreate'
 import CommentFeedItem from './components/CommentFeedItem'
 import Tags from './components/Tags'
 import Title from './components/Title'
@@ -125,7 +125,7 @@ function PostDetails({ post }) {
       </Grid>
       <Grid item xs={12}>
         {isAuthenticated ? (
-          <CommentCreate
+          <CommentForm
             postId={postData._id}
             postShortId={postData.shortId}
             comments={comments}

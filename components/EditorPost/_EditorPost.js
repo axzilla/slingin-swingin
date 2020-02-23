@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import { EditorState, RichUtils, convertToRaw, convertFromRaw, AtomicBlockUtils } from 'draft-js'
+import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
 import createImagePlugin from 'draft-js-image-plugin'
 const Editor = dynamic(() => import('draft-js-plugins-editor'), {
   ssr: false
@@ -58,22 +58,14 @@ const useStyles = makeStyles(theme => ({
   error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
 }))
 
-const imagePlugin = createImagePlugin()
-const plugins = [imagePlugin]
-
-function EditorPost({ content, setContent, placeholder }) {
+function EditorPost({ editorState, setEditorState, placeholder }) {
   const classes = useStyles()
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
-  useEffect(() => {
-    if (content) {
-      setEditorState(EditorState.createWithContent(convertFromRaw(content)))
-    }
-  }, [])
+  const imagePlugin = createImagePlugin()
+  const plugins = [imagePlugin]
 
   function onChange(editorState) {
     setEditorState(editorState)
-    setContent(convertToRaw(editorState.getCurrentContent()))
   }
 
   function handleKeyCommand(command) {
@@ -162,8 +154,8 @@ function EditorPost({ content, setContent, placeholder }) {
 }
 
 EditorPost.propTypes = {
-  content: PropTypes.object,
-  setContent: PropTypes.func,
+  editorState: PropTypes.object,
+  setEditorState: PropTypes.func,
   placeholder: PropTypes.string
 }
 

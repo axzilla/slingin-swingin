@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
 import Tags from './components/Tags'
-import Content from './components/Content'
+
+import EditorPost from '@components/EditorPost'
 
 import { postCreate, postUpdate } from '@services/post'
 
@@ -22,7 +24,12 @@ function PostForm({ post }) {
     post && post.titleImage ? post.titleImage.secure_url : null
   )
   const [title, setTitle] = useState(post ? post.title : '')
-  const [content, setContent] = useState(post ? JSON.parse(post.content) : '')
+  const [editorState, setEditorState] = useState(
+    post
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(post.content)))
+      : EditorState.createEmpty()
+  )
+
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
 
@@ -33,7 +40,7 @@ function PostForm({ post }) {
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('content', JSON.stringify(content))
+      formData.append('content', JSON.stringify(convertToRaw(editorState.getCurrentContent())))
       formData.append('tags', tags)
 
       if (post) {
@@ -72,7 +79,12 @@ function PostForm({ post }) {
             <Title title={title} setTitle={setTitle} errors={errors} />
           </Grid>
           <Grid item>
-            <Content content={content} setContent={setContent} errors={errors} />
+            <EditorPost
+              editorState={editorState}
+              setEditorState={setEditorState}
+              error={errors && errors.content}
+              placeholder="Write your story or question"
+            />
           </Grid>
           <Grid item>
             <Tags
