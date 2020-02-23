@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import { commentUpdate, commentDelete } from '@services/comment'
+import { commentDelete } from '@services/comment'
 import AuthContext from '@contexts/AuthContext'
 
-import Edit from './components/Edit'
+import CommentForm from '@components/CommentForm'
+
 import Header from './components/Header'
 import Content from './components/Content'
 import Vote from './components/Vote'
@@ -39,22 +40,6 @@ function CommentFeedItem({ comment, comments, setComments }) {
     setIsEditMode(!isEditMode)
   }
 
-  async function handleSaveClick(content) {
-    try {
-      const commentData = {
-        content: JSON.stringify(content),
-        commentId: comment._id,
-        post: comment.post
-      }
-
-      setIsEditMode(false)
-      const updatedComment = await commentUpdate(commentData)
-      setCommentData(updatedComment.data)
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
   async function handleDeleteClick() {
     try {
       const deletedComment = await commentDelete(comment._id)
@@ -84,7 +69,12 @@ function CommentFeedItem({ comment, comments, setComments }) {
           </>
         ) : (
           <CardContent>
-            <Edit comment={commentData} handleSaveClick={handleSaveClick} />
+            <CommentForm
+              comment={commentData}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              setCommentData={setCommentData}
+            />
           </CardContent>
         )}
         <Box m={2}>
