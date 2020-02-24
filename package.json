@@ -18,7 +18,6 @@
     "dotenv": "8.2.0",
     "draft-js": "0.11.4",
     "draft-js-export-html": "1.4.1",
-    "draft-js-image-plugin": "2.0.7",
     "draft-js-plugins-editor": "3.0.0",
     "jwt-decode": "2.2.0",
     "moment": "^2.22.2",

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import createImagePlugin from 'draft-js-image-plugin'
 const Editor = dynamic(() => import('draft-js-plugins-editor'), {
   ssr: false
 })
@@ -51,21 +50,13 @@ const useStyles = makeStyles(theme => ({
 function EditorPost({ editorState, setEditorState, placeholder }) {
   const classes = useStyles()
 
-  const imagePlugin = createImagePlugin()
-  const plugins = [imagePlugin]
-
   function onChange(editorState) {
     setEditorState(editorState)
   }
 
   return (
     <div className={classes.wrapper}>
-      <Editor
-        plugins={plugins}
-        editorState={editorState}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
+      <Editor editorState={editorState} onChange={onChange} placeholder={placeholder} />
     </div>
   )
 }
