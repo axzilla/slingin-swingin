@@ -4,9 +4,16 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 
 import EditorPost from '@components/EditorPost'
 import { commentCreate, commentUpdate } from '@services/comment'
+import rawToHtml from '@utils/rawToHtml'
+import htmlRemove from '@utils/htmlRemove'
 
+import { makeStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
+
+const useStyles = makeStyles(theme => ({
+  commentButton: { marginRight: theme.spacing(1) }
+}))
 
 function CommentForm({
   comment,
@@ -17,6 +24,7 @@ function CommentForm({
   setIsEditMode,
   setCommentData
 }) {
+  const classes = useStyles()
   const [editorState, setEditorState] = useState(
     comment
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(comment.content)))
@@ -61,12 +69,31 @@ function CommentForm({
         <EditorPost
           editorState={editorState}
           setEditorState={setEditorState}
-          placeholder="Leave a comment"
+          placeholder="What are your thougts?"
         />
       </Box>
-      <Button type="submit" variant="outlined" color="primary">
-        Leave a comment
+      <Button
+        className={classes.commentButton}
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={
+          htmlRemove(rawToHtml(JSON.stringify(convertToRaw(editorState.getCurrentContent()))))
+            .length < 1
+        }
+      >
+        {comment ? 'Save' : 'Comment'}
       </Button>
+      {comment && (
+        <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          onClick={() => setIsEditMode(false)}
+        >
+          Cancel
+        </Button>
+      )}
     </form>
   )
 }
