@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import { setGaPageView } from '@utils/googleAnalytics'
 import { getPosts } from '@services/post'
 
 import PostFeedItem from '@components/PostFeedItem'
@@ -12,7 +11,6 @@ function Landing() {
 
   useEffect(() => {
     getInitalData()
-    setGaPageView()
   }, [])
 
   async function getInitalData() {
