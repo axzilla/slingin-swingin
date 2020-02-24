@@ -50,7 +50,7 @@ function ProfileDetailsInfos({ profile }) {
       {isEmpty(profile.location) ? null : (
         <Grid item xs={12} sm={6} md={3} className={classes.infoContainer}>
           <Typography variant="subtitle1" className={classes.infoKey}>
-            kommt aus
+            from
           </Typography>
           <Typography variant="subtitle1" className={classes.infoValue}>
             {profile.location}
@@ -59,7 +59,7 @@ function ProfileDetailsInfos({ profile }) {
       )}
       <Grid item xs={12} sm={6} md={3} className={classes.infoContainer}>
         <Typography variant="subtitle1" className={classes.infoKey}>
-          beigetreten
+          joined
         </Typography>
         <Typography variant="subtitle1" className={classes.infoValue}>
           <Moment fromNow>{profile.dateCreated}</Moment>
