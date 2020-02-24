@@ -5,6 +5,7 @@ import Posts from './components/Posts'
 import Profiles from './components/Profiles'
 
 import { makeStyles } from '@material-ui/styles'
+import Paper from '@material-ui/core/Paper'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import Grid from '@material-ui/core/Grid'
@@ -42,17 +43,22 @@ function CenteredTabs({ searchResult, searchString, setSearchResult }) {
 
   return (
     <Grid item xs={12}>
-      <Tabs
-        className={classes.root}
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label={`Beiträge ${searchResult.posts ? searchResult.posts.length : '0'}`} />
-        <Tab label={`Mitglieder  ${searchResult.profiles ? searchResult.profiles.length : '0'}`} />
-      </Tabs>
+      <Paper>
+        <Tabs
+          className={classes.root}
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label={`Beiträge ${searchResult.posts ? searchResult.posts.length : '0'}`} />
+          <Tab
+            label={`Mitglieder  ${searchResult.profiles ? searchResult.profiles.length : '0'}`}
+          />
+        </Tabs>
+      </Paper>
+
       {value === 0 && (
         <TabContainer>
           <Posts
