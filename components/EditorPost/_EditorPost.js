@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
 import createImagePlugin from 'draft-js-image-plugin'
 const Editor = dynamic(() => import('draft-js-plugins-editor'), {
   ssr: false
@@ -10,17 +9,11 @@ const Editor = dynamic(() => import('draft-js-plugins-editor'), {
 import { makeStyles } from '@material-ui/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
-import Divider from '@material-ui/core/Divider'
-import Button from '@material-ui/core/Button'
-
-import FormatBoldIcon from '@material-ui/icons/FormatBold'
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
-import FormatItalicIcon from '@material-ui/icons/FormatItalic'
-import ImageIcon from '@material-ui/icons/Image'
-
 const useStyles = makeStyles(theme => ({
   toolbar: { marginBottom: theme.spacing(1) },
-  wrapperOutter: {
+  wrapper: {
+    padding: '10.5px 14px',
+
     borderRadius: '4px',
     border: '1px solid #ccc',
 
@@ -31,10 +24,7 @@ const useStyles = makeStyles(theme => ({
     '&:focus-within': {
       border: `2px solid ${theme.palette.primary.main}`,
       margin: '-1px'
-    }
-  },
-  wrapperInner: {
-    padding: '10.5px 14px',
+    },
 
     '& img': {
       maxWidth: '100%'
@@ -68,88 +58,15 @@ function EditorPost({ editorState, setEditorState, placeholder }) {
     setEditorState(editorState)
   }
 
-  function handleKeyCommand(command) {
-    const newState = RichUtils.handleKeyCommand(editorState, command)
-
-    if (newState) {
-      onChange(newState)
-      return 'handled'
-    }
-
-    return 'not-handled'
-  }
-
-  function onUnderlineClick() {
-    onChange(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'))
-  }
-
-  function onBoldClick() {
-    onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'))
-  }
-
-  function onItalicClick() {
-    onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'))
-  }
-
-  function onImageClick() {
-    var reader = new FileReader()
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.onload = function() {
-      const newEditorState = insertImage(editorState, reader.result)
-      onChange(newEditorState)
-    }
-
-    reader.onerror = function(error) {
-      console.log('Error: ', error)
-    }
-  }
-
-  function insertImage(editorState, base64) {
-    const contentState = editorState.getCurrentContent()
-    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', { src: base64 })
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-    const newEditorState = EditorState.set(editorState, {
-      currentContent: contentStateWithEntity
-    })
-
-    return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ')
-  }
-
   return (
-    <>
-      <div className={classes.wrapperOutter}>
-        <Button color="primary" onClick={onUnderlineClick}>
-          <FormatUnderlinedIcon />
-        </Button>
-        <Button color="primary" onClick={onBoldClick}>
-          <FormatBoldIcon />
-        </Button>
-        <Button color="primary" onClick={onItalicClick}>
-          <FormatItalicIcon />
-        </Button>
-
-        <input onChange={onImageClick} style={{ display: 'none' }} id="editor-image" type="file" />
-        <span className="icons">
-          <label htmlFor="editor-image">
-            <Button component="span" color="primary" className={classes.button}>
-              <ImageIcon />
-            </Button>
-          </label>
-        </span>
-
-        <Divider />
-        <div className={classes.wrapperInner}>
-          <Editor
-            plugins={plugins}
-            editorState={editorState}
-            onChange={onChange}
-            handleKeyCommand={handleKeyCommand}
-            placeholder={placeholder}
-          />
-        </div>
-      </div>
-    </>
+    <div className={classes.wrapper}>
+      <Editor
+        plugins={plugins}
+        editorState={editorState}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+    </div>
   )
 }
 
