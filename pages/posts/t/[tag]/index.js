@@ -8,7 +8,7 @@ function PostsByTag({ tag }) {
   return (
     <>
       <SeoMeta
-        title={`${tag} - noize.dev - Gemeinsam werden wir bessere Entwickler`}
+        title={`${tag} - noize.dev - The #1 Music Production Community`}
         desc={`noize.dev - Hier dreht sich alles um ${tag}`}
         canonical={`https://www.noize.dev/posts/t/${tag}`}
       />
