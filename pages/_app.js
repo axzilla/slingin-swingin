@@ -136,6 +136,7 @@ class MyApp extends App {
       <>
         <Head>
           <link rel="icon" href="/favicon.png" />
+          <title>The #1 Music Production Community</title>
         </Head>
         <AuthContext.Provider
           value={{
