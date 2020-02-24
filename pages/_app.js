@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import App from 'next/app'
 import Head from 'next/head'
+import withGA from 'next-ga'
+import Router from 'next/router'
+import { withRouter } from 'next/router'
+import jwtDecode from 'jwt-decode'
+import Cookies from 'universal-cookie'
 
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 import { theme } from '../theme'
-
-import Router from 'next/router'
-import { withRouter } from 'next/router'
-import jwtDecode from 'jwt-decode'
-import Cookies from 'universal-cookie'
 
 import Alert from '@components/Alert'
 import AuthModal from '@components/AuthModal'
@@ -162,4 +162,4 @@ class MyApp extends App {
   }
 }
 
-export default withRouter(MyApp)
+export default withRouter(withGA(process.env.NOIZE_APP_GOOGLE_ANALYTICS, Router)(MyApp))
