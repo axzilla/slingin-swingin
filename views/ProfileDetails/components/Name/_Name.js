@@ -19,7 +19,7 @@ function ProfileDetailsName({ profile }) {
 
   return (
     <Typography className={classes.name} variant="h2">
-      {profile.name}
+      {profile.firstName} {profile.lastName}
     </Typography>
   )
 }

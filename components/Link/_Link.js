@@ -29,7 +29,7 @@ function Link({ children, color, href, as, variant, underlined }) {
     )
   } else if (variant === 'MuiLink') {
     return (
-      <MuiLink className={classes.link} href={href} color={color}>
+      <MuiLink className={classes.link} href={href} color={color} target="_blank">
         {children}
       </MuiLink>
     )

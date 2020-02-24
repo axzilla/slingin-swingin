@@ -19,11 +19,11 @@ function ProfileDetailsCardHeader({ profile, auth }) {
             <Name profile={profile} />
             <Username profile={profile} />
             <Bio profile={profile} />
-            <Socials profile={profile} />
             <Infos profile={profile} />
             <ButtonEdit profile={profile} auth={auth} />
           </Grid>
         </Grid>
+        <Socials profile={profile} />
       </CardContent>
     </Card>
   )
