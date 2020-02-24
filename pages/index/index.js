@@ -6,7 +6,7 @@ function Landing() {
   return (
     <>
       <SeoMeta
-        title={'noize.dev - Gemeinsam werden wir bessere Entwickler'}
+        title={'noize.dev - The #1 Music Production Community'}
         desc={
           'noize.dev ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen.'
         }
