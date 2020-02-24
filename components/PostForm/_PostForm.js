@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
@@ -10,6 +10,8 @@ import Tags from './components/Tags'
 import EditorPost from '@components/EditorPost'
 
 import { postCreate, postUpdate } from '@services/post'
+import rawToHtml from '@utils/rawToHtml'
+import htmlRemove from '@utils/htmlRemove'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -32,6 +34,13 @@ function PostForm({ post }) {
 
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
+
+  useEffect(() => {
+    console.log(
+      htmlRemove(rawToHtml(JSON.stringify(convertToRaw(editorState.getCurrentContent()))))
+    )
+    // console.log(rawToHtml(editorState.getCurrentContent()))
+  }, [editorState])
 
   async function onSubmit() {
     try {
@@ -101,7 +110,12 @@ function PostForm({ post }) {
               variant="contained"
               onClick={onSubmit}
               fullWidth
-              disabled={isLoading}
+              disabled={
+                isLoading ||
+                !title ||
+                htmlRemove(rawToHtml(JSON.stringify(convertToRaw(editorState.getCurrentContent()))))
+                  .length < 1
+              }
             >
               Save
             </Button>
