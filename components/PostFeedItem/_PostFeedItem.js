@@ -9,12 +9,16 @@ import Footer from './components/Footer'
 import Link from '@components/Link'
 
 import { makeStyles } from '@material-ui/styles'
+import { grey } from '@material-ui/core/colors'
 import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 
 const useStyles = makeStyles(theme => ({
+  avatar: {
+    border: `1px solid ${grey[900]}`
+  },
   cardHeader: { paddingBottom: 0 },
   cardContentRoot: {
     '&:last-child': {
@@ -36,9 +40,13 @@ function PostFeedItem({ post }) {
         avatar={
           <Link href="/[handle]" as={`/${post.user.username}`}>
             {post.user.avatar && post.user.avatar.secure_url ? (
-              <Avatar alt={post.user.username} src={post.user.avatar.secure_url} />
+              <Avatar
+                className={classes.avatar}
+                alt={post.user.username}
+                src={post.user.avatar.secure_url}
+              />
             ) : (
-              <Avatar alt={post.user.username}>
+              <Avatar className={classes.avatar} alt={post.user.username}>
                 {post.user.username.substring(0, 1).toUpperCase()}
               </Avatar>
             )}
@@ -49,7 +57,11 @@ function PostFeedItem({ post }) {
             {post.user.username}
           </Link>
         }
-        subheader={<Moment fromNow>{post.dateCreated}</Moment>}
+        subheader={
+          <small>
+            <Moment fromNow>{post.dateCreated}</Moment>
+          </small>
+        }
       />
       <CardContent classes={{ root: classes.cardContentRoot }}>
         <Content post={postData} />

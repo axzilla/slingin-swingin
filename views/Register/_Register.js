@@ -48,7 +48,7 @@ const Register = () => {
   return (
     <>
       <Typography variant="h5" align="center" gutterBottom>
-        Ready to sign up?
+        Ready to get started?
       </Typography>
       <form onSubmit={onSubmit}>
         <Box mb={2}>
@@ -71,7 +71,7 @@ const Register = () => {
         </Box>
         <Box mb={2}>
           <Button fullWidth type="submit" color="secondary" variant="contained">
-            Sign Up
+            Get Started
           </Button>
         </Box>
       </form>

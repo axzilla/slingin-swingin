@@ -86,7 +86,7 @@ function PasswordChange() {
           />
         </CardContent>
         <CardContent>
-          <Button type="submit" variant="outlined" color="primary">
+          <Button type="submit" variant="contained" color="secondary">
             Save
           </Button>
         </CardContent>

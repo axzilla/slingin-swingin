@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
@@ -34,13 +34,6 @@ function PostForm({ post }) {
 
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
-
-  useEffect(() => {
-    console.log(
-      htmlRemove(rawToHtml(JSON.stringify(convertToRaw(editorState.getCurrentContent()))))
-    )
-    // console.log(rawToHtml(editorState.getCurrentContent()))
-  }, [editorState])
 
   async function onSubmit() {
     try {

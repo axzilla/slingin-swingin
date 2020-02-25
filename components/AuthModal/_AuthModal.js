@@ -20,20 +20,25 @@ function AuthModal() {
 
   return (
     <Dialog
+      maxWidth="xs"
       open={isAuthModal}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">NOT A MEMBER?</DialogTitle>
+      <DialogTitle align="center" id="alert-dialog-title">
+        NOT A MEMBER?
+      </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description" align="center">
-          This feature is for registered noize.dev members only.
+          This feature is for registered noize.dev members only. Log in to your account or create an
+          account for FREE if you haven`t done so and join the coolest community of music lovers
+          that are already on noize.dev!
         </DialogContentText>
-        <Box my={2}>
+        <Box my={2} align="center">
           <Link href="/register">
-            <Button onClick={handleClose} variant="contained" fullWidth color="primary">
-              Sign Up
+            <Button onClick={handleClose} variant="contained" color="secondary">
+              Get Started
             </Button>
           </Link>
           <Box my={1}>
@@ -42,15 +47,11 @@ function AuthModal() {
             </Typography>
           </Box>
           <Link href="/login">
-            <Button onClick={handleClose} variant="outlined" fullWidth color="primary">
+            <Button onClick={handleClose} variant="outlined" color="secondary">
               Log In
             </Button>
           </Link>
         </Box>
-        <DialogContentText id="alert-dialog-description" align="center">
-          Log in to your account or create an account for FREE if you haven`t done so and join the
-          coolest community of music lovers that are already on noize.dev!
-        </DialogContentText>
       </DialogContent>
     </Dialog>
   )

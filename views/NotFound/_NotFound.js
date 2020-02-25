@@ -33,7 +33,7 @@ function NotFound() {
       >
         <img src={image404} className={classes.image} />
         <Link href="/">
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="secondary">
             Back
           </Button>
         </Link>

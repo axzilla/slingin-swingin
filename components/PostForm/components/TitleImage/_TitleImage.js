@@ -57,7 +57,7 @@ function PostCreate({ setTitleImage, titleImagePreview, setTitleImagePreview }) 
         </label>
         {!isEmpty(titleImagePreview) && (
           <Button
-            color="primary"
+            color="secondary"
             variant="outlined"
             onClick={handleDeleteTitleImageClick}
             className={classes.button}

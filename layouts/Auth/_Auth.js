@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import logo from './_logo.svg'
+import logo from './_logo_beta.svg'
 
 import Link from '@components/Link'
 import Container from '@components/Container'

@@ -43,11 +43,9 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
               <CardActions>
                 <React.Fragment>
                   <Link href="/post-edit/[id]" as={`/post-edit/${post._id}`}>
-                    <Button color="primary">Edit</Button>
+                    <Button>Edit</Button>
                   </Link>
-                  <Button onClick={handleAvatarOpen} color="primary">
-                    Delete
-                  </Button>
+                  <Button onClick={handleAvatarOpen}>Delete</Button>
                 </React.Fragment>
               </CardActions>
             </React.Fragment>
@@ -68,10 +66,10 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
         </DialogContent>
         <Divider />
         <DialogActions>
-          <Button onClick={handleAvatarClose} color="primary">
+          <Button onClick={handleAvatarClose} color="secondary">
             No
           </Button>
-          <Button onClick={handleDeleteClick} color="primary" autoFocus>
+          <Button onClick={handleDeleteClick} color="secondary" autoFocus>
             Yes
           </Button>
         </DialogActions>

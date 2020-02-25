@@ -106,10 +106,10 @@ function CommentFeedItem({ comment, comments, setComments }) {
         </DialogContent>
         <Divider />
         <DialogActions>
-          <Button onClick={handleAvatarClose} color="primary">
+          <Button onClick={handleAvatarClose} color="secondary">
             No
           </Button>
-          <Button onClick={handleDeleteClick} color="primary" autoFocus>
+          <Button onClick={handleDeleteClick} color="secondary" autoFocus>
             Yes
           </Button>
         </DialogActions>

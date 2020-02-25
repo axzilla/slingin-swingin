@@ -56,10 +56,10 @@ function CommentFeedItemVote({ comment }) {
       <Grid item>
         <Grid container spacing={2}>
           <Grid item>
-            <MoodBadIcon onClick={onDownvoteClick} color={isDownvoted ? 'primary' : 'disabled'} />
+            <MoodBadIcon onClick={onDownvoteClick} color={isDownvoted ? 'secondary' : 'disabled'} />
           </Grid>
           <Grid item>
-            <MoodIcon onClick={onUpvoteClick} color={isUpvoted ? 'primary' : 'disabled'} />
+            <MoodIcon onClick={onUpvoteClick} color={isUpvoted ? 'secondary' : 'disabled'} />
           </Grid>
         </Grid>
       </Grid>

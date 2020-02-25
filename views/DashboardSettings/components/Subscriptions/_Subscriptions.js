@@ -110,7 +110,7 @@ function Settings() {
             </Grid>
           </CardContent>
           <CardContent>
-            <Button type="submit" color="primary" variant="outlined">
+            <Button type="submit" color="secondary" variant="contained">
               Save
             </Button>
           </CardContent>
