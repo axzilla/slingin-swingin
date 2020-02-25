@@ -76,7 +76,7 @@ function CommentForm({
         className={classes.commentButton}
         type="submit"
         variant="contained"
-        color="primary"
+        color="secondary"
         disabled={
           htmlRemove(rawToHtml(JSON.stringify(convertToRaw(editorState.getCurrentContent()))))
             .length < 1
@@ -88,7 +88,7 @@ function CommentForm({
         <Button
           type="submit"
           variant="outlined"
-          color="primary"
+          color="secondary"
           onClick={() => setIsEditMode(false)}
         >
           Cancel

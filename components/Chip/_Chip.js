@@ -2,11 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/core/styles'
+import { grey } from '@material-ui/core/colors'
 import MuiChip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles(theme => ({
   chip: {
-    borderRadius: '2px',
+    borderRadius: '4px',
+    border: `1px solid ${grey[900]}`,
     margin: theme.spacing(0, 0.5, 0.5, 0)
   },
   label: {

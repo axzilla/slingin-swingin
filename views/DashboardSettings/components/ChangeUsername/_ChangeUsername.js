@@ -59,7 +59,7 @@ function UsernameChange() {
             />
           </CardContent>
           <CardContent>
-            <Button variant="outlined" color="primary" type="submit" className="register-button">
+            <Button variant="contained" color="secondary" type="submit" className="register-button">
               Save
             </Button>
           </CardContent>

@@ -1,4 +1,7 @@
 import MuiAppBar from './MuiAppBar'
+import MuiCard from './MuiCard'
+import MuiPaper from './MuiPaper'
+import MuiTabs from './MuiTabs'
 // import MuiButton from './MuiButton'
 // import MuiCardActions from './MuiCardActions'
 // import MuiCardContent from './MuiCardContent'
@@ -9,7 +12,6 @@ import MuiAppBar from './MuiAppBar'
 // import MuiLinearProgress from './MuiLinearProgress'
 // import MuiListItemIcon from './MuiListItemIcon'
 // import MuiOutlinedInput from './MuiOutlinedInput'
-// import MuiPaper from './MuiPaper'
 // import MuiTableHead from './MuiTableHead'
 // import MuiTableCell from './MuiTableCell'
 // import MuiTableRow from './MuiTableRow'
@@ -17,7 +19,10 @@ import MuiAppBar from './MuiAppBar'
 // import MuiTypography from './MuiTypography'
 
 export default {
-  MuiAppBar
+  MuiAppBar,
+  MuiCard,
+  MuiPaper,
+  MuiTabs
   // MuiButton,
   // MuiCardActions,
   // MuiCardContent,
@@ -28,7 +33,6 @@ export default {
   // MuiLinearProgress,
   // MuiListItemIcon,
   // MuiOutlinedInput,
-  // MuiPaper,
   // MuiTableHead,
   // MuiTableCell,
   // MuiTableRow,

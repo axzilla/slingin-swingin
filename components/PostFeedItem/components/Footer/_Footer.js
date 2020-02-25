@@ -42,7 +42,7 @@ function Footer({ post, setPostData }) {
         </Grid>
       </Grid>
       <Grid item>
-        <BookmarkIcon onClick={handleBookmarkClick} color={isBookmarked ? 'primary' : 'disabled'} />
+        <BookmarkIcon onClick={handleBookmarkClick} color={isBookmarked ? 'inherit' : 'disabled'} />
       </Grid>
     </Grid>
   )

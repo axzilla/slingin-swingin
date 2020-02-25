@@ -42,37 +42,33 @@ function CenteredTabs({ searchResult, searchString, setSearchResult }) {
   }
 
   return (
-    <Grid item xs={12}>
-      <Paper>
-        <Tabs
-          className={classes.root}
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-        >
-          <Tab label={`Beiträge ${searchResult.posts ? searchResult.posts.length : '0'}`} />
-          <Tab
-            label={`Mitglieder  ${searchResult.profiles ? searchResult.profiles.length : '0'}`}
-          />
-        </Tabs>
-      </Paper>
-
-      {value === 0 && (
-        <TabContainer>
-          <Posts
-            searchResult={searchResult}
-            searchString={searchString}
-            setSearchResult={setSearchResult}
-          />
-        </TabContainer>
-      )}
-      {value === 1 && (
-        <TabContainer>
-          <Profiles searchResult={searchResult} searchString={searchString} />
-        </TabContainer>
-      )}
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Paper>
+          <Tabs className={classes.root} value={value} onChange={handleChange} centered>
+            <Tab label={`Beiträge ${searchResult.posts ? searchResult.posts.length : '0'}`} />
+            <Tab
+              label={`Mitglieder  ${searchResult.profiles ? searchResult.profiles.length : '0'}`}
+            />
+          </Tabs>
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        {value === 0 && (
+          <TabContainer>
+            <Posts
+              searchResult={searchResult}
+              searchString={searchString}
+              setSearchResult={setSearchResult}
+            />
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>
+            <Profiles searchResult={searchResult} searchString={searchString} />
+          </TabContainer>
+        )}
+      </Grid>
     </Grid>
   )
 }

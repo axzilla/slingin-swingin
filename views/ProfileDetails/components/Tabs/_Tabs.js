@@ -38,14 +38,7 @@ function ProfileDetailsTabs({ comments, posts }) {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Paper>
-          <Tabs
-            className={classes.root}
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
+          <Tabs className={classes.root} value={value} onChange={handleChange} centered>
             <Tab label={`${posts.length} Posts`} />
             <Tab label={`${comments.length} Comments`} />
           </Tabs>

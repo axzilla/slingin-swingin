@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/styles'
 import Avatar from '@material-ui/core/Avatar'
+import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
+    border: `2px solid ${grey[900]}`,
     width: '125px',
     height: '125px',
     marginRight: theme.spacing(2),

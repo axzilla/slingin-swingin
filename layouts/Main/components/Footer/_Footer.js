@@ -13,7 +13,7 @@ function Footer() {
         <Typography variant="subtitle1">
           &copy; noize.dev {new Date().getFullYear()} - made with&nbsp;
         </Typography>
-        <FavoriteIcon style={{ color: 'red' }} />
+        <FavoriteIcon color="secondary" />
       </Grid>
     </Box>
   )

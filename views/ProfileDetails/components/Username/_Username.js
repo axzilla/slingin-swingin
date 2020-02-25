@@ -16,7 +16,9 @@ function ProfileDetailsUsername({ profile }) {
 
   return (
     <Typography className={classes.username} gutterBottom variant="h1" component="h3">
-      <Box fontWeight={100}>{profile.user.username}</Box>
+      <Box fontWeight={100} fontFamily="Monospace">
+        {profile.user.username}
+      </Box>
     </Typography>
   )
 }

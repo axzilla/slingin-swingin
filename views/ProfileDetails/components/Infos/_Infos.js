@@ -28,40 +28,28 @@ function ProfileDetailsInfos({ profile }) {
       {isEmpty(profile.firstName || profile.lastName) ? null : (
         <Grid container alignItems="center">
           <AccountCircleIcon className={classes.infoIcons} />
-          <Typography color="textSecondary" variant="body1">
-            <Box fontFamily="Monospace" letterSpacing={1} fontWeight={100}>
-              {profile.firstName} {profile.lastName}
-            </Box>
+          <Typography variant="body1">
+            {profile.firstName} {profile.lastName}
           </Typography>
         </Grid>
       )}
       {isEmpty(profile.status) ? null : (
         <Grid container alignItems="center">
           <MusicNoteIcon className={classes.infoIcons} />
-          <Typography color="textSecondary" variant="body1">
-            <Box fontFamily="Monospace" letterSpacing={1} fontWeight={100}>
-              {profile.status}
-            </Box>
-          </Typography>
+          <Typography variant="body1">{profile.status}</Typography>
         </Grid>
       )}
       {isEmpty(profile.location) ? null : (
         <Grid container alignItems="center">
           <LocationCityIcon className={classes.infoIcons} />
-          <Typography color="textSecondary" variant="body1">
-            <Box fontFamily="Monospace" letterSpacing={1} fontWeight={100}>
-              {profile.location}
-            </Box>
-          </Typography>
+          <Typography variant="body1">{profile.location}</Typography>
         </Grid>
       )}
 
       <Grid container alignItems="center">
         <PersonAddIcon className={classes.infoIcons} />
-        <Typography color="textSecondary" variant="body1">
-          <Box fontFamily="Monospace" letterSpacing={1} fontWeight={100}>
-            <Moment fromNow>{profile.dateCreated}</Moment>
-          </Box>
+        <Typography variant="body1">
+          <Moment fromNow>{profile.dateCreated}</Moment>
         </Typography>
       </Grid>
     </Box>

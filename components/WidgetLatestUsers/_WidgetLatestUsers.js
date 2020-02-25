@@ -5,19 +5,16 @@ import { getAllProfiles } from '@services/profile'
 import Link from '@components/Link'
 
 import { makeStyles } from '@material-ui/core/styles'
+import { grey } from '@material-ui/core/colors'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import Avatar from '@material-ui/core/Avatar'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import ListItemText from '@material-ui/core/ListItemText'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
+    border: `1px solid ${grey[900]}`,
     height: '50px',
-    width: '50px',
-    marginRight: '15px'
+    width: '50px'
   },
   cardContent: { overflow: 'scroll' },
   list: {
@@ -48,37 +45,38 @@ function LandingWidgetUsers() {
     <Card>
       <CardHeader title="New Members" />
       <div className={classes.cardContent}>
-        <List className={classes.list}>
-          {profiles &&
-            profiles.slice(0, 10).map(profile => {
-              return (
-                <ListItem key={profile._id}>
-                  <Link href="/[handle]" as={`/${profile.handle}`}>
-                    <ListItemAvatar>
-                      {profile.user.avatar && profile.user.avatar.secure_url ? (
-                        <Avatar
-                          src={profile.user.avatar.secure_url}
-                          className={classes.avatar}
-                        ></Avatar>
-                      ) : (
-                        <Avatar className={classes.avatar}>
-                          {profile.user.username.substring(0, 1).toUpperCase()}
-                        </Avatar>
-                      )}
-                    </ListItemAvatar>
+        {profiles &&
+          profiles.slice(0, 10).map(profile => {
+            return (
+              <CardHeader
+                key={profile._id}
+                title={
+                  <Link underlined href="/[handle]" as={`/${profile.handle}`}>
+                    {profile.user.username}
                   </Link>
-                  <ListItemText
-                    primary={
-                      <Link href="/[handle]" as={`/${profile.handle}`}>
-                        {profile.user.username}
-                      </Link>
-                    }
-                    secondary={<Moment fromNow>{profile.dateCreated}</Moment>}
-                  />
-                </ListItem>
-              )
-            })}
-        </List>
+                }
+                subheader={
+                  <small>
+                    <Moment fromNow>{profile.dateCreated}</Moment>
+                  </small>
+                }
+                avatar={
+                  <Link underlined href="/[handle]" as={`/${profile.handle}`}>
+                    {profile.user.avatar && profile.user.avatar.secure_url ? (
+                      <Avatar
+                        src={profile.user.avatar.secure_url}
+                        className={classes.avatar}
+                      ></Avatar>
+                    ) : (
+                      <Avatar className={classes.avatar}>
+                        {profile.user.username.substring(0, 1).toUpperCase()}
+                      </Avatar>
+                    )}
+                  </Link>
+                }
+              />
+            )
+          })}
       </div>
     </Card>
   )

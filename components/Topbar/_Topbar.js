@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 
-import logo from './_logo.svg'
+import logo from './_logo_beta.svg'
 
 import AuthContext from '@contexts/AuthContext'
 import Link from '@components/Link'
@@ -168,13 +168,13 @@ function Topbar() {
                   <Box>
                     <Link href="/register">
                       <Button className={classes.button} variant="contained" color="secondary">
-                        Sign&nbsp;Up
+                        Get&nbsp;Started
                       </Button>
                     </Link>
                   </Box>
                   <Box>
                     <Link href="/login">
-                      <Button color="primary" className={classes.button} variant="outlined">
+                      <Button color="secondary" className={classes.button} variant="outlined">
                         Log&nbsp;in
                       </Button>
                     </Link>

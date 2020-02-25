@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     '&:focus-within': {
-      border: `2px solid ${theme.palette.primary.main}`,
+      border: `2px solid ${theme.palette.secondary.light}`,
       margin: '-1px'
     },
 

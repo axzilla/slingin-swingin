@@ -27,10 +27,10 @@ function Modal({ setAvatarOpen, avatarOpen, handleAvatarDelete }) {
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleClose} color="secondary">
           No
         </Button>
-        <Button onClick={handleAvatarDelete} color="primary" autoFocus>
+        <Button onClick={handleAvatarDelete} color="secondary" autoFocus>
           Yes
         </Button>
       </DialogActions>

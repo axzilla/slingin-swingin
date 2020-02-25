@@ -20,7 +20,7 @@ export default {
     light: colors.pink[500]
   },
   background: {
-    // default: white
+    default: white
     // paper: colors.grey[700]
   },
   error: {
