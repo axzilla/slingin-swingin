@@ -8,8 +8,8 @@ import Box from '@material-ui/core/Box'
 
 function ProfileDetailsBio({ profile }) {
   return (
-    <Typography variant="h4" gutterBottom>
-      <Box fontFamily="Monospace" mb={3}>
+    <Typography variant="h5" gutterBottom>
+      <Box letterSpacing={1} mb={3} fontWeight={300}>
         {isEmpty(profile.bio) ? 'did not write anything in the bio...' : profile.bio}
       </Box>
     </Typography>

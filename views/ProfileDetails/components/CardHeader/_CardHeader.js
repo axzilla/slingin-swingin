@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Avatar, Name, Username, Socials, Bio, Infos, ButtonEdit } from '../'
+import { Avatar, Username, Socials, Bio, Infos } from '../'
 
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
@@ -12,12 +12,17 @@ function ProfileDetailsCardHeader({ profile }) {
     <Card>
       <CardContent>
         <Grid>
-          <Avatar profile={profile} />
-          <Username profile={profile} />
-          {(profile.firstName || profile.lastName) && <Name profile={profile} />}
-          <Socials profile={profile} />
-          <Bio profile={profile} />
-          <Infos profile={profile} />
+          <Grid container alignItems="flex-start">
+            <Grid item sm={3}>
+              <Avatar profile={profile} />
+            </Grid>
+            <Grid item sm={9}>
+              <Username profile={profile} />
+              <Infos profile={profile} />
+              <Bio profile={profile} />
+              <Socials profile={profile} />
+            </Grid>
+          </Grid>
         </Grid>
       </CardContent>
     </Card>
@@ -25,8 +30,7 @@ function ProfileDetailsCardHeader({ profile }) {
 }
 
 ProfileDetailsCardHeader.propTypes = {
-  profile: PropTypes.object,
-  auth: PropTypes.object
+  profile: PropTypes.object
 }
 
 export default ProfileDetailsCardHeader
