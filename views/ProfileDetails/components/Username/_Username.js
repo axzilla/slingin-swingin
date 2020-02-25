@@ -5,24 +5,18 @@ import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   username: {
-    fontFamily: 'Roboto Mono, monospace',
-    fontWeight: '300',
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center'
-    }
+    textTransform: 'uppercase'
   }
-}))
+})
 
 function ProfileDetailsUsername({ profile }) {
   const classes = useStyles()
 
   return (
-    <Typography className={classes.username} variant="h1" component="h3" align="center">
-      <Box fontFamily="Monospace" fontWeight="bold">
-        {profile.user.username}
-      </Box>
+    <Typography className={classes.username} gutterBottom variant="h1" component="h3">
+      <Box fontWeight={100}>{profile.user.username}</Box>
     </Typography>
   )
 }

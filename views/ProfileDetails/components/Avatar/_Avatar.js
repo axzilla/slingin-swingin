@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/styles'
 import Avatar from '@material-ui/core/Avatar'
-import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
-    maxWidth: '200px',
-    height: 'auto',
-    width: '100%',
+    width: '125px',
+    height: '125px',
+    marginRight: theme.spacing(2),
     marginBottom: theme.spacing(2)
   }
 }))
@@ -18,7 +17,7 @@ function ProfileDetailsAvatar({ profile }) {
   const classes = useStyles()
 
   return (
-    <Grid container justify="center">
+    <>
       {profile.user.avatar && profile.user.avatar.secure_url ? (
         <Avatar
           alt={profile.user.username}
@@ -30,7 +29,7 @@ function ProfileDetailsAvatar({ profile }) {
           {profile.user.username.substring(0, 1).toUpperCase()}
         </Avatar>
       )}
-    </Grid>
+    </>
   )
 }
 
