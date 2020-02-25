@@ -7,23 +7,18 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
-function ProfileDetailsCardHeader({ profile, auth }) {
+function ProfileDetailsCardHeader({ profile }) {
   return (
     <Card>
       <CardContent>
-        <Grid container>
-          <Grid item xs={12} md={3}>
-            <Avatar profile={profile} />
-          </Grid>
-          <Grid item xs={12} md={9}>
-            <Name profile={profile} />
-            <Username profile={profile} />
-            <Bio profile={profile} />
-            <Infos profile={profile} />
-            <ButtonEdit profile={profile} auth={auth} />
-          </Grid>
+        <Grid>
+          <Avatar profile={profile} />
+          <Username profile={profile} />
+          {(profile.firstName || profile.lastName) && <Name profile={profile} />}
+          <Socials profile={profile} />
+          <Bio profile={profile} />
+          <Infos profile={profile} />
         </Grid>
-        <Socials profile={profile} />
       </CardContent>
     </Card>
   )

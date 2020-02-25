@@ -1,24 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
-
-const useStyles = makeStyles(theme => ({
-  name: {
-    fontWeight: '500',
-    marginBottom: '-10px',
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center'
-    }
-  }
-}))
+import Box from '@material-ui/core/Box'
 
 function ProfileDetailsName({ profile }) {
-  const classes = useStyles()
-
   return (
-    <Typography className={classes.name} variant="h2">
+    <Typography variant="h5" gutterBottom align="center">
       {profile.firstName} {profile.lastName}
     </Typography>
   )

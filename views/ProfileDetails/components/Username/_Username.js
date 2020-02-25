@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles(theme => ({
   username: {
@@ -18,8 +19,10 @@ function ProfileDetailsUsername({ profile }) {
   const classes = useStyles()
 
   return (
-    <Typography gutterBottom className={classes.username} variant="h6">
-      {profile.user.username}
+    <Typography className={classes.username} variant="h1" component="h3" align="center">
+      <Box fontFamily="Monospace" fontWeight="bold">
+        {profile.user.username}
+      </Box>
     </Typography>
   )
 }
