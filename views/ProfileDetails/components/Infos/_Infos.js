@@ -4,67 +4,44 @@ import Moment from 'react-moment'
 
 import isEmpty from '@utils/isEmpty'
 
-import { makeStyles } from '@material-ui/styles'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-
-const useStyles = makeStyles({
-  infoContainer: {
-    marginBottom: '10px'
-  },
-  infoKey: {
-    fontWeight: '300',
-    fontFamily: 'Roboto Mono, monospace'
-  },
-  infoValue: {
-    lineHeight: '20px',
-    fontFamily: 'Roboto Mono, monospace'
-  }
-})
+import Box from '@material-ui/core/Box'
 
 function ProfileDetailsInfos({ profile }) {
-  const classes = useStyles()
-
   return (
-    <Grid container>
+    <Grid>
       {isEmpty(profile.status) ? null : (
-        <Grid item xs={12} sm={6} md={3} className={classes.infoContainer}>
-          <Typography variant="subtitle1" className={classes.infoKey}>
-            status
-          </Typography>
-          <Typography variant="subtitle1" className={classes.infoValue}>
-            {profile.status}
-          </Typography>
-        </Grid>
-      )}
-      {isEmpty(profile.company) ? null : (
-        <Grid item xs={12} sm={6} md={3} className={classes.infoContainer}>
-          <Typography variant="subtitle1" className={classes.infoKey}>
-            arbeitet bei
-          </Typography>
-          <Typography variant="subtitle1" className={classes.infoValue}>
-            {profile.company}
-          </Typography>
-        </Grid>
+        <Typography variant="h4">
+          <Grid container>
+            <Box fontFamily="Monospace" fontWeight="bold">
+              Status:&nbsp;
+            </Box>
+            <Box fontFamily="Monospace">{profile.status}</Box>
+          </Grid>
+        </Typography>
       )}
       {isEmpty(profile.location) ? null : (
-        <Grid item xs={12} sm={6} md={3} className={classes.infoContainer}>
-          <Typography variant="subtitle1" className={classes.infoKey}>
-            from
-          </Typography>
-          <Typography variant="subtitle1" className={classes.infoValue}>
-            {profile.location}
-          </Typography>
-        </Grid>
+        <Typography variant="h4">
+          <Grid container>
+            <Box fontFamily="Monospace" fontWeight="bold">
+              From:&nbsp;
+            </Box>
+            <Box fontFamily="Monospace">{profile.location}</Box>
+          </Grid>
+        </Typography>
       )}
-      <Grid item xs={12} sm={6} md={3} className={classes.infoContainer}>
-        <Typography variant="subtitle1" className={classes.infoKey}>
-          joined
-        </Typography>
-        <Typography variant="subtitle1" className={classes.infoValue}>
-          <Moment fromNow>{profile.dateCreated}</Moment>
-        </Typography>
-      </Grid>
+
+      <Typography variant="h4">
+        <Grid container>
+          <Box fontFamily="Monospace" fontWeight="bold">
+            Joined:&nbsp;
+          </Box>
+          <Box fontFamily="Monospace">
+            <Moment fromNow>{profile.dateCreated}</Moment>
+          </Box>
+        </Grid>
+      </Typography>
     </Grid>
   )
 }

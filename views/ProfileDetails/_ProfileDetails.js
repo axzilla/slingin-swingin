@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import AuthContext from '@contexts/AuthContext'
-
 import CardHeader from './components/CardHeader'
 import Tabs from './components/Tabs'
 
@@ -16,7 +14,7 @@ function ProfileDetails({ profile, posts, comments }) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <CardHeader profile={profileData} auth={AuthContext} setProfile={setProfileData} />
+        <CardHeader profile={profileData} setProfile={setProfileData} />
       </Grid>
       <Grid item xs={12}>
         <Tabs

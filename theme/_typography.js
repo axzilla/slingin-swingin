@@ -53,7 +53,7 @@ export default {
     lineHeight: '21px'
   },
   body2: {
-    fontSize: '12px',
+    // fontSize: '12px',
     letterSpacing: '-0.04px',
     lineHeight: '18px'
   },

@@ -1,6 +1,5 @@
 export { default as Avatar } from './Avatar'
 export { default as Bio } from './Bio'
-export { default as ButtonEdit } from './ButtonEdit'
 export { default as CardHeader } from './CardHeader'
 export { default as Infos } from './Infos'
 export { default as Name } from './Name'
