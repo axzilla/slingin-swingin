@@ -22,19 +22,16 @@ import { AlertContextProvider } from '@contexts/AlertContext'
 function RouterLoading() {
   const [isLoading, setIsLoading] = useState(false)
 
-  Router.events.on('routeChangeStart', url => {
+  Router.events.on('routeChangeStart', () => {
     setIsLoading(true)
-    console.log(`Loading: ${url}`)
   })
 
-  Router.events.on('routeChangeComplete', url => {
+  Router.events.on('routeChangeComplete', () => {
     setIsLoading(false)
-    console.log(`Done: ${url}`)
   })
 
-  Router.events.on('routeChangeError', url => {
+  Router.events.on('routeChangeError', () => {
     setIsLoading(false)
-    console.log(`Error: ${url}`)
   })
 
   return (
