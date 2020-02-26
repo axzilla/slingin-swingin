@@ -11,6 +11,7 @@ function Landing() {
           'noize.dev (or just NOIZE) is a platform where any kind of music producer write articles, take part in discussions, and build their professional profiles.'
         }
         canonical="https://www.noize.dev"
+        ogImage={null}
       />
       <MainLayout>
         <LandingView />

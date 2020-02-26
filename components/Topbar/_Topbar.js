@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import Router from 'next/router'
 
-import logo from './_logo_beta.svg'
+import logo from '/public/_logo_beta.svg'
 
 import AuthContext from '@contexts/AuthContext'
 import Link from '@components/Link'

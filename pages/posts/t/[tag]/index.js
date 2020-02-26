@@ -8,9 +8,10 @@ function PostsByTag({ tag }) {
   return (
     <>
       <SeoMeta
-        title={`${tag} - noize.dev - The #1 Music Production Community`}
+        title={`${tag} - noize.dev`}
         desc={`noize.dev - This is the ${tag} channel`}
         canonical={`https://www.noize.dev/posts/t/${tag}`}
+        ogImage={null}
       />
       <MainLayout>
         <PostFeedByTagView tag={tag} />
