@@ -1,17 +1,17 @@
 import { Main as MainLayout } from '@layouts'
 import { Landing as LandingView } from '@views'
-// import { SeoMeta } from '@components'
+import { SeoMeta } from '@components'
 
 function Landing() {
   return (
     <>
-      {/* <SeoMeta
+      <SeoMeta
         title={'noize.dev - The #1 Music Production Community'}
         desc={
-          'noize.dev ist Plattform für den deutschsprachigen Raum, auf der Softwareentwickler Artikel schreiben, an Diskussionen teilnehmen und ihre beruflichen Profile erstellen.'
+          'noize.dev (or just NOIZE) is a platform where any kind of music producer write articles, take part in discussions, and build their professional profiles.'
         }
         canonical="https://www.noize.dev"
-      /> */}
+      />
       <MainLayout>
         <LandingView />
       </MainLayout>
