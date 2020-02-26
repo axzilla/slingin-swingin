@@ -7,24 +7,35 @@ import Link from '@components/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Avatar from '@material-ui/core/Avatar'
+import List from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import ListItem from '@material-ui/core/ListItem'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
-    border: `1px solid ${grey[900]}`,
-    height: '50px',
-    width: '50px'
+    border: `1px solid ${grey[900]}`
   },
-  cardContent: { overflow: 'scroll' },
+  scrollable: { overflow: 'scroll' },
   list: {
     [theme.breakpoints.down('sm')]: {
       display: 'flex'
     }
+  },
+  listItem: {
+    [theme.breakpoints.down('sm')]: {
+      marginRight: theme.spacing(2)
+    }
+  },
+  noWrap: {
+    whiteSpace: 'nowrap'
   }
 }))
 
-function LandingWidgetUsers() {
+function WidgetLatestUsers() {
   const classes = useStyles()
   const [profiles, setProfiles] = useState()
 
@@ -44,42 +55,47 @@ function LandingWidgetUsers() {
   return (
     <Card>
       <CardHeader title="New Members" />
-      <div className={classes.cardContent}>
-        {profiles &&
-          profiles.slice(0, 10).map(profile => {
-            return (
-              <CardHeader
-                key={profile._id}
-                title={
-                  <Link underlined href="/[handle]" as={`/${profile.handle}`}>
-                    {profile.user.username}
-                  </Link>
-                }
-                subheader={
-                  <small>
-                    <Moment fromNow>{profile.dateCreated}</Moment>
-                  </small>
-                }
-                avatar={
-                  <Link underlined href="/[handle]" as={`/${profile.handle}`}>
-                    {profile.user.avatar && profile.user.avatar.secure_url ? (
-                      <Avatar
-                        src={profile.user.avatar.secure_url}
-                        className={classes.avatar}
-                      ></Avatar>
-                    ) : (
-                      <Avatar className={classes.avatar}>
-                        {profile.user.username.substring(0, 1).toUpperCase()}
-                      </Avatar>
-                    )}
-                  </Link>
-                }
-              />
-            )
-          })}
-      </div>
+      <CardContent>
+        <div className={classes.scrollable}>
+          <List className={classes.list} disablePadding dense>
+            {profiles &&
+              profiles.slice(0, 10).map(profile => {
+                return (
+                  <ListItem key={profile._id} className={classes.listItem} disableGutters>
+                    <ListItemAvatar>
+                      <Link underlined href="/[handle]" as={`/${profile.handle}`}>
+                        {profile.user.avatar && profile.user.avatar.secure_url ? (
+                          <Avatar
+                            src={profile.user.avatar.secure_url}
+                            className={classes.avatar}
+                          ></Avatar>
+                        ) : (
+                          <Avatar className={classes.avatar}>
+                            {profile.user.username.substring(0, 1).toUpperCase()}
+                          </Avatar>
+                        )}
+                      </Link>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <Link underlined href="/[handle]" as={`/${profile.handle}`}>
+                          <div className={classes.noWrap}>{profile.user.username}</div>
+                        </Link>
+                      }
+                      secondary={
+                        <small className={classes.noWrap}>
+                          <Moment fromNow>{profile.dateCreated}</Moment>
+                        </small>
+                      }
+                    />
+                  </ListItem>
+                )
+              })}
+          </List>
+        </div>
+      </CardContent>
     </Card>
   )
 }
 
-export default LandingWidgetUsers
+export default WidgetLatestUsers
