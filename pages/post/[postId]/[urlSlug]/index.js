@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types'
 
+import rawToHtml from '@utils/rawToHtml'
+import htmlRemove from '@utils/htmlRemove'
+
 import { Main as MainLayout } from '@layouts'
 import { PostDetails as PostDetailsView } from '@views'
 import { getPostByShortId } from '@services/post'
@@ -9,9 +12,12 @@ function PostDetails({ post, urlSlug }) {
   return (
     <>
       <SeoMeta
-        title={`${urlSlug} - noize.dev`}
+        title={`${post.title} - noize.dev`}
         desc={post.content}
-        canonical={`https://www.noize.dev/post/${post._id}/${urlSlug}`}
+        canonical={`https://www.noize.dev/post/${post.shortId}/${urlSlug}`}
+        ogImage={(post.titleImage && post.titleImage.secure_url) || null}
+        ogTitle={post.title}
+        ogDescription={htmlRemove(rawToHtml(post.content))}
       />
       <MainLayout>
         <PostDetailsView post={post} urlSlug={urlSlug} />

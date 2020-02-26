@@ -14,6 +14,7 @@ function ProfileDetails({ handle, profile, posts, comments }) {
         title={`${handle} - noize.dev`}
         desc={`This is the profile page of ${handle}`}
         canonical={`https://www.noize.dev/${handle}`}
+        ogImage={(profile.user.avatar && profile.user.avatar.secure_url) || null}
       />
       <MainLayout>
         <ProfileDetailsView handle={handle} profile={profile} posts={posts} comments={comments} />
