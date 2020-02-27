@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 
 import CardHeader from './components/CardHeader'
 import Tabs from './components/Tabs'
+import { getPostsByUserId } from '@services/post'
 import { getProfileByHandle } from '@services/profile'
+import { getCommentsByUserId } from '@services/comment'
 
 import Grid from '@material-ui/core/Grid'
 
 function ProfileDetails({ profile, posts, comments, handle }) {
   const [profileData, setProfileData] = useState(profile)
   const [postsData, setPostsData] = useState(posts)
-  const [commentsData] = useState(comments)
+  const [commentsData, setCommentsData] = useState(comments)
 
   useEffect(() => {
     onHandleChange()
@@ -18,7 +20,11 @@ function ProfileDetails({ profile, posts, comments, handle }) {
 
   async function onHandleChange() {
     const profile = await getProfileByHandle(handle)
+    const posts = await getPostsByUserId(profile.data.user._id)
+    const comments = await getCommentsByUserId(profile.data.user._id)
     setProfileData(profile.data)
+    setPostsData(posts.data)
+    setCommentsData(comments.data)
   }
 
   return (

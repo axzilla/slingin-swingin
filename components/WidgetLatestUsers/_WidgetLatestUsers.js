@@ -63,7 +63,7 @@ function WidgetLatestUsers() {
                 return (
                   <ListItem key={profile._id} className={classes.listItem} disableGutters>
                     <ListItemAvatar>
-                      <Link underlined href="/[handle]" as={`/${profile.handle}`}>
+                      <Link href="/[handle]" as={`/${profile.handle}`}>
                         {profile.user.avatar && profile.user.avatar.secure_url ? (
                           <Avatar
                             src={profile.user.avatar.secure_url}
