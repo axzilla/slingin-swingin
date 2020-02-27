@@ -16,7 +16,8 @@ const Register = () => {
 
   const [registerData, setRegisterData] = useState({
     email: '',
-    password: ''
+    password: '',
+    username: ''
   })
 
   const onChange = event => {
@@ -52,6 +53,14 @@ const Register = () => {
       </Typography>
       <form onSubmit={onSubmit}>
         <Box mb={2}>
+          <TextField
+            error={errors && errors.username}
+            type="username"
+            placeholder="Username"
+            name="username"
+            value={registerData.username}
+            onChange={onChange}
+          />
           <TextField
             error={errors && errors.email}
             type="email"
