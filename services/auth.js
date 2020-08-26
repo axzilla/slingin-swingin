@@ -41,3 +41,11 @@ export function emailChange(emailData) {
 export function settingsUpdate(settingData) {
   return axios.post(`${serverUrl}/settings-change`, settingData)
 }
+
+export function sendActivationEmail(data) {
+  return axios.post(`${serverUrl}/send-activation-email`, data)
+}
+
+export function activateAccount(data) {
+  return axios.post(`${serverUrl}/activate-account`, data)
+}

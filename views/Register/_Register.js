@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react'
-import Router from 'next/router'
+import React, { useState } from 'react'
 
-import AuthContext from '@contexts/AuthContext'
-import { userRegister, userLogin } from '@services/auth'
+import { useAlert } from '@contexts/AlertContext'
+import { userRegister } from '@services/auth'
 import Link from '@components/Link'
 import TextField from '@components/TextField'
 
@@ -11,7 +10,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
 const Register = () => {
-  const { login } = useContext(AuthContext)
+  const { setAlert } = useAlert()
   const [errors, setErrors] = useState('')
 
   const [registerData, setRegisterData] = useState({
@@ -20,30 +19,35 @@ const Register = () => {
     username: ''
   })
 
-  const onChange = event => {
+  function handleChange(event) {
     setRegisterData({
       ...registerData,
       [event.target.name]: event.target.value
     })
   }
 
-  const onSubmit = async event => {
+  async function handleSubmit(event) {
     try {
       event.preventDefault()
-      await userRegister({ ...registerData })
-
-      const loggedInUser = await userLogin({
-        login: registerData.email,
-        password: registerData.password
-      })
-
-      const jwtToken = loggedInUser.data
-      await login(jwtToken)
-
-      Router.push('/dashboard/profile-edit')
+      const response = await userRegister({ ...registerData })
+      resetForm()
+      resetErrors()
+      setAlert({ message: response.data.alertMessage })
     } catch (error) {
       setErrors(error.response.data)
     }
+  }
+
+  function resetForm() {
+    setRegisterData({
+      email: '',
+      password: '',
+      username: ''
+    })
+  }
+
+  function resetErrors() {
+    setErrors('')
   }
 
   return (
@@ -51,7 +55,7 @@ const Register = () => {
       <Typography variant="h5" align="center" gutterBottom>
         Ready to get started?
       </Typography>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <Box mb={2}>
           <TextField
             error={errors && errors.username}
@@ -59,7 +63,7 @@ const Register = () => {
             placeholder="Username"
             name="username"
             value={registerData.username}
-            onChange={onChange}
+            onChange={handleChange}
           />
           <TextField
             error={errors && errors.email}
@@ -67,7 +71,7 @@ const Register = () => {
             placeholder="Email"
             name="email"
             value={registerData.email}
-            onChange={onChange}
+            onChange={handleChange}
           />
           <TextField
             type="password"
@@ -75,7 +79,7 @@ const Register = () => {
             placeholder="Password"
             name="password"
             value={registerData.password}
-            onChange={onChange}
+            onChange={handleChange}
           />
         </Box>
         <Box mb={2}>
