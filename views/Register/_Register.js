@@ -14,7 +14,7 @@ const Register = () => {
   const [errors, setErrors] = useState('')
 
   const [registerData, setRegisterData] = useState({
-    email: '',
+    email: 'a',
     password: '',
     username: ''
   })
