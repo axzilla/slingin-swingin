@@ -57,15 +57,12 @@ class MyApp extends App {
 
     if (jwtToken) {
       const decodedUser = jwtDecode(jwtToken)
-      const currentTime = Date.now() / 1000
 
-      if (decodedUser.exp > currentTime) {
-        this.setState({
-          ...this.state,
-          isAuthenticated: true,
-          user: decodedUser
-        })
-      }
+      this.setState({
+        ...this.state,
+        isAuthenticated: true,
+        user: decodedUser
+      })
     }
 
     // Remove the server-side injected CSS.
