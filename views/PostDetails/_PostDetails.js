@@ -156,17 +156,31 @@ function PostDetails({ post }) {
             </Typography>
           </Grid>
           {comments &&
-            comments.map(comment => {
-              return (
-                <Grid key={comment._id} item>
-                  <CommentFeedItem
-                    comment={comment}
-                    comments={comments}
-                    setComments={setComments}
-                  />
-                </Grid>
-              )
-            })}
+            comments
+              .sort((a, b) => {
+                console.log(a.dateCreated)
+                console.log(b.dateCreated)
+                if (a.dateCreated < b.dateCreated) {
+                  return 1
+                }
+
+                if (a.dateCreated > b.dateCreated) {
+                  return -1
+                }
+
+                return 0
+              })
+              .map(comment => {
+                return (
+                  <Grid key={comment._id} item>
+                    <CommentFeedItem
+                      comment={comment}
+                      comments={comments}
+                      setComments={setComments}
+                    />
+                  </Grid>
+                )
+              })}
         </Grid>
       </Grid>
     </Grid>
