@@ -1,6 +1,8 @@
 Sitemap: http://www.noize.dev/api/sitemap
 
 User-agent: *
+Disallow: /activate-account/
+Disallow: /activate-account
 Disallow: /dashboard/
 Disallow: /dashboard
 Disallow: /login/
