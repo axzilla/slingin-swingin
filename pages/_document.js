@@ -22,11 +22,6 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <meta
-            name="google-site-verification"
-            content="DJudYj_ohajFDWI083yh0Yc6QDP5hXV8fsjWvSbO3mI"
-          />
-
           <link rel="stylesheet" href="/style.css" />
         </Head>
         <body>
