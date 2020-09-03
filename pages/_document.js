@@ -24,7 +24,7 @@ class MyDocument extends Document {
 
           <meta
             name="google-site-verification"
-            content="2Dbqt_hgu96oHsDOkjCLDC-wyKCbiGR7hEEXkyVU7qI"
+            content={process.env.NOIZE_APP_GOOGLE_SITE_VERIFICATION}
           />
 
           <link rel="stylesheet" href="/style.css" />
