@@ -8,7 +8,8 @@ module.exports = withCSS(
   withImages({
     env: {
       NOIZE_APP_SERVER_URL: process.env.NOIZE_APP_SERVER_URL,
-      NOIZE_APP_GOOGLE_ANALYTICS: process.env.NOIZE_APP_GOOGLE_ANALYTICS
+      NOIZE_APP_GOOGLE_ANALYTICS: process.env.NOIZE_APP_GOOGLE_ANALYTICS,
+      NOIZE_APP_GOOGLE_SITE_VERIFICATION: process.env.NOIZE_APP_GOOGLE_SITE_VERIFICATION
     }
   })
 )
