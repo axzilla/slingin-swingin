@@ -46,10 +46,8 @@ function CenteredTabs({ searchResult, searchString, setSearchResult }) {
       <Grid item xs={12}>
         <Paper>
           <Tabs className={classes.root} value={value} onChange={handleChange} centered>
-            <Tab label={`Beiträge ${searchResult.posts ? searchResult.posts.length : '0'}`} />
-            <Tab
-              label={`Mitglieder  ${searchResult.profiles ? searchResult.profiles.length : '0'}`}
-            />
+            <Tab label={`Posts ${searchResult.posts ? searchResult.posts.length : '0'}`} />
+            <Tab label={`Members  ${searchResult.profiles ? searchResult.profiles.length : '0'}`} />
           </Tabs>
         </Paper>
       </Grid>
