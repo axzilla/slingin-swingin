@@ -1,19 +1,15 @@
 import { parseCookies } from 'nookies'
-import jwtDecode from 'jwt-decode'
 import setAuthToken from '@utils/setAuthToken'
 
 function isValidToken(ctx) {
   const { jwtToken } = parseCookies(ctx)
-  setAuthToken(jwtToken)
 
   if (jwtToken) {
-    const decodedUser = jwtDecode(jwtToken)
-    const currentTime = Date.now() / 1000
-
-    return decodedUser.exp > currentTime
+    setAuthToken(jwtToken)
+    return true
+  } else {
+    return false
   }
-
-  return false
 }
 
 export function isLoggedIn(ctx) {
