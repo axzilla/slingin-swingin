@@ -4,7 +4,9 @@ const validatePost = require('../../validation/validatePost')
 const slugify = require('../../utils/slugify')
 const isEmpty = require('../../utils/isEmpty')
 const cloudinary = require('../../utils/cloudinary')
-const mtuPostCreate = require('../../nodemailer/templates/mtuPostCreate')
+const sendPostCreate = require('../../nodemailer/templates/sendPostCreate')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function postCreate(req, res) {
   try {
@@ -67,7 +69,7 @@ async function sendMails(createdPost) {
 
   foundUsers
     .filter(user => user.notifications.onNewPost)
-    .map(user => mtuPostCreate(createdPost, user))
+    .map(user => sendPostCreate(transporter, createdPost, user))
 }
 
 module.exports = postCreate

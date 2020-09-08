@@ -2,9 +2,11 @@ const PostComment = require('../../models/PostComment')
 const User = require('../../models/User')
 const Post = require('../../models/Post')
 
-const mtuCommentCreateIfPostOwner = require('../../nodemailer/templates/mtuCommentCreateIfPostOwner')
-const mtuCommentCreateIfPostBookmarked = require('../../nodemailer/templates/mtuCommentCreateIfPostBookmarked')
-const mtuCommentCreateIfPostCommented = require('../../nodemailer/templates/mtuCommentCreateIfPostCommented')
+const sendCommentCreateIfPostOwner = require('../../nodemailer/templates/sendCommentCreateIfPostOwner')
+const sendCommentCreateIfPostBookmarked = require('../../nodemailer/templates/sendCommentCreateIfPostBookmarked')
+const sendCommentCreateIfPostCommented = require('../../nodemailer/templates/sendCommentCreateIfPostCommented')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function commentCreate(req, res) {
   try {
@@ -67,14 +69,14 @@ async function updateComment(req, createdPostComment) {
 async function sendMails(updatedPost) {
   // For activities of your own post
   if (updatedPost.user.notifications.onOwnPost) {
-    mtuCommentCreateIfPostOwner(updatedPost, updatedPost.user)
+    sendCommentCreateIfPostOwner(transporter, updatedPost, updatedPost.user)
   }
 
   // For activities on a bookmarked post
   if (updatedPost.bookmarks.length > 0) {
     updatedPost.bookmarks.map(bookmarkUser => {
       bookmarkUser.notifications.onBookmarkedPost &&
-        mtuCommentCreateIfPostBookmarked(updatedPost, bookmarkUser)
+        sendCommentCreateIfPostBookmarked(transporter, updatedPost, bookmarkUser)
     })
   }
 
@@ -90,7 +92,7 @@ async function sendMails(updatedPost) {
   ]
 
   foundUsers.map(user => {
-    mtuCommentCreateIfPostCommented(updatedPost, user)
+    sendCommentCreateIfPostCommented(transporter, updatedPost, user)
   })
 }
 

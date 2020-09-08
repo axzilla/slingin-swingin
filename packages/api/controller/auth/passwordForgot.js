@@ -1,8 +1,10 @@
 const createJwtToken = require('../../utils/createJwtToken')
 const isEmpty = require('../../utils/isEmpty')
 const User = require('../../models/User')
-const mtuAuthPasswordForgot = require('../../nodemailer/templates/mtuAuthPasswordForgot')
+const sendPasswordForgot = require('../../nodemailer/templates/sendPasswordForgot')
 const validatePasswordForgot = require('../../validation/validatePasswordForgot')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function passwordForgot(req, res) {
   try {
@@ -32,7 +34,7 @@ async function passwordForgot(req, res) {
     }
 
     const token = await createJwtToken(payload)
-    mtuAuthPasswordForgot(foundUser, token)
+    sendPasswordForgot(transporter, foundUser, token)
     res.json({ alert: 'Email successfully sent' })
   } catch (error) {
     if (error) throw error
