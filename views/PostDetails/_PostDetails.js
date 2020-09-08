@@ -1,12 +1,20 @@
+// Packages
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
+// Contexts
 import AuthContext from '@contexts/AuthContext'
+
+// Services
 import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
+
+// Global Components
+import UserAvatar from '@components/UserAvatar'
 import Link from '@components/Link'
 import CommentForm from '@components/CommentForm'
 
+// Local Components
 import AuthActions from './components/AuthActions'
 import Content from './components/Content'
 import CommentFeedItem from './components/CommentFeedItem'
@@ -14,25 +22,17 @@ import Tags from './components/Tags'
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
 
-import { makeStyles } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
+// MUI
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import Avatar from '@material-ui/core/Avatar'
 import CardHeader from '@material-ui/core/CardHeader'
 import Box from '@material-ui/core/Box'
-
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
-const useStyles = makeStyles({
-  avatar: { border: `1px solid ${grey[900]}` }
-})
-
 function PostDetails({ post }) {
-  const classes = useStyles()
   const { isAuthenticated, user, setIsAuthModal } = useContext(AuthContext)
   const [postData, setPostData] = useState(post)
   const [comments, setComments] = useState(post.postComments)
@@ -83,17 +83,7 @@ function PostDetails({ post }) {
             }
             avatar={
               <Link href="/[handle]" as={`/${postData.user.username}`}>
-                {postData.user.avatar && postData.user.avatar.secure_url ? (
-                  <Avatar
-                    className={classes.avatar}
-                    alt={postData.user.username}
-                    src={postData.user.avatar.secure_url}
-                  />
-                ) : (
-                  <Avatar className={classes.avatar} alt={postData.user.username}>
-                    {postData.user.username.substring(0, 1).toUpperCase()}
-                  </Avatar>
-                )}
+                <UserAvatar user={postData.user} />
               </Link>
             }
           />
