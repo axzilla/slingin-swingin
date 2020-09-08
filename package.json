@@ -2,72 +2,40 @@
   "name": "noize-app",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badazzdev/noize-app.git"
+  },
   "author": "",
-  "license": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/badazzdev/noize-app/issues"
+  },
+  "homepage": "https://github.com/badazzdev/noize-app#readme",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
+    "start": "cd packages/server && node index",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm run dev --prefix packages/server",
+    "client": "npm run dev --prefix packages/client",
+    "install-packages": "npm i && npm i --prefix packages/client && npm i --prefix packages/server",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/client && npm install --prefix packages/server && npm run build --prefix packages/client",
     "test": "eslint \"**/*.js\""
   },
-  "dependencies": {
-    "@material-ui/core": "4.9.1",
-    "@material-ui/icons": "4.9.1",
-    "@reduxjs/toolkit": "1.4.0",
-    "@zeit/next-css": "1.0.1",
-    "axios": "0.19.2",
-    "dotenv": "8.2.0",
-    "draft-js": "0.11.4",
-    "draft-js-export-html": "1.4.1",
-    "draft-js-plugins-editor": "3.0.0",
-    "jwt-decode": "2.2.0",
-    "moment": "^2.22.2",
-    "next": "9.2.1",
-    "next-ga": "2.3.4",
-    "next-images": "1.3.0",
-    "nookies": "2.0.8",
-    "prop-types": "15.7.2",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
-    "react-moment": "0.9.7",
-    "react-redux": "7.2.1",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "3.3.1",
-    "showdown": "1.9.1",
-    "sitemap": "5.1.0",
-    "socket.io-client": "2.3.0",
-    "styled-jsx": "3.2.4",
-    "universal-cookie": "4.0.3",
-    "validator": "12.2.0"
-  },
   "devDependencies": {
-    "@babel/core": "7.8.4",
-    "babel-eslint": "10.0.3",
-    "babel-loader": "8.0.6",
-    "babel-plugin-module-resolver": "4.0.0",
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.0",
-    "eslint-plugin-prettier": "3.1.2",
-    "eslint-plugin-react": "7.18.3",
-    "husky": "4.2.1",
-    "lint-staged": "10.0.7",
-    "prettier": "1.19.1"
+    "babel-eslint": "10.1.0",
+    "concurrently": "5.3.0",
+    "eslint": "7.8.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.20.6",
+    "husky": "4.3.0",
+    "prettier": "2.1.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "npm run test",
       "pre-push": "npm run test"
     }
-  },
-  "lint-staged": {
-    "*.{js,json,css}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.{js}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
   }
 }
