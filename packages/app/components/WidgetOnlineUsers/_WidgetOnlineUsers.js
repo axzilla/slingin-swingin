@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Moment from 'react-moment'
 
 // Services
-import { getAllProfiles } from '@services/profile'
+import { getOnlineUsers } from '@services/user'
 
 // Global Components
 import Link from '@components/Link'
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 function WidgetLatestUsers() {
   const classes = useStyles()
-  const [profiles, setProfiles] = useState()
+  const [users, setUsers] = useState()
 
   useEffect(() => {
     getInitialData()
@@ -52,8 +52,8 @@ function WidgetLatestUsers() {
 
   async function getInitialData() {
     try {
-      const foundProfiles = await getAllProfiles()
-      setProfiles(foundProfiles.data)
+      const { data } = await getOnlineUsers()
+      setUsers(data)
     } catch (error) {
       if (error) throw error
     }
@@ -64,7 +64,7 @@ function WidgetLatestUsers() {
       <CardHeader
         title={
           <Grid container justify="space-between">
-            <Grid item>New Members</Grid>
+            <Grid item>Online Members</Grid>
             <Link href="/all-members" underlined>
               <Grid item>
                 <Typography>All Members</Typography>
@@ -76,24 +76,24 @@ function WidgetLatestUsers() {
       <CardContent>
         <div className={classes.scrollable}>
           <List className={classes.list} disablePadding dense>
-            {profiles &&
-              profiles.slice(0, 10).map(profile => {
+            {users &&
+              users.slice(0, 10).map(user => {
                 return (
-                  <ListItem key={profile._id} className={classes.listItem} disableGutters>
+                  <ListItem key={user.profile._id} className={classes.listItem} disableGutters>
                     <ListItemAvatar>
-                      <Link href="/[handle]" as={`/${profile.handle}`}>
-                        <UserAvatar user={profile.user} />
+                      <Link href="/[handle]" as={`/${user.profile.handle}`}>
+                        <UserAvatar user={user} />
                       </Link>
                     </ListItemAvatar>
                     <ListItemText
                       primary={
-                        <Link underlined href="/[handle]" as={`/${profile.handle}`}>
-                          <div className={classes.noWrap}>{profile.user.username}</div>
+                        <Link underlined href="/[handle]" as={`/${user.profile.handle}`}>
+                          <div className={classes.noWrap}>{user.username}</div>
                         </Link>
                       }
                       secondary={
                         <small className={classes.noWrap}>
-                          <Moment fromNow>{profile.dateCreated}</Moment>
+                          <Moment fromNow>{user.profile.dateCreated}</Moment>
                         </small>
                       }
                     />

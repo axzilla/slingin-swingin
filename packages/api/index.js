@@ -27,6 +27,7 @@ app.use('/profile', require('./routes/profile'))
 app.use('/posts', require('./routes/posts'))
 app.use('/comments', require('./routes/comments'))
 app.use('/search', require('./routes/search'))
+app.use('/users', require('./routes/users'))
 
 require('./utils/passport')(passport)
 
