@@ -1,9 +1,11 @@
 const createJwtToken = require('../../utils/createJwtToken')
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs')
-const mtuAuthPasswordChange = require('../../nodemailer/templates/mtuAuthPasswordChange')
+const sendPasswordChange = require('../../nodemailer/templates/sendPasswordChange')
 const validatePasswordChange = require('../../validation/validatePasswordChange')
 const isEmpty = require('../../utils/isEmpty')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function passwordChange(req, res) {
   try {
@@ -45,7 +47,7 @@ async function passwordChange(req, res) {
                 isOnline: savedUser.isOnline
               }
 
-              mtuAuthPasswordChange(savedUser)
+              sendPasswordChange(transporter, savedUser)
               const token = await createJwtToken(payload)
               res.json({ alert: 'Password successfully changed', success: true, token })
             } catch (error) {
