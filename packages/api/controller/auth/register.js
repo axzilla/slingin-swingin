@@ -9,8 +9,9 @@ const validateRegister = require('../../validation/validateRegister')
 
 const User = require('../../models/User')
 
-const mtuAuthRegister = require('../../nodemailer/templates/mtuAuthRegister')
-const mtaAuthRegister = require('../../nodemailer/templates/mtaAuthRegister')
+const sendRegister = require('../../nodemailer/templates/sendRegister')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function register(req, res) {
   try {
@@ -48,8 +49,7 @@ async function register(req, res) {
       isActiveTokenExpires: Date.now() + 24 * 3600 * 1000
     })
 
-    mtuAuthRegister(newUser, isActiveToken)
-    mtaAuthRegister(newUser)
+    sendRegister(transporter, newUser, isActiveToken)
 
     res.json({
       alertMessage:

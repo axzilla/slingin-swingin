@@ -1,7 +1,9 @@
 const crypto = require('crypto')
 
 const User = require('../../models/User')
-const mtuAuthRegister = require('../../nodemailer/templates/mtuAuthRegister')
+const sendRegister = require('../../nodemailer/templates/sendRegister')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function sendActivationEmail(req, res) {
   try {
@@ -15,7 +17,7 @@ async function sendActivationEmail(req, res) {
       user.isActiveToken = isActiveToken
       user.isActiveTokenExpires = Date.now() + 24 * 3600 * 1000
       await user.save()
-      mtuAuthRegister(user, isActiveToken)
+      sendRegister(transporter, user, isActiveToken)
       res.json({ alertMessage: 'Email sent successfully' })
     }
 
