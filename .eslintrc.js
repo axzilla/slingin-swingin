@@ -27,11 +27,12 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'prettier/prettier': 'error',
-    'react/no-unused-prop-types': 'error'
+    'react/no-unused-prop-types': 'error',
+    'no-console': 'error'
   },
   settings: {
     react: {
-      version: 'detect'
+      version: 'latest'
     }
   }
 }
