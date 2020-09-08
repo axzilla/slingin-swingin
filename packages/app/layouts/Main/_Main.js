@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 
 import Container from '@components/Container'
 import WidgetLatestUsers from '@components/WidgetLatestUsers'
+// import WidgetOnlineUsers from '@components/WidgetOnlineUsers'
 import WidgetTopPostsTags from '@components/WidgetTopPostsTags'
 
 import Grid from '@material-ui/core/Grid'
@@ -32,6 +33,9 @@ function Main({ children }) {
           <Box clone order={{ xs: 3, md: 3 }}>
             <Grid item xs={12} md={3}>
               <WidgetLatestUsers />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              {/* <WidgetOnlineUsers /> */}
             </Grid>
           </Box>
         </Grid>
