@@ -21,7 +21,7 @@ function AuthModal() {
   return (
     <Dialog
       maxWidth="xs"
-      open={isAuthModal}
+      open={isAuthModal || false}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
