@@ -8,6 +8,7 @@ before_script:
 
 stages:
   # - staging
+  # - staging
   - production
 
 # staging:
