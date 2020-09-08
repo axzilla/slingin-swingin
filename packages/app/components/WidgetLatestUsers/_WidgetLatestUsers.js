@@ -13,14 +13,15 @@ import UserAvatar from '@components/UserAvatar'
 import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import Card from '@material-ui/core/Card'
+import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
+import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItem from '@material-ui/core/ListItem'
 
-// Styles
 const useStyles = makeStyles(theme => ({
   avatar: {
     border: `1px solid ${grey[900]}`
@@ -41,7 +42,6 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-// COMPONENT
 function WidgetLatestUsers() {
   const classes = useStyles()
   const [profiles, setProfiles] = useState()
@@ -61,7 +61,18 @@ function WidgetLatestUsers() {
 
   return (
     <Card>
-      <CardHeader title="New Members" />
+      <CardHeader
+        title={
+          <Grid container justify="space-between">
+            <Grid item>New Members</Grid>
+            <Link href="/all-members" underlined>
+              <Grid item>
+                <Typography>All Members</Typography>
+              </Grid>
+            </Link>
+          </Grid>
+        }
+      />
       <CardContent>
         <div className={classes.scrollable}>
           <List className={classes.list} disablePadding dense>
