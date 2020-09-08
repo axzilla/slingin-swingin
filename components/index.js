@@ -1,5 +1,6 @@
 export { default as Alert } from './Alert'
 export { default as AuthModal } from './AuthModal'
+export { default as UserAvatar } from './UserAvatar'
 export { default as Chip } from './Chip'
 export { default as CommentForm } from './CommentForm'
 export { default as Container } from './Container'

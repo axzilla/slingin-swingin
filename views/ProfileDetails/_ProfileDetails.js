@@ -1,12 +1,17 @@
+// Packages
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
+// Local Components
 import CardHeader from './components/CardHeader'
 import Tabs from './components/Tabs'
+
+// Services
 import { getPostsByUserId } from '@services/post'
 import { getProfileByHandle } from '@services/profile'
 import { getCommentsByUserId } from '@services/comment'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 
 function ProfileDetails({ profile, posts, comments, handle }) {

@@ -1,16 +1,20 @@
+// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 
+// Local Components
 import Content from './components/Content'
 import TitleImage from './components/TitleImage'
 import Footer from './components/Footer'
 
+// Global Components
+import UserAvatar from '@components/UserAvatar'
 import Link from '@components/Link'
 
+// MUI
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
-import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
@@ -39,17 +43,7 @@ function PostFeedItem({ post }) {
         className={classes.cardHeader}
         avatar={
           <Link href="/[handle]" as={`/${post.user.username}`}>
-            {post.user.avatar && post.user.avatar.secure_url ? (
-              <Avatar
-                className={classes.avatar}
-                alt={post.user.username}
-                src={post.user.avatar.secure_url}
-              />
-            ) : (
-              <Avatar className={classes.avatar} alt={post.user.username}>
-                {post.user.username.substring(0, 1).toUpperCase()}
-              </Avatar>
-            )}
+            <UserAvatar user={post.user} />
           </Link>
         }
         title={

@@ -1,23 +1,36 @@
-import React, { useState } from 'react'
-import App from 'next/app'
+// Packages
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import Head from 'next/head'
 import withGA from 'next-ga'
 import Router from 'next/router'
 import { withRouter } from 'next/router'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'universal-cookie'
+import io from 'socket.io-client'
+import { Provider } from 'react-redux'
 
+// MUI
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
+// Theme
 import { theme } from '../theme'
 
+// Components
 import Alert from '@components/Alert'
 import AuthModal from '@components/AuthModal'
+
+// Utils
 import setAuthToken from '@utils/setAuthToken'
+
+// Contexts
 import AuthContext from '@contexts/AuthContext'
 import { AlertContextProvider } from '@contexts/AlertContext'
+
+// Redux Store
+import store from '../store'
 
 function RouterLoading() {
   const [isLoading, setIsLoading] = useState(false)
@@ -43,14 +56,17 @@ function RouterLoading() {
   )
 }
 
-class MyApp extends App {
-  state = {
+function MyApp(props) {
+  const [socket, setSocket] = useState({})
+
+  const [state, setState] = useState({
     isAuthModal: false,
     isAuthenticated: false,
     user: {}
-  }
+  })
 
-  componentDidMount() {
+  useEffect(() => {
+    setSocket(io(process.env.NOIZE_APP_SERVER_URL))
     const cookies = new Cookies()
     const jwtToken = cookies.get('jwtToken')
     setAuthToken(jwtToken)
@@ -58,8 +74,8 @@ class MyApp extends App {
     if (jwtToken) {
       const decodedUser = jwtDecode(jwtToken)
 
-      this.setState({
-        ...this.state,
+      setState({
+        state,
         isAuthenticated: true,
         user: decodedUser
       })
@@ -70,12 +86,16 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles)
     }
-  }
 
-  setIsAuthModal = async value => {
+    return () => {
+      setSocket({})
+    }
+  }, [])
+
+  const setIsAuthModal = async value => {
     try {
-      this.setState({
-        ...this.state,
+      setState({
+        ...state,
         isAuthModal: value
       })
     } catch (error) {
@@ -83,15 +103,17 @@ class MyApp extends App {
     }
   }
 
-  login = async jwtToken => {
+  const login = async jwtToken => {
     try {
       const cookies = new Cookies()
       await cookies.set('jwtToken', jwtToken, { path: '/' })
       await setAuthToken(jwtToken)
       const decodedUser = jwtDecode(jwtToken)
 
-      this.setState({
-        ...this.state,
+      socket.emit('client-sign-in', { decodedUser, socketId: socket.id })
+
+      setState({
+        ...state,
         isAuthenticated: true,
         user: decodedUser
       })
@@ -100,15 +122,18 @@ class MyApp extends App {
     }
   }
 
-  logout = async () => {
+  const logout = async () => {
     try {
       const cookies = new Cookies()
-      cookies.remove('jwtToken', { path: '/' })
+      const decodedUser = jwtDecode(await cookies.get('jwtToken', { path: '/' }))
+      await cookies.remove('jwtToken', { path: '/' })
+
+      socket.emit('client-sign-out', { decodedUser, socketId: socket.id })
 
       await Router.push('/login')
 
-      this.setState({
-        ...this.state,
+      setState({
+        state,
         isAuthenticated: false,
         user: {}
       })
@@ -117,44 +142,41 @@ class MyApp extends App {
     }
   }
 
-  getTheme = () => {
-    const cookies = new Cookies()
-    const theme = cookies.get('theme')
-    return theme
-  }
+  const { Component, pageProps } = props
 
-  render() {
-    const { Component, pageProps } = this.props
+  return (
+    <Provider store={store}>
+      <Head>
+        <link rel="icon" href="/favicon.png" />
+        <title>The #1 Music Production Community</title>
+      </Head>
+      <AuthContext.Provider
+        value={{
+          isAuthModal: state.isAuthModal,
+          setIsAuthModal: setIsAuthModal,
+          isAuthenticated: state.isAuthenticated,
+          user: state.user,
+          login: login,
+          logout: logout
+        }}
+      >
+        <AlertContextProvider>
+          <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+            <RouterLoading />
+            <Component {...pageProps} />
+            <Alert />
+            <AuthModal />
+          </MuiThemeProvider>
+        </AlertContextProvider>
+      </AuthContext.Provider>
+    </Provider>
+  )
+}
 
-    return (
-      <>
-        <Head>
-          <link rel="icon" href="/favicon.png" />
-          <title>The #1 Music Production Community</title>
-        </Head>
-        <AuthContext.Provider
-          value={{
-            isAuthModal: this.state.isAuthModal,
-            setIsAuthModal: this.setIsAuthModal,
-            isAuthenticated: this.state.isAuthenticated,
-            user: this.state.user,
-            login: this.login,
-            logout: this.logout
-          }}
-        >
-          <AlertContextProvider>
-            <MuiThemeProvider theme={theme}>
-              <CssBaseline />
-              <RouterLoading />
-              <Component {...pageProps} />
-              <Alert />
-              <AuthModal />
-            </MuiThemeProvider>
-          </AlertContextProvider>
-        </AuthContext.Provider>
-      </>
-    )
-  }
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired
 }
 
 export default withRouter(withGA(process.env.NOIZE_APP_GOOGLE_ANALYTICS, Router)(MyApp))
