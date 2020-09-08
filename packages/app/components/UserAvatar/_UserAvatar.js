@@ -1,6 +1,7 @@
 // Packages
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import gravatar from 'gravatar'
 
 // MUI
 import Badge from '@material-ui/core/Badge'
@@ -42,6 +43,16 @@ const useStyles = makeStyles({
 
 function UserAvatar({ user, height, width }) {
   const classes = useStyles({ height, width })
+  const [gravatarImage, setGravatarImage] = useState()
+
+  useState(() => {
+    getGravatarImage()
+  }, [])
+
+  async function getGravatarImage() {
+    const response = await gravatar.url(user.email, { d: '404' })
+    setGravatarImage(response)
+  }
 
   return (
     <StyledBadge
@@ -55,6 +66,8 @@ function UserAvatar({ user, height, width }) {
     >
       {user.avatar && user.avatar.secure_url ? (
         <Avatar alt={user.username} src={user.avatar.secure_url} className={classes.avatar} />
+      ) : gravatarImage ? (
+        <Avatar alt={user.username} src={gravatarImage} className={classes.avatar} />
       ) : (
         <Avatar alt={user.username} className={classes.avatar}>
           {user.username.substring(0, 1).toUpperCase()}
