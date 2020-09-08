@@ -148,8 +148,6 @@ function PostDetails({ post }) {
           {comments &&
             comments
               .sort((a, b) => {
-                console.log(a.dateCreated)
-                console.log(b.dateCreated)
                 if (a.dateCreated < b.dateCreated) {
                   return 1
                 }
