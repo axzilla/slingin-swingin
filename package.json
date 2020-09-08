@@ -14,12 +14,12 @@
   },
   "homepage": "https://github.com/badazzdev/noize-app#readme",
   "scripts": {
-    "start": "cd packages/server && node index",
+    "start": "cd packages/api && node index",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "npm run dev --prefix packages/server",
-    "client": "npm run dev --prefix packages/client",
-    "install-packages": "npm i && npm i --prefix packages/client && npm i --prefix packages/server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/client && npm install --prefix packages/server && npm run build --prefix packages/client",
+    "server": "npm run dev --prefix packages/api",
+    "client": "npm run dev --prefix packages/app",
+    "install-packages": "npm i && npm i --prefix packages/app && npm i --prefix packages/api",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/app && npm install --prefix packages/api && npm run build --prefix packages/app",
     "test": "eslint \"**/*.js\""
   },
   "devDependencies": {
