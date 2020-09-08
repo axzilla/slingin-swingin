@@ -35,7 +35,12 @@ const db = process.env.MONGO_URI
 const port = process.env.PORT || 5000
 
 mongoose
-  .connect(db, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true })
+  .connect(db, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  })
   .then(() => {
     console.log('MongoDB Connected') // eslint-disable-line no-console
 

@@ -6,9 +6,6 @@ const hashPassword = require('../../utils/hashPassword')
 const User = require('../../models/User')
 const Profile = require('../../models/Profile')
 
-// Nodemailer
-const mtaAuthRegister = require('../../nodemailer/templates/mtaAuthRegister')
-
 async function generateUser(req, res) {
   try {
     const foundUsername = await User.findOne({ username: req.body.username })
@@ -23,8 +20,6 @@ async function generateUser(req, res) {
       password: await hashPassword('123456'),
       isActive: true
     })
-
-    mtaAuthRegister(newUser)
 
     const createdProfile = await Profile.create({
       user: newUser.id,

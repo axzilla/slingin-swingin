@@ -1,9 +1,11 @@
 const bcrypt = require('bcryptjs')
 const createJwtToken = require('../../utils/createJwtToken')
 const User = require('../../models/User')
-const mtuAuthPasswordReset = require('../../nodemailer/templates/mtuAuthPasswordReset')
+const sendPasswordReset = require('../../nodemailer/templates/sendPasswordReset')
 const validatePasswordReset = require('../../validation/validatePasswordReset')
 const isEmpty = require('../../utils/isEmpty')
+
+const transporter = require('../../nodemailer/transporter')
 
 async function passwordReset(req, res) {
   try {
@@ -38,7 +40,7 @@ async function passwordReset(req, res) {
               isOnline: savedUser.isOnline
             }
 
-            mtuAuthPasswordReset(savedUser)
+            sendPasswordReset(transporter, savedUser)
             const token = await createJwtToken(payload)
             res.json({ success: true, token })
           } catch (error) {
