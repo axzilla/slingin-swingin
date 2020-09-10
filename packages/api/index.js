@@ -48,15 +48,10 @@ mongoose
     const io = require('socket.io')(server)
 
     io.on('connection', async socket => {
-      console.log('handshake ' + JSON.stringify(socket.handshake)) // eslint-disable-line no-console
-      console.log(socket.handshake.headers.cookie) // eslint-disable-line no-console
-
       const decodedUser =
         socket.handshake.headers.cookie && cookie.parse(socket.handshake.headers.cookie).jwtToken
           ? jwtDecode(cookie.parse(socket.handshake.headers.cookie).jwtToken)
           : null
-
-      console.log(decodedUser) // eslint-disable-line no-console
 
       if (decodedUser) {
         console.log(`${socket.id} -> ${decodedUser.username} -> connected`) // eslint-disable-line no-console
@@ -71,8 +66,6 @@ mongoose
         }
 
         socket.on('disconnect', async () => {
-          console.log(socket.handshake.headers.cookie) // eslint-disable-line no-console
-
           console.log(`${socket.id} -> ${decodedUser.username} -> disconnected`) // eslint-disable-line no-console
 
           const user = await User.findById(decodedUser.id)
