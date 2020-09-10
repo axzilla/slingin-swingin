@@ -48,7 +48,8 @@ mongoose
     const io = require('socket.io')(server)
 
     io.on('connection', async socket => {
-      console.log('xxxxxxxxx ' + socket.handshake) // eslint-disable-line no-console
+      console.log('handshake ' + socket.handshake) // eslint-disable-line no-console
+      console.log('handshake.headers ' + socket.handshake.headers) // eslint-disable-line no-console
       console.log(socket.handshake.headers.cookie) // eslint-disable-line no-console
 
       const decodedUser =
