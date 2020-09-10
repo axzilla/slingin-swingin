@@ -10,6 +10,7 @@ const cors = require('cors')
 
 // App
 const app = express()
+const http = require('http').createServer(app)
 
 // Models
 const User = require('./models/User')
@@ -44,7 +45,7 @@ mongoose
   .then(() => {
     console.log('MongoDB Connected') // eslint-disable-line no-console
 
-    const server = app.listen(port, () => console.log(`Server running on port ${port}`)) // eslint-disable-line no-console
+    const server = http.listen(port, () => console.log(`Server running on port ${port}`)) // eslint-disable-line no-console
     const io = require('socket.io')(server)
 
     io.on('connection', async socket => {
