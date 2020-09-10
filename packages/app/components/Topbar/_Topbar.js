@@ -4,6 +4,7 @@ import Router from 'next/router'
 import logo from '/public/_logo_beta.svg'
 
 import AuthContext from '@contexts/AuthContext'
+import { useSocket } from '@contexts/SocketContext'
 import Link from '@components/Link'
 import { searchFunc } from '@services/search'
 import isEmpty from '@utils/isEmpty'
@@ -81,6 +82,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Topbar() {
+  const { socket } = useSocket()
   const { isAuthenticated, logout } = useContext(AuthContext)
   const classes = useStyles()
   const [toolbarData, setToolbarData] = useState({
@@ -102,8 +104,10 @@ function Topbar() {
     }
   }
 
-  function onLogoutClick() {
-    logout()
+  async function onLogoutClick() {
+    await logout()
+    socket.close() // Close User Socket
+    socket.open() // Open Guest Socket
     Router.push('/login')
   }
 

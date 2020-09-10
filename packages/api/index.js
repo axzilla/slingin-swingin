@@ -48,66 +48,44 @@ mongoose
     const io = require('socket.io')(server)
 
     io.on('connection', async socket => {
-      const { jwtToken } = cookie.parse(socket.handshake.headers.cookie)
+      const decodedUser =
+        socket.handshake.headers.cookie && cookie.parse(socket.handshake.headers.cookie).jwtToken
+          ? jwtDecode(cookie.parse(socket.handshake.headers.cookie).jwtToken)
+          : null
 
-      if (jwtToken) {
-        const decodedUser = jwtDecode(jwtToken)
-        addClientToMap(decodedUser, socket.id)
+      if (decodedUser) {
+        console.log(`${socket.id} -> ${decodedUser.username} -> connected`) // eslint-disable-line no-console
 
-        socket.on('disconnect', () => {
-          removeClientFromMap(decodedUser, socket.id)
+        const user = await User.findById(decodedUser.id)
+
+        if (!user.sockets.includes(socket.id)) {
+          user.sockets.push(socket.id)
+          user.dateOnline = Date.now()
+          user.isOnline = true
+          user.save()
+        }
+
+        socket.on('disconnect', async () => {
+          console.log(`${socket.id} -> ${decodedUser.username} -> disconnected`) // eslint-disable-line no-console
+
+          const user = await User.findById(decodedUser.id)
+          const index = user.sockets.indexOf(socket.id)
+          user.sockets.splice(index, 1)
+
+          if (user.sockets.length < 1) {
+            user.isOnline = false
+            user.dateOffline = Date.now()
+          }
+
+          user.save()
+        })
+      } else {
+        console.log(`${socket.id} -> GUEST -> connected`) // eslint-disable-line no-console
+
+        socket.on('disconnect', async () => {
+          console.log(`${socket.id} -> GUEST -> disconnected`) // eslint-disable-line no-console
         })
       }
-
-      socket.on('client-sign-in', ({ decodedUser, socketId }) => {
-        addClientToMap(decodedUser, socketId)
-      })
-
-      socket.on('client-sign-out', ({ decodedUser, socketId }) => {
-        removeClientFromMap(decodedUser, socketId)
-      })
     })
   })
   .catch(err => console.log(err)) // eslint-disable-line no-console
-
-const userSocketIdMap = new Map() // A map of online usernames and their clients
-
-async function addClientToMap(user, socketId) {
-  if (!userSocketIdMap.has(user.username)) {
-    // When user is joining first time
-    userSocketIdMap.set(user.username, new Set([socketId]))
-
-    await User.findByIdAndUpdate(
-      user.id,
-      { dateLastSignIn: Date.now(), isOnline: true },
-      { new: true }
-    )
-
-    console.log(userSocketIdMap) // eslint-disable-line no-console
-  } else {
-    // User had already joined from one client and now joining using another client
-    userSocketIdMap.get(user.username).add(socketId)
-    console.log(userSocketIdMap) // eslint-disable-line no-console
-  }
-}
-
-async function removeClientFromMap(user, socketId) {
-  if (userSocketIdMap.has(user.username)) {
-    let userSocketIdSet = userSocketIdMap.get(user.username)
-    userSocketIdSet.delete(socketId)
-
-    // If there are no clients for a user, remove that user from online list(map)
-    if (userSocketIdSet.size == 0) {
-      await User.findByIdAndUpdate(
-        user.id,
-        { dateLastSignOut: Date.now(), isOnline: false },
-        { new: true }
-      )
-
-      userSocketIdMap.delete(user.username)
-      console.log(userSocketIdMap) // eslint-disable-line no-console
-    } else {
-      console.log(userSocketIdMap) // eslint-disable-line no-console
-    }
-  }
-}

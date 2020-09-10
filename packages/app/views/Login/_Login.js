@@ -4,6 +4,7 @@ import Router from 'next/router'
 
 import AuthContext from '@contexts/AuthContext'
 import { useAlert } from '@contexts/AlertContext'
+import { useSocket } from '@contexts/SocketContext'
 import { userLogin, sendActivationEmail, activateAccount } from '@services/auth'
 import Link from '@components/Link'
 import TextField from '@components/TextField'
@@ -15,6 +16,7 @@ import Typography from '@material-ui/core/Typography'
 function UserLogin({ token }) {
   const { login } = useContext(AuthContext)
   const { setAlert } = useAlert()
+  const { socket } = useSocket()
   const [errors, setErrors] = useState('')
 
   const [loginData, setLoginData] = useState({
@@ -38,9 +40,11 @@ function UserLogin({ token }) {
   async function handleSubmit(event) {
     try {
       event.preventDefault()
+      socket.close() // Close User Socket
       const loggedInUser = await userLogin({ ...loginData })
       const jwtToken = loggedInUser.data
       await login(jwtToken)
+      socket.open() // Open Guest Socket
       Router.push('/')
     } catch (error) {
       setErrors(error.response.data)
