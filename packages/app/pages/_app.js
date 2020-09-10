@@ -7,7 +7,6 @@ import Router from 'next/router'
 import { withRouter } from 'next/router'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'universal-cookie'
-import io from 'socket.io-client'
 import { Provider } from 'react-redux'
 
 // MUI
@@ -28,6 +27,7 @@ import setAuthToken from '@utils/setAuthToken'
 // Contexts
 import AuthContext from '@contexts/AuthContext'
 import { AlertContextProvider } from '@contexts/AlertContext'
+import { SocketContextProvider } from '@contexts/SocketContext'
 
 // Redux Store
 import store from '../store'
@@ -57,8 +57,6 @@ function RouterLoading() {
 }
 
 function MyApp(props) {
-  const [socket, setSocket] = useState({})
-
   const [state, setState] = useState({
     isAuthModal: false,
     isAuthenticated: false,
@@ -66,7 +64,6 @@ function MyApp(props) {
   })
 
   useEffect(() => {
-    setSocket(io(process.env.NOIZE_APP_SERVER_URL))
     const cookies = new Cookies()
     const jwtToken = cookies.get('jwtToken')
     setAuthToken(jwtToken)
@@ -85,10 +82,6 @@ function MyApp(props) {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles)
-    }
-
-    return () => {
-      setSocket({})
     }
   }, [])
 
@@ -110,8 +103,6 @@ function MyApp(props) {
       await setAuthToken(jwtToken)
       const decodedUser = jwtDecode(jwtToken)
 
-      socket.emit('client-sign-in', { decodedUser, socketId: socket.id })
-
       setState({
         ...state,
         isAuthenticated: true,
@@ -125,11 +116,7 @@ function MyApp(props) {
   const logout = async () => {
     try {
       const cookies = new Cookies()
-      const decodedUser = jwtDecode(await cookies.get('jwtToken', { path: '/' }))
       await cookies.remove('jwtToken', { path: '/' })
-
-      socket.emit('client-sign-out', { decodedUser, socketId: socket.id })
-
       await Router.push('/login')
 
       setState({
@@ -160,15 +147,17 @@ function MyApp(props) {
           logout: logout
         }}
       >
-        <AlertContextProvider>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <RouterLoading />
-            <Component {...pageProps} />
-            <Alert />
-            <AuthModal />
-          </MuiThemeProvider>
-        </AlertContextProvider>
+        <SocketContextProvider>
+          <AlertContextProvider>
+            <MuiThemeProvider theme={theme}>
+              <CssBaseline />
+              <RouterLoading />
+              <Component {...pageProps} />
+              <Alert />
+              <AuthModal />
+            </MuiThemeProvider>
+          </AlertContextProvider>
+        </SocketContextProvider>
       </AuthContext.Provider>
     </Provider>
   )
