@@ -99,7 +99,7 @@ function MyApp(props) {
   const login = async jwtToken => {
     try {
       const cookies = new Cookies()
-      await cookies.set('jwtToken', jwtToken, { path: '/', secure: true })
+      await cookies.set('jwtToken', jwtToken, { path: '/', secure: true, sameSite: 'none' })
       await setAuthToken(jwtToken)
       const decodedUser = jwtDecode(jwtToken)
 
