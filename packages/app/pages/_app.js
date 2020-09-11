@@ -119,7 +119,10 @@ function MyApp(props) {
   const logout = async () => {
     try {
       const cookies = new Cookies()
-      await cookies.remove('jwtToken', { path: '/' })
+      await cookies.remove('jwtToken', {
+        path: '/',
+        domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'noize.dev'
+      })
       await Router.push('/login')
 
       setState({
