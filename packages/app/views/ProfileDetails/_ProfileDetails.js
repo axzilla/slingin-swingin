@@ -1,9 +1,11 @@
 // Packages
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 // Local Components
-import CardHeader from './components/CardHeader'
+import Header from './components/Header'
+import SendMessage from './components/SendMessage'
 import Tabs from './components/Tabs'
 
 // Services
@@ -18,6 +20,7 @@ function ProfileDetails({ profile, posts, comments, handle }) {
   const [profileData, setProfileData] = useState(profile)
   const [postsData, setPostsData] = useState(posts)
   const [commentsData, setCommentsData] = useState(comments)
+  const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
     onHandleChange()
@@ -35,8 +38,19 @@ function ProfileDetails({ profile, posts, comments, handle }) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <CardHeader profile={profileData} setProfile={setProfileData} />
+        <Header profile={profileData} setProfile={setProfileData} />
       </Grid>
+      {profileData.user._id !== user.id && (
+        <Grid item xs={12}>
+          <Grid container justify="flex-end">
+            <SendMessage
+              receiverUsername={profileData.user.username}
+              receiver={profileData.user._id}
+            />
+          </Grid>
+        </Grid>
+      )}
+
       <Grid item xs={12}>
         <Tabs
           profile={profileData}

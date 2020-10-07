@@ -1,15 +1,20 @@
-import React, { useState, useContext } from 'react'
+// Packages
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
+// Services
 import { commentDelete } from '@services/comment'
-import AuthContext from '@contexts/AuthContext'
 
+// Global Components
 import CommentForm from '@components/CommentForm'
 
+// Local Components
 import Header from './components/Header'
 import Content from './components/Content'
 import Vote from './components/Vote'
 
+// MUI
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
@@ -23,10 +28,10 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 
 function CommentFeedItem({ comment, comments, setComments }) {
-  const { user, isAuthenticated } = useContext(AuthContext)
   const [commentData, setCommentData] = useState(comment)
   const [isEditMode, setIsEditMode] = useState(false)
-  const [avatarOpen, setAvatarOpen] = React.useState(false)
+  const [avatarOpen, setAvatarOpen] = useState(false)
+  const { isAuthenticated, user } = useSelector(state => state.auth)
 
   const handleAvatarOpen = () => {
     setAvatarOpen(true)
@@ -59,7 +64,7 @@ function CommentFeedItem({ comment, comments, setComments }) {
 
   return (
     <>
-      <Card>
+      <Card variant="outlined">
         {!isEditMode ? (
           <>
             <Header comment={comment} />

@@ -1,15 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react'
+// Packages
+import React, { useState, useEffect } from 'react'
 
-import AuthContext from '@contexts/AuthContext'
+// Redux
+import { useSelector } from 'react-redux'
+
+// Services
 import { getPostsByUserBookmark } from '@services/post'
+
+// Global Components
 import PostFeedItem from '@components/PostFeedItem'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 
 function Bookmarks() {
-  const { user } = useContext(AuthContext)
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
     getInitalData()

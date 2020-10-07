@@ -7,6 +7,8 @@ Disallow: /dashboard/
 Disallow: /dashboard
 Disallow: /login/
 Disallow: /login
+Disallow: /chats/
+Disallow: /chats
 Disallow: /not-found/
 Disallow: /not-found
 Disallow: /password-forgot/

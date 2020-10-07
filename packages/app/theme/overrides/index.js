@@ -1,7 +1,7 @@
 import MuiAppBar from './MuiAppBar'
 import MuiCard from './MuiCard'
-import MuiPaper from './MuiPaper'
 import MuiTabs from './MuiTabs'
+import MuiPaper from './MuiPaper'
 // import MuiButton from './MuiButton'
 // import MuiCardActions from './MuiCardActions'
 // import MuiCardContent from './MuiCardContent'
@@ -21,8 +21,8 @@ import MuiTabs from './MuiTabs'
 export default {
   MuiAppBar,
   MuiCard,
-  MuiPaper,
-  MuiTabs
+  MuiTabs,
+  MuiPaper
   // MuiButton,
   // MuiCardActions,
   // MuiCardContent,

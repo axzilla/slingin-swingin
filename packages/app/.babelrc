@@ -11,7 +11,8 @@
           "@layouts": "./layouts",
           "@services": "./services",
           "@contexts": "./contexts",
-          "@views": "./views"
+          "@views": "./views",
+          "@slices": "./slices"
         }
       }
     ]

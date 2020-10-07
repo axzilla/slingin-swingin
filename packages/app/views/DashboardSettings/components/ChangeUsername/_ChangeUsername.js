@@ -1,18 +1,29 @@
-import React, { useState, useEffect, useContext } from 'react'
+// Packages
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+// Redux
+import { signInReducer } from '@slices/authSlice'
+
+// Services
 import { usernameChange } from '@services/auth'
+
+// Components
 import TextField from '@components/TextField'
-import AuthContext from '@contexts/AuthContext'
+
+// Contexts
 import { useAlert } from '@contexts/AlertContext'
 
+// Mui
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
 
 function UsernameChange() {
-  const { user, login } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const { setAlert } = useAlert()
+  const { user } = useSelector(state => state.auth)
 
   const [errors, setErrors] = useState()
   const [username, setUsername] = useState('')
@@ -37,7 +48,7 @@ function UsernameChange() {
       const res = await usernameChange(emailData)
       const { token } = res.data
 
-      login(token)
+      dispatch(signInReducer(token))
       setAlert({ message: 'Username changed successfully' })
     } catch (error) {
       setErrors(error.response.data)
@@ -46,7 +57,7 @@ function UsernameChange() {
 
   return (
     <React.Fragment>
-      <Card>
+      <Card variant="outlined">
         <CardHeader subheader="Change your username" />
         <form noValidate onSubmit={onSubmit}>
           <CardContent>

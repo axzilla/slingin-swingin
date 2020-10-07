@@ -1,18 +1,23 @@
-import React, { useContext } from 'react'
+// Packages
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Reduxer
+import { setIsAuthModalReducer } from '@slices/authSlice'
 
+// Services
 import { postToggleBookmarks } from '@services/post'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
-
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 
 function Footer({ post, setPostData }) {
-  const { isAuthenticated, user, setIsAuthModal } = useContext(AuthContext)
+  const dispatch = useDispatch()
+  const { user, isAuthenticated } = useSelector(state => state.auth)
   const isBookmarked = post.bookmarks.includes(user.id)
 
   async function handleBookmarkClick() {
@@ -21,7 +26,7 @@ function Footer({ post, setPostData }) {
         const updatedPost = await postToggleBookmarks(post._id)
         setPostData(updatedPost.data)
       } else {
-        setIsAuthModal(true)
+        dispatch(setIsAuthModalReducer(true))
       }
     } catch (error) {
       if (error) throw error

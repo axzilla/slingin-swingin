@@ -1,8 +1,14 @@
-import React, { useContext } from 'react'
+// Packages
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Global Components
 import Link from '@components/Link'
 
+// Redux
+import { setIsAuthModalReducer } from '@slices/authSlice'
+
+// MUI
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -12,16 +18,17 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Typography from '@material-ui/core/Typography'
 
 function AuthModal() {
-  const { isAuthModal, setIsAuthModal } = useContext(AuthContext)
+  const dispatch = useDispatch()
+  const { isAuthModal } = useSelector(state => state.auth)
 
   const handleClose = () => {
-    setIsAuthModal(false)
+    dispatch(setIsAuthModalReducer(false))
   }
 
   return (
     <Dialog
       maxWidth="xs"
-      open={isAuthModal || false}
+      open={isAuthModal}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"

@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   profile: { type: Schema.Types.ObjectId, ref: 'profile' },
   posts: [{ type: Schema.Types.ObjectId, ref: 'post' }],
   postComments: [{ type: Schema.Types.ObjectId, ref: 'postComment' }],
+  conversations: [{ type: Schema.Types.ObjectId, ref: 'conversation' }],
   notifications: {
     onNewPost: { type: Boolean, default: true },
     onOwnPost: { type: Boolean, default: true },

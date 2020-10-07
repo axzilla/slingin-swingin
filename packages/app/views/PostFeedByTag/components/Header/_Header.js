@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 
 function Header({ tag }) {
   return (
-    <Card>
+    <Card variant="outlined">
       <CardHeader
         title={
           <Typography variant="h5" component="h1">
