@@ -1,11 +1,21 @@
-import React, { useContext, useState } from 'react'
+// Packages
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+// Utils
 import isEmpty from '@utils/isEmpty'
-import { avatarUpload, avatarDelete } from '@services/auth'
-import AuthContext from '@contexts/AuthContext'
 
+// Redux
+import { signInReducer } from '@slices/authSlice'
+
+// Services
+import { avatarUpload } from '@services/auth'
+import { avatarDelete } from '@services/auth'
+
+// Local Components
 import Modal from './components/Modal'
 
+// MUI
 import { makeStyles } from '@material-ui/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Card from '@material-ui/core/Card'
@@ -17,10 +27,11 @@ import Grid from '@material-ui/core/Grid'
 const useStyles = makeStyles({ avatar: { height: '150px', width: '150px' } })
 
 function ProfileEditAvatar() {
+  const dispatch = useDispatch()
   const classes = useStyles()
   const [avatarOpen, setAvatarOpen] = React.useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { user, login } = useContext(AuthContext)
+  const { user } = useSelector(state => state.auth)
 
   async function handleAvatarChange(event) {
     try {
@@ -30,15 +41,12 @@ function ProfileEditAvatar() {
       const formData = new FormData()
       formData.append('avatar', event.target.files[0])
 
-      const config = {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
-      }
+      const config = { headers: { 'content-type': 'multipart/form-data' } }
 
       const res = await avatarUpload(formData, config)
       const { token } = res.data
-      login(token)
+      dispatch(signInReducer(token))
+
       setIsLoading(false)
     } catch (error) {
       if (error) throw error
@@ -52,7 +60,7 @@ function ProfileEditAvatar() {
 
       const res = await avatarDelete()
       const { token } = res.data
-      login(token)
+      dispatch(signInReducer(token))
 
       setAvatarOpen(false)
       setIsLoading(false)
@@ -67,7 +75,7 @@ function ProfileEditAvatar() {
 
   return (
     <>
-      <Card>
+      <Card variant="outlined">
         <Grid container direction="column" alignItems="center">
           <CardContent>
             {user.avatar && user.avatar.secure_url ? (

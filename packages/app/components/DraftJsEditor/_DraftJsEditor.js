@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
+import { useSelector } from 'react-redux'
+
 const Editor = dynamic(() => import('draft-js-plugins-editor'), {
   ssr: false
 })
@@ -12,21 +14,22 @@ const useStyles = makeStyles(theme => ({
   toolbar: { marginBottom: theme.spacing(1) },
   wrapper: {
     padding: '10.5px 14px',
-
     borderRadius: '4px',
-    border: '1px solid #ccc',
+    border: ({ isDarkTheme }) =>
+      isDarkTheme
+        ? `1px solid ${fade(theme.palette.text.primary, 0.23)}`
+        : `1px solid ${fade(theme.palette.text.secondary, 0.23)}`,
 
     '&:hover': {
-      border: `1px solid ${theme.palette.common.black}`
+      border: ({ isDarkTheme }) =>
+        isDarkTheme
+          ? `1px solid ${fade(theme.palette.text.primary, 0.87)}`
+          : `1px solid ${fade(theme.palette.text.secondary, 0.87)}`
     },
 
     '&:focus-within': {
-      border: `2px solid ${theme.palette.secondary.light}`,
+      border: `2px solid ${theme.palette.secondary.light} !important`,
       margin: '-1px'
-    },
-
-    '& img': {
-      maxWidth: '100%'
     },
 
     '& .DraftEditor-root': {
@@ -38,17 +41,26 @@ const useStyles = makeStyles(theme => ({
     },
 
     '& .public-DraftEditorPlaceholder-inner': {
-      color: fade(theme.palette.common.black, 0.37)
+      color: ({ isDarkTheme }) =>
+        isDarkTheme
+          ? fade(theme.palette.text.primary, 0.3)
+          : fade(theme.palette.text.secondary, 0.3)
     },
 
-    '& .public-DraftEditor-content': { minHeight: '200px' },
+    '& .public-DraftEditor-content': {
+      height: ({ height }) => height,
+      minHeight: ({ minHeight }) => minHeight,
+      maxHeight: ({ maxHeight }) => maxHeight,
+      overflow: 'scroll'
+    },
     '& .public-DraftEditorPlaceholder-root': { position: 'absolute' }
   },
   error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
 }))
 
-function EditorPost({ editorState, setEditorState, placeholder }) {
-  const classes = useStyles()
+function DraftJsEditor({ editorState, setEditorState, placeholder, minHeight, maxHeight, height }) {
+  const { isDarkTheme } = useSelector(state => state.theme.isDarkTheme)
+  const classes = useStyles({ minHeight, maxHeight, height, isDarkTheme })
 
   function onChange(editorState) {
     setEditorState(editorState)
@@ -61,10 +73,13 @@ function EditorPost({ editorState, setEditorState, placeholder }) {
   )
 }
 
-EditorPost.propTypes = {
+DraftJsEditor.propTypes = {
   editorState: PropTypes.object,
   setEditorState: PropTypes.func,
+  minHeight: PropTypes.number,
+  maxHeight: PropTypes.number,
+  height: PropTypes.number,
   placeholder: PropTypes.string
 }
 
-export default EditorPost
+export default DraftJsEditor

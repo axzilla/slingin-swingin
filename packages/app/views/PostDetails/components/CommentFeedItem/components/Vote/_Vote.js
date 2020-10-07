@@ -1,18 +1,24 @@
-import React, { useContext, useState } from 'react'
+// Packages
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Redux
+import { setIsAuthModalReducer } from '@slices/authSlice'
+
+// Services
 import { commentUpvote, commentDownvote } from '@services/comment'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-
 import MoodIcon from '@material-ui/icons/Mood'
 import MoodBadIcon from '@material-ui/icons/MoodBad'
 
 function CommentFeedItemVote({ comment }) {
-  const { user, isAuthenticated, setIsAuthModal } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const [commentData, setCommentData] = useState(comment)
+  const { isAuthenticated, user } = useSelector(state => state.auth)
 
   async function onUpvoteClick() {
     try {
@@ -20,7 +26,7 @@ function CommentFeedItemVote({ comment }) {
         const upvotedComment = await commentUpvote(commentData._id)
         setCommentData(upvotedComment.data)
       } else {
-        setIsAuthModal(true)
+        dispatch(setIsAuthModalReducer(true))
       }
     } catch (error) {
       if (error) throw error
@@ -33,7 +39,7 @@ function CommentFeedItemVote({ comment }) {
         const downvotedComment = await commentDownvote(commentData._id)
         setCommentData(downvotedComment.data)
       } else {
-        setIsAuthModal(true)
+        dispatch(setIsAuthModalReducer(true))
       }
     } catch (error) {
       if (error) throw error

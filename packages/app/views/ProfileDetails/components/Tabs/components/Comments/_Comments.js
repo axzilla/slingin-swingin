@@ -22,7 +22,7 @@ function Comments({ comments }) {
 
           return (
             <Grid key={comment._id} item xs={12}>
-              <Card>
+              <Card variant="outlined">
                 <CardContent>
                   <div
                     style={{

@@ -60,7 +60,7 @@ function WidgetLatestUsers() {
   }
 
   return (
-    <Card>
+    <Card variant="outlined">
       <CardHeader
         title={
           <Grid container justify="space-between">

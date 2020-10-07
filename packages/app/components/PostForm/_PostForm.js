@@ -7,7 +7,7 @@ import Title from './components/Title'
 import TitleImage from './components/TitleImage'
 import Tags from './components/Tags'
 
-import EditorPost from '@components/EditorPost'
+import DraftJsEditor from '@components/DraftJsEditor'
 
 import { postCreate, postUpdate } from '@services/post'
 import rawToHtml from '@utils/rawToHtml'
@@ -67,7 +67,7 @@ function PostForm({ post }) {
   }
 
   return (
-    <Card>
+    <Card variant="outlined">
       <CardContent>
         <Grid container direction="column" spacing={2}>
           <Grid item>
@@ -81,7 +81,8 @@ function PostForm({ post }) {
             <Title title={title} setTitle={setTitle} errors={errors} />
           </Grid>
           <Grid item>
-            <EditorPost
+            <DraftJsEditor
+              height={200}
               editorState={editorState}
               setEditorState={setEditorState}
               error={errors && errors.content}

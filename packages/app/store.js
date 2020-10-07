@@ -1,9 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import onlineListReducer from './slices/onlineListReducer'
+import chatsReducer from '@slices/chatsSlice'
+import authReducer from '@slices/authSlice'
+import themeReducer from '@slices/themeSlice'
+import loadingReducer from '@slices/loadingSlice'
 
 export default configureStore({
   reducer: {
-    onlineList: onlineListReducer
+    chats: chatsReducer,
+    auth: authReducer,
+    theme: themeReducer,
+    loading: loadingReducer
   }
 })

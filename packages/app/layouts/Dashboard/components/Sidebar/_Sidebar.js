@@ -1,16 +1,18 @@
-import React, { useContext } from 'react'
+// Packages
+import React from 'react'
 import clsx from 'clsx'
+import { useSelector } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Global Components
 import Link from '@components/Link'
 
+// MUI
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-
 import AccountBox from '@material-ui/icons/AccountBox'
 import Settings from '@material-ui/icons/Settings'
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode'
@@ -55,8 +57,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Sidebar() {
+  const { user } = useSelector(state => state.auth)
   const classes = useStyles()
-  const { user } = useContext(AuthContext)
 
   return (
     <Drawer
@@ -67,14 +69,6 @@ function Sidebar() {
       }}
     >
       <List>
-        {/* <Link href="/dashboard/overview">
-          <ListItem button>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText>Dashboard</ListItemText>
-          </ListItem>
-        </Link> */}
         <Link href="/dashboard/posts">
           <ListItem button>
             <ListItemIcon>

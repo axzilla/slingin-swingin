@@ -75,7 +75,7 @@ function ProfileEdit() {
               <Avatar />
             </Grid>
             <Grid item xs={12} md={8}>
-              <Card>
+              <Card variant="outlined">
                 <form onSubmit={onSubmit}>
                   <CardContent>
                     <Grid container spacing={2}>
