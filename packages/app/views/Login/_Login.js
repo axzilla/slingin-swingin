@@ -1,23 +1,34 @@
-import React, { useState, useContext, useEffect } from 'react'
+// Packages
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Redux
+import { signInReducer } from '@slices/authSlice'
+
+// Contexts
 import { useAlert } from '@contexts/AlertContext'
 import { useSocket } from '@contexts/SocketContext'
+
+// Services
 import { userLogin, sendActivationEmail, activateAccount } from '@services/auth'
+
+// Global Components
 import Link from '@components/Link'
 import TextField from '@components/TextField'
 
+// MUI
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 
 function UserLogin({ token }) {
-  const { login } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const { setAlert } = useAlert()
   const { socket } = useSocket()
   const [errors, setErrors] = useState('')
+  const { isAuthenticated } = useSelector(state => state.auth)
 
   const [loginData, setLoginData] = useState({
     login: '',
@@ -27,6 +38,12 @@ function UserLogin({ token }) {
   useEffect(() => {
     if (token) {
       handleActivateAccount()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      Router.push('/')
     }
   }, [])
 
@@ -41,11 +58,11 @@ function UserLogin({ token }) {
     try {
       event.preventDefault()
       socket.close() // Close User Socket
-      const loggedInUser = await userLogin({ ...loginData })
+      const loggedInUser = await userLogin(loginData)
       const jwtToken = loggedInUser.data
-      await login(jwtToken)
+      dispatch(signInReducer(jwtToken))
       socket.open() // Open Guest Socket
-      Router.push('/')
+      Router.push('/dashboard/profile-edit')
     } catch (error) {
       setErrors(error.response.data)
     }

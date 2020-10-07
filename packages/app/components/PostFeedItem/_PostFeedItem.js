@@ -37,7 +37,7 @@ function PostFeedItem({ post }) {
   const [postData, setPostData] = useState(post)
 
   return (
-    <Card>
+    <Card variant="outlined">
       <TitleImage post={postData} />
       <CardHeader
         className={classes.cardHeader}

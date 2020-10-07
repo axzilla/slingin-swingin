@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "dependencies": {
     "@material-ui/core": "4.9.1",
@@ -10,10 +10,9 @@
     "@reduxjs/toolkit": "1.4.0",
     "axios": "0.19.2",
     "dotenv": "8.2.0",
-    "draft-js": "0.11.4",
+    "draft-js": "0.11.7",
     "draft-js-export-html": "1.4.1",
     "draft-js-plugins-editor": "3.0.0",
-    "gravatar": "1.8.1",
     "jwt-decode": "2.2.0",
     "moment": "^2.22.2",
     "next": "9.5.3",
@@ -27,6 +26,7 @@
     "react-redux": "7.2.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.4.3",
+    "react-scroll": "1.8.1",
     "showdown": "1.9.1",
     "sitemap": "5.1.0",
     "socket.io-client": "2.3.0",

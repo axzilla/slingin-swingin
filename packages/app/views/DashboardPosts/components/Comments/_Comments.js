@@ -1,21 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react'
+// Packages
+import React, { useState, useEffect } from 'react'
 import Moment from 'react-moment'
+import { useSelector } from 'react-redux'
 
+// Utils
 import rawToHtml from '@utils/rawToHtml'
 import htmlRemove from '@utils/htmlRemove'
-import AuthContext from '@contexts/AuthContext'
+
+// Services
 import { getCommentsByUserId } from '@services/comment'
+
+// Global Components
 import Link from '@components/Link'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
 function Comments() {
-  const { user } = useContext(AuthContext)
   const [comments, setComments] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
     getInitalData()
@@ -40,7 +47,7 @@ function Comments() {
               const { shortId, urlSlug } = comment.post
               return (
                 <Grid key={comment._id} item xs={12}>
-                  <Card>
+                  <Card variant="outlined">
                     <CardContent>
                       <div
                         style={{

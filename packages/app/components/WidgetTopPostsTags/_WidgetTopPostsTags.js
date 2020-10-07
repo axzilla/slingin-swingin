@@ -26,7 +26,7 @@ function WidgetTopPostsTags() {
   }
 
   return (
-    <Card>
+    <Card variant="outlined">
       <CardHeader title="Hot Topics" />
       <CardContent>
         {postTags &&

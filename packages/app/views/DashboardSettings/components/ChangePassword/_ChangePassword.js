@@ -1,18 +1,29 @@
-import React, { useState, useContext } from 'react'
+// Packages
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Redux
+import { signInReducer } from '@slices/authSlice'
+
+// Global Components
 import TextField from '@components/TextField'
+
+// Contexts
 import { useAlert } from '@contexts/AlertContext'
+
+// Services
 import { passwordChange } from '@services/auth'
 
+// Mui
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
 
 function PasswordChange() {
-  const { user, login } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const { setAlert } = useAlert()
+  const { user } = useSelector(state => state.auth)
 
   const [errors, setErrors] = useState()
   const [passwords, setPasswords] = useState({
@@ -40,7 +51,7 @@ function PasswordChange() {
 
       const res = await passwordChange(passwordData)
       const { token } = res.data
-      login(token)
+      dispatch(signInReducer(token))
       setAlert({ message: 'Password changed successfully' })
       setPasswords({
         oldPassword: '',
@@ -54,7 +65,7 @@ function PasswordChange() {
   }
 
   return (
-    <Card>
+    <Card variant="outlined">
       <CardHeader subheader="Change your password" />
       <form noValidate onSubmit={onSubmit}>
         <CardContent>
