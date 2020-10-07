@@ -1,9 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react'
+// Packages
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import AuthContext from '@contexts/AuthContext'
+// Redux
+import { signInReducer } from '@slices/authSlice'
+
+// Contexts
 import { useAlert } from '@contexts/AlertContext'
+
+// Services
 import { settingsUpdate } from '@services/auth'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -13,8 +21,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
 function Settings() {
-  const { user, login } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const { setAlert } = useAlert()
+  const { user } = useSelector(state => state.auth)
 
   const [notifications, setNotifications] = useState({
     onNewPost: false,
@@ -44,7 +53,7 @@ function Settings() {
       event.preventDefault()
       const res = await settingsUpdate(notifications)
       const { token } = res.data
-      login(token)
+      dispatch(signInReducer(token))
       setAlert({ message: 'Email settings changed successfully' })
     } catch (error) {
       if (error) throw error
@@ -53,7 +62,7 @@ function Settings() {
 
   return (
     <Grid item xs={12}>
-      <Card>
+      <Card variant="outlined">
         <CardHeader subheader="Change your email settings" />
         <form onSubmit={onSubmit}>
           <CardContent>

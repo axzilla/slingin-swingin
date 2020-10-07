@@ -15,7 +15,7 @@ function AllMembers({ profiles }) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Card>
+        <Card variant="outlined">
           <CardHeader
             title={
               <Typography variant="h5" component="h1">

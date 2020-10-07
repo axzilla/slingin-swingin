@@ -1,10 +1,11 @@
 // Packages
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
+import { useDispatch, useSelector } from 'react-redux'
 
-// Contexts
-import AuthContext from '@contexts/AuthContext'
+// Redux
+import { setIsAuthModalReducer } from '@slices/authSlice'
 
 // Services
 import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
@@ -33,9 +34,10 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
 function PostDetails({ post }) {
-  const { isAuthenticated, user, setIsAuthModal } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const [postData, setPostData] = useState(post)
   const [comments, setComments] = useState(post.postComments)
+  const { user, isAuthenticated } = useSelector(state => state.auth)
 
   const isBookmarked = postData.bookmarks.includes(user.id)
   const isLiked = postData.likes.includes(user.id)
@@ -43,7 +45,7 @@ function PostDetails({ post }) {
   async function handleLikeClick() {
     try {
       if (!isAuthenticated) {
-        setIsAuthModal(true)
+        dispatch(setIsAuthModalReducer(true))
       } else {
         const updatedPost = await postToggleLikes(postData._id)
         setPostData(updatedPost.data)
@@ -56,7 +58,7 @@ function PostDetails({ post }) {
   async function handleBookmarkClick() {
     try {
       if (!isAuthenticated) {
-        setIsAuthModal(true)
+        dispatch(setIsAuthModalReducer(true))
       } else {
         const updatedPost = await postToggleBookmarks(postData._id)
         setPostData(updatedPost.data)
@@ -69,7 +71,7 @@ function PostDetails({ post }) {
   return (
     <Grid container justify="center" spacing={2}>
       <Grid item xs={12}>
-        <Card>
+        <Card variant="outlined">
           <CardHeader
             title={
               <Link underlined href="/[handle]" as={`/${postData.user.username}`}>

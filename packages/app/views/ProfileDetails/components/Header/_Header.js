@@ -1,15 +1,22 @@
+// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Avatar, Username, Socials, Bio, Infos } from '../'
+// Local Components
+import Avatar from './components/Avatar'
+import Bio from './components/Bio'
+import Infos from './components/Infos'
+import Socials from './components/Socials'
+import Username from './components/Username'
 
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
-function ProfileDetailsCardHeader({ profile }) {
+function Header({ profile }) {
   return (
-    <Card>
+    <Card variant="outlined">
       <CardContent>
         <Grid>
           <Grid container alignItems="flex-start">
@@ -29,8 +36,8 @@ function ProfileDetailsCardHeader({ profile }) {
   )
 }
 
-ProfileDetailsCardHeader.propTypes = {
+Header.propTypes = {
   profile: PropTypes.object
 }
 
-export default ProfileDetailsCardHeader
+export default Header

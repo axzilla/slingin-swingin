@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   link: {
     cursor: 'pointer',
     textDecoration: 'none',
+    outline: 0,
 
     '&:hover': {
       textDecoration: props => (props.underlined ? 'underlined' : 'none')

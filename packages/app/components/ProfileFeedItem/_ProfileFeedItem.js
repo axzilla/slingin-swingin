@@ -13,7 +13,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 
 function ProfilesFeedItem({ profile }) {
   return (
-    <Card>
+    <Card variant="outlined">
       <CardHeader
         title={
           <Link underlined href="/[handle]" as={`/${profile.handle}`}>

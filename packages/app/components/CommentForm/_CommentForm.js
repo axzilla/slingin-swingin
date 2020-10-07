@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 
-import EditorPost from '@components/EditorPost'
+import DraftJsEditor from '@components/DraftJsEditor'
 import { commentCreate, commentUpdate } from '@services/comment'
 import rawToHtml from '@utils/rawToHtml'
 import htmlRemove from '@utils/htmlRemove'
@@ -66,7 +66,7 @@ function CommentForm({
   return (
     <form onSubmit={onSubmit}>
       <Box mb={1}>
-        <EditorPost
+        <DraftJsEditor
           editorState={editorState}
           setEditorState={setEditorState}
           placeholder="What are your thougts?"
