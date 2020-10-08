@@ -13,7 +13,9 @@ async function login(req, res) {
       return res.status(400).json(errors)
     }
 
-    const foundUser = await User.findOne({ $or: [{ email: login }, { username: login }] })
+    const foundUser = await User.findOne({
+      $or: [{ email: login.toLowerCase() }, { username: login.toLowerCase() }]
+    })
 
     if (!foundUser) {
       errors.login = 'User not found'
