@@ -12,7 +12,7 @@ export function SocketContextProvider({ children }) {
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
-    setSocket(io(process.env.NOIZE_APP_SERVER_URL))
+    setSocket(io(process.env.NEXT_PUBLIC_NOIZE_APP_SERVER_URL))
   }, [])
 
   const defaultContext = { socket }
