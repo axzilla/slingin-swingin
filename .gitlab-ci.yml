@@ -1,7 +1,6 @@
 image: node:latest
 
 before_script:
-  # - cd ./packages/api
   - apt-get update -qy
   - apt-get install -y ruby-dev
   - gem install dpl
@@ -17,7 +16,7 @@ api_staging:
   image: ruby:latest
   script:
     - cd ./packages/api
-    - dpl --provider=heroku --app=$HEROKU_API_STAGING --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=digitalnomads-api --api-key=$HEROKU_API_KEY
   only:
     - branches
 
@@ -27,7 +26,7 @@ app_staging:
   image: ruby:latest
   script:
     - cd ./packages/app
-    - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=digitalnomads-app --api-key=$HEROKU_API_KEY
   only:
     - branches
 
