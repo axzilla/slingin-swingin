@@ -20,11 +20,11 @@ const UserSchema = new Schema({
   isActiveToken: { type: String },
   isActiveTokenExpires: { type: Date },
   dateCreated: { type: Date, default: Date.now },
-  dateUpdated: { type: Date },
-  dateOnline: { type: Date },
-  dateOffline: { type: Date },
-  isOnline: { type: Boolean },
-  sockets: [{ type: String }]
+  dateUpdated: { type: Date }
+  // dateOnline: { type: Date },
+  // dateOffline: { type: Date },
+  // isOnline: { type: Boolean },
+  // sockets: [{ type: String }]
 })
 
 module.exports = mongoose.model('user', UserSchema)
