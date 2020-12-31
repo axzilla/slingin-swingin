@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/auth`
+const serverUrl = `${process.env.NEXT_PUBLIC_NOIZE_APP_SERVER_URL}/auth`
 
 export function userRegister(userData) {
   return axios.post(`${serverUrl}/register`, userData)

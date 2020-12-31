@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/comments`
+const serverUrl = `${process.env.NEXT_PUBLIC_NOIZE_APP_SERVER_URL}/comments`
 
 export function commentCreate(commentData) {
   return axios.post(`${serverUrl}/comment-create`, commentData)

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const serverUrl = `${process.env.NOIZE_APP_SERVER_URL}/chats`
+const serverUrl = `${process.env.NEXT_PUBLIC_NOIZE_APP_SERVER_URL}/chats`
 
 export function messageCreate(data) {
   return axios.post(`${serverUrl}/message-create`, data)
