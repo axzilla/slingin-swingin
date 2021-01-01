@@ -74,7 +74,7 @@ function ProfileEdit() {
       if (event) {
         const searchTerm = event.target.value
         const { data } = await getLocations({ searchTerm })
-        setLocations(data.predictions)
+        setLocations(data)
       }
     } catch (error) {
       if (error) throw error
@@ -130,11 +130,10 @@ function ProfileEdit() {
                             setProfile({ ...profile, currentLocation: location })
                           }}
                           options={locations}
-                          getOptionLabel={option => option.description}
+                          getOptionLabel={option => option.formatted_address}
                           renderInput={params => (
                             <MuiTextField
                               {...params}
-                              // onChange={() => _.debounce(handleGetPlaces(), 1000)}
                               label="Current Location"
                               placeholder="Start typing"
                               color="secondary"
