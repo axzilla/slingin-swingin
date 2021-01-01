@@ -19,8 +19,7 @@ const UserSchema = new Schema({
   isActive: { type: Boolean, default: false },
   isActiveToken: { type: String },
   isActiveTokenExpires: { type: Date },
-  dateCreated: { type: Date, default: Date.now },
-  dateUpdated: { type: Date }
+  dateCreated: { type: Date, default: Date.now }
   // dateOnline: { type: Date },
   // dateOffline: { type: Date },
   // isOnline: { type: Boolean },

@@ -43,7 +43,7 @@ const Messages = () => {
         }
         subheader={
           <Link underlined href={`/${receiver.username}`}>
-            {receiver.profile.firstName || ''} {receiver.profile.lastName || ''}
+            {receiver.profile.name || ''}
           </Link>
         }
         avatar={

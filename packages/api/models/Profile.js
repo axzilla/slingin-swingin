@@ -4,8 +4,7 @@ const Schema = mongoose.Schema
 const ProfileSchema = new Schema({
   handle: { type: String, required: true, max: 40, unique: true },
   user: { type: Schema.Types.ObjectId, ref: 'user' },
-  firstName: { type: String },
-  lastName: { type: String },
+  name: { type: String },
   avatar: { type: String },
   location: { type: String },
   status: { type: String },
@@ -16,9 +15,7 @@ const ProfileSchema = new Schema({
   facebook: { type: String },
   linkedin: { type: String },
   instagram: { type: String },
-  soundcloud: { type: String },
-  dateCreated: { type: Date, default: Date.now },
-  dateUpdated: { type: Date }
+  dateCreated: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('profile', ProfileSchema)

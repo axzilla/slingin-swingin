@@ -37,8 +37,7 @@ function ProfileEdit() {
       event.preventDefault()
 
       const profileData = {
-        firstName: profile.firstName,
-        lastName: profile.lastName,
+        name: profile.name,
         handle: profile.handle,
         location: profile.location,
         status: profile.status,
@@ -81,17 +80,9 @@ function ProfileEdit() {
                     <Grid container spacing={2}>
                       <Grid item md={6} xs={12}>
                         <TextField
-                          placeholder="First name"
-                          name="firstName"
-                          value={profile.firstName}
-                          onChange={onChange}
-                        />
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          placeholder="Last name"
-                          name="lastName"
-                          value={profile.lastName}
+                          placeholder="Name"
+                          name="name"
+                          value={profile.name}
                           onChange={onChange}
                         />
                       </Grid>
