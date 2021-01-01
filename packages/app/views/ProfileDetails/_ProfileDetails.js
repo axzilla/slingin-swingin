@@ -7,11 +7,15 @@ import { useSelector } from 'react-redux'
 import Header from './components/Header'
 import SendMessage from './components/SendMessage'
 import Tabs from './components/Tabs'
+import Map from './components/Map'
 
 // Services
 import { getPostsByUserId } from '@services/post'
 import { getProfileByHandle } from '@services/profile'
 import { getCommentsByUserId } from '@services/comment'
+
+// Utils
+import isEmpty from '@utils/isEmpty'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -36,10 +40,18 @@ function ProfileDetails({ profile, posts, comments, handle }) {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} direction="column">
       <Grid item xs={12}>
         <Header profile={profileData} setProfile={setProfileData} />
       </Grid>
+      {!isEmpty(profileData.currentLocation) && (
+        <Grid item xs={12}>
+          <Map
+            lng={profileData.currentLocation.geometry.location.lng}
+            lat={profileData.currentLocation.geometry.location.lat}
+          />
+        </Grid>
+      )}
       {profileData.user._id !== user.id && (
         <Grid item xs={12}>
           <Grid container justify="flex-end">
@@ -50,7 +62,6 @@ function ProfileDetails({ profile, posts, comments, handle }) {
           </Grid>
         </Grid>
       )}
-
       <Grid item xs={12}>
         <Tabs
           profile={profileData}

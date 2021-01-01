@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const serverUrl = `${process.env.NEXT_PUBLIC_NOIZE_APP_SERVER_URL}/posts`
+const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/posts`
 
 export function postCreate(postData) {
   return axios.post(`${serverUrl}/post-create`, postData)
