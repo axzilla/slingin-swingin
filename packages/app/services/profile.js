@@ -1,9 +1,13 @@
 import axios from 'axios'
 
-const serverUrl = `${process.env.NEXT_PUBLIC_NOIZE_APP_SERVER_URL}/profile`
+const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`
 
 export function getCurrentProfile() {
   return axios.get(`${serverUrl}/get-profile-by-current-user`)
+}
+
+export function getLocations(data) {
+  return axios.post(`${serverUrl}/get-locations`, data)
 }
 
 export function getAllProfiles() {
