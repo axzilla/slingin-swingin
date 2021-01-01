@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import _ from 'lodash'
 
 import TextField from '@components/TextField'
 import { useAlert } from '@contexts/AlertContext'
-import { profileUpdate, getCurrentProfile } from '@services/profile'
+import { profileUpdate, getCurrentProfile, getLocations } from '@services/profile'
+
+// Utils
+import isEmpty from '@utils/isEmpty'
 
 import Avatar from './components/Avatar'
 
@@ -10,12 +14,15 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { TextField as MuiTextField } from '@material-ui/core'
 
 function ProfileEdit() {
   const { setAlert } = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState('')
   const [profile, setProfile] = useState({})
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
     getInitialData()
@@ -39,7 +46,7 @@ function ProfileEdit() {
       const profileData = {
         name: profile.name,
         handle: profile.handle,
-        location: profile.location,
+        currentLocation: profile.currentLocation || {},
         status: profile.status,
         bio: profile.bio,
         website: profile.website,
@@ -47,8 +54,7 @@ function ProfileEdit() {
         facebook: profile.facebook,
         linkedin: profile.linkedin,
         youtube: profile.youtube,
-        instagram: profile.instagram,
-        soundcloud: profile.soundcloud
+        instagram: profile.instagram
       }
 
       const updatedProfile = await profileUpdate(profileData)
@@ -61,6 +67,18 @@ function ProfileEdit() {
 
   function onChange(event) {
     setProfile({ ...profile, [event.target.name]: event.target.value })
+  }
+
+  async function handleGetPlaces(event) {
+    try {
+      if (event) {
+        const searchTerm = event.target.value
+        const { data } = await getLocations({ searchTerm })
+        setLocations(data)
+      }
+    } catch (error) {
+      if (error) throw error
+    }
   }
 
   return (
@@ -104,11 +122,24 @@ function ProfileEdit() {
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
-                        <TextField
-                          placeholder="Location"
-                          name="location"
-                          value={profile.location}
-                          onChange={onChange}
+                        <Autocomplete
+                          freeSolo
+                          value={!isEmpty(profile.currentLocation) ? profile.currentLocation : null}
+                          onInputChange={_.debounce(handleGetPlaces, 1000)}
+                          onChange={(event, location) => {
+                            setProfile({ ...profile, currentLocation: location })
+                          }}
+                          options={locations}
+                          getOptionLabel={option => option.formatted_address}
+                          renderInput={params => (
+                            <MuiTextField
+                              {...params}
+                              label="Current Location"
+                              placeholder="Start typing"
+                              color="secondary"
+                              variant="outlined"
+                            />
+                          )}
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
@@ -153,15 +184,6 @@ function ProfileEdit() {
                           placeholder="Youtube URL"
                           name="youtube"
                           value={profile.youtube}
-                          onChange={onChange}
-                        />
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        <TextField
-                          error={errors && errors.soundcloud}
-                          placeholder="Soundcloud URL"
-                          name="soundcloud"
-                          value={profile.soundcloud}
                           onChange={onChange}
                         />
                       </Grid>
