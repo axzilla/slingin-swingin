@@ -25,12 +25,10 @@ function ProfileDetailsInfos({ profile }) {
 
   return (
     <Box fontFamily="Monospace" mb={2}>
-      {isEmpty(profile.firstName || profile.lastName) ? null : (
+      {isEmpty(profile.name) ? null : (
         <Grid container alignItems="center">
           <AccountCircleIcon className={classes.infoIcons} />
-          <Typography variant="body1">
-            {profile.firstName} {profile.lastName}
-          </Typography>
+          <Typography variant="body1">{profile.name}</Typography>
         </Grid>
       )}
       {isEmpty(profile.status) ? null : (

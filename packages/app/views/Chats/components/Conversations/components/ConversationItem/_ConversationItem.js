@@ -36,10 +36,7 @@ const ConversationItem = ({ conversation, handleSelectedConversation }) => {
         <UserAvatar height={50} width={50} user={receiver} />
       </ListItemAvatar>
       <Hidden smDown>
-        <ListItemText
-          primary={`@${receiver.username}`}
-          secondary={`${receiver.profile.firstName || ''} ${receiver.profile.lastName || ''}`}
-        />
+        <ListItemText primary={`@${receiver.username}`} secondary={receiver.profile.name || ''} />
       </Hidden>
     </ListItem>
   )
