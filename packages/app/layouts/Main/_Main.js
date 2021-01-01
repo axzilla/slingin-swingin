@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 
 import Container from '@components/Container'
 import WidgetLatestUsers from '@components/WidgetLatestUsers'
-import WidgetOnlineUsers from '@components/WidgetOnlineUsers'
+// import WidgetOnlineUsers from '@components/WidgetOnlineUsers'
 import WidgetTopPostsTags from '@components/WidgetTopPostsTags'
 
 import Grid from '@material-ui/core/Grid'
@@ -36,9 +36,9 @@ function Main({ children }) {
                 <Grid item xs={12}>
                   <WidgetLatestUsers />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <WidgetOnlineUsers />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </Box>
