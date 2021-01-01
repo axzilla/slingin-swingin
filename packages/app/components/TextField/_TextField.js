@@ -30,7 +30,7 @@ function TextField({
       <MuiTextField
         color="secondary"
         type={type || 'text'}
-        margin="dense"
+        // margin="dense"
         variant="outlined"
         error={error ? true : false}
         name={name}

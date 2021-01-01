@@ -37,10 +37,10 @@ function ProfileDetailsInfos({ profile }) {
           <Typography variant="body1">{profile.status}</Typography>
         </Grid>
       )}
-      {isEmpty(profile.location) ? null : (
+      {isEmpty(profile.currentLocation) ? null : (
         <Grid container alignItems="center">
           <LocationCityIcon className={classes.infoIcons} />
-          <Typography variant="body1">{profile.location}</Typography>
+          <Typography variant="body1">{profile.currentLocation.description}</Typography>
         </Grid>
       )}
 
