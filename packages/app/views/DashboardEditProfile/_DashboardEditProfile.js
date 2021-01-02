@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
-import axios from 'axios'
 
 import TextField from '@components/TextField'
 import { useAlert } from '@contexts/AlertContext'
-import { profileUpdate, getCurrentProfile } from '@services/profile'
+import { profileUpdate, getCurrentProfile, getLocations } from '@services/profile'
 
 // Utils
 import isEmpty from '@utils/isEmpty'
@@ -74,10 +73,8 @@ function ProfileEdit() {
     try {
       if (event) {
         const searchTerm = event.target.value
-        const basePath = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
-        const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-        const { data } = await axios.get(`${basePath}/${searchTerm}.json?access_token=${token}`)
-        setLocations(data.features)
+        const { data } = await getLocations({ searchTerm })
+        setLocations(data)
       }
     } catch (error) {
       if (error) throw error
@@ -133,7 +130,7 @@ function ProfileEdit() {
                             setProfile({ ...profile, currentLocation: location })
                           }}
                           options={locations}
-                          getOptionLabel={option => option.place_name}
+                          getOptionLabel={option => option.formatted_address}
                           renderInput={params => (
                             <MuiTextField
                               {...params}
