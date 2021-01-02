@@ -6,10 +6,6 @@ export function getCurrentProfile() {
   return axios.get(`${serverUrl}/get-profile-by-current-user`)
 }
 
-export function getLocations(data) {
-  return axios.post(`${serverUrl}/get-locations`, data)
-}
-
 export function getAllProfiles() {
   return axios.get(`${serverUrl}/get-all-profiles`)
 }
