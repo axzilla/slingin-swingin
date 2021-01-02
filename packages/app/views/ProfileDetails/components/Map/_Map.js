@@ -1,49 +1,36 @@
 // Packages
-import React, { useRef, useEffect } from 'react'
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import mapboxgl from 'mapbox-gl'
 
 // MUI
 import Card from '@material-ui/core/Card'
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+export class MapContainer extends React.Component {
+  render() {
+    const mapStyles = { width: '100%', height: '100%' }
+    const containerStyle = { position: 'relative', width: '100%', height: '100%' }
 
-const Map = ({ lat, lng }) => {
-  const mapContainerRef = useRef(null)
-
-  // initialize map when component mounts
-  useEffect(() => {
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
-      // See style options here: https://docs.mapbox.com/api/maps/#styles
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat] // longitude, latitude
-      // zoom: 1
-    })
-
-    // add navigation control (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
-
-    // set a marker
-    new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map)
-    // clean up on unmount
-    return () => map.remove()
-  }, []) // eslint-disable-line
-
-  return (
-    <Card style={{ height: '300px' }}>
-      <div
-        style={{ width: '100%', height: '100%' }}
-        className="map-container"
-        ref={mapContainerRef}
-      />
-    </Card>
-  )
+    return (
+      <Card variant="outlined" style={{ height: '300px' }}>
+        <Map
+          google={this.props.google}
+          zoom={1}
+          style={mapStyles}
+          containerStyle={containerStyle}
+          initialCenter={{ lat: this.props.lat, lng: this.props.lng }}
+        >
+          <Marker position={{ lat: this.props.lat, lng: this.props.lng }} />
+        </Map>
+      </Card>
+    )
+  }
 }
 
-Map.propTypes = {
+MapContainer.propTypes = {
   lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired
+  lng: PropTypes.number.isRequired,
+  google: PropTypes.object.isRequired
 }
 
-export default Map
+export default GoogleApiWrapper({ apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY })(MapContainer)

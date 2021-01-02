@@ -47,8 +47,8 @@ function ProfileDetails({ profile, posts, comments, handle }) {
       {!isEmpty(profileData.currentLocation) && (
         <Grid item xs={12}>
           <Map
-            lng={profileData.currentLocation.geometry.coordinates[0]}
-            lat={profileData.currentLocation.geometry.coordinates[1]}
+            lng={profileData.currentLocation.geometry.location.lng}
+            lat={profileData.currentLocation.geometry.location.lat}
           />
         </Grid>
       )}
