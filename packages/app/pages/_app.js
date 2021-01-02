@@ -91,6 +91,7 @@ function MyApp(props) {
       <Head>
         <link rel="icon" href="/favicon.png" />
         <title>The #1 Music Production Community</title>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css" rel="stylesheet" />
       </Head>
 
       <InitialAuthSetup />
