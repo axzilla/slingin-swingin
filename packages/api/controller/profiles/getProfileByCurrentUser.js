@@ -2,7 +2,10 @@ const Profile = require('../../models/Profile')
 
 async function getProfileByCurrentUser(req, res) {
   try {
-    const foundProfile = await Profile.findOne({ user: req.user.id }).populate('user', '-password')
+    const foundProfile = await Profile.findOne({ user: req.user.id })
+      .populate('user', '-password')
+      .populate('locationFrom')
+      .populate('locationCurrent')
 
     if (!foundProfile) {
       return res.status(404).json('404')
