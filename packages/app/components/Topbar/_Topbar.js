@@ -40,6 +40,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MailIcon from '@material-ui/icons/Mail'
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
+import PublicIcon from '@material-ui/icons/Public'
 
 const useStyles = makeStyles(theme => ({
   appBar: { borderBottom: `1px solid ${fade(theme.palette.primary.contrastText, 0.2)}` },
@@ -184,6 +185,13 @@ function Topbar() {
                       <Link href="/chats">
                         <IconButton>
                           <MailIcon />
+                        </IconButton>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Link href="/places">
+                        <IconButton>
+                          <PublicIcon />
                         </IconButton>
                       </Link>
                     </Box>

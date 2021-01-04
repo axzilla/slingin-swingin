@@ -2,10 +2,10 @@ const Profile = require('../../models/Profile')
 
 async function getProfileByHandle(req, res) {
   try {
-    const foundProfile = await Profile.findOne({ handle: req.params.handle }).populate(
-      'user',
-      '-password'
-    )
+    const foundProfile = await Profile.findOne({ handle: req.params.handle })
+      .populate('user', '-password')
+      .populate('locationCurrent')
+      .populate('locationFrom')
 
     if (!foundProfile) {
       return res.status(404).json('404')

@@ -7,6 +7,7 @@ import isEmpty from '@utils/isEmpty'
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
 import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
 
 import LanguageIcon from '@material-ui/icons/Language'
 import TwitterIcon from '@material-ui/icons/Twitter'
@@ -16,11 +17,11 @@ import YouTubeIcon from '@material-ui/icons/YouTube'
 import InstagramIcon from '@material-ui/icons/Instagram'
 import CloudIcon from '@material-ui/icons/Cloud'
 
+// eslint-disable-next-line
 const useStyles = makeStyles(theme => ({
   socialIcons: {
-    marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    color: grey[900]
+    // marginRight: theme.spacing(2),
+    // marginBottom: theme.spacing(2)
   }
 }))
 
@@ -39,37 +40,51 @@ function ProfileDetailsSocials({ profile }) {
     <Grid container>
       {isEmpty(profile.website) ? null : (
         <Link style={{ color: grey[900] }} variant="MuiLink" href={checkForHttp(profile.website)}>
-          <LanguageIcon className={classes.socialIcons} />
+          <IconButton>
+            <LanguageIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
       {isEmpty(profile.twitter) ? null : (
         <Link variant="MuiLink" href={checkForHttp(profile.twitter)}>
-          <TwitterIcon className={classes.socialIcons} />
+          <IconButton>
+            <TwitterIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
       {isEmpty(profile.facebook) ? null : (
         <Link variant="MuiLink" href={checkForHttp(profile.facebook)}>
-          <FacebookIcon className={classes.socialIcons} />
+          <IconButton>
+            <FacebookIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
       {isEmpty(profile.linkedin) ? null : (
         <Link variant="MuiLink" href={checkForHttp(profile.linkedin)}>
-          <LinkedInIcon className={classes.socialIcons} />
+          <IconButton>
+            <LinkedInIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
       {isEmpty(profile.youtube) ? null : (
         <Link variant="MuiLink" href={checkForHttp(profile.youtube)}>
-          <YouTubeIcon className={classes.socialIcons} />
+          <IconButton>
+            <YouTubeIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
       {isEmpty(profile.instagram) ? null : (
         <Link variant="MuiLink" href={checkForHttp(profile.instagram)}>
-          <InstagramIcon className={classes.socialIcons} />
+          <IconButton>
+            <InstagramIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
       {isEmpty(profile.soundcloud) ? null : (
         <Link variant="MuiLink" href={checkForHttp(profile.soundcloud)}>
-          <CloudIcon className={classes.socialIcons} />
+          <IconButton>
+            <CloudIcon className={classes.socialIcons} />
+          </IconButton>
         </Link>
       )}
     </Grid>
