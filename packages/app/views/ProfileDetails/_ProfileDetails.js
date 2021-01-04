@@ -44,11 +44,11 @@ function ProfileDetails({ profile, posts, comments, handle }) {
       <Grid item xs={12}>
         <Header profile={profileData} setProfile={setProfileData} />
       </Grid>
-      {!isEmpty(profileData.currentLocation) && (
+      {!isEmpty(profileData.locationCurrent) && (
         <Grid item xs={12}>
           <Map
-            lng={profileData.currentLocation.geometry.coordinates[0]}
-            lat={profileData.currentLocation.geometry.coordinates[1]}
+            lng={profileData.locationCurrent.mapBox.geometry.coordinates[0]}
+            lat={profileData.locationCurrent.mapBox.geometry.coordinates[1]}
           />
         </Grid>
       )}
