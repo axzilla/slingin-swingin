@@ -19,6 +19,7 @@ api_staging:
     - dpl --provider=heroku --app=digitalnomads-api --api-key=$HEROKU_API_KEY
   only:
     - branches
+  when: manual
 
 app_staging:
   type: deploy
@@ -29,6 +30,7 @@ app_staging:
     - dpl --provider=heroku --app=digitalnomads-app --api-key=$HEROKU_API_KEY
   only:
     - branches
+  when: manual
 # api_production:
 #   type: deploy
 #   stage: api_production

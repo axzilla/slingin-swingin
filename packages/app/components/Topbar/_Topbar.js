@@ -15,10 +15,10 @@ import Link from '@components/Link'
 import Avatar from '@components/UserAvatar'
 
 // Services
-import { searchFunc } from '@services/search'
+// import { searchFunc } from '@services/search'
 
 // Utils
-import isEmpty from '@utils/isEmpty'
+// import isEmpty from '@utils/isEmpty'
 
 // MUI
 import { makeStyles } from '@material-ui/styles'
@@ -30,17 +30,18 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box'
-import InputBase from '@material-ui/core/InputBase'
+// import InputBase from '@material-ui/core/InputBase'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import SearchIcon from '@material-ui/icons/Search'
+// import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MailIcon from '@material-ui/icons/Mail'
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
 import PublicIcon from '@material-ui/icons/Public'
+import AddBoxIcon from '@material-ui/icons/AddBox'
 
 const useStyles = makeStyles(theme => ({
   appBar: { borderBottom: `1px solid ${fade(theme.palette.primary.contrastText, 0.2)}` },
@@ -96,7 +97,7 @@ function Topbar() {
   const { socket } = useSocket()
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
-  const [toolbarData, setToolbarData] = useState({ searchText: '' })
+  // const [toolbarData, setToolbarData] = useState({ searchText: '' })
   const { isAuthenticated, user } = useSelector(state => state.auth)
   const { isDarkTheme } = useSelector(state => state.theme)
 
@@ -108,20 +109,20 @@ function Topbar() {
     setAnchorEl(null)
   }
 
-  function handleSearchChange(event) {
-    setToolbarData({
-      ...toolbarData,
-      searchText: event.target.value
-    })
-  }
+  // function handleSearchChange(event) {
+  //   setToolbarData({
+  //     ...toolbarData,
+  //     searchText: event.target.value
+  //   })
+  // }
 
-  function handleSearchSubmit(event) {
-    event.preventDefault()
-    if (!isEmpty(toolbarData.searchText)) {
-      searchFunc(toolbarData.searchText)
-      Router.push(`/search?q=${toolbarData.searchText}`)
-    }
-  }
+  // function handleSearchSubmit(event) {
+  //   event.preventDefault()
+  //   if (!isEmpty(toolbarData.searchText)) {
+  //     searchFunc(toolbarData.searchText)
+  //     Router.push(`/search?q=${toolbarData.searchText}`)
+  //   }
+  // }
 
   async function handleLogout() {
     dispatch(signOutReducer())
@@ -149,13 +150,12 @@ function Topbar() {
                     />
                   </Grid>
                 </Link>
-                <div className={classes.searchField}>
+                {/* <div className={classes.searchField}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
                   </div>
                   <form noValidate onSubmit={handleSearchSubmit}>
                     <InputBase
-                      placeholder="Search"
                       name="searchText"
                       type="text"
                       onChange={handleSearchChange}
@@ -166,18 +166,17 @@ function Topbar() {
                       }}
                     />
                   </form>
-                </div>
+                </div> */}
               </div>
-
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 {isAuthenticated ? (
                   <>
                     <Hidden smDown>
                       <Box>
                         <Link href="/post-create">
-                          <Button className={classes.button} variant="contained" color="secondary">
-                            Create&nbsp;Post
-                          </Button>
+                          <IconButton color="secondary">
+                            <AddBoxIcon />
+                          </IconButton>
                         </Link>
                       </Box>
                     </Hidden>
@@ -189,16 +188,16 @@ function Topbar() {
                       </Link>
                     </Box>
                     <Box>
+                      <IconButton onClick={handleChangeTheme}>
+                        <InvertColorsIcon />
+                      </IconButton>
+                    </Box>
+                    <Box>
                       <Link href="/places">
                         <IconButton>
                           <PublicIcon />
                         </IconButton>
                       </Link>
-                    </Box>
-                    <Box>
-                      <IconButton onClick={handleChangeTheme}>
-                        <InvertColorsIcon />
-                      </IconButton>
                     </Box>
                     <Box>
                       <IconButton aria-haspopup="true" onClick={handleClick}>
@@ -274,6 +273,13 @@ function Topbar() {
                       <IconButton onClick={handleChangeTheme}>
                         <InvertColorsIcon />
                       </IconButton>
+                    </Box>
+                    <Box>
+                      <Link href="/places">
+                        <IconButton>
+                          <PublicIcon />
+                        </IconButton>
+                      </Link>
                     </Box>
                   </Grid>
                 )}
