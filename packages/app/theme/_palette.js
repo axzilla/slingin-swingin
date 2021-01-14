@@ -7,9 +7,9 @@ export default {
   white,
   black,
   primary: {
-    dark: colors.teal[400],
-    main: colors.teal[300],
-    light: colors.teal[200]
+    dark: colors.grey[900],
+    main: colors.grey[800],
+    light: colors.grey[700]
   },
   secondary: {
     dark: colors.pink[700],

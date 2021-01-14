@@ -82,7 +82,10 @@ function ProfileEdit() {
         const searchTerm = event.target.value
         const basePath = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
         const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-        const { data } = await axios.get(`${basePath}/${searchTerm}.json?&access_token=${token}`)
+        const types = 'region,place,locality'
+        const { data } = await axios.get(
+          `${basePath}/${searchTerm}.json?types=${types}&access_token=${token}`
+        )
 
         setLocations(data.features)
       }
