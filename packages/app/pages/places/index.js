@@ -4,34 +4,37 @@ import PropTypes from 'prop-types'
 // Services
 import { getAllPlaces } from '@services/place'
 
+// Utils
+import objToQuery from '@utils/objToQuery'
+
 // Layouts
-import { Main as MainLayout } from '@layouts'
+import { Place as PlaceLayout } from '@layouts'
 
 // Views
-import { Places as PlacesView } from '@views'
+import { PlaceFeed as PlaceFeedView } from '@views'
 
-function Places({ places }) {
+function PlaceFeed({ places }) {
   return (
-    <MainLayout>
-      <PlacesView places={places} />
-    </MainLayout>
+    <PlaceLayout>
+      <PlaceFeedView places={places} />
+    </PlaceLayout>
   )
 }
 
-Places.getInitialProps = async ctx => {
+PlaceFeed.getInitialProps = async ({ res, query }) => {
   try {
-    const { data } = await getAllPlaces()
+    const { data } = await getAllPlaces(objToQuery(query))
     return { places: data }
   } catch (error) {
     if (error) {
-      ctx.res.writeHead(302, { Location: '/not-found' })
-      ctx.res.end()
+      res.writeHead(302, { Location: '/not-found' })
+      res.end()
     }
   }
 }
 
-Places.propTypes = {
-  places: PropTypes.array.isRequired
+PlaceFeed.propTypes = {
+  places: PropTypes.object.isRequired
 }
 
-export default Places
+export default PlaceFeed

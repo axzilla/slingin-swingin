@@ -24,7 +24,7 @@ function ProfileDetails({ profile, posts, comments, handle }) {
   const [profileData, setProfileData] = useState(profile)
   const [postsData, setPostsData] = useState(posts)
   const [commentsData, setCommentsData] = useState(comments)
-  const { user } = useSelector(state => state.auth)
+  const { user, isAuthenticated } = useSelector(state => state.auth)
 
   useEffect(() => {
     onHandleChange()
@@ -52,7 +52,7 @@ function ProfileDetails({ profile, posts, comments, handle }) {
           />
         </Grid>
       )}
-      {profileData.user._id !== user.id && (
+      {isAuthenticated && profileData.user._id !== user.id && (
         <Grid item xs={12}>
           <Grid container justify="flex-end">
             <SendMessage

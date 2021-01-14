@@ -1,5 +1,5 @@
 // Packages
-const axios = require('axios')
+const Scraper = require('images-scraper')
 
 // Models
 const Profile = require('../../models/Profile')
@@ -23,105 +23,54 @@ async function profileUpdate(req, res) {
 
     const profile = { ...req.body }
 
-    // handle locationFrom
     if (!isEmpty(req.body.locationFrom)) {
       const query = { 'mapBox.id': req.body.locationFrom.mapBox.id }
       const foundLocationFrom = await Place.findOne(query)
 
-      // if locationFrom is not found
       if (!foundLocationFrom) {
-        // 1. create place in DB
-        const createdLocation = await Place.create({ mapBox: req.body.locationFrom.mapBox })
+        const createdLocation = await Place.create({
+          mapBox: req.body.locationFrom.mapBox,
+          urlSlug: slugify(req.body.locationFrom.mapBox.place_name)
+        })
 
-        // 2. get data with photo reference by google api
-        const basePath = 'https://maps.googleapis.com/maps/api/place'
-        const input = createdLocation.mapBox.text
-        const key = process.env.GOOGLE_API_KEY
-        const fields = 'photos,formatted_address,name,rating,opening_hours,geometry'
-        const google = await axios.get(
-          `${basePath}/findplacefromtext/json?input=${slugify(
-            input
-          )}&inputtype=textquery&fields=${fields}&key=${key}`
-        )
+        const input = createdLocation.mapBox.place_name
+        const google = new Scraper({ puppeteer: { headless: true }, tbs: { isz: 'l' } })
+        const results = await google.scrape(input, 2)
 
-        const photoReference = google.data.candidates[0].photos[0].photo_reference
-        const height = google.data.candidates[0].photos[0].height
-        const width = google.data.candidates[0].photos[0].width
+        const uploadedPhoto = await cloudinary.v2.uploader.upload(results[0].url, {
+          folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
+          public_id: `${createdLocation.urlSlug}-${createdLocation._id}`
+        })
 
-        if (photoReference) {
-          // 3. get photo via photo reference by google api
-          const photo = await axios.get(
-            `${basePath}/photo?maxwidth=${width}&maxheight${height}=&photoreference=${photoReference}&key=${key}`,
-            { responseType: 'arraybuffer' } // binary to buffer
-          )
-
-          // 4. upload photo to cloudinary
-          const base64 = Buffer.from(photo.data, 'binary').toString('base64') // buffer to base64
-          const uploadStr = 'data:image/jpeg;base64,' + base64 // base64 to cloudinary upload format
-
-          const uploadedPhoto = await cloudinary.v2.uploader.upload(uploadStr, {
-            folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
-            public_id: `place-${createdLocation._id}`
-          })
-
-          // 5. save upload photo to place
-          createdLocation.photo = uploadedPhoto
-          createdLocation.save()
-        }
-
+        createdLocation.photo = uploadedPhoto
+        createdLocation.save()
         profile.locationFrom = createdLocation._id
       } else {
-        // if locationFrom is found
         profile.locationFrom = foundLocationFrom._id
       }
     }
 
-    // handle locationCurrent
     if (!isEmpty(req.body.locationCurrent)) {
       const query = { 'mapBox.id': req.body.locationCurrent.mapBox.id }
       const foundLocationCurrent = await Place.findOne(query)
 
-      // if locationCurrent is not found
       if (!foundLocationCurrent) {
-        // 1. create place in DB
         const createdLocation = await Place.create({
-          mapBox: req.body.locationCurrent.mapBox
+          mapBox: req.body.locationCurrent.mapBox,
+          urlSlug: slugify(req.body.locationCurrent.mapBox.place_name)
         })
 
-        // 2. get data with photo reference by google api
-        const basePath = 'https://maps.googleapis.com/maps/api/place'
-        const input = createdLocation.mapBox.text
-        const key = process.env.GOOGLE_API_KEY
-        const fields = 'photos,formatted_address,name,rating,opening_hours,geometry'
-        const google = await axios.get(
-          `${basePath}/findplacefromtext/json?input=${slugify(
-            input
-          )}&inputtype=textquery&fields=${fields}&key=${key}`
-        )
+        const input = createdLocation.mapBox.place_name
+        const google = new Scraper({ puppeteer: { headless: true }, tbs: { isz: 'l' } })
+        const results = await google.scrape(input, 2)
 
-        const photoReference = google.data.candidates[0].photos[0].photo_reference
+        const uploadedPhoto = await cloudinary.v2.uploader.upload(results[0].url, {
+          folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
+          public_id: `place-${createdLocation.urlSlug}-${createdLocation._id}`
+        })
 
-        if (photoReference) {
-          // 3. get photo via photo reference by google api
-          const photo = await axios.get(
-            `${basePath}/photo?maxwidth=400&photoreference=${photoReference}&key=${key}`,
-            { responseType: 'arraybuffer' } // binary to buffer
-          )
-
-          // 4. upload photo to cloudinary
-          const base64 = Buffer.from(photo.data, 'binary').toString('base64') // buffer to base64
-          const uploadStr = 'data:image/jpeg;base64,' + base64 // base64 to cloudinary upload format
-
-          const uploadedPhoto = await cloudinary.v2.uploader.upload(uploadStr, {
-            folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
-            public_id: `place-${createdLocation._id}`
-          })
-
-          // 5. save upload photo to place
-          createdLocation.photo = uploadedPhoto
-          createdLocation.save()
-        }
-
+        createdLocation.photo = uploadedPhoto
+        createdLocation.save()
         profile.locationCurrent = createdLocation._id
       } else {
         profile.locationCurrent = foundLocationCurrent._id
