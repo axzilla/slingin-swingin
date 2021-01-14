@@ -17,3 +17,15 @@ export function getProfileByHandle(handle) {
 export function profileUpdate(profileData) {
   return axios.post(`${serverUrl}/profile-update`, profileData)
 }
+
+export function getPlaceCurrentProfilesByPlaceId(placeId) {
+  return axios.get(`${serverUrl}/get-place-current-profiles-by-place-id/${placeId}`)
+}
+
+export function getPlaceBeenProfilesByPlaceId(placeId) {
+  return axios.get(`${serverUrl}/get-place-been-profiles-by-place-id/${placeId}`)
+}
+
+export function getPlaceWantProfilesByPlaceId(placeId) {
+  return axios.get(`${serverUrl}/get-place-want-profiles-by-place-id/${placeId}`)
+}

@@ -10,6 +10,8 @@ const UserSchema = new Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: 'post' }],
   postComments: [{ type: Schema.Types.ObjectId, ref: 'postComment' }],
   conversations: [{ type: Schema.Types.ObjectId, ref: 'conversation' }],
+  placeReviews: [{ type: Schema.Types.ObjectId, ref: 'placereview' }],
+
   notifications: {
     onNewPost: { type: Boolean, default: true },
     onOwnPost: { type: Boolean, default: true },
