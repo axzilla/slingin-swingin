@@ -9,6 +9,7 @@ import { RatingItem } from './components'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -17,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
 function ReviewCreateOrUpdate({
   ratings,
@@ -76,6 +78,7 @@ function ReviewCreateOrUpdate({
         <DialogTitle id="responsive-dialog-title">
           {userReview ? 'Edit' : 'Write'} Review for {baseData.mapBox.place_name}
         </DialogTitle>
+        <Divider />
         <DialogContent>
           <Box mb={2}>
             <TextField
@@ -102,8 +105,46 @@ function ReviewCreateOrUpdate({
                 </Grid>
               )
             })}
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="number"
+                fullWidth
+                label="Coffe"
+                color="primary"
+                // placeholder="Coffee & Coffe"
+                // value={searchQueries.number}
+                // onChange={handleQueryChange}
+                // onKeyDown={handleSearchSubmit}
+                // margin="dense"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="number"
+                fullWidth
+                label="Coffee & Coffe"
+                // placeholder="Coffee & Coffe"
+                // style={}
+                // value={searchQueries.number}
+                // onChange={handleQueryChange}
+                // onKeyDown={handleSearchSubmit}
+                // margin="dense"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                }}
+              />
+            </Grid>
           </Grid>
         </DialogContent>
+        <Divider />
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
             Close
