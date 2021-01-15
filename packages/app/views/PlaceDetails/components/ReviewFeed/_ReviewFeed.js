@@ -33,7 +33,7 @@ function ReviewFeed({ placeReviews }) {
       <Grid container spacing={2}>
         {placeReviews
           .slice(0, itemLimit)
-          .filter(review => review.summary)
+          .filter(review => review.text)
           .map((review, index) => {
             return (
               <Grid item xs={12} md={6} key={index}>
@@ -58,7 +58,7 @@ function ReviewFeed({ placeReviews }) {
         <DialogContent>
           <Grid container spacing={2}>
             {placeReviews
-              .filter(review => review.summary)
+              .filter(review => review.text)
               .map((review, index) => {
                 return (
                   <Grid item xs={12} key={index}>
