@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import Rating from '@material-ui/lab/Rating'
 
 function RatingItem({ rating, placeReview, setPlaceReview }) {
-  const [value, setValue] = useState(placeReview[rating.name] || 0)
+  const [value, setValue] = useState((placeReview.ratings && placeReview.ratings[rating.name]) || 0)
 
   return (
     <Grid container alignItems="center">
@@ -18,7 +18,7 @@ function RatingItem({ rating, placeReview, setPlaceReview }) {
         onChange={(event, newValue) => {
           setPlaceReview({
             ...placeReview,
-            [event.target.name]: parseFloat(newValue || 0)
+            ratings: { ...placeReview.ratings, [event.target.name]: parseFloat(newValue || 0) }
           })
           setValue(newValue)
         }}

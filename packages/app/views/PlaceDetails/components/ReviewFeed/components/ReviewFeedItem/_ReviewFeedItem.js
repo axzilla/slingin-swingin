@@ -52,9 +52,9 @@ function ReviewFeedItem({ review }) {
       />
       <CardContent classes={{ root: classes.cardContentRoot }}>
         <Typography>
-          {review.summary.substring(0, charLimit)}
-          {review.summary.length > charLimit - 1 && '...'}
-          {review.summary.length > charLimit - 1 && (
+          {review.text.substring(0, charLimit)}
+          {review.text.length > charLimit - 1 && '...'}
+          {review.text.length > charLimit - 1 && (
             <Box
               className={classes.readmoreButton}
               onClick={() => setIsReadmore(true)}

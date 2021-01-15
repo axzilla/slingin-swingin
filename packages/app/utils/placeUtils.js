@@ -1,28 +1,15 @@
-import _ from 'lodash'
-
 class PlaceUtils {
   constructor(placeReviews) {
     this.placeReviews = placeReviews
-
-    // clean up placeReview array and left just rating categories
-    this.cleanedRatings = _.cloneDeep(this.placeReviews).map(placeReview => {
-      delete placeReview.__v
-      delete placeReview._id
-      delete placeReview.dateCreated
-      delete placeReview.place
-      delete placeReview.summary
-      delete placeReview.user
-      return placeReview
-    })
   }
 
   // get average rating per place
   getPlaceSummaries() {
     if (this.placeReviews.length > 0) {
-      const summary = this.cleanedRatings
-        .map(rating => {
+      const summary = this.placeReviews
+        .map(placeReview => {
           // get array of values per rating if value (> 0)
-          const valuesOfRating = Object.values(rating).filter(value => value)
+          const valuesOfRating = Object.values(placeReview.ratings).filter(value => value)
 
           // sum up values per rating
           const totalValue = valuesOfRating.reduce((a, b) => a + b)
@@ -45,9 +32,9 @@ class PlaceUtils {
 
   getRatingSummaries(ratingName) {
     if (this.placeReviews.length > 0) {
-      const filtered = this.cleanedRatings
-        .filter(item => item[ratingName] !== 0)
-        .map(item => item[ratingName])
+      const filtered = this.placeReviews
+        .filter(placeReview => placeReview.ratings[ratingName] !== 0)
+        .map(placeReview => placeReview.ratings[ratingName])
 
       const count = filtered.length
       const average = filtered.reduce((a, b) => a + b, 0) / count || 0

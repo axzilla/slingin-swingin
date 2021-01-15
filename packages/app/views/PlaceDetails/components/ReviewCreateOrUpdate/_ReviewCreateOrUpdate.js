@@ -45,12 +45,7 @@ function ReviewCreateOrUpdate({
 
   async function handleCreateOrUpdatePlaceReview() {
     try {
-      if (userReview) {
-        handleUpdatePlaceReview()
-      } else {
-        handleCreatePlaceReview()
-      }
-
+      userReview ? handleUpdatePlaceReview() : handleCreatePlaceReview()
       setOpen(false)
     } catch (error) {
       if (error) throw error
@@ -58,12 +53,9 @@ function ReviewCreateOrUpdate({
   }
 
   function isDisabled() {
-    return (
-      !placeReview.summary &&
-      Object.values(placeReview)
-        .filter(item => typeof item === 'number')
-        .every(item => item === 0)
-    )
+    if (placeReview.text || placeReview.ratings) {
+      return !placeReview.text && Object.values(placeReview.ratings).every(item => item === 0)
+    }
   }
 
   return (
@@ -87,10 +79,10 @@ function ReviewCreateOrUpdate({
         <DialogContent>
           <Box mb={2}>
             <TextField
-              name="summary"
+              name="text"
               fullWidth
               variant="outlined"
-              value={placeReview.summary}
+              value={placeReview.text}
               onChange={handleChangePlaceReview}
               multiline
               rows={6}
