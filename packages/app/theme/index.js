@@ -5,9 +5,13 @@ import overrides from './overrides'
 import typography from './_typography'
 
 export const theme = type => {
-  return createMuiTheme({
-    palette: { ...palette, type },
-    overrides,
+  const globalTheme = createMuiTheme({ palette: { ...palette, type } })
+
+  const theme = createMuiTheme({
+    ...globalTheme,
+    overrides: overrides(globalTheme),
     typography
   })
+
+  return { globalTheme, theme }
 }
