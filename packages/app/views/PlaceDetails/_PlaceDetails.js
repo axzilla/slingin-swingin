@@ -30,7 +30,7 @@ function PlaceDetails({ place }) {
   const [peopleWant] = useState(place.peopleWant)
   const { user, isAuthenticated } = useSelector(state => state.auth)
   const [userReview, setUserReview] = useState(null)
-  const [placeReview, setPlaceReview] = useState({})
+  const [placeReview, setPlaceReview] = useState({ text: '', ratings: {}, costs: {} })
 
   const ratings = [
     { label: 'Internet', name: 'internet' },
