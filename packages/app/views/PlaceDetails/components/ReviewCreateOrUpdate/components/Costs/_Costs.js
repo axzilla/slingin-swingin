@@ -46,7 +46,12 @@ function Costs({ costs, placeReview, setPlaceReview }) {
                 color="primary"
                 margin="dense"
                 variant="outlined"
-                value={(placeReview.costs.food && placeReview.costs.food[item.name]) || 0}
+                value={
+                  (placeReview.costs &&
+                    placeReview.costs.food &&
+                    placeReview.costs.food[item.name]) ||
+                  0
+                }
                 onChange={handleFoodChange}
                 InputProps={{
                   startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -69,7 +74,12 @@ function Costs({ costs, placeReview, setPlaceReview }) {
                 color="primary"
                 margin="dense"
                 variant="outlined"
-                value={(placeReview.costs.monthly && placeReview.costs.monthly[item.name]) || 0}
+                value={
+                  (placeReview.costs &&
+                    placeReview.costs.monthly &&
+                    placeReview.costs.monthly[item.name]) ||
+                  0
+                }
                 onChange={handleMonthlyChange}
                 InputProps={{
                   startAdornment: <InputAdornment position="start">$</InputAdornment>
