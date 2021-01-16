@@ -3,25 +3,30 @@ import PropTypes from 'prop-types'
 
 // MUI
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 
 function Text({ placeReview, handleChangePlaceReview }) {
   return (
-    <TextField
-      placeholder="Write a review..."
-      autoFocus
-      name="text"
-      fullWidth
-      variant="outlined"
-      value={placeReview.text}
-      onChange={handleChangePlaceReview}
-      multiline
-      // this overwrites MuiFormControl
-      style={{ height: '100%' }}
-      // this overwrites MuiInputeBase
-      InputProps={{ style: { height: '100%' } }}
-      // this overwrites underlaying textarea
-      inputProps={{ style: { height: '100%' } }}
-    />
+    <>
+      <Typography gutterBottom variant="button">
+        Textreview
+      </Typography>
+      <TextField
+        autoFocus
+        name="text"
+        fullWidth
+        variant="outlined"
+        value={placeReview.text}
+        onChange={handleChangePlaceReview}
+        multiline
+        // this overwrites MuiFormControl
+        style={{ height: 'calc(100% - 16.5px)' }}
+        // this overwrites MuiInputeBase
+        InputProps={{ style: { height: 'calc(100% - 16.5px)' } }}
+        // this overwrites underlaying textarea
+        inputProps={{ style: { height: 'calc(100% - 16.5px)' } }}
+      />
+    </>
   )
 }
 

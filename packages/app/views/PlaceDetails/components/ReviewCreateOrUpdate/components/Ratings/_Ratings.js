@@ -14,7 +14,9 @@ function Ratings({ ratings, placeReview, setPlaceReview, handleChangePlaceReview
       {ratings.map((rating, index) => {
         return (
           <Grid item xs={6} key={index}>
-            <Typography>{rating.label}</Typography>
+            <Typography variant="button" display="block">
+              {rating.label}
+            </Typography>
             <RatingItem
               rating={rating}
               placeReview={placeReview}

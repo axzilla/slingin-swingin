@@ -3,9 +3,10 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 // Local Components
-import { Ratings, Text } from './components'
+import { Text, Ratings, Costs } from './components'
 
 // MUI
+import { makeStyles } from '@material-ui/core/styles'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Divider from '@material-ui/core/Divider'
@@ -16,9 +17,6 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Box from '@material-ui/core/Box'
-import TextField from '@material-ui/core/TextField'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   dialogPaper: { height: '100%' }
@@ -57,7 +55,7 @@ function ReviewCreateOrUpdate({
 
   async function handleCreateOrUpdatePlaceReview() {
     try {
-      userReview ? handleUpdatePlaceReview() : handleCreatePlaceReview()
+      userReview ? await handleUpdatePlaceReview() : await handleCreatePlaceReview()
       handleClose()
     } catch (error) {
       if (error) throw error
@@ -88,44 +86,7 @@ function ReviewCreateOrUpdate({
           />
         )
       case 2:
-        return (
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                fullWidth
-                label="Coffe"
-                color="primary"
-                // placeholder="Coffee & Coffe"
-                // value={searchQueries.number}
-                // onChange={handleQueryChange}
-                // onKeyDown={handleSearchSubmit}
-                // margin="dense"
-                variant="outlined"
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                fullWidth
-                label="Coffee & Coffe"
-                // placeholder="Coffee & Coffe"
-                // style={}
-                // value={searchQueries.number}
-                // onChange={handleQueryChange}
-                // onKeyDown={handleSearchSubmit}
-                // margin="dense"
-                variant="outlined"
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>
-                }}
-              />
-            </Grid>
-          </Grid>
-        )
+        return <Costs />
     }
   }
 
