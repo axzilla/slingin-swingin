@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 
-function Text({ placeReview, handleChangePlaceReview }) {
+function Text({ placeReview, setPlaceReview }) {
   return (
     <>
       <Typography gutterBottom variant="button">
@@ -17,7 +17,7 @@ function Text({ placeReview, handleChangePlaceReview }) {
         fullWidth
         variant="outlined"
         value={placeReview.text}
-        onChange={handleChangePlaceReview}
+        onChange={event => setPlaceReview({ ...placeReview, text: event.target.value })}
         multiline
         // this overwrites MuiFormControl
         style={{ height: 'calc(100% - 16.5px)' }}
@@ -32,7 +32,7 @@ function Text({ placeReview, handleChangePlaceReview }) {
 
 Text.propTypes = {
   placeReview: PropTypes.object.isRequired,
-  handleChangePlaceReview: PropTypes.func.isRequired
+  setPlaceReview: PropTypes.func.isRequired
 }
 
 export default Text

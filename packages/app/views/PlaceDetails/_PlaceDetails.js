@@ -4,16 +4,7 @@ import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 // Local Components
-import {
-  ReviewFeed,
-  Ratings,
-  Header,
-  CostsFood,
-  CostsMobilty,
-  CostsLiving,
-  People,
-  ReviewCreateOrUpdate
-} from './components'
+import { ReviewFeed, Ratings, Header, Costs, People, ReviewCreateOrUpdate } from './components'
 
 // Contexts
 import { useAlert } from '@contexts/AlertContext'
@@ -59,6 +50,25 @@ function PlaceDetails({ place }) {
     { label: 'Walkability', name: 'walkability' },
     { label: 'Traffic safety', name: 'trafficSafety' },
     { label: 'People', name: 'people' }
+  ]
+
+  const costs = [
+    { type: 'food', name: 'coffee', label: 'Coffee' },
+    { type: 'food', name: 'cappuccino', label: 'Cappuccino' },
+    { type: 'food', name: 'tea', label: 'Tea' },
+    { type: 'food', name: 'beer', label: 'Beer' },
+    { type: 'food', name: 'cocktail', label: 'Cocktail' },
+    { type: 'food', name: 'lemonade', label: 'Lemonade 0.33l' },
+    { type: 'food', name: 'water', label: 'Water 0.33l' },
+    { type: 'food', name: 'localFood', label: 'Local Meal' },
+    { type: 'food', name: 'restaurant', label: 'Restaurant Meal' },
+    { type: 'monthly', name: 'hotel', label: 'Hotel' },
+    { type: 'monthly', name: 'airbnb', label: 'Airbnb' },
+    { type: 'monthly', name: 'apartment', label: 'Apartment' },
+    { type: 'monthly', name: 'house', label: 'House' },
+    { type: 'monthly', name: 'villa', label: 'Villa' },
+    { type: 'monthly', name: 'coworking', label: 'Coworking' },
+    { type: 'monthly', name: 'scooter', label: 'Scooter' }
   ]
 
   useEffect(() => {
@@ -121,6 +131,7 @@ function PlaceDetails({ place }) {
 
       <ReviewCreateOrUpdate
         ratings={ratings}
+        costs={costs}
         userReview={userReview}
         handleCreatePlaceReview={handleCreatePlaceReview}
         handleUpdatePlaceReview={handleUpdatePlaceReview}
@@ -131,23 +142,15 @@ function PlaceDetails({ place }) {
       <StyledDivider />
 
       <Box mb={6}>
-        <CostsFood />
+        <Costs placeReviews={placeReviews} costs={costs} />
       </Box>
-      <StyledDivider />
 
-      <Box mb={6}>
-        <CostsMobilty />
-      </Box>
-      <StyledDivider />
-
-      <Box mb={6}>
-        <CostsLiving />
-      </Box>
       <StyledDivider />
 
       <Box mb={6}>
         <Ratings placeReviews={placeReviews} ratings={ratings} />
       </Box>
+
       <ReviewFeed placeReviews={placeReviews} />
       <StyledDivider />
 
