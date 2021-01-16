@@ -172,15 +172,15 @@ function PlaceFeed({ places }) {
                   </Card>
                 </Box>
                 <Grid container alignItems="center">
-                  {placeUtils.getPlaceSummaries().count > 0 ? (
+                  {placeUtils.getPlaceRatingSummaries().count > 0 ? (
                     <>
                       <StarRateIcon color="secondary" />
                       <Typography display="inline" variant="body2">
-                        {placeUtils.getPlaceSummaries().average}
+                        {placeUtils.getPlaceRatingSummaries().average}
                       </Typography>
                       &nbsp;
                       <Typography display="inline" color="textSecondary" variant="body2">
-                        ({placeUtils.getPlaceSummaries().count})
+                        ({placeUtils.getPlaceRatingSummaries().count})
                       </Typography>
                     </>
                   ) : (

@@ -8,7 +8,7 @@ import { RatingItem } from './components'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
-function Ratings({ ratings, placeReview, setPlaceReview, handleChangePlaceReview }) {
+function Ratings({ ratings, placeReview, setPlaceReview }) {
   return (
     <Grid container spacing={2}>
       {ratings.map((rating, index) => {
@@ -17,12 +17,7 @@ function Ratings({ ratings, placeReview, setPlaceReview, handleChangePlaceReview
             <Typography variant="button" display="block">
               {rating.label}
             </Typography>
-            <RatingItem
-              rating={rating}
-              placeReview={placeReview}
-              setPlaceReview={setPlaceReview}
-              handleChangePlaceReview={handleChangePlaceReview}
-            />
+            <RatingItem rating={rating} placeReview={placeReview} setPlaceReview={setPlaceReview} />
           </Grid>
         )
       })}
@@ -33,8 +28,7 @@ function Ratings({ ratings, placeReview, setPlaceReview, handleChangePlaceReview
 Ratings.propTypes = {
   ratings: PropTypes.array.isRequired,
   placeReview: PropTypes.object.isRequired,
-  setPlaceReview: PropTypes.func.isRequired,
-  handleChangePlaceReview: PropTypes.func.isRequired
+  setPlaceReview: PropTypes.func.isRequired
 }
 
 export default Ratings

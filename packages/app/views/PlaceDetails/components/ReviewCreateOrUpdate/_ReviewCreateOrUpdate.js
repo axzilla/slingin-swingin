@@ -24,6 +24,7 @@ const useStyles = makeStyles({
 
 function ReviewCreateOrUpdate({
   ratings,
+  costs,
   userReview,
   handleCreatePlaceReview,
   handleUpdatePlaceReview,
@@ -49,10 +50,6 @@ function ReviewCreateOrUpdate({
     }, 100)
   }
 
-  function handleChangePlaceReview(event) {
-    setPlaceReview({ ...placeReview, [event.target.name]: event.target.value })
-  }
-
   async function handleCreateOrUpdatePlaceReview() {
     try {
       userReview ? await handleUpdatePlaceReview() : await handleCreatePlaceReview()
@@ -75,18 +72,13 @@ function ReviewCreateOrUpdate({
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Text placeReview={placeReview} handleChangePlaceReview={handleChangePlaceReview} />
+        return <Text placeReview={placeReview} setPlaceReview={setPlaceReview} />
       case 1:
         return (
-          <Ratings
-            ratings={ratings}
-            placeReview={placeReview}
-            setPlaceReview={setPlaceReview}
-            handleChangePlaceReview={handleChangePlaceReview}
-          />
+          <Ratings ratings={ratings} placeReview={placeReview} setPlaceReview={setPlaceReview} />
         )
       case 2:
-        return <Costs />
+        return <Costs costs={costs} placeReview={placeReview} setPlaceReview={setPlaceReview} />
     }
   }
 
@@ -129,7 +121,6 @@ function ReviewCreateOrUpdate({
   const handleReset = () => {
     setActiveStep(0)
   }
-  //
 
   return (
     <>
@@ -197,6 +188,7 @@ function ReviewCreateOrUpdate({
 
 ReviewCreateOrUpdate.propTypes = {
   ratings: PropTypes.array.isRequired,
+  costs: PropTypes.array.isRequired,
   userReview: PropTypes.object,
   handleCreatePlaceReview: PropTypes.func.isRequired,
   handleUpdatePlaceReview: PropTypes.func.isRequired,
