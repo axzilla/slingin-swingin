@@ -147,11 +147,11 @@ function PlaceFeed({ places }) {
         {/* Feed */}
         {places.result.map(place => {
           const placeUtils = new PlaceUtils(place.placeReviews)
-          function hasReviews() {
-            const number = 5
-            const random = Math.floor(Math.random() * number)
-            return random > 1
-          }
+          // function hasReviews() {
+          //   const number = 5
+          //   const random = Math.floor(Math.random() * number)
+          //   return random > 1
+          // }
 
           return (
             <Grid key={place._id} item xs={6} md={3}>
@@ -201,9 +201,9 @@ function PlaceFeed({ places }) {
                   </Box>
                 </Typography>
                 <Typography variant="subtitle1">
-                  {hasReviews() ? (
+                  {placeUtils.getPlaceCostSummaries().count > 0 ? (
                     <>
-                      <Box display="inline">${Math.floor(Math.random() * 3000)}</Box>
+                      <Box display="inline">${placeUtils.getPlaceCostSummaries().average}</Box>
                       <Box display="inline"> / month</Box>
                     </>
                   ) : (
