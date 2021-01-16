@@ -188,7 +188,7 @@ function ReviewCreateOrUpdate({
 
 ReviewCreateOrUpdate.propTypes = {
   ratings: PropTypes.array.isRequired,
-  costs: PropTypes.array.isRequired,
+  costs: PropTypes.object.isRequired,
   userReview: PropTypes.object,
   handleCreatePlaceReview: PropTypes.func.isRequired,
   handleUpdatePlaceReview: PropTypes.func.isRequired,

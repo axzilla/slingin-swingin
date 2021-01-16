@@ -8,11 +8,25 @@ import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 
 function Costs({ costs, placeReview, setPlaceReview }) {
-  function handleChange(event) {
+  function handleFoodChange(event) {
     const { name, value } = event.target
     setPlaceReview({
       ...placeReview,
-      costs: { ...placeReview.costs, [name]: parseInt(value.replace(/[^0-9]/g, '')) }
+      costs: {
+        ...placeReview.costs,
+        food: { ...placeReview.costs.food, [name]: parseInt(value.replace(/[^0-9]/g, '')) }
+      }
+    })
+  }
+
+  function handleMonthlyChange(event) {
+    const { name, value } = event.target
+    setPlaceReview({
+      ...placeReview,
+      costs: {
+        ...placeReview.costs,
+        monthly: { ...placeReview.costs.monthly, [name]: parseInt(value.replace(/[^0-9]/g, '')) }
+      }
     })
   }
 
@@ -22,59 +36,55 @@ function Costs({ costs, placeReview, setPlaceReview }) {
         <Grid item xs={12}>
           <Typography variant="button">Food Costs</Typography>
         </Grid>
-        {costs
-          .filter(cost => cost.type === 'food')
-          .map(item => {
-            return (
-              <Grid key={item.label} item xs={6} sm={3}>
-                <Typography color="textSecondary">{item.label}</Typography>
-                <TextField
-                  name={item.name}
-                  fullWidth
-                  color="primary"
-                  margin="dense"
-                  variant="outlined"
-                  value={(placeReview.costs && placeReview.costs[item.name]) || 0}
-                  onChange={handleChange}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>
-                  }}
-                />
-              </Grid>
-            )
-          })}
+        {costs.food.map(item => {
+          return (
+            <Grid key={item.label} item xs={6} sm={3}>
+              <Typography color="textSecondary">{item.label}</Typography>
+              <TextField
+                name={item.name}
+                fullWidth
+                color="primary"
+                margin="dense"
+                variant="outlined"
+                value={(placeReview.costs.food && placeReview.costs.food[item.name]) || 0}
+                onChange={handleFoodChange}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                }}
+              />
+            </Grid>
+          )
+        })}
 
         <Grid item xs={12}>
           <Typography variant="button">Monthly Costs</Typography>
         </Grid>
-        {costs
-          .filter(cost => cost.type === 'monthly')
-          .map(item => {
-            return (
-              <Grid key={item.label} item xs={6} sm={3}>
-                <Typography color="textSecondary">{item.label}</Typography>
-                <TextField
-                  name={item.name}
-                  fullWidth
-                  color="primary"
-                  margin="dense"
-                  variant="outlined"
-                  value={(placeReview.costs && placeReview.costs[item.name]) || 0}
-                  onChange={handleChange}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>
-                  }}
-                />
-              </Grid>
-            )
-          })}
+        {costs.monthly.map(item => {
+          return (
+            <Grid key={item.label} item xs={6} sm={3}>
+              <Typography color="textSecondary">{item.label}</Typography>
+              <TextField
+                name={item.name}
+                fullWidth
+                color="primary"
+                margin="dense"
+                variant="outlined"
+                value={(placeReview.costs.monthly && placeReview.costs.monthly[item.name]) || 0}
+                onChange={handleMonthlyChange}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                }}
+              />
+            </Grid>
+          )
+        })}
       </Grid>
     </>
   )
 }
 
 Costs.propTypes = {
-  costs: PropTypes.array.isRequired,
+  costs: PropTypes.object.isRequired,
   placeReview: PropTypes.object.isRequired,
   setPlaceReview: PropTypes.func.isRequired
 }

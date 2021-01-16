@@ -52,24 +52,28 @@ function PlaceDetails({ place }) {
     { label: 'People', name: 'people' }
   ]
 
-  const costs = [
-    { type: 'food', name: 'coffee', label: 'Coffee' },
-    { type: 'food', name: 'cappuccino', label: 'Cappuccino' },
-    { type: 'food', name: 'tea', label: 'Tea' },
-    { type: 'food', name: 'beer', label: 'Beer' },
-    { type: 'food', name: 'cocktail', label: 'Cocktail' },
-    { type: 'food', name: 'lemonade', label: 'Lemonade 0.33l' },
-    { type: 'food', name: 'water', label: 'Water 0.33l' },
-    { type: 'food', name: 'localFood', label: 'Local Meal' },
-    { type: 'food', name: 'restaurant', label: 'Restaurant Meal' },
-    { type: 'monthly', name: 'hotel', label: 'Hotel' },
-    { type: 'monthly', name: 'airbnb', label: 'Airbnb' },
-    { type: 'monthly', name: 'apartment', label: 'Apartment' },
-    { type: 'monthly', name: 'house', label: 'House' },
-    { type: 'monthly', name: 'villa', label: 'Villa' },
-    { type: 'monthly', name: 'coworking', label: 'Coworking' },
-    { type: 'monthly', name: 'scooter', label: 'Scooter' }
-  ]
+  const costs = {
+    food: [
+      { name: 'coffee', label: 'Coffee' },
+      { name: 'cappuccino', label: 'Cappuccino' },
+      { name: 'tea', label: 'Tea' },
+      { name: 'beer', label: 'Beer' },
+      { name: 'cocktail', label: 'Cocktail' },
+      { name: 'lemonade', label: 'Lemonade 0.33l' },
+      { name: 'water', label: 'Water 0.33l' },
+      { name: 'localFood', label: 'Local Meal' },
+      { name: 'restaurant', label: 'Restaurant Meal' }
+    ],
+    monthly: [
+      { name: 'hotel', label: 'Hotel' },
+      { name: 'airbnb', label: 'Airbnb' },
+      { name: 'apartment', label: 'Apartment' },
+      { name: 'house', label: 'House' },
+      { name: 'villa', label: 'Villa' },
+      { name: 'coworking', label: 'Coworking' },
+      { name: 'scooter', label: 'Scooter' }
+    ]
+  }
 
   useEffect(() => {
     if (userReview) {

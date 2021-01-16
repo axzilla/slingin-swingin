@@ -52,7 +52,7 @@ class PlaceUtils {
       const summary = this.placeReviews
         .map(placeReview => {
           // get array of values per rating if value (> 0)
-          const valuesOfCosts = Object.values(placeReview.costs).filter(value => value)
+          const valuesOfCosts = Object.values(placeReview.costs.monthly).filter(value => value)
 
           // sum up values per rating
           const totalValue = valuesOfCosts.reduce((a, b) => a + b)
@@ -74,11 +74,11 @@ class PlaceUtils {
   }
 
   // get average costs per item
-  getCostSummaries(costName) {
+  getCostSummaries(costName, type) {
     if (this.placeReviews.length > 0) {
       const filtered = this.placeReviews
-        .filter(placeReview => placeReview.costs[costName] !== 0)
-        .map(placeReview => placeReview.costs[costName])
+        .filter(placeReview => placeReview.costs[type][costName] !== 0)
+        .map(placeReview => placeReview.costs[type][costName])
 
       const count = filtered.length
       const average = filtered.reduce((a, b) => a + b, 0) / count || 0
