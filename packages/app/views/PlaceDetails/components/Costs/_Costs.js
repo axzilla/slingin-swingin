@@ -36,30 +36,28 @@ function Costs({ placeReviews, costs }) {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          {costs
-            .filter(cost => cost.type === 'food')
-            .map((cost, index) => {
-              return (
-                <Grid key={index} item xs={12} sm={6}>
-                  <Box className={classes.ratingItem}>
-                    <Grid container justify="space-between" alignItems="center">
-                      <Grid item xs>
-                        <Typography display="inline">{cost.label}</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="subtitle1">
-                          <Box display="inline">$</Box>
-                          <Box fontWeight="bold" display="inline">
-                            {placeUtils.getCostSummaries(cost.name).average.toFixed(2)}
-                          </Box>{' '}
-                          ({placeUtils.getCostSummaries(cost.name).count})
-                        </Typography>
-                      </Grid>
+          {costs.food.map((cost, index) => {
+            return (
+              <Grid key={index} item xs={12} sm={6}>
+                <Box className={classes.ratingItem}>
+                  <Grid container justify="space-between" alignItems="center">
+                    <Grid item xs>
+                      <Typography display="inline">{cost.label}</Typography>
                     </Grid>
-                  </Box>
-                </Grid>
-              )
-            })}
+                    <Grid item>
+                      <Typography variant="subtitle1">
+                        <Box display="inline">$</Box>
+                        <Box fontWeight="bold" display="inline">
+                          {placeUtils.getCostSummaries(cost.name, 'food').average.toFixed(2)}
+                        </Box>{' '}
+                        ({placeUtils.getCostSummaries(cost.name, 'food').count})
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+            )
+          })}
         </Grid>
       </Box>
 
@@ -73,30 +71,28 @@ function Costs({ placeReviews, costs }) {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          {costs
-            .filter(cost => cost.type === 'monthly')
-            .map((cost, index) => {
-              return (
-                <Grid key={index} item xs={12} sm={6}>
-                  <Box className={classes.ratingItem}>
-                    <Grid container justify="space-between" alignItems="center">
-                      <Grid item xs>
-                        <Typography display="inline">{cost.label}</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="subtitle1">
-                          <Box display="inline">$</Box>
-                          <Box fontWeight="bold" display="inline">
-                            {placeUtils.getCostSummaries(cost.name).average.toFixed(1)}
-                          </Box>{' '}
-                          ({placeUtils.getCostSummaries(cost.name).count})
-                        </Typography>
-                      </Grid>
+          {costs.monthly.map((cost, index) => {
+            return (
+              <Grid key={index} item xs={12} sm={6}>
+                <Box className={classes.ratingItem}>
+                  <Grid container justify="space-between" alignItems="center">
+                    <Grid item xs>
+                      <Typography display="inline">{cost.label}</Typography>
                     </Grid>
-                  </Box>
-                </Grid>
-              )
-            })}
+                    <Grid item>
+                      <Typography variant="subtitle1">
+                        <Box display="inline">$</Box>
+                        <Box fontWeight="bold" display="inline">
+                          {placeUtils.getCostSummaries(cost.name, 'monthly').average.toFixed(1)}
+                        </Box>{' '}
+                        ({placeUtils.getCostSummaries(cost.name, 'monthly').count})
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+            )
+          })}
         </Grid>
       </Box>
     </>
@@ -105,7 +101,7 @@ function Costs({ placeReviews, costs }) {
 
 Costs.propTypes = {
   placeReviews: PropTypes.array.isRequired,
-  costs: PropTypes.array.isRequired
+  costs: PropTypes.object.isRequired
 }
 
 export default Costs
