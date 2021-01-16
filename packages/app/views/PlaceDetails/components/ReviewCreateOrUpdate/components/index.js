@@ -1,1 +1,2 @@
-export { default as RatingItem } from './RatingItem'
+export { default as Ratings } from './Ratings'
+export { default as Text } from './Text'
