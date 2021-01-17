@@ -131,7 +131,6 @@ function PlaceDetails({ place }) {
   return (
     <>
       <Header baseData={baseData} placeReviews={placeReviews} />
-      <StyledDivider />
 
       <ReviewCreateOrUpdate
         ratings={ratings}
