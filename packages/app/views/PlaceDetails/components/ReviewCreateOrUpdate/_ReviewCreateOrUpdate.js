@@ -17,6 +17,8 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Box from '@material-ui/core/Box'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles({
   dialogPaper: { height: '100%' }
@@ -86,10 +88,6 @@ function ReviewCreateOrUpdate({
   const [skipped, setSkipped] = useState(new Set())
   const steps = getSteps()
 
-  const isStepOptional = step => {
-    return step === 0 || step === 1
-  }
-
   const isStepSkipped = step => {
     return skipped.has(step)
   }
@@ -107,15 +105,6 @@ function ReviewCreateOrUpdate({
 
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
-  }
-
-  const handleSkip = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
-    setSkipped(prevSkipped => {
-      const newSkipped = new Set(prevSkipped.values())
-      newSkipped.add(activeStep)
-      return newSkipped
-    })
   }
 
   const handleReset = () => {
@@ -140,7 +129,12 @@ function ReviewCreateOrUpdate({
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="responsive-dialog-title">
-          {userReview ? 'Edit' : 'Write'} Review for {baseData.mapBox.place_name}
+          <Grid container justify="space-between" alignItems="center">
+            {userReview ? 'Edit' : 'Write'} Review for {baseData.mapBox.place_name}
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
         </DialogTitle>
         <Divider />
         <DialogContent>{getStepContent(activeStep)}</DialogContent>
@@ -158,11 +152,6 @@ function ReviewCreateOrUpdate({
                 <Button variant="outlined" disabled={activeStep === 0} onClick={handleBack}>
                   Back
                 </Button>
-                {isStepOptional(activeStep) && (
-                  <Button variant="outlined" color="secondary" onClick={handleSkip}>
-                    Skip
-                  </Button>
-                )}
                 {activeStep === steps.length - 1 ? (
                   <Button
                     disabled={isDisabled()}
