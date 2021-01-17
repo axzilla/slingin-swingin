@@ -38,6 +38,9 @@ function ReviewCreateOrUpdate({
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [open, setOpen] = useState(false)
+  const [activeStep, setActiveStep] = useState(0)
+  const [skipped, setSkipped] = useState(new Set())
+  const steps = getSteps()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -63,7 +66,10 @@ function ReviewCreateOrUpdate({
 
   function isDisabled() {
     if (placeReview.text || placeReview.ratings) {
-      return !placeReview.text && Object.values(placeReview.ratings).every(item => item === 0)
+      return (
+        (activeStep === 0 && placeReview.text.length < 3) ||
+        (activeStep === 1 && Object.values(placeReview.ratings).every(item => item === 0))
+      )
     }
   }
 
@@ -83,10 +89,6 @@ function ReviewCreateOrUpdate({
         return <Costs costs={costs} placeReview={placeReview} setPlaceReview={setPlaceReview} />
     }
   }
-
-  const [activeStep, setActiveStep] = useState(0)
-  const [skipped, setSkipped] = useState(new Set())
-  const steps = getSteps()
 
   const isStepSkipped = step => {
     return skipped.has(step)
@@ -160,7 +162,12 @@ function ReviewCreateOrUpdate({
                     Finish
                   </Button>
                 ) : (
-                  <Button variant="contained" color="secondary" onClick={handleNext}>
+                  <Button
+                    disabled={isDisabled()}
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleNext}
+                  >
                     Next
                   </Button>
                 )}
