@@ -4,16 +4,7 @@ import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 // Local Components
-import {
-  ReviewFeed,
-  Ratings,
-  Header,
-  CostsFood,
-  CostsMobilty,
-  CostsLiving,
-  People,
-  ReviewCreateOrUpdate
-} from './components'
+import { ReviewFeed, Ratings, Header, Costs, People, ReviewCreateOrUpdate } from './components'
 
 // Contexts
 import { useAlert } from '@contexts/AlertContext'
@@ -39,7 +30,7 @@ function PlaceDetails({ place }) {
   const [peopleWant] = useState(place.peopleWant)
   const { user, isAuthenticated } = useSelector(state => state.auth)
   const [userReview, setUserReview] = useState(null)
-  const [placeReview, setPlaceReview] = useState({})
+  const [placeReview, setPlaceReview] = useState({ text: '', ratings: {}, costs: {} })
 
   const ratings = [
     { label: 'Internet', name: 'internet' },
@@ -60,6 +51,29 @@ function PlaceDetails({ place }) {
     { label: 'Traffic safety', name: 'trafficSafety' },
     { label: 'People', name: 'people' }
   ]
+
+  const costs = {
+    food: [
+      { name: 'coffee', label: 'Coffee' },
+      { name: 'cappuccino', label: 'Cappuccino' },
+      { name: 'tea', label: 'Tea' },
+      { name: 'beer', label: 'Beer' },
+      { name: 'cocktail', label: 'Cocktail' },
+      { name: 'lemonade', label: 'Lemonade 0.33l' },
+      { name: 'water', label: 'Water 0.33l' },
+      { name: 'localFood', label: 'Local Meal' },
+      { name: 'restaurant', label: 'Restaurant Meal' }
+    ],
+    monthly: [
+      { name: 'hotel', label: 'Hotel' },
+      { name: 'airbnb', label: 'Airbnb' },
+      { name: 'apartment', label: 'Apartment' },
+      { name: 'house', label: 'House' },
+      { name: 'villa', label: 'Villa' },
+      { name: 'coworking', label: 'Coworking' },
+      { name: 'scooter', label: 'Scooter' }
+    ]
+  }
 
   useEffect(() => {
     if (userReview) {
@@ -117,10 +131,10 @@ function PlaceDetails({ place }) {
   return (
     <>
       <Header baseData={baseData} placeReviews={placeReviews} />
-      <StyledDivider />
 
       <ReviewCreateOrUpdate
         ratings={ratings}
+        costs={costs}
         userReview={userReview}
         handleCreatePlaceReview={handleCreatePlaceReview}
         handleUpdatePlaceReview={handleUpdatePlaceReview}
@@ -131,23 +145,15 @@ function PlaceDetails({ place }) {
       <StyledDivider />
 
       <Box mb={6}>
-        <CostsFood />
+        <Costs placeReviews={placeReviews} costs={costs} />
       </Box>
-      <StyledDivider />
 
-      <Box mb={6}>
-        <CostsMobilty />
-      </Box>
-      <StyledDivider />
-
-      <Box mb={6}>
-        <CostsLiving />
-      </Box>
       <StyledDivider />
 
       <Box mb={6}>
         <Ratings placeReviews={placeReviews} ratings={ratings} />
       </Box>
+
       <ReviewFeed placeReviews={placeReviews} />
       <StyledDivider />
 

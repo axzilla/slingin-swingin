@@ -14,11 +14,6 @@ import StarRateIcon from '@material-ui/icons/StarRate'
 
 function Header({ baseData, placeReviews }) {
   const placeUtils = new PlaceUtils(placeReviews)
-  function hasReviews() {
-    const number = 5
-    const random = Math.floor(Math.random() * number)
-    return random > 1
-  }
 
   return (
     <>
@@ -30,15 +25,15 @@ function Header({ baseData, placeReviews }) {
         </Card>
       </Box>
 
-      {placeUtils.getPlaceSummaries().count ? (
+      {placeUtils.getPlaceRatingSummaries().count ? (
         <Grid container alignItems="center">
           <StarRateIcon color="secondary" />
           <Typography display="inline" variant="body2">
-            {placeUtils.getPlaceSummaries().average}
+            {placeUtils.getPlaceRatingSummaries().average}
           </Typography>
           &nbsp;
           <Typography display="inline" color="textSecondary" variant="body2">
-            ({placeUtils.getPlaceSummaries().count})
+            ({placeUtils.getPlaceRatingSummaries().count})
           </Typography>
         </Grid>
       ) : (
@@ -59,9 +54,9 @@ function Header({ baseData, placeReviews }) {
         </Box>
       </Typography>
       <Typography variant="subtitle1">
-        {hasReviews() ? (
+        {placeUtils.getPlaceCostSummaries().count ? (
           <>
-            <Box display="inline">${Math.floor(Math.random() * 3000)}</Box>
+            <Box display="inline">${placeUtils.getPlaceCostSummaries().average}</Box>
             <Box display="inline"> / month</Box>
           </>
         ) : (

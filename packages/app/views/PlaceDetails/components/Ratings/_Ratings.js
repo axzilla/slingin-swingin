@@ -30,8 +30,8 @@ function Ratings({ placeReviews, ratings }) {
         <Grid container alignItems="center" spacing={2}>
           <StarRateIcon color="secondary" fontSize="large" />
           <Typography variant="h6">
-            {placeUtils.getPlaceSummaries().average} ({placeUtils.getPlaceSummaries().count}{' '}
-            Reviews)
+            {placeUtils.getPlaceRatingSummaries().average} (
+            {placeUtils.getPlaceRatingSummaries().count} Reviews)
           </Typography>
         </Grid>
       </Box>
@@ -66,7 +66,7 @@ function Ratings({ placeReviews, ratings }) {
                       <Grid item>
                         <Typography variant="overline">
                           <Box fontWeight="bold" display="inline">
-                            {placeUtils.getRatingSummaries(rating.name).average.toFixed(1)}
+                            {placeUtils.getRatingSummaries(rating.name).average.toFixed(2)}
                           </Box>{' '}
                           ({placeUtils.getRatingSummaries(rating.name).count})
                         </Typography>

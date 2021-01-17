@@ -37,7 +37,6 @@ import Pagination from '@material-ui/lab/Pagination'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import SearchIcon from '@material-ui/icons/Search'
 import StarRateIcon from '@material-ui/icons/StarRate'
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
 function PlaceFeed({ places }) {
   const router = useRouter()
@@ -147,11 +146,11 @@ function PlaceFeed({ places }) {
         {/* Feed */}
         {places.result.map(place => {
           const placeUtils = new PlaceUtils(place.placeReviews)
-          function hasReviews() {
-            const number = 5
-            const random = Math.floor(Math.random() * number)
-            return random > 1
-          }
+          // function hasReviews() {
+          //   const number = 5
+          //   const random = Math.floor(Math.random() * number)
+          //   return random > 1
+          // }
 
           return (
             <Grid key={place._id} item xs={6} md={3}>
@@ -163,24 +162,19 @@ function PlaceFeed({ places }) {
                   <Card>
                     <CardMedia image={place.photo.secure_url}>
                       <Box height={200} />
-                      {/* <Grid container justify="flex-end">
-                      <IconButton onClick={() => false}>
-                        <FavoriteBorderIcon htmlColor="white" />
-                      </IconButton>
-                    </Grid> */}
                     </CardMedia>
                   </Card>
                 </Box>
                 <Grid container alignItems="center">
-                  {placeUtils.getPlaceSummaries().count > 0 ? (
+                  {placeUtils.getPlaceRatingSummaries().count > 0 ? (
                     <>
                       <StarRateIcon color="secondary" />
                       <Typography display="inline" variant="body2">
-                        {placeUtils.getPlaceSummaries().average}
+                        {placeUtils.getPlaceRatingSummaries().average}
                       </Typography>
                       &nbsp;
                       <Typography display="inline" color="textSecondary" variant="body2">
-                        ({placeUtils.getPlaceSummaries().count})
+                        ({placeUtils.getPlaceRatingSummaries().count})
                       </Typography>
                     </>
                   ) : (
@@ -201,9 +195,9 @@ function PlaceFeed({ places }) {
                   </Box>
                 </Typography>
                 <Typography variant="subtitle1">
-                  {hasReviews() ? (
+                  {placeUtils.getPlaceCostSummaries().count > 0 ? (
                     <>
-                      <Box display="inline">${Math.floor(Math.random() * 3000)}</Box>
+                      <Box display="inline">${placeUtils.getPlaceCostSummaries().average}</Box>
                       <Box display="inline"> / month</Box>
                     </>
                   ) : (
