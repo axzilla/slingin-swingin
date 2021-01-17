@@ -37,7 +37,6 @@ import Pagination from '@material-ui/lab/Pagination'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import SearchIcon from '@material-ui/icons/Search'
 import StarRateIcon from '@material-ui/icons/StarRate'
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
 function PlaceFeed({ places }) {
   const router = useRouter()
@@ -163,11 +162,6 @@ function PlaceFeed({ places }) {
                   <Card>
                     <CardMedia image={place.photo.secure_url}>
                       <Box height={200} />
-                      {/* <Grid container justify="flex-end">
-                      <IconButton onClick={() => false}>
-                        <FavoriteBorderIcon htmlColor="white" />
-                      </IconButton>
-                    </Grid> */}
                     </CardMedia>
                   </Card>
                 </Box>
