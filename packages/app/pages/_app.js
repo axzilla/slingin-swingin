@@ -72,7 +72,7 @@ function InitialAuthSetup() {
 
 function CustomThemeProvider(props) {
   const { isDarkTheme } = useSelector(state => state.theme)
-  return <MuiThemeProvider theme={theme(isDarkTheme ? 'dark' : 'light')} {...props} />
+  return <MuiThemeProvider theme={theme(isDarkTheme ? 'dark' : 'light').theme} {...props} />
 }
 
 function MyApp(props) {
