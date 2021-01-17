@@ -113,12 +113,10 @@ function ReviewCreateOrUpdate({
 
   return (
     <>
-      <Box mb={2}>
-        <Grid container justify="flex-end">
-          <Button size="large" variant="outlined" onClick={handleClickOpen}>
-            {userReview ? 'Edit' : 'Write'} Review
-          </Button>
-        </Grid>
+      <Box my={2}>
+        <Button size="large" variant="outlined" onClick={handleClickOpen}>
+          {userReview ? 'Edit' : 'Write'} Review
+        </Button>
       </Box>
       <Dialog
         fullScreen={fullScreen}
