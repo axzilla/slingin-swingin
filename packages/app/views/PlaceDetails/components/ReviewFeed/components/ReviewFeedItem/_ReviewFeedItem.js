@@ -45,7 +45,7 @@ function ReviewFeedItem({ review }) {
         }
         title={
           <Link underlined href="/[handle]" as={`/${'badazzdev'}`}>
-            <Box fontWeight="bold">Axel</Box>
+            <Box fontWeight="bold">{review.user.username}</Box>
           </Link>
         }
         subheader={<Moment fromNow>{Date.now()}</Moment>}
