@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
-// Reduxer
+// Reduxe
 import { setIsAuthModalReducer } from '@slices/authSlice'
 
 // Services

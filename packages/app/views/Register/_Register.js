@@ -52,8 +52,8 @@ const Register = () => {
 
   return (
     <>
-      <Typography variant="h5" align="center" gutterBottom>
-        Ready to get started?
+      <Typography variant="h5" gutterBottom>
+        Join now – it’s free!
       </Typography>
       <form onSubmit={handleSubmit}>
         <Box mb={2}>

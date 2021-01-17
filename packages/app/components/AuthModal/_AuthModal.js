@@ -1,64 +1,58 @@
 // Packages
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-// Global Components
-import Link from '@components/Link'
+// Local Components
+import { ForgotPassword, SignIn, SignUp } from './components'
 
 // Redux
 import { setIsAuthModalReducer } from '@slices/authSlice'
 
 // MUI
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import Typography from '@material-ui/core/Typography'
+import CloseIcon from '@material-ui/icons/Close'
 
 function AuthModal() {
   const dispatch = useDispatch()
   const { isAuthModal } = useSelector(state => state.auth)
+  const [type, setType] = useState('SignIn')
 
-  const handleClose = () => {
+  function handleClose() {
     dispatch(setIsAuthModalReducer(false))
+
+    // anti flitter hack
+    setTimeout(() => {
+      setType('SignIn')
+    }, 500)
   }
 
   return (
-    <Dialog
-      maxWidth="xs"
-      open={isAuthModal}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle align="center" id="alert-dialog-title">
-        NOT A MEMBER?
+    <Dialog maxWidth="xs" open={isAuthModal} onClose={handleClose}>
+      <DialogTitle>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid item>
+            {type === 'ForgotPassword' && 'Forgot your password?'}
+            {type === 'SignIn' && 'Welcome back – log in!'}
+            {type === 'SignUp' && 'Join now – it’s free!'}
+          </Grid>
+          <Grid item>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
       </DialogTitle>
+
       <DialogContent>
-        <DialogContentText id="alert-dialog-description" align="center">
-          This feature is for registered noize.dev members only. Log in to your account or create an
-          account for FREE if you haven`t done so and join the coolest community of music lovers
-          that are already on noize.dev!
-        </DialogContentText>
-        <Box my={2} align="center">
-          <Link href="/register">
-            <Button onClick={handleClose} variant="contained" color="secondary">
-              Get Started
-            </Button>
-          </Link>
-          <Box my={1}>
-            <Typography variant="h5" align="center">
-              or
-            </Typography>
-          </Box>
-          <Link href="/login">
-            <Button onClick={handleClose} variant="outlined" color="secondary">
-              Log In
-            </Button>
-          </Link>
-        </Box>
+        {type === 'ForgotPassword' && (
+          <ForgotPassword setType={setType} handleClose={handleClose} />
+        )}
+        {type === 'SignIn' && <SignIn setType={setType} handleClose={handleClose} />}
+        {type === 'SignUp' && <SignUp setType={setType} handleClose={handleClose} />}
       </DialogContent>
     </Dialog>
   )
