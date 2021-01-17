@@ -15,6 +15,7 @@ const slugify = require('../../utils/slugify')
 
 async function profileUpdate(req, res) {
   try {
+    const { locationFrom, locationCurrent } = req.body
     const { errors } = validateProfile(req.body)
 
     if (!isEmpty(errors)) {
@@ -23,23 +24,25 @@ async function profileUpdate(req, res) {
 
     const profile = { ...req.body }
 
-    if (!isEmpty(req.body.locationFrom)) {
-      const query = { 'mapBox.id': req.body.locationFrom.mapBox.id }
-      const foundLocationFrom = await Place.findOne(query)
+    if (!isEmpty(locationFrom)) {
+      const foundLocationFrom = await Place.findOne({ 'mapBox.id': locationFrom.mapBox.id })
 
       if (!foundLocationFrom) {
-        const createdLocation = await Place.create({
-          mapBox: req.body.locationFrom.mapBox,
-          urlSlug: slugify(req.body.locationFrom.mapBox.place_name)
+        const google = new Scraper({
+          puppeteer: { headless: true, args: ['--no-sandbox'] },
+          tbs: { isz: 'l' }
         })
 
-        const input = createdLocation.mapBox.place_name
-        const google = new Scraper({ puppeteer: { headless: true }, tbs: { isz: 'l' } })
-        const results = await google.scrape(input, 2)
+        const photoResults = await google.scrape(locationFrom.mapBox.place_name, 2)
 
-        const uploadedPhoto = await cloudinary.v2.uploader.upload(results[0].url, {
+        const uploadedPhoto = await cloudinary.v2.uploader.upload(photoResults[0].url, {
           folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
-          public_id: `${createdLocation.urlSlug}-${createdLocation._id}`
+          public_id: `${slugify(locationFrom.mapBox.place_name)}`
+        })
+
+        const createdLocation = await Place.create({
+          mapBox: locationFrom.mapBox,
+          urlSlug: slugify(locationFrom.mapBox.place_name)
         })
 
         createdLocation.photo = uploadedPhoto
@@ -50,23 +53,25 @@ async function profileUpdate(req, res) {
       }
     }
 
-    if (!isEmpty(req.body.locationCurrent)) {
-      const query = { 'mapBox.id': req.body.locationCurrent.mapBox.id }
-      const foundLocationCurrent = await Place.findOne(query)
+    if (!isEmpty(locationCurrent)) {
+      const foundLocationCurrent = await Place.findOne({ 'mapBox.id': locationCurrent.mapBox.id })
 
       if (!foundLocationCurrent) {
-        const createdLocation = await Place.create({
-          mapBox: req.body.locationCurrent.mapBox,
-          urlSlug: slugify(req.body.locationCurrent.mapBox.place_name)
+        const google = new Scraper({
+          puppeteer: { headless: true, args: ['--no-sandbox'] },
+          tbs: { isz: 'l' }
         })
 
-        const input = createdLocation.mapBox.place_name
-        const google = new Scraper({ puppeteer: { headless: true }, tbs: { isz: 'l' } })
-        const results = await google.scrape(input, 2)
+        const photoResults = await google.scrape(locationCurrent.mapBox.place_name, 2)
 
-        const uploadedPhoto = await cloudinary.v2.uploader.upload(results[0].url, {
+        const uploadedPhoto = await cloudinary.v2.uploader.upload(photoResults[0].url, {
           folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
-          public_id: `place-${createdLocation.urlSlug}-${createdLocation._id}`
+          public_id: `${slugify(locationCurrent.mapBox.place_name)}`
+        })
+
+        const createdLocation = await Place.create({
+          mapBox: locationCurrent.mapBox,
+          urlSlug: slugify(locationCurrent.mapBox.place_name)
         })
 
         createdLocation.photo = uploadedPhoto
@@ -85,7 +90,8 @@ async function profileUpdate(req, res) {
 
     res.json(updatedProfile)
   } catch (error) {
-    if (error) throw error
+    console.error(error) // eslint-disable-line
+    return res.status(500).json({ other: 'Error, please try it again!' })
   }
 }
 

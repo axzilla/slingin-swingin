@@ -69,6 +69,11 @@ function ProfileEdit() {
       setAlert({ message: 'Profile updated' })
     } catch (error) {
       setErrors(error.response.data)
+
+      // if something is wrong with create place
+      if (error.response.data.other) {
+        setAlert({ message: error.response.data.other })
+      }
     }
   }
 

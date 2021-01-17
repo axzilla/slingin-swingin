@@ -1,6 +1,4 @@
-export { default as CostsFood } from './CostsFood'
-export { default as CostsMobilty } from './CostsMobilty'
-export { default as CostsLiving } from './CostsLiving'
+export { default as Costs } from './Costs'
 export { default as Header } from './Header'
 export { default as People } from './People'
 export { default as Ratings } from './Ratings'

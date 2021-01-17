@@ -22,6 +22,7 @@ async function placeCreate(req, res) {
       puppeteer: { headless: true, args: ['--no-sandbox'] },
       tbs: { isz: 'l' }
     })
+
     const photoResults = await google.scrape(location.place_name, 2)
 
     const uploadedPhoto = await cloudinary.v2.uploader.upload(photoResults[0].url, {
