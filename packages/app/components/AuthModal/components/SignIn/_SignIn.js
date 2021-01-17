@@ -127,22 +127,18 @@ function SignIn({ token, handleClose, setType }) {
           </Button>
         </Box>
       </form>
-      <Typography
-        className={classes.hover}
-        variant="body2"
-        display="block"
-        onClick={() => setType('ForgotPassword')}
-      >
-        Forgot password?
-      </Typography>
-      <Typography
-        className={classes.hover}
-        variant="body2"
-        display="block"
-        onClick={() => setType('SignUp')}
-      >
-        Don’t have an account?
-      </Typography>
+      <Box mb={2}>
+        <Typography
+          className={classes.hover}
+          variant="body2"
+          onClick={() => setType('ForgotPassword')}
+        >
+          Forgot password?
+        </Typography>
+        <Typography className={classes.hover} variant="body2" onClick={() => setType('SignUp')}>
+          Don’t have an account?
+        </Typography>
+      </Box>
     </>
   )
 }

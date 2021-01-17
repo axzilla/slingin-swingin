@@ -19,14 +19,14 @@ import CloseIcon from '@material-ui/icons/Close'
 function AuthModal() {
   const dispatch = useDispatch()
   const { isAuthModal } = useSelector(state => state.auth)
-  const [type, setType] = useState('SignIn')
+  const [type, setType] = useState('SignUp')
 
   function handleClose() {
     dispatch(setIsAuthModalReducer(false))
 
     // anti flitter hack
     setTimeout(() => {
-      setType('SignIn')
+      setType('SignUp')
     }, 500)
   }
 
