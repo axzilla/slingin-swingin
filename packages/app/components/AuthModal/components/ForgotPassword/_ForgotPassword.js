@@ -1,14 +1,29 @@
+// Pckages
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
+// Contexts
 import { useAlert } from '@contexts/AlertContext'
+
+// Services
 import { passwordForgot } from '@services/auth'
+
+// Global Components
 import TextField from '@components/TextField'
 
+// MUI
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
-// import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-function PasswordForgot() {
+const useStyles = makeStyles({
+  hover: { cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }
+})
+
+function PasswordForgot({ setType }) {
+  const classes = useStyles()
   const { setAlert } = useAlert()
 
   const [errors, setErrors] = useState('')
@@ -35,25 +50,41 @@ function PasswordForgot() {
 
   return (
     <>
-      <form onSubmit={onSubmit} style={{ width: '100%' }}>
+      <form onSubmit={onSubmit}>
         <Box mb={2}>
-          <TextField
-            type="email"
-            error={errors && errors.email}
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={onChange}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography gutterBottom>E-Mail</Typography>
+              <TextField
+                type="email"
+                error={errors && errors.email}
+                name="email"
+                value={email}
+                onChange={onChange}
+              />
+            </Grid>
+          </Grid>
         </Box>
         <Box mb={2}>
           <Button fullWidth type="submit" color="secondary" variant="contained">
-            Send email
+            Send link
           </Button>
         </Box>
       </form>
+      <Box mb={2}>
+        <Typography className={classes.hover} variant="body2" onClick={() => setType('SignIn')}>
+          You already have an account?
+        </Typography>
+        <Typography className={classes.hover} variant="body2" onClick={() => setType('SignUp')}>
+          Don’t have an account?
+        </Typography>
+      </Box>
     </>
   )
+}
+
+PasswordForgot.propTypes = {
+  setType: PropTypes.func.isRequired
 }
 
 export default PasswordForgot

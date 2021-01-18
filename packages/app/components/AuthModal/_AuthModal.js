@@ -31,7 +31,7 @@ function AuthModal() {
   }
 
   return (
-    <Dialog maxWidth="xs" open={isAuthModal} onClose={handleClose}>
+    <Dialog maxWidth="xs" fullWidth open={isAuthModal} onClose={handleClose}>
       <DialogTitle>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
