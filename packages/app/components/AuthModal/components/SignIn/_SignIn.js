@@ -122,7 +122,7 @@ function SignIn({ token, handleClose, setType }) {
           </Grid>
         </Box>
         <Box mb={2}>
-          <Button fullWidth type="submit" color="secondary" variant="contained">
+          <Button size="large" fullWidth type="submit" color="secondary" variant="contained">
             Login
           </Button>
         </Box>
