@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 // Local Components
-import { ForgotPassword, SignIn, SignUp } from './components'
+import { ForgotPassword, SignIn, SignUp, SignUpFinished } from './components'
 
 // Redux
 import { setIsAuthModalReducer } from '@slices/authSlice'
@@ -38,6 +38,7 @@ function AuthModal() {
             {type === 'ForgotPassword' && 'Forgot your password?'}
             {type === 'SignIn' && 'Welcome back – log in!'}
             {type === 'SignUp' && 'Join now – it’s free!'}
+            {type === 'SignUpFinished' && 'Welcome to digitalnomads'}
           </Grid>
           <Grid item>
             <IconButton onClick={handleClose}>
@@ -53,6 +54,9 @@ function AuthModal() {
         )}
         {type === 'SignIn' && <SignIn setType={setType} handleClose={handleClose} />}
         {type === 'SignUp' && <SignUp setType={setType} handleClose={handleClose} />}
+        {type === 'SignUpFinished' && (
+          <SignUpFinished setType={setType} handleClose={handleClose} />
+        )}
       </DialogContent>
     </Dialog>
   )
