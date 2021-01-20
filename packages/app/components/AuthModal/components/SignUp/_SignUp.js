@@ -2,9 +2,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// Contexts
-import { useAlert } from '@contexts/AlertContext'
-
 // Services
 import { userRegister } from '@services/auth'
 
@@ -24,7 +21,6 @@ const useStyles = makeStyles({
 
 const SignUp = ({ setType }) => {
   const classes = useStyles()
-  const { setAlert } = useAlert()
   const [errors, setErrors] = useState('')
 
   const [registerData, setRegisterData] = useState({
@@ -43,10 +39,10 @@ const SignUp = ({ setType }) => {
   async function handleSubmit(event) {
     try {
       event.preventDefault()
-      const response = await userRegister({ ...registerData })
+      await userRegister({ ...registerData })
       resetForm()
       resetErrors()
-      setAlert({ message: response.data.alertMessage })
+      setType('SignUpFinished')
     } catch (error) {
       setErrors(error.response.data)
     }
