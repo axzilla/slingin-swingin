@@ -1,5 +1,6 @@
 const domains = require('disposable-email-domains')
 const crypto = require('crypto')
+// const sgMail = require('@sendgrid/mail')
 
 const slugify = require('../../utils/slugify')
 const hashPassword = require('../../utils/hashPassword')
@@ -9,7 +10,7 @@ const validateRegister = require('../../validation/validateRegister')
 
 const User = require('../../models/User')
 
-const sendRegister = require('../../nodemailer/templates/sendRegister')
+const sendConfirmation = require('../../nodemailer/templates/sendConfirmation')
 
 const transporter = require('../../nodemailer/transporter')
 
@@ -48,8 +49,25 @@ async function register(req, res) {
       isActiveToken,
       isActiveTokenExpires: Date.now() + 24 * 3600 * 1000
     })
-
-    sendRegister(transporter, newUser, isActiveToken)
+    //
+    // sgMail.setApiKey('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')
+    // const msg = {
+    //   to: 'axel.adrian@me.com', // Change to your recipient
+    //   from: 'mail@noize.dev', // Change to your verified sender
+    //   subject: 'Sending with SendGrid is Fun',
+    //   text: 'and easy to do anywhere, even with Node.js',
+    //   html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+    // }
+    // sgMail
+    //   .send(msg)
+    //   .then(() => {
+    //     console.log('Email sent')
+    //   })
+    //   .catch(error => {
+    //     console.error(error.response.body)
+    //   })
+    //
+    sendConfirmation(transporter, newUser, isActiveToken)
 
     res.json({
       alertMessage:

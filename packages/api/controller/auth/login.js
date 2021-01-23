@@ -6,16 +6,15 @@ const User = require('../../models/User')
 
 async function login(req, res) {
   try {
-    const { login, password } = req.body
+    const { email, password } = req.body
+
     const { errors } = validateLogin(req.body)
 
     if (!isEmpty(errors)) {
       return res.status(400).json(errors)
     }
 
-    const foundUser = await User.findOne({
-      $or: [{ email: login.toLowerCase() }, { username: login.toLowerCase() }]
-    })
+    const foundUser = await User.findOne({ email: email.toLowerCase() })
 
     if (!foundUser) {
       errors.login = 'User not found'
@@ -23,8 +22,7 @@ async function login(req, res) {
     }
 
     if (!foundUser.isActive) {
-      errors.login =
-        'Account is not active. Please check your eMail inbox to activate your account or resend activation eMail'
+      errors.login = '!isActive'
       return res.status(400).json(errors)
     }
 

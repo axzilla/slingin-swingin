@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Redux
-import { signOutReducer } from '@slices/authSlice'
+import { signOutReducer, setIsAuthModalReducer } from '@slices/authSlice'
 import { switchThemeReducer } from '@slices/themeSlice'
 
 // Contexts
@@ -13,12 +13,6 @@ import { useSocket } from '@contexts/SocketContext'
 // Global Components
 import Link from '@components/Link'
 import Avatar from '@components/UserAvatar'
-
-// Services
-// import { searchFunc } from '@services/search'
-
-// Utils
-// import isEmpty from '@utils/isEmpty'
 
 // MUI
 import { makeStyles } from '@material-ui/styles'
@@ -30,13 +24,11 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box'
-// import InputBase from '@material-ui/core/InputBase'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-// import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MailIcon from '@material-ui/icons/Mail'
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
@@ -97,7 +89,6 @@ function Topbar() {
   const { socket } = useSocket()
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
-  // const [toolbarData, setToolbarData] = useState({ searchText: '' })
   const { isAuthenticated, user } = useSelector(state => state.auth)
   const { isDarkTheme } = useSelector(state => state.theme)
 
@@ -109,30 +100,19 @@ function Topbar() {
     setAnchorEl(null)
   }
 
-  // function handleSearchChange(event) {
-  //   setToolbarData({
-  //     ...toolbarData,
-  //     searchText: event.target.value
-  //   })
-  // }
-
-  // function handleSearchSubmit(event) {
-  //   event.preventDefault()
-  //   if (!isEmpty(toolbarData.searchText)) {
-  //     searchFunc(toolbarData.searchText)
-  //     Router.push(`/search?q=${toolbarData.searchText}`)
-  //   }
-  // }
-
   async function handleLogout() {
     dispatch(signOutReducer())
     socket.close() // Close User Socket
     socket.open() // Open Guest Socket
-    Router.push('/login')
+    Router.push('/')
   }
 
   function handleChangeTheme() {
     dispatch(switchThemeReducer())
+  }
+
+  function handleAuthModal() {
+    dispatch(setIsAuthModalReducer(true))
   }
 
   return (
@@ -150,23 +130,6 @@ function Topbar() {
                     />
                   </Grid>
                 </Link>
-                {/* <div className={classes.searchField}>
-                  <div className={classes.searchIcon}>
-                    <SearchIcon />
-                  </div>
-                  <form noValidate onSubmit={handleSearchSubmit}>
-                    <InputBase
-                      name="searchText"
-                      type="text"
-                      onChange={handleSearchChange}
-                      value={toolbarData.searchText}
-                      classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput
-                      }}
-                    />
-                  </form>
-                </div> */}
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 {isAuthenticated ? (
@@ -256,19 +219,15 @@ function Topbar() {
                 ) : (
                   <Grid container wrap="nowrap">
                     <Box>
-                      <Link href="/register">
-                        <Button className={classes.button} variant="contained" color="secondary">
-                          Get&nbsp;Started
-                        </Button>
-                      </Link>
+                      <Button
+                        onClick={handleAuthModal}
+                        className={classes.button}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Get&nbsp;Started
+                      </Button>
                     </Box>
-                    {/* <Box>
-                      <Link href="/login">
-                        <Button className={classes.button} variant="outlined">
-                          Log&nbsp;in
-                        </Button>
-                      </Link>
-                    </Box> */}
                     <Box>
                       <IconButton onClick={handleChangeTheme}>
                         <InvertColorsIcon />

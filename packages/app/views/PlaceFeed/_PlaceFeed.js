@@ -4,10 +4,13 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 // Services
 import { placeCreate } from '@services/place'
+
+// Reduxe
+import { setIsAuthModalReducer } from '@slices/authSlice'
 
 // Utils
 import PlaceUtils from '@utils/placeUtils'
@@ -40,6 +43,7 @@ import StarRateIcon from '@material-ui/icons/StarRate'
 
 function PlaceFeed({ places }) {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [error, setError] = useState('')
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -70,7 +74,11 @@ function PlaceFeed({ places }) {
   }
 
   function handleClickOpen() {
-    setOpen(true)
+    if (isAuthenticated) {
+      setOpen(true)
+    } else {
+      dispatch(setIsAuthModalReducer(true))
+    }
   }
 
   function handleClose() {
@@ -134,11 +142,9 @@ function PlaceFeed({ places }) {
                 )
               }}
             />
-            {isAuthenticated && (
-              <IconButton onClick={handleClickOpen}>
-                <AddIcon />
-              </IconButton>
-            )}
+            <IconButton onClick={handleClickOpen}>
+              <AddIcon />
+            </IconButton>
           </Grid>
         </Grid>
         {/* Search END */}

@@ -1,12 +1,10 @@
 Sitemap: http://www.noize.dev/api/sitemap
 
 User-agent: *
-Disallow: /activate-account/
-Disallow: /activate-account
+Disallow: /confirm-email/
+Disallow: /confirm-email
 Disallow: /dashboard/
 Disallow: /dashboard
-Disallow: /login/
-Disallow: /login
 Disallow: /chats/
 Disallow: /chats
 Disallow: /not-found/
@@ -19,7 +17,5 @@ Disallow: /post-create/
 Disallow: /post-create
 Disallow: /post-edit/
 Disallow: /post-edit
-Disallow: /register/
-Disallow: /register
 Disallow: /search/
 Disallow: /search

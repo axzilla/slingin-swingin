@@ -1,27 +1,27 @@
+// Packages
 const crypto = require('crypto')
 
+// Models
 const User = require('../../models/User')
-const sendRegister = require('../../nodemailer/templates/sendRegister')
 
+// Nodemailer
+const sendConfirmation = require('../../nodemailer/templates/sendConfirmation')
 const transporter = require('../../nodemailer/transporter')
 
 async function sendActivationEmail(req, res) {
   try {
-    const { login } = req.body
+    const { email } = req.body
 
-    const user = await User.findOne({ $or: [{ email: login }, { username: login }] })
+    const user = await User.findOne({ email })
 
-    if (user) {
-      const isActiveToken = crypto.randomBytes(16).toString('hex')
+    const isActiveToken = crypto.randomBytes(16).toString('hex')
 
-      user.isActiveToken = isActiveToken
-      user.isActiveTokenExpires = Date.now() + 24 * 3600 * 1000
-      await user.save()
-      sendRegister(transporter, user, isActiveToken)
-      res.json({ alertMessage: 'Email sent successfully' })
-    }
+    user.isActiveToken = isActiveToken
+    user.isActiveTokenExpires = Date.now() + 24 * 3600 * 1000
+    await user.save()
 
-    res.json({ alertMessage: 'User not found' })
+    sendConfirmation(transporter, user, isActiveToken)
+    res.json({ alertMessage: 'Email sent successfully' })
   } catch (error) {
     if (error) throw error
   }
