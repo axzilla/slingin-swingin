@@ -5,7 +5,10 @@ import overrides from './overrides'
 import typography from './_typography'
 
 export const theme = type => {
-  const globalTheme = createMuiTheme({ palette: { ...palette, type } })
+  const globalTheme = createMuiTheme({
+    props: { MuiButtonBase: { disableRipple: true } },
+    palette: { ...palette, type }
+  })
 
   const theme = createMuiTheme({
     ...globalTheme,

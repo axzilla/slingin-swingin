@@ -21,7 +21,7 @@ export function isLoggedIn(ctx) {
 
 export function isNotLoggedIn(ctx) {
   if (!isValidToken(ctx) && ctx.res) {
-    ctx.res.writeHead(302, { Location: '/login' })
+    ctx.res.writeHead(302, { Location: '/' })
     ctx.res.end()
   }
 }

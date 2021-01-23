@@ -29,7 +29,7 @@ function TextField({
   return (
     <FormControl className={classes.formControl} error>
       <MuiTextField
-        color="secondary"
+        // color="secondary"
         type={type || 'text'}
         // margin="dense"
         variant="outlined"

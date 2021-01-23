@@ -47,5 +47,5 @@ export function sendActivationEmail(data) {
 }
 
 export function activateAccount(data) {
-  return axios.post(`${serverUrl}/activate-account`, data)
+  return axios.post(`${serverUrl}/confirm-email`, data)
 }

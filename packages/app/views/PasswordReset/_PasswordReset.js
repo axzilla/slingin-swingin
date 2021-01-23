@@ -39,7 +39,7 @@ function PasswordReset({ token }) {
       }
       await passwordReset(passwordData)
       setAlert({ message: 'Email sent successfully' })
-      Router.push('/login')
+      Router.push('/')
     } catch (error) {
       setErrors(error.response.data)
     }
