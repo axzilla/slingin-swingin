@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 
@@ -7,11 +7,10 @@ import { useDispatch } from 'react-redux'
 import { signInReducer } from '@slices/authSlice'
 
 // Contexts
-import { useAlert } from '@contexts/AlertContext'
 import { useSocket } from '@contexts/SocketContext'
 
 // Services
-import { userLogin, sendActivationEmail, activateAccount } from '@services/auth'
+import { userLogin } from '@services/auth'
 
 // Global Components
 import TextField from '@components/TextField'
@@ -27,33 +26,27 @@ const useStyles = makeStyles({
   hover: { cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }
 })
 
-function SignIn({ token, handleClose, setType }) {
+function SignIn({ errors, setErrors, authData, setAuthData, setType, handleClose }) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { setAlert } = useAlert()
   const { socket } = useSocket()
-  const [errors, setErrors] = useState('')
-
-  const [loginData, setLoginData] = useState({
-    login: '',
-    password: ''
-  })
 
   useEffect(() => {
-    if (token) {
-      handleActivateAccount()
+    if (errors.login === '!isActive') {
+      setType('SignUpFinished')
     }
-  }, [])
+  }, [errors])
 
-  function onChange(event) {
-    setLoginData({ ...loginData, [event.target.name]: event.target.value })
+  function handleChange(event) {
+    setAuthData({ ...authData, [event.target.name]: event.target.value })
   }
 
   async function handleSubmit(event) {
     try {
       event.preventDefault()
+      const { email, password } = authData
       socket.close() // Close User Socket
-      const loggedInUser = await userLogin(loginData)
+      const loggedInUser = await userLogin({ email, password })
       const jwtToken = loggedInUser.data
       dispatch(signInReducer(jwtToken))
       socket.open() // Open Guest Socket
@@ -63,67 +56,35 @@ function SignIn({ token, handleClose, setType }) {
     }
   }
 
-  async function handleSendActivationEmail() {
-    try {
-      const response = await sendActivationEmail({ login: loginData.login })
-      setAlert({ message: response.data.alertMessage })
-    } catch (error) {
-      setErrors(error.response.data)
-    }
-  }
-
-  async function handleActivateAccount() {
-    try {
-      const response = await activateAccount({ token })
-      setAlert({ message: response.data.alertMessage })
-    } catch (error) {
-      if (error) throw error
-    }
-  }
-
   return (
     <>
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <Box mb={2}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography gutterBottom>Username or E-Mail</Typography>
+              <Typography gutterBottom>E-Mail</Typography>
               <TextField
-                error={errors && errors.login}
-                name="login"
-                value={loginData.login}
-                onChange={onChange}
+                error={errors && errors.email}
+                name="email"
+                value={authData.email}
+                onChange={handleChange}
               />
             </Grid>
-            {errors.login &&
-              errors.login ===
-                'Account is not active. Please check your eMail inbox to activate your account or resend activation eMail' && (
-                <Box mb={2}>
-                  <Button
-                    fullWidth
-                    onClick={handleSendActivationEmail}
-                    color="primary"
-                    variant="contained"
-                  >
-                    Send activation eMail
-                  </Button>
-                </Box>
-              )}
             <Grid item xs={12}>
               <Typography gutterBottom>Password</Typography>
               <TextField
                 type="password"
                 error={errors && errors.password}
                 name="password"
-                value={loginData.password}
-                onChange={onChange}
+                value={authData.password}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
         </Box>
         <Box mb={2}>
           <Button size="large" fullWidth type="submit" color="secondary" variant="contained">
-            Login
+            Sign In
           </Button>
         </Box>
       </form>
@@ -144,9 +105,12 @@ function SignIn({ token, handleClose, setType }) {
 }
 
 SignIn.propTypes = {
-  token: PropTypes.string,
-  handleClose: PropTypes.func.isRequired,
-  setType: PropTypes.func.isRequired
+  errors: PropTypes.object.isRequired,
+  setErrors: PropTypes.func.isRequired,
+  authData: PropTypes.object.isRequired,
+  setAuthData: PropTypes.func.isRequired,
+  setType: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 }
 
 export default SignIn

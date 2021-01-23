@@ -104,7 +104,7 @@ function Topbar() {
     dispatch(signOutReducer())
     socket.close() // Close User Socket
     socket.open() // Open Guest Socket
-    Router.push('/login')
+    Router.push('/')
   }
 
   function handleChangeTheme() {

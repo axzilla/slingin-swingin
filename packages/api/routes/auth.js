@@ -19,7 +19,7 @@ const activateAccount = require('../controller/auth/activateAccount')
 
 router.post('/register', register)
 router.post('/login', login)
-router.post('/activate-account', activateAccount)
+router.post('/confirm-email', activateAccount)
 router.post('/send-activation-email', sendActivationEmail)
 router.post('/avatar-upload', authenticate(), upload.single('avatar'), avatarUpload)
 router.post('/avatar-delete', authenticate(), avatarDelete)
