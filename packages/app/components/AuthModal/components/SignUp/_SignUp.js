@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 // Services
@@ -19,45 +19,28 @@ const useStyles = makeStyles({
   hover: { cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }
 })
 
-const SignUp = ({ setType }) => {
+const SignUp = ({ errors, setErrors, resetErrors, authData, setAuthData, setType }) => {
   const classes = useStyles()
-  const [errors, setErrors] = useState('')
 
-  const [registerData, setRegisterData] = useState({
-    email: '',
-    password: '',
-    username: ''
-  })
+  useEffect(() => {
+    return () => {
+      resetErrors()
+    }
+  }, [])
 
   function handleChange(event) {
-    setRegisterData({
-      ...registerData,
-      [event.target.name]: event.target.value
-    })
+    setAuthData({ ...authData, [event.target.name]: event.target.value })
   }
 
   async function handleSubmit(event) {
     try {
       event.preventDefault()
-      await userRegister({ ...registerData })
-      resetForm()
-      resetErrors()
+      const { email, username, password, password2 } = authData
+      await userRegister({ email, username, password, password2 })
       setType('SignUpFinished')
     } catch (error) {
       setErrors(error.response.data)
     }
-  }
-
-  function resetForm() {
-    setRegisterData({
-      email: '',
-      password: '',
-      username: ''
-    })
-  }
-
-  function resetErrors() {
-    setErrors('')
   }
 
   return (
@@ -71,7 +54,7 @@ const SignUp = ({ setType }) => {
                 error={errors && errors.username}
                 type="username"
                 name="username"
-                value={registerData.username}
+                value={authData.username}
                 onChange={handleChange}
               />
             </Grid>
@@ -81,7 +64,7 @@ const SignUp = ({ setType }) => {
                 error={errors && errors.email}
                 type="email"
                 name="email"
-                value={registerData.email}
+                value={authData.email}
                 onChange={handleChange}
               />
             </Grid>
@@ -91,7 +74,7 @@ const SignUp = ({ setType }) => {
                 type="password"
                 error={errors && errors.password}
                 name="password"
-                value={registerData.password}
+                value={authData.password}
                 onChange={handleChange}
               />
             </Grid>
@@ -113,6 +96,11 @@ const SignUp = ({ setType }) => {
 }
 
 SignUp.propTypes = {
+  errors: PropTypes.object.isRequired,
+  setErrors: PropTypes.func.isRequired,
+  resetErrors: PropTypes.func.isRequired,
+  authData: PropTypes.object.isRequired,
+  setAuthData: PropTypes.func.isRequired,
   setType: PropTypes.func.isRequired
 }
 

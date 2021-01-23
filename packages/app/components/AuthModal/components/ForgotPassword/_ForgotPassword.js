@@ -1,5 +1,5 @@
 // Pckages
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 // Contexts
@@ -22,27 +22,21 @@ const useStyles = makeStyles({
   hover: { cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }
 })
 
-function PasswordForgot({ setType }) {
+function PasswordForgot({ errors, setErrors, authData, setAuthData, setType, handleClose }) {
   const classes = useStyles()
   const { setAlert } = useAlert()
-
-  const [errors, setErrors] = useState('')
-  const [email, setEmail] = useState('')
+  const { email } = authData
 
   function onChange(event) {
-    setEmail(event.target.value)
+    setAuthData({ authData, [event.target.name]: event.target.value })
   }
 
   async function onSubmit(event) {
     try {
       event.preventDefault()
-
-      const emailData = { email }
-
-      await passwordForgot(emailData)
+      await passwordForgot({ email })
       setAlert({ message: 'Email sent successfully' })
-      setEmail('')
-      setErrors('')
+      handleClose()
     } catch (error) {
       setErrors(error.response.data)
     }
@@ -50,7 +44,7 @@ function PasswordForgot({ setType }) {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form noValidate onSubmit={onSubmit}>
         <Box mb={2}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -59,7 +53,7 @@ function PasswordForgot({ setType }) {
                 type="email"
                 error={errors && errors.email}
                 name="email"
-                value={email}
+                value={authData.email}
                 onChange={onChange}
               />
             </Grid>
@@ -84,7 +78,12 @@ function PasswordForgot({ setType }) {
 }
 
 PasswordForgot.propTypes = {
-  setType: PropTypes.func.isRequired
+  errors: PropTypes.object.isRequired,
+  setErrors: PropTypes.func.isRequired,
+  authData: PropTypes.object.isRequired,
+  setAuthData: PropTypes.func.isRequired,
+  setType: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 }
 
 export default PasswordForgot

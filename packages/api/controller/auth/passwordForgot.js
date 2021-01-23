@@ -8,17 +8,17 @@ const transporter = require('../../nodemailer/transporter')
 
 async function passwordForgot(req, res) {
   try {
+    const { email } = req.body
     const { errors } = validatePasswordForgot(req.body)
 
     if (!isEmpty(errors)) {
       return res.status(400).json(errors)
     }
 
-    const { email } = req.body
     const foundUser = await User.findOne({ email })
 
     if (!foundUser) {
-      errors.email = 'User not found'
+      errors.email = 'E-Mail not found'
       return res.status(404).json(errors)
     }
 
