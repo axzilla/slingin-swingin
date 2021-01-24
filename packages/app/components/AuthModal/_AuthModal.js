@@ -137,6 +137,11 @@ function AuthModal() {
   }
 
   function handleSetType(type) {
+    if (type !== 'SignUpFinished') {
+      resetErrors()
+      resetAuthData()
+    }
+
     dispatch(authModalReducer({ ...authModal, type }))
   }
 

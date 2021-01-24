@@ -5,7 +5,7 @@ async function sendPasswordChange(transporter, user, token) {
       to: user.email,
       subject: '[noize.dev] Reset password!',
       html: `
-        <p>Hello ${user.username},</p>
+        <p>Hello ${user.name},</p>
         <p>Please click the link to reset your password.</p>
         <p><a href="${process.env.CLIENT_URL}/password-reset/${token}">${process.env.CLIENT_URL}/password-reset/${token}</a></p>
         <p>Thanks!<br>Your Brand-Team</p>

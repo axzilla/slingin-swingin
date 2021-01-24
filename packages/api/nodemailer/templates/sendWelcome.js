@@ -5,7 +5,7 @@ async function sendConfirmation(transporter, user) {
       to: user.email,
       subject: 'Welcome to Brand',
       html: `
-        <p>Hello ${user.username},</p>
+        <p>Hello ${user.name},</p>
         <p>you are now part of a community that brings travelers all over the world in contact with other travelers. Discover new places, make new friends or share your questions or articles.</p>
         <p>Thanks!<br>Your Brand-Team</p>
       `
