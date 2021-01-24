@@ -29,12 +29,15 @@ const SignUpFinished = ({ authData }) => {
   return (
     <>
       <Box mb={2}>
-        <Typography>
-          Please confirm your email address by clicking on the link we just emailed you{' '}
+        <Typography gutterBottom>
+          Please confirm your email address by clicking on the link we just emailed to{' '}
           <Box display="inline" fontWeight="bold">
-            ({email})
+            {email}
           </Box>
-          . If you cannot find the email, you can request a new confirmation email.
+          .
+        </Typography>
+        <Typography>
+          If you cannot find the email, you can request a new confirmation email.
         </Typography>
       </Box>
       <Box mb={2}>
