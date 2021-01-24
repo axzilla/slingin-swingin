@@ -49,7 +49,7 @@ function UsernameChange() {
       const { token } = res.data
 
       dispatch(signInReducer(token))
-      setAlert({ message: 'Username changed successfully' })
+      setAlert({ message: 'Username changed successfully', variant: 'success' })
     } catch (error) {
       setErrors(error.response.data)
     }

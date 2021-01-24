@@ -99,7 +99,7 @@ function PlaceDetails({ place }) {
     const createdPlaceReview = await createPlaceReview({ ...placeReview, placeId: baseData._id })
     setPlaceReviews([...placeReviews, createdPlaceReview.data])
     setUserReview(createdPlaceReview.data)
-    setAlert({ message: 'Place Review successfully created' })
+    setAlert({ message: 'Place Review successfully created', variant: 'success' })
   }
 
   async function handleUpdatePlaceReview() {
@@ -117,7 +117,7 @@ function PlaceDetails({ place }) {
     ])
 
     setUserReview(updatedPlaceReview.data)
-    setAlert({ message: 'Place Review successfully updated' })
+    setAlert({ message: 'Place Review successfully updated', variant: 'success' })
   }
 
   function StyledDivider() {

@@ -27,7 +27,7 @@ function Landing({ alertMessage, jwtToken }) {
     getInitalData()
 
     if (alertMessage) {
-      setAlert({ message: alertMessage })
+      setAlert({ message: alertMessage, variant: 'success' })
       jwtToken && dispatch(signInReducer(jwtToken))
     }
   }, [])

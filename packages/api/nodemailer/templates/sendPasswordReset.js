@@ -1,12 +1,12 @@
 async function sendPasswordReset(transporter, user) {
   try {
     const response = await transporter.sendMail({
-      from: 'NOIZE <noreply@noize.dev>',
+      from: 'BRAND <noreply@noize.dev>',
       to: user.email,
-      subject: '[noize.dev] Password reset!',
+      subject: 'Password changed',
       html: `
-      <p>Hello ${user.username},</p>
-      <p>You have successfully changed your password.</p>
+      <p>Hello ${user.name},</p>
+      <p>We noticed the password for your BRAND account was recently changed. If you didn't do this, review your account now. If this was you, you can safely disregard this email.</p>
       <p>Thanks!<br>Your Brand-Team</p>
       `
     })
