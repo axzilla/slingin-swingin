@@ -26,7 +26,7 @@ function Footer({ post, setPostData }) {
         const updatedPost = await postToggleBookmarks(post._id)
         setPostData(updatedPost.data)
       } else {
-        dispatch(authModalReducer(true))
+        dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
       }
     } catch (error) {
       if (error) throw error

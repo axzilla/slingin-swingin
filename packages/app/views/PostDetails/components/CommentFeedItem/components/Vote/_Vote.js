@@ -26,7 +26,7 @@ function CommentFeedItemVote({ comment }) {
         const upvotedComment = await commentUpvote(commentData._id)
         setCommentData(upvotedComment.data)
       } else {
-        dispatch(authModalReducer(true))
+        dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
       }
     } catch (error) {
       if (error) throw error
@@ -39,7 +39,7 @@ function CommentFeedItemVote({ comment }) {
         const downvotedComment = await commentDownvote(commentData._id)
         setCommentData(downvotedComment.data)
       } else {
-        dispatch(authModalReducer(true))
+        dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
       }
     } catch (error) {
       if (error) throw error
