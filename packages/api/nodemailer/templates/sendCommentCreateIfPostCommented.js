@@ -5,7 +5,7 @@ async function sendCommentCreateIfPostCommented(transporter, post, user) {
       to: user.email,
       subject: '[noize.dev] News in the forum!',
       html: `
-        <p>Hello ${user.username},</p>
+        <p>Hello ${user.name},</p>
         <p>There are new activities on a post where you left a comment. Have a look again.</p>
         <p><a href="${process.env.CLIENT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.CLIENT_URL}/post/${post.shortId}/${post.urlSlug}<a/></p>
         <p>Thanks!<br>Your Brand-Team</p>

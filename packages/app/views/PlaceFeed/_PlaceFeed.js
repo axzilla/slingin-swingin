@@ -77,7 +77,7 @@ function PlaceFeed({ places }) {
     if (isAuthenticated) {
       setOpen(true)
     } else {
-      dispatch(authModalReducer(true))
+      dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
     }
   }
 

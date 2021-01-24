@@ -45,7 +45,7 @@ function PostDetails({ post }) {
   async function handleLikeClick() {
     try {
       if (!isAuthenticated) {
-        dispatch(authModalReducer(true))
+        dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
       } else {
         const updatedPost = await postToggleLikes(postData._id)
         setPostData(updatedPost.data)
@@ -58,7 +58,7 @@ function PostDetails({ post }) {
   async function handleBookmarkClick() {
     try {
       if (!isAuthenticated) {
-        dispatch(authModalReducer(true))
+        dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
       } else {
         const updatedPost = await postToggleBookmarks(postData._id)
         setPostData(updatedPost.data)
