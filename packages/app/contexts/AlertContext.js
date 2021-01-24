@@ -8,7 +8,7 @@ export function useAlert() {
 }
 
 export function AlertContextProvider({ children }) {
-  const [alert, setAlert] = useState('Alert')
+  const [alert, setAlert] = useState({ message: '', variant: '' })
 
   const defaultContext = {
     alert,

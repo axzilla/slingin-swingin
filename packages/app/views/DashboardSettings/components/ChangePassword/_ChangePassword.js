@@ -52,7 +52,7 @@ function PasswordChange() {
       const res = await passwordChange(passwordData)
       const { token } = res.data
       dispatch(signInReducer(token))
-      setAlert({ message: 'Password changed successfully' })
+      setAlert({ message: 'Password changed successfully', variant: 'success' })
       setPasswords({
         oldPassword: '',
         newPassword: '',

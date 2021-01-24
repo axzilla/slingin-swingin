@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -6,12 +6,10 @@ import { useAlert } from '@contexts/AlertContext'
 import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
-
-import green from '@material-ui/core/colors/green'
-import amber from '@material-ui/core/colors/amber'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
@@ -28,27 +26,16 @@ const variantIcon = {
 
 const useStyles = makeStyles(theme => ({
   success: {
-    backgroundColor: green[600]
+    backgroundColor: theme.palette.success.main
   },
   error: {
-    backgroundColor: theme.palette.error.dark
+    backgroundColor: theme.palette.error.main
   },
   info: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.info.main
   },
   warning: {
-    backgroundColor: amber[700]
-  },
-  icon: {
-    fontSize: 20
-  },
-  iconVariant: {
-    opacity: 0.9,
-    marginRight: theme.spacing(1)
-  },
-  message: {
-    display: 'flex',
-    alignItems: 'center'
+    backgroundColor: theme.palette.warning.main
   }
 }))
 
@@ -60,18 +47,27 @@ function MySnackbarContentWrapper(props) {
   return (
     <SnackbarContent
       className={clsx(classes[variant], className)}
-      aria-describedby="client-snackbar"
       message={
-        <span id="client-snackbar" className={classes.message}>
-          <Icon className={clsx(classes.icon, classes.iconVariant)} />
-          {message}
-        </span>
+        <Grid container spacing={2} justify="space-between" alignItems="center" wrap="nowrap">
+          <Grid item>
+            <Icon />
+          </Grid>
+          <Grid item xs>
+            {message}
+          </Grid>
+          <Grid item>
+            <IconButton
+              size="small"
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={onClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
       }
-      action={[
-        <IconButton key="close" aria-label="Close" color="inherit" onClick={onClose}>
-          <CloseIcon className={classes.icon} />
-        </IconButton>
-      ]}
       {...other}
     />
   )
@@ -93,31 +89,33 @@ function CustomizedSnackbars() {
     }
   }, [alert && alert.message])
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   function handleClose(event, reason) {
     if (reason === 'clickaway') {
       return
     }
-    setAlert({ message: null, variant: null })
+
     setOpen(false)
+
+    // flicker hack
+    setTimeout(() => {
+      setAlert({ message: null, variant: null })
+    }, 500)
   }
 
   return (
-    <div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        open={open}
-        autoHideDuration={6000}
+    <Snackbar
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      open={open}
+      onClose={handleClose}
+    >
+      <MySnackbarContentWrapper
         onClose={handleClose}
-      >
-        <MySnackbarContentWrapper
-          onClose={handleClose}
-          variant={(alert && alert.variant) || 'success'}
-          message={alert && alert.message}
-        />
-      </Snackbar>
-    </div>
+        variant={(alert && alert.variant) || 'success'}
+        message={alert && alert.message}
+      />
+    </Snackbar>
   )
 }
 
