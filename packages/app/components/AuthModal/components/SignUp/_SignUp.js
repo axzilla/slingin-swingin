@@ -1,9 +1,6 @@
 // Packages
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-
-// Services
-import { userRegister } from '@services/auth'
 
 // Global Components
 import TextField from '@components/TextField'
@@ -19,42 +16,20 @@ const useStyles = makeStyles({
   hover: { cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }
 })
 
-const SignUp = ({ errors, setErrors, resetErrors, authData, setAuthData, setType }) => {
+const SignUp = ({ handleChange, handleSignUp, errors, authData, handleSetType }) => {
   const classes = useStyles()
-
-  useEffect(() => {
-    return () => {
-      resetErrors()
-    }
-  }, [])
-
-  function handleChange(event) {
-    setAuthData({ ...authData, [event.target.name]: event.target.value })
-  }
-
-  async function handleSubmit(event) {
-    try {
-      event.preventDefault()
-      const { email, username, password, password2 } = authData
-      await userRegister({ email, username, password, password2 })
-      setType('SignUpFinished')
-    } catch (error) {
-      setErrors(error.response.data)
-    }
-  }
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSignUp}>
         <Box mb={2}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography gutterBottom>Username</Typography>
+              <Typography gutterBottom>Name</Typography>
               <TextField
-                error={errors && errors.username}
-                type="username"
-                name="username"
-                value={authData.username}
+                error={errors && errors.name}
+                name="name"
+                value={authData.name}
                 onChange={handleChange}
               />
             </Grid>
@@ -82,12 +57,16 @@ const SignUp = ({ errors, setErrors, resetErrors, authData, setAuthData, setType
         </Box>
         <Box mb={2}>
           <Button size="large" fullWidth type="submit" color="secondary" variant="contained">
-            Get Started
+            Sign up
           </Button>
         </Box>
       </form>
       <Box mb={2}>
-        <Typography className={classes.hover} variant="body2" onClick={() => setType('SignIn')}>
+        <Typography
+          className={classes.hover}
+          variant="body2"
+          onClick={() => handleSetType('SignIn')}
+        >
           You already have an account?
         </Typography>
       </Box>
@@ -96,12 +75,11 @@ const SignUp = ({ errors, setErrors, resetErrors, authData, setAuthData, setType
 }
 
 SignUp.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  handleSignUp: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  setErrors: PropTypes.func.isRequired,
-  resetErrors: PropTypes.func.isRequired,
   authData: PropTypes.object.isRequired,
-  setAuthData: PropTypes.func.isRequired,
-  setType: PropTypes.func.isRequired
+  handleSetType: PropTypes.func.isRequired
 }
 
 export default SignUp

@@ -5,7 +5,7 @@ import Moment from 'react-moment'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Redux
-import { setIsAuthModalReducer } from '@slices/authSlice'
+import { authModalReducer } from '@slices/authSlice'
 
 // Services
 import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
@@ -45,7 +45,7 @@ function PostDetails({ post }) {
   async function handleLikeClick() {
     try {
       if (!isAuthenticated) {
-        dispatch(setIsAuthModalReducer(true))
+        dispatch(authModalReducer(true))
       } else {
         const updatedPost = await postToggleLikes(postData._id)
         setPostData(updatedPost.data)
@@ -58,7 +58,7 @@ function PostDetails({ post }) {
   async function handleBookmarkClick() {
     try {
       if (!isAuthenticated) {
-        dispatch(setIsAuthModalReducer(true))
+        dispatch(authModalReducer(true))
       } else {
         const updatedPost = await postToggleBookmarks(postData._id)
         setPostData(updatedPost.data)

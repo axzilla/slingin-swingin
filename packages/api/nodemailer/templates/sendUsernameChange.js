@@ -5,9 +5,9 @@ async function sendUsernameChange(transporter, user) {
       to: user.email,
       subject: '[noize.dev] Username changed!',
       html: `
-        <p>Hi ${user.username},</p>
+        <p>Hello ${user.username},</p>
         <p>you have successfully changed your username.</p>
-        <p>Thanks,<br>your noize Team.</p>
+        <p>Thanks!<br>Your Brand-Team</p>
       `
     })
 

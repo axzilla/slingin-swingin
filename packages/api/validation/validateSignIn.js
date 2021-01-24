@@ -1,10 +1,10 @@
 const Validator = require('validator')
 
-function validateLogin(data) {
+function validateSignIn(data) {
   let errors = {}
 
-  if (Validator.isEmpty(data.email)) {
-    errors.email = 'E-Mail is required'
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'No valid email'
   }
 
   if (Validator.isEmpty(data.password)) {
@@ -14,4 +14,4 @@ function validateLogin(data) {
   return { errors }
 }
 
-module.exports = validateLogin
+module.exports = validateSignIn

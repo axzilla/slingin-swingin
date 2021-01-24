@@ -1,54 +1,59 @@
-const bcrypt = require('bcryptjs')
+// Utils
 const createJwtToken = require('../../utils/createJwtToken')
-const User = require('../../models/User')
-const sendPasswordReset = require('../../nodemailer/templates/sendPasswordReset')
-const validatePasswordReset = require('../../validation/validatePasswordReset')
-const isEmpty = require('../../utils/isEmpty')
+const hashPassword = require('../../utils/hashPassword')
 
+// Validation
+const validatePasswordReset = require('../../validation/validatePasswordReset')
+
+// Models
+const User = require('../../models/User')
+
+// Nodemailer
+const sendPasswordReset = require('../../nodemailer/templates/sendPasswordReset')
 const transporter = require('../../nodemailer/transporter')
+
+// Validation
+const isEmpty = require('../../utils/isEmpty')
 
 async function passwordReset(req, res) {
   try {
+    const { password, resetPasswordToken } = req.body
     const { errors } = validatePasswordReset(req.body)
 
     if (!isEmpty(errors)) {
       return res.status(400).json(errors)
     }
 
-    const foundUser = await User.findById(req.body.id)
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordTokenExpires: { $gt: Date.now() }
+    })
 
-    if (!foundUser) {
-      res.json('No user found')
-    } else {
-      foundUser.password = req.body.password
-
-      bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(foundUser.password, salt, async (error, hash) => {
-          try {
-            if (error) throw error
-            foundUser.password = hash
-            const savedUser = await foundUser.save()
-
-            const payload = {
-              id: savedUser.id,
-              email: savedUser.email,
-              username: savedUser.username,
-              avatar: savedUser.avatar,
-              isVerified: savedUser.isVerified,
-              notifications: savedUser.notifications,
-              roles: savedUser.roles,
-              isOnline: savedUser.isOnline
-            }
-
-            sendPasswordReset(transporter, savedUser)
-            const token = await createJwtToken(payload)
-            res.json({ success: true, token })
-          } catch (error) {
-            if (error) throw error
-          }
-        })
-      })
+    if (!user) {
+      res.json('Your request to reset password has already expired. Please try again.')
     }
+
+    user.password = await hashPassword(password)
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpires = undefined
+    user.save()
+
+    const payload = {
+      id: user.id,
+      isActive: user.isActive,
+      email: user.email,
+      username: user.username,
+      name: user.name,
+      avatar: user.avatar,
+      isVerified: user.isVerified,
+      notifications: user.notifications,
+      roles: user.roles,
+      isOnline: user.isOnline
+    }
+
+    sendPasswordReset(transporter, user)
+    const token = await createJwtToken(payload)
+    res.json(token)
   } catch (error) {
     if (error) throw error
   }

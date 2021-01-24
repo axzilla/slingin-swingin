@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import jwtDecode from 'jwt-decode'
 
 import { useAlert } from '@contexts/AlertContext'
 import { passwordReset } from '@services/auth'
@@ -11,7 +10,7 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-function PasswordReset({ token }) {
+function PasswordReset({ resetPasswordToken }) {
   const { setAlert } = useAlert()
   const [errors, setErrors] = useState('')
 
@@ -30,13 +29,13 @@ function PasswordReset({ token }) {
   async function onSubmit(event) {
     try {
       event.preventDefault()
-      const decode = jwtDecode(token)
 
       const passwordData = {
-        id: decode.id,
+        resetPasswordToken,
         password: passwords.password,
         password2: passwords.password2
       }
+
       await passwordReset(passwordData)
       setAlert({ message: 'Email sent successfully' })
       Router.push('/')
@@ -78,7 +77,7 @@ function PasswordReset({ token }) {
 }
 
 PasswordReset.propTypes = {
-  token: PropTypes.string
+  resetPasswordToken: PropTypes.string
 }
 
 export default PasswordReset
