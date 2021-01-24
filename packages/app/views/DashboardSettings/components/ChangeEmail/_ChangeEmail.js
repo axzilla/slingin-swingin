@@ -47,7 +47,7 @@ function EmailChange() {
       const res = await emailChange(emailData)
       const { token } = res.data
       dispatch(signInReducer(token))
-      setAlert({ message: 'Email changed successfully' })
+      setAlert({ message: 'Email changed successfully', variant: 'success' })
     } catch (error) {
       setErrors(error.response.data)
     }

@@ -36,7 +36,7 @@ function SendMessage({ receiverUsername, receiver }) {
   const handleSubmit = async () => {
     try {
       handleClose()
-      setAlert({ message: `Message to @${receiverUsername} sent successfully` })
+      setAlert({ message: `Message to @${receiverUsername} sent successfully`, variant: 'success' })
       setEditorState(EditorState.createEmpty())
 
       messageCreate({

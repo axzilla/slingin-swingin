@@ -98,7 +98,10 @@ function AuthModal() {
       event.preventDefault()
       const { email } = authData
       await passwordForgot({ email })
-      setAlert({ message: `A link to reset your password has been sent to ${email}.` })
+      setAlert({
+        message: `A link to reset your password has been sent to ${email}.`,
+        variant: 'success'
+      })
       handleClose()
     } catch (error) {
       setErrors(error.response.data)
@@ -118,7 +121,10 @@ function AuthModal() {
 
       if (decodedUser.isActive) {
         dispatch(signInReducer(jwtToken))
-        setAlert({ message: `Welcome back, ${decodedUser.name}! Your password has been updated.` })
+        setAlert({
+          message: `Welcome back, ${decodedUser.name}! Your password has been updated.`,
+          variant: 'success'
+        })
         handleClose()
       } else {
         resetAuthData()
