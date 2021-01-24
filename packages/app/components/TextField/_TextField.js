@@ -1,15 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { makeStyles } from '@material-ui/styles'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import MuiTextField from '@material-ui/core/TextField'
-
-const useStyles = makeStyles({
-  formControl: { width: '100%' },
-  error: { lineHeight: '20px', margin: '0', textTransform: 'uppercase', fontWeight: 'bold' }
-})
 
 function TextField({
   type,
@@ -24,14 +18,10 @@ function TextField({
   rowsMax,
   rows
 }) {
-  const classes = useStyles()
-
   return (
-    <FormControl className={classes.formControl} error>
+    <FormControl fullWidth error>
       <MuiTextField
-        // color="secondary"
         type={type || 'text'}
-        // margin="dense"
         variant="outlined"
         label={label}
         error={error ? true : false}
@@ -45,7 +35,7 @@ function TextField({
         placeholder={placeholder}
         fullWidth
       />
-      {error && <FormHelperText className={classes.error}>{error}</FormHelperText>}
+      {error && <FormHelperText>{error}</FormHelperText>}
     </FormControl>
   )
 }
