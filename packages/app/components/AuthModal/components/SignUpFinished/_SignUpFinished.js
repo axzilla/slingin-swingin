@@ -20,7 +20,7 @@ const SignUpFinished = ({ authData }) => {
   async function handleSendActivationEmail() {
     try {
       const response = await sendActivationEmail({ email })
-      setAlert({ message: response.data.alertMessage })
+      setAlert({ message: response.data.alertMessage, variant: 'success' })
     } catch (error) {
       console.log(error.response.data) // eslint-disable-line
     }

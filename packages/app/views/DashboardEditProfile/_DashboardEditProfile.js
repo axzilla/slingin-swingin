@@ -66,13 +66,13 @@ function ProfileEdit() {
       event.preventDefault()
       const updatedProfile = await profileUpdate(profile)
       setProfile(updatedProfile.data)
-      setAlert({ message: 'Profile updated' })
+      setAlert({ message: 'Profile updated', variant: 'success' })
     } catch (error) {
       setErrors(error.response.data)
 
       // if something is wrong with create place
       if (error.response.data.other) {
-        setAlert({ message: error.response.data.other })
+        setAlert({ message: error.response.data.other, variant: 'error' })
       }
     }
   }

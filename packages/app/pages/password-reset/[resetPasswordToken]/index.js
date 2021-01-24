@@ -30,7 +30,10 @@ function PasswordReset({ resetPasswordToken }) {
       dispatch(authModalReducer({ isOpen: true, type: 'ResetPassword' }))
     } else {
       dispatch(authModalReducer({ isOpen: true, type: 'ForgotPassword' }))
-      setAlert({ message: `Your request to reset password has already expired. Please try again.` })
+      setAlert({
+        message: `Your request to reset password has already expired. Please try again.`,
+        variant: 'error'
+      })
     }
   }, [])
 
@@ -51,19 +54,11 @@ function PasswordReset({ resetPasswordToken }) {
   )
 }
 
-PasswordReset.getInitialProps = async ({ query, res }) => {
-  try {
-    // if token is not valid redirect to /reset-password and so on
-    const { resetPasswordToken } = query
-    const { data } = await passwordResetValidation(resetPasswordToken)
+PasswordReset.getInitialProps = async ({ query }) => {
+  const { resetPasswordToken } = query
+  const { data } = await passwordResetValidation(resetPasswordToken)
 
-    return { resetPasswordToken: data.isResetPasswordTokenValid ? resetPasswordToken : null }
-  } catch (error) {
-    if (error) {
-      res.writeHead(302, { Location: '/reset-password' })
-      res.end()
-    }
-  }
+  return { resetPasswordToken: data.isResetPasswordTokenValid ? resetPasswordToken : null }
 }
 
 PasswordReset.propTypes = {

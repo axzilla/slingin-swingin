@@ -54,7 +54,7 @@ function Settings() {
       const res = await settingsUpdate(notifications)
       const { token } = res.data
       dispatch(signInReducer(token))
-      setAlert({ message: 'Email settings changed successfully' })
+      setAlert({ message: 'Email settings changed successfully', variant: 'success' })
     } catch (error) {
       if (error) throw error
     }
