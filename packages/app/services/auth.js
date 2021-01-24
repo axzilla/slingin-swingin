@@ -2,12 +2,12 @@ import axios from 'axios'
 
 const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/auth`
 
-export function userRegister(userData) {
-  return axios.post(`${serverUrl}/register`, userData)
+export function signUp(userData) {
+  return axios.post(`${serverUrl}/sign-up`, userData)
 }
 
-export function userLogin(userData) {
-  return axios.post(`${serverUrl}/login`, userData)
+export function signIn(userData) {
+  return axios.post(`${serverUrl}/sign-in`, userData)
 }
 
 export function avatarUpload(formData, config) {
@@ -24,6 +24,10 @@ export function passwordForgot(emailData) {
 
 export function passwordReset(passwordData) {
   return axios.post(`${serverUrl}/password-reset`, passwordData)
+}
+
+export function passwordResetValidation(resetPasswordToken) {
+  return axios.get(`${serverUrl}/password-reset-validation/${resetPasswordToken}`)
 }
 
 export function usernameChange(usernameData) {

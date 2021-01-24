@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Reduxe
-import { setIsAuthModalReducer } from '@slices/authSlice'
+import { authModalReducer } from '@slices/authSlice'
 
 // Services
 import { postToggleBookmarks } from '@services/post'
@@ -26,7 +26,7 @@ function Footer({ post, setPostData }) {
         const updatedPost = await postToggleBookmarks(post._id)
         setPostData(updatedPost.data)
       } else {
-        dispatch(setIsAuthModalReducer(true))
+        dispatch(authModalReducer(true))
       }
     } catch (error) {
       if (error) throw error

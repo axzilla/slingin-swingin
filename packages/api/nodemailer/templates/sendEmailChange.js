@@ -5,9 +5,9 @@ async function sendEmailChange(transporter, user, oldEmail) {
       to: [user.email, oldEmail],
       subject: '[noize.dev] Email address changed!',
       html: `
-        <p>Hi ${user.username},</p>
+        <p>Hello ${user.username},</p>
         <p>you have successfully changed your email address.</p>
-        <p>Thanks,<br>your noize Team.</p>
+        <p>Thanks!<br>Your Brand-Team</p>
       `
     })
 

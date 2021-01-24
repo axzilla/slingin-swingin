@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { placeCreate } from '@services/place'
 
 // Reduxe
-import { setIsAuthModalReducer } from '@slices/authSlice'
+import { authModalReducer } from '@slices/authSlice'
 
 // Utils
 import PlaceUtils from '@utils/placeUtils'
@@ -77,7 +77,7 @@ function PlaceFeed({ places }) {
     if (isAuthenticated) {
       setOpen(true)
     } else {
-      dispatch(setIsAuthModalReducer(true))
+      dispatch(authModalReducer(true))
     }
   }
 
