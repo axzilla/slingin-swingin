@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Redux
-import { setIsAuthModalReducer } from '@slices/authSlice'
+import { authModalReducer } from '@slices/authSlice'
 
 // Services
 import { commentUpvote, commentDownvote } from '@services/comment'
@@ -26,7 +26,7 @@ function CommentFeedItemVote({ comment }) {
         const upvotedComment = await commentUpvote(commentData._id)
         setCommentData(upvotedComment.data)
       } else {
-        dispatch(setIsAuthModalReducer(true))
+        dispatch(authModalReducer(true))
       }
     } catch (error) {
       if (error) throw error
@@ -39,7 +39,7 @@ function CommentFeedItemVote({ comment }) {
         const downvotedComment = await commentDownvote(commentData._id)
         setCommentData(downvotedComment.data)
       } else {
-        dispatch(setIsAuthModalReducer(true))
+        dispatch(authModalReducer(true))
       }
     } catch (error) {
       if (error) throw error

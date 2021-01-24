@@ -7,10 +7,6 @@ function validatePasswordForgot(data) {
     errors.email = 'No valid email'
   }
 
-  if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email is required'
-  }
-
   return { errors }
 }
 

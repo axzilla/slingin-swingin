@@ -5,10 +5,10 @@ async function sendPasswordReset(transporter, user) {
       to: user.email,
       subject: '[noize.dev] Password reset!',
       html: `
-      <p>Hi ${user.username},</p>
+      <p>Hello ${user.username},</p>
       <p>You have successfully changed your password.</p>
-      <p>Thanks,<br>your noize Team.</p>
-    `
+      <p>Thanks!<br>Your Brand-Team</p>
+      `
     })
 
     console.log({ ...response, email: user.email }) // eslint-disable-line no-console

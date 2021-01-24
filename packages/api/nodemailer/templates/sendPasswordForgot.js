@@ -1,16 +1,15 @@
-async function sendPasswordForgot(transporter, user, token) {
+async function sendPasswordForgot(transporter, user, resetPasswordToken) {
   try {
     const response = await transporter.sendMail({
-      from: 'NOIZE <noreply@noize.dev>',
+      from: 'BRAND <noreply@noize.dev>',
       to: user.email,
-      subject: '[noize.dev] Reset password!',
+      subject: 'Reset your password',
       html: `
-        <p>Hi ${user.username},</p>
-        <p>Someone has requested a link to change your password.</p>
-        <p><a href="${process.env.CLIENT_URL}/password-reset/${token}">${process.env.CLIENT_URL}/password-reset/${token}</a></p>
-        <p>Your password will not change unless you use the link above and set a new one.</p>
-        <p>If you don't want to change your password, you can simply ignore this email.</p>
-        <p>Thanks,<br>your noize Team.</p>
+        <p>Hello ${user.name},</p>
+        <p>We’ve received a request to reset your password.</p>
+        <p>If you didn’t make the request, just ignore this message. Otherwise, you can reset your password.</p>
+        <p><a href="${process.env.CLIENT_URL}/password-reset/${resetPasswordToken}">${process.env.CLIENT_URL}/password-reset/${resetPasswordToken}</a></p>
+        <p>Thanks!<br>Your Brand-Team</p>
       `
     })
 

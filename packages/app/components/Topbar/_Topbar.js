@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Redux
-import { signOutReducer, setIsAuthModalReducer } from '@slices/authSlice'
+import { signOutReducer, authModalReducer } from '@slices/authSlice'
 import { switchThemeReducer } from '@slices/themeSlice'
 
 // Contexts
@@ -112,7 +112,7 @@ function Topbar() {
   }
 
   function handleAuthModal() {
-    dispatch(setIsAuthModalReducer(true))
+    dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
   }
 
   return (

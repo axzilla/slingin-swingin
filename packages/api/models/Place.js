@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const shortid = require('shortid')
+const shortId = require('shortid')
 
 const Schema = mongoose.Schema
 
 const PlaceSchema = new Schema({
-  shortId: { type: String, default: shortid.generate, unique: true },
+  shortId: { type: String, default: shortId.generate, unique: true },
   urlSlug: { type: String },
   mapBox: { type: Object },
   photo: { type: Object },

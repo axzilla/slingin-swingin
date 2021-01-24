@@ -37,6 +37,8 @@ async function activateAccount(req, res) {
         res.json({ alertMessage: 'The email address has already been confirmed.', jwtToken })
       } else {
         user.isActive = true
+        user.isActiveToken = undefined
+        user.isActiveExpires = undefined
         user.save()
 
         const profile = await Profile.findOne({ user: user.id })

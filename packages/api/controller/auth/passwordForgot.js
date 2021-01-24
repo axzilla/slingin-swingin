@@ -1,6 +1,11 @@
-const createJwtToken = require('../../utils/createJwtToken')
+// Packages
 const isEmpty = require('../../utils/isEmpty')
+const crypto = require('crypto')
+
+// Models
 const User = require('../../models/User')
+
+// Nodemailer
 const sendPasswordForgot = require('../../nodemailer/templates/sendPasswordForgot')
 const validatePasswordForgot = require('../../validation/validatePasswordForgot')
 
@@ -15,26 +20,20 @@ async function passwordForgot(req, res) {
       return res.status(400).json(errors)
     }
 
-    const foundUser = await User.findOne({ email })
+    const user = await User.findOne({ email })
 
-    if (!foundUser) {
+    if (!user) {
       errors.email = 'E-Mail not found'
       return res.status(404).json(errors)
     }
 
-    const payload = {
-      id: foundUser.id,
-      email: foundUser.email,
-      username: foundUser.username,
-      avatar: foundUser.avatar,
-      isVerified: foundUser.isVerified,
-      notifications: foundUser.notifications,
-      roles: foundUser.roles,
-      isOnline: foundUser.isOnline
-    }
+    const resetPasswordToken = crypto.randomBytes(16).toString('hex')
 
-    const token = await createJwtToken(payload)
-    sendPasswordForgot(transporter, foundUser, token)
+    user.resetPasswordToken = resetPasswordToken
+    user.resetPasswordTokenExpires = Date.now() + 24 * 3600 * 1000
+    await user.save()
+
+    sendPasswordForgot(transporter, user, resetPasswordToken)
     res.json({ alert: 'Email successfully sent' })
   } catch (error) {
     if (error) throw error

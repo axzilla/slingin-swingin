@@ -1,14 +1,21 @@
+// Packages
 const bcrypt = require('bcryptjs')
+
+// Utils
 const createJwtToken = require('../../utils/createJwtToken')
 const isEmpty = require('../../utils/isEmpty')
-const validateLogin = require('../../validation/validateLogin')
+
+// Validation
+const validateSignIn = require('../../validation/validateSignIn')
+
+// Models
 const User = require('../../models/User')
 
-async function login(req, res) {
+async function signIn(req, res) {
   try {
     const { email, password } = req.body
 
-    const { errors } = validateLogin(req.body)
+    const { errors } = validateSignIn(req.body)
 
     if (!isEmpty(errors)) {
       return res.status(400).json(errors)
@@ -17,12 +24,7 @@ async function login(req, res) {
     const foundUser = await User.findOne({ email: email.toLowerCase() })
 
     if (!foundUser) {
-      errors.login = 'User not found'
-      return res.status(400).json(errors)
-    }
-
-    if (!foundUser.isActive) {
-      errors.login = '!isActive'
+      errors.email = 'E-Mail not found'
       return res.status(400).json(errors)
     }
 
@@ -52,4 +54,4 @@ async function login(req, res) {
   }
 }
 
-module.exports = login
+module.exports = signIn
