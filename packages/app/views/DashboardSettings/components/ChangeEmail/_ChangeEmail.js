@@ -55,7 +55,7 @@ function EmailChange() {
 
   return (
     <Card variant="outlined">
-      <CardHeader subheader="Change your email adress" />
+      <CardHeader subheader="Change your email address" />
       <form noValidate onSubmit={onSubmit}>
         <CardContent>
           <TextField

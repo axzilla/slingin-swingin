@@ -24,7 +24,7 @@ async function emailChange(req, res) {
     }
 
     if (foundUserByEmail) {
-      errors.email = 'This email adress is already in use'
+      errors.email = 'This email address is already in use'
       return res.status(400).json(errors)
     }
 
