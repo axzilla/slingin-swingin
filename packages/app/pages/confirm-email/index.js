@@ -13,7 +13,7 @@ import { activateAccount } from '@services/auth'
 // Global Components
 import { SeoMeta } from '@components'
 
-function ConfirmEmail({ alertMessage, jwtToken }) {
+function ConfirmEmail({ message, variant, jwtToken }) {
   return (
     <>
       <SeoMeta
@@ -25,7 +25,7 @@ function ConfirmEmail({ alertMessage, jwtToken }) {
         ogImage={null}
       />
       <MainLayout>
-        <LandingView alertMessage={alertMessage} jwtToken={jwtToken} />
+        <LandingView message={message} variant={variant} jwtToken={jwtToken} />
       </MainLayout>
     </>
   )
@@ -34,13 +34,14 @@ function ConfirmEmail({ alertMessage, jwtToken }) {
 ConfirmEmail.getInitialProps = async ({ query }) => {
   const { token } = query
   const { data } = await activateAccount({ token })
-  const { alertMessage, jwtToken } = data
+  const { message, variant, jwtToken } = data
 
-  return { alertMessage, jwtToken }
+  return { message, variant, jwtToken }
 }
 
 ConfirmEmail.propTypes = {
-  alertMessage: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  variant: PropTypes.string.isRequired,
   jwtToken: PropTypes.string.isRequired
 }
 

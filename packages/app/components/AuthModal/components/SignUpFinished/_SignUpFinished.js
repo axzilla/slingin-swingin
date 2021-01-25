@@ -20,7 +20,8 @@ const SignUpFinished = ({ authData }) => {
   async function handleSendActivationEmail() {
     try {
       const response = await sendActivationEmail({ email })
-      setAlert({ message: response.data.alertMessage, variant: 'success' })
+      const { message, variant } = response.data
+      setAlert({ message, variant })
     } catch (error) {
       console.log(error.response.data) // eslint-disable-line
     }
@@ -36,9 +37,6 @@ const SignUpFinished = ({ authData }) => {
           </Box>
           .
         </Typography>
-        <Typography>
-          If you cannot find the email, you can request a new confirmation email.
-        </Typography>
       </Box>
       <Box mb={2}>
         <Button
@@ -49,7 +47,7 @@ const SignUpFinished = ({ authData }) => {
           color="secondary"
           variant="contained"
         >
-          Request E-Mail
+          Resend E-Mail
         </Button>
       </Box>
     </>

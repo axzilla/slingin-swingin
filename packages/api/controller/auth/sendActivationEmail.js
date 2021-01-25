@@ -21,7 +21,7 @@ async function sendActivationEmail(req, res) {
     await user.save()
 
     sendConfirmation(transporter, user, isActiveToken)
-    res.json({ alertMessage: 'Email sent successfully' })
+    res.json({ message: ` A confirmation email has been sent to ${email}.`, variant: 'success' })
   } catch (error) {
     if (error) throw error
   }

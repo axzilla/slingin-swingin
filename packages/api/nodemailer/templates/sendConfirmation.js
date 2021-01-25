@@ -6,7 +6,7 @@ async function sendConfirmation(transporter, signedUpUser, isActiveToken) {
       subject: 'Please confirm your email address',
       html: `
         <p>Hello ${signedUpUser.name},</p>
-        <p>welcome to brand! Nice that you're here. To get started, you'll first need to confirm your email address. Please click on the following link to complete your registration:</p>
+        <p>welcome to brand! In order to get started, you need to confirm your email address.</p>
         <p><a href="${process.env.CLIENT_URL}/confirm-email?token=${isActiveToken}">${process.env.CLIENT_URL}/confirm-email?token=${isActiveToken}</a></p>
         <p>Thanks!<br>Your Brand-Team</p>
       `
