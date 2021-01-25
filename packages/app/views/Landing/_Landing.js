@@ -18,7 +18,7 @@ import PostFeedItem from '@components/PostFeedItem'
 // MUI
 import Grid from '@material-ui/core/Grid'
 
-function Landing({ alertMessage, jwtToken }) {
+function Landing({ message, variant, jwtToken }) {
   const dispatch = useDispatch()
   const { setAlert } = useAlert()
   const [posts, setPosts] = useState()
@@ -26,8 +26,8 @@ function Landing({ alertMessage, jwtToken }) {
   useEffect(() => {
     getInitalData()
 
-    if (alertMessage) {
-      setAlert({ message: alertMessage, variant: 'success' })
+    if (message && variant) {
+      setAlert({ message, variant })
       jwtToken && dispatch(signInReducer(jwtToken))
     }
   }, [])
@@ -54,7 +54,8 @@ function Landing({ alertMessage, jwtToken }) {
 }
 
 Landing.propTypes = {
-  alertMessage: PropTypes.string,
+  message: PropTypes.string,
+  variant: PropTypes.string,
   jwtToken: PropTypes.string
 }
 

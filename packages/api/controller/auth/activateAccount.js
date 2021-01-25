@@ -34,11 +34,9 @@ async function activateAccount(req, res) {
       const jwtToken = await createJwtToken(payload)
 
       if (user.isActive) {
-        res.json({ alertMessage: 'The email address has already been confirmed.', jwtToken })
+        res.json({ message: 'Email address already confirmed.', variant: 'success', jwtToken })
       } else {
         user.isActive = true
-        user.isActiveToken = undefined
-        user.isActiveExpires = undefined
         user.save()
 
         const profile = await Profile.findOne({ user: user.id })
@@ -50,10 +48,17 @@ async function activateAccount(req, res) {
 
         sendWelcome(transporter, user)
 
-        res.json({ alertMessage: 'Thank you for confirming your email address!', jwtToken })
+        res.json({
+          message: 'Thank you for confirming your email address!',
+          variant: 'success',
+          jwtToken
+        })
       }
     } else {
-      res.json({ alertMessage: 'Your confirmation link is invalid, please request a new one.' })
+      res.json({
+        message: 'Your confirmation link is invalid, please request a new one.',
+        variant: 'error'
+      })
     }
   } catch (error) {
     if (error) throw error

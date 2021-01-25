@@ -34,8 +34,6 @@ async function passwordReset(req, res) {
     }
 
     user.password = await hashPassword(password)
-    user.resetPasswordToken = undefined
-    user.resetPasswordExpires = undefined
     user.save()
 
     const payload = {
