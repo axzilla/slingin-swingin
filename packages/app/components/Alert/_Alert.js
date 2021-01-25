@@ -25,6 +25,7 @@ const variantIcon = {
 }
 
 const useStyles = makeStyles(theme => ({
+  message: { width: '100%' },
   success: {
     backgroundColor: theme.palette.success.main
   },
@@ -46,15 +47,14 @@ function MySnackbarContentWrapper(props) {
 
   return (
     <SnackbarContent
+      classes={{ message: classes.message }}
       className={clsx(classes[variant], className)}
       message={
         <Grid container spacing={2} justify="space-between" alignItems="center" wrap="nowrap">
           <Grid item>
             <Icon />
           </Grid>
-          <Grid item xs>
-            {message}
-          </Grid>
+          <Grid item>{message}</Grid>
           <Grid item>
             <IconButton
               size="small"
