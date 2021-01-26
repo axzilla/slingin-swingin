@@ -24,7 +24,7 @@ async function signIn(req, res) {
     const foundUser = await User.findOne({ email: email.toLowerCase() })
 
     if (!foundUser) {
-      errors.email = 'E-Mail not found'
+      errors.email = 'Email not found'
       return res.status(400).json(errors)
     }
 

@@ -34,14 +34,6 @@ function ProfileDetailsInfos({ profile }) {
           </Typography>
         </Grid>
       )}
-      {isEmpty(profile.status) ? null : (
-        <Grid container alignItems="center">
-          {/* <WorkIcon color="action" className={classes.infoIcons} /> */}
-          <Typography variant="body1">
-            {'>'} {profile.status}
-          </Typography>
-        </Grid>
-      )}
       {isEmpty(profile.locationFrom) ? null : (
         <Grid container alignItems="center">
           {/* <LocationCityIcon color="action" className={classes.infoIcons} /> */}

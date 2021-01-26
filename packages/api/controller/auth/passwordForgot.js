@@ -23,7 +23,7 @@ async function passwordForgot(req, res) {
     const user = await User.findOne({ email })
 
     if (!user) {
-      errors.email = 'E-Mail not found'
+      errors.email = 'Email not found'
       return res.status(404).json(errors)
     }
 

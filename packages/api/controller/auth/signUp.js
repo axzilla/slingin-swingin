@@ -12,6 +12,7 @@ const validateSignUp = require('../../validation/validateSignUp')
 
 // Models
 const User = require('../../models/User')
+const Profile = require('../../models/Profile')
 
 // Nodemailer
 const sendConfirmation = require('../../nodemailer/templates/sendConfirmation')
@@ -29,7 +30,7 @@ async function signUp(req, res) {
     const foundEmail = await User.findOne({ email: req.body.email })
 
     if (foundEmail) {
-      errors.email = 'E-mail address is already in use'
+      errors.email = 'Email address is already in use'
       return res.status(400).json(errors)
     }
 
@@ -40,8 +41,7 @@ async function signUp(req, res) {
 
     const isActiveToken = crypto.randomBytes(16).toString('hex')
 
-    const signedUpUser = await User.create({
-      name,
+    const createdUser = await User.create({
       email,
       username: slugify(name) + Math.floor(Math.random() * (9999 - 1000) + 1000),
       password: await hashPassword(password),
@@ -49,9 +49,18 @@ async function signUp(req, res) {
       isActiveTokenExpires: Date.now() + 24 * 3600 * 1000
     })
 
-    sendConfirmation(transporter, signedUpUser, isActiveToken)
+    const createdProfile = await Profile.create({
+      user: createdUser.id,
+      handle: createdUser.username,
+      name
+    })
 
-    res.json(signedUpUser)
+    createdUser.profile = await createdProfile._id
+    createdUser.save()
+
+    sendConfirmation(transporter, createdUser, isActiveToken)
+
+    res.json(createdUser)
   } catch (error) {
     if (error) throw error
   }
