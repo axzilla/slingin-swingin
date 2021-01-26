@@ -28,8 +28,6 @@ import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 import MailIcon from '@material-ui/icons/Mail'
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
 import PublicIcon from '@material-ui/icons/Public'
@@ -117,7 +115,7 @@ function Topbar() {
 
   return (
     <>
-      <AppBar position="static" color="inherit" className={classes.appBar}>
+      <AppBar position="sticky" color="inherit" className={classes.appBar}>
         <Container maxWidth="lg">
           <Toolbar style={{ padding: 0 }}>
             <div className={classes.menuContainer}>
@@ -163,56 +161,36 @@ function Topbar() {
                       </Link>
                     </Box>
                     <Box>
-                      <IconButton aria-haspopup="true" onClick={handleClick}>
-                        <AccountCircle />
-                      </IconButton>
+                      <Button aria-haspopup="true" onClick={handleClick}>
+                        <Avatar user={user} height={35} width={35} />
+                      </Button>
                       <Menu
+                        PaperProps={{ style: { width: '25ch' } }}
                         anchorEl={anchorEl}
-                        elevation={0}
                         getContentAnchorEl={null}
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'right'
-                        }}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         keepMounted
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right'
-                        }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                       >
                         {/* Hack starts - because of strange console error in client */}
                         <div />
                         {/* Hack ends */}
-                        <Link href="/[handle]" as={`/${user.username}`}>
-                          <MenuItem>
-                            <Grid container alignItems="center" spacing={2}>
-                              <Grid item>
-                                <Avatar user={user} />
-                              </Grid>
-                              <Grid item>
-                                <Typography variant="overline">@{user.username}</Typography>
-                              </Grid>
-                            </Grid>
-                          </MenuItem>
+
+                        <Link href={`/${user.username}`}>
+                          <MenuItem>View profile</MenuItem>
                         </Link>
-                        <Box my={1}>
-                          <Divider />
-                        </Box>
+                        <Link href="/account-settings">
+                          <MenuItem>Account</MenuItem>
+                        </Link>
                         <Link href="/post-create">
                           <MenuItem>Create Post</MenuItem>
                         </Link>
-                        <Link href="/dashboard/profile-edit">
-                          <MenuItem>Dashboard </MenuItem>
-                        </Link>
-                        <Link href="/dashboard/settings">
-                          <MenuItem>Settings </MenuItem>
-                        </Link>
                         <Box my={1}>
                           <Divider />
                         </Box>
-                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                        <MenuItem onClick={handleLogout}>Sign out</MenuItem>
                       </Menu>
                     </Box>
                   </>

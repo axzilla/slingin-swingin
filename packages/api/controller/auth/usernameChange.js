@@ -3,10 +3,7 @@ const isEmpty = require('../../utils/isEmpty')
 const slugify = require('../../utils/slugify')
 const User = require('../../models/User')
 const Profile = require('../../models/Profile')
-const sendUsernameChange = require('../../nodemailer/templates/sendUsernameChange')
 const validateUsernameChange = require('../../validation/validateUsernameChange')
-
-const transporter = require('../../nodemailer/transporter')
 
 async function usernameChange(req, res) {
   try {
@@ -43,9 +40,8 @@ async function usernameChange(req, res) {
       isOnline: savedUser.isOnline
     }
 
-    sendUsernameChange(transporter, savedUser)
     const token = await createJwtToken(payload)
-    res.json({ alert: 'Username changed successfully', success: true, token })
+    res.json({ message: 'Username changed successfully.', variant: 'success', token })
   } catch (error) {
     if (error) throw error
   }

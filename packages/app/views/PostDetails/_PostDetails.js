@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authModalReducer } from '@slices/authSlice'
 
 // Services
-import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
+// import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
+import { postDelete, postToggleLikes } from '@services/post'
 
 // Global Components
 import UserAvatar from '@components/UserAvatar'
@@ -30,7 +31,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import CardHeader from '@material-ui/core/CardHeader'
 import Box from '@material-ui/core/Box'
-import BookmarkIcon from '@material-ui/icons/Bookmark'
+// import BookmarkIcon from '@material-ui/icons/Bookmark'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
 function PostDetails({ post }) {
@@ -39,7 +40,7 @@ function PostDetails({ post }) {
   const [comments, setComments] = useState(post.postComments)
   const { user, isAuthenticated } = useSelector(state => state.auth)
 
-  const isBookmarked = postData.bookmarks.includes(user.id)
+  // const isBookmarked = postData.bookmarks.includes(user.id)
   const isLiked = postData.likes.includes(user.id)
 
   async function handleLikeClick() {
@@ -55,18 +56,18 @@ function PostDetails({ post }) {
     }
   }
 
-  async function handleBookmarkClick() {
-    try {
-      if (!isAuthenticated) {
-        dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
-      } else {
-        const updatedPost = await postToggleBookmarks(postData._id)
-        setPostData(updatedPost.data)
-      }
-    } catch (error) {
-      if (error) throw error
-    }
-  }
+  // async function handleBookmarkClick() {
+  //   try {
+  //     if (!isAuthenticated) {
+  //       dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
+  //     } else {
+  //       const updatedPost = await postToggleBookmarks(postData._id)
+  //       setPostData(updatedPost.data)
+  //     }
+  //   } catch (error) {
+  //     if (error) throw error
+  //   }
+  // }
 
   return (
     <Grid container justify="center" spacing={2}>
@@ -112,12 +113,12 @@ function PostDetails({ post }) {
                       color={isLiked ? 'secondary' : 'disabled'}
                     />
                   </Grid>
-                  <Grid item>
+                  {/* <Grid item>
                     <BookmarkIcon
                       color={isBookmarked ? 'textPrimary' : 'disabled'}
                       onClick={handleBookmarkClick}
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>

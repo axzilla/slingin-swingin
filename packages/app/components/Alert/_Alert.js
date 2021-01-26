@@ -108,6 +108,7 @@ function CustomizedSnackbars() {
     <Snackbar
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       open={open}
+      autoHideDuration={10000}
       onClose={handleClose}
     >
       <MySnackbarContentWrapper
