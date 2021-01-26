@@ -1,6 +1,6 @@
 // Models
 const User = require('../../models/User')
-const Profile = require('../../models/Profile')
+// const Profile = require('../../models/Profile')
 
 // Nodemailer
 const sendWelcome = require('../../nodemailer/templates/sendWelcome')
@@ -39,12 +39,12 @@ async function activateAccount(req, res) {
         user.isActive = true
         user.save()
 
-        const profile = await Profile.findOne({ user: user.id })
+        // const profile = await Profile.findOne({ user: user.id })
 
-        if (!profile) {
-          const createdProfile = await Profile.create({ user: user.id, handle: user.username })
-          await User.findByIdAndUpdate(user.id, { profile: createdProfile._id })
-        }
+        // if (!profile) {
+        //   const createdProfile = await Profile.create({ user: user.id, handle: user.username })
+        //   await User.findByIdAndUpdate(user.id, { profile: createdProfile._id })
+        // }
 
         sendWelcome(transporter, user)
 

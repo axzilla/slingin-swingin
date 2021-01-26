@@ -1,11 +1,8 @@
 const createJwtToken = require('../../utils/createJwtToken')
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs')
-const sendPasswordChange = require('../../nodemailer/templates/sendPasswordChange')
 const validatePasswordChange = require('../../validation/validatePasswordChange')
 const isEmpty = require('../../utils/isEmpty')
-
-const transporter = require('../../nodemailer/transporter')
 
 async function passwordChange(req, res) {
   try {
@@ -47,9 +44,8 @@ async function passwordChange(req, res) {
                 isOnline: savedUser.isOnline
               }
 
-              sendPasswordChange(transporter, savedUser)
               const token = await createJwtToken(payload)
-              res.json({ alert: 'Password successfully changed', success: true, token })
+              res.json({ message: 'Password changed successfully.', variant: 'success', token })
             } catch (error) {
               if (error) throw error
             }

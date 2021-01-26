@@ -16,11 +16,13 @@ function TextField({
   multiline,
   label,
   rowsMax,
-  rows
+  rows,
+  ...rest
 }) {
   return (
     <FormControl fullWidth error>
       <MuiTextField
+        {...rest}
         type={type || 'text'}
         variant="outlined"
         label={label}

@@ -4,6 +4,10 @@ const isEmpty = require('../utils/isEmpty')
 function validateProfile(data) {
   let errors = {}
 
+  if (isEmpty(data.name)) {
+    errors.name = 'Name is required'
+  }
+
   if (!isEmpty(data.website)) {
     if (!Validator.isURL(data.website)) {
       errors.website = 'No valid URL'

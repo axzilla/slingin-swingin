@@ -2,16 +2,16 @@ const Profile = require('../../models/Profile')
 
 async function getProfileByHandle(req, res) {
   try {
-    const foundProfile = await Profile.findOne({ handle: req.params.handle })
+    const profile = await Profile.findOne({ handle: req.params.handle })
       .populate('user', '-password')
       .populate('locationCurrent')
       .populate('locationFrom')
 
-    if (!foundProfile) {
+    if (!profile) {
       return res.status(404).json('404')
     }
 
-    res.json(foundProfile)
+    res.json(profile)
   } catch (error) {
     if (error) throw error
   }

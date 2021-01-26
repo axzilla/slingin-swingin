@@ -1,5 +1,5 @@
 export default {
   root: {
-    boxShadow: 'none'
+    // boxShadow: 'none'
   }
 }
