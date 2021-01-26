@@ -4,11 +4,10 @@ const Schema = mongoose.Schema
 const ProfileSchema = new Schema({
   handle: { type: String, required: true, max: 40, unique: true },
   user: { type: Schema.Types.ObjectId, ref: 'user' },
-  name: { type: String },
+  name: { type: String, required: true },
   avatar: { type: String },
   locationFrom: { type: Schema.Types.ObjectId, ref: 'place' },
   locationCurrent: { type: Schema.Types.ObjectId, ref: 'place' },
-  status: { type: String },
   bio: { type: String },
   website: { type: String },
   youtube: { type: String },

@@ -1,4 +1,5 @@
 import MuiAppBar from './MuiAppBar'
+import MuiMenu from './MuiMenu'
 import MuiDialog from './MuiDialog'
 import MuiCard from './MuiCard'
 import MuiButton from './MuiButton'
@@ -8,6 +9,7 @@ import MuiInputLabel from './MuiInputLabel'
 
 export default function overrides(globalTheme) {
   return {
+    MuiMenu,
     MuiAppBar,
     MuiDialog,
     MuiCard,

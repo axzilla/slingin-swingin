@@ -6,7 +6,9 @@ async function getAllProfiles(req, res) {
       .populate('user', '-password')
       .sort({ dateCreated: -1 })
 
-    res.json(foundProfiles)
+    const activeProfiles = await foundProfiles.filter(profile => profile.user.isActive)
+
+    res.json(activeProfiles)
   } catch (error) {
     if (error) throw error
   }

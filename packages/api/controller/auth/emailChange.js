@@ -1,11 +1,8 @@
 const createJwtToken = require('../../utils/createJwtToken')
 const User = require('../../models/User')
 const domains = require('disposable-email-domains')
-const sendEmailChange = require('../../nodemailer/templates/sendEmailChange')
 const validateEmailChange = require('../../validation/validateEmailChange')
 const isEmpty = require('../../utils/isEmpty')
-
-const transporter = require('../../nodemailer/transporter')
 
 async function emailChange(req, res) {
   try {
@@ -29,7 +26,6 @@ async function emailChange(req, res) {
     }
 
     const newEmail = req.body.email
-    const oldEmail = foundUserById.email
     foundUserById.email = newEmail
 
     const savedUser = await foundUserById.save()
@@ -45,9 +41,8 @@ async function emailChange(req, res) {
       isOnline: savedUser.isOnline
     }
 
-    sendEmailChange(transporter, savedUser, oldEmail)
     const token = await createJwtToken(payload)
-    res.json({ alert: 'Email changed successfully', success: true, token })
+    res.json({ message: 'Email changed successfully.', variant: 'success', token })
   } catch (error) {
     if (error) throw error
   }
