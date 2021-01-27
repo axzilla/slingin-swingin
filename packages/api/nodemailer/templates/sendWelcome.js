@@ -1,13 +1,13 @@
 async function sendConfirmation(transporter, user) {
   try {
     const response = await transporter.sendMail({
-      from: 'BRAND <noreply@brand.dev>',
+      from: 'digitalnomads.dev <noreply@digitalnomads.dev>',
       to: user.email,
-      subject: 'Welcome to Brand',
+      subject: 'Welcome to digitalnomads.dev',
       html: `
         <p>Hello ${user.name},</p>
         <p>you are now part of a community that brings travelers all over the world in contact with other travelers. Discover new places, make new friends or share your questions or articles.</p>
-        <p>Thanks!<br>Your Brand-Team</p>
+        <p>Thanks!<br>Your digitalnomads.dev-Team</p>
       `
     })
 

@@ -11,7 +11,7 @@ function Footer() {
     <Box width="100%" m={2}>
       <Grid container alignItems="center" justify="center">
         <Typography variant="subtitle1">
-          &copy; noize.dev {new Date().getFullYear()} - made with&nbsp;
+          &copy; digitalnomads.dev {new Date().getFullYear()} - made with&nbsp;
         </Typography>
         <FavoriteIcon color="secondary" />
       </Grid>

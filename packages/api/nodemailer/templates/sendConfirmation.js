@@ -1,14 +1,14 @@
 async function sendConfirmation(transporter, signedUpUser, isActiveToken) {
   try {
     const response = await transporter.sendMail({
-      from: 'BRAND <noreply@brand.dev>',
+      from: 'digitalnomads.dev <noreply@digitalnomads.dev>',
       to: signedUpUser.email,
       subject: 'Please confirm your email address',
       html: `
         <p>Hello ${signedUpUser.name},</p>
-        <p>welcome to brand! In order to get started, you need to confirm your email address.</p>
+        <p>welcome to digitalnomads.dev! In order to get started, you need to confirm your email address.</p>
         <p><a href="${process.env.CLIENT_URL}/confirm-email?token=${isActiveToken}">${process.env.CLIENT_URL}/confirm-email?token=${isActiveToken}</a></p>
-        <p>Thanks!<br>Your Brand-Team</p>
+        <p>Thanks!<br>Your digitalnomads.dev-Team</p>
       `
     })
 

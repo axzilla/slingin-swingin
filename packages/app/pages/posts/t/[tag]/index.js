@@ -8,9 +8,9 @@ function PostsByTag({ tag }) {
   return (
     <>
       <SeoMeta
-        title={`${tag} - noize.dev`}
-        desc={`noize.dev - This is the ${tag} channel`}
-        canonical={`https://www.noize.dev/posts/t/${tag}`}
+        title={`${tag} - digitalnomads.dev`}
+        desc={`digitalnomads.dev - This is the ${tag} channel`}
+        canonical={`https://www.digitalnomads.dev/posts/t/${tag}`}
         ogImage={null}
       />
       <MainLayout>
