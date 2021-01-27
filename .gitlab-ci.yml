@@ -8,7 +8,7 @@ before_script:
 stages:
   - api_staging
   - app_staging
-  # - api_production
+  - api_production
 
 api_staging:
   type: deploy
@@ -31,12 +31,13 @@ app_staging:
   only:
     - branches
   when: manual
-# api_production:
-#   type: deploy
-#   stage: api_production
-#   image: ruby:latest
-#   script:
-#     - cd ./packages/api
-#     - dpl --provider=heroku --app=$HEROKU_API_PRODUCTION --api-key=$HEROKU_API_KEY
-#   only:
-#     - master
+
+api_production:
+  type: deploy
+  stage: api_production
+  image: ruby:latest
+  script:
+    - cd ./packages/api
+    - dpl --provider=heroku --app=digitalnomads-api --api-key=$HEROKU_API_KEY
+  only:
+    - master
