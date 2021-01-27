@@ -1,16 +1,14 @@
 Sitemap: http://www.digitalnomads.dev/api/sitemap
 
 User-agent: *
-Disallow: /confirm-email/
-Disallow: /confirm-email
-Disallow: /dashboard/
-Disallow: /dashboard
+Disallow: /account-settings/
+Disallow: /account-settings
 Disallow: /chats/
 Disallow: /chats
+Disallow: /confirm-email/
+Disallow: /confirm-email
 Disallow: /not-found/
 Disallow: /not-found
-Disallow: /password-forgot/
-Disallow: /password-forgot
 Disallow: /password-reset/
 Disallow: /password-reset
 Disallow: /post-create/
