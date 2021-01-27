@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function ProfileDetailsSocials({ profile }) {
+function ProfileDetailsSocials({ user }) {
   const classes = useStyles()
 
   const checkForHttp = string => {
@@ -38,50 +38,50 @@ function ProfileDetailsSocials({ profile }) {
 
   return (
     <Grid container>
-      {isEmpty(profile.website) ? null : (
-        <Link style={{ color: grey[900] }} variant="MuiLink" href={checkForHttp(profile.website)}>
+      {isEmpty(user.website) ? null : (
+        <Link style={{ color: grey[900] }} variant="MuiLink" href={checkForHttp(user.website)}>
           <IconButton>
             <LanguageIcon className={classes.socialIcons} />
           </IconButton>
         </Link>
       )}
-      {isEmpty(profile.twitter) ? null : (
-        <Link variant="MuiLink" href={checkForHttp(profile.twitter)}>
+      {isEmpty(user.twitter) ? null : (
+        <Link variant="MuiLink" href={checkForHttp(user.twitter)}>
           <IconButton>
             <TwitterIcon className={classes.socialIcons} />
           </IconButton>
         </Link>
       )}
-      {isEmpty(profile.facebook) ? null : (
-        <Link variant="MuiLink" href={checkForHttp(profile.facebook)}>
+      {isEmpty(user.facebook) ? null : (
+        <Link variant="MuiLink" href={checkForHttp(user.facebook)}>
           <IconButton>
             <FacebookIcon className={classes.socialIcons} />
           </IconButton>
         </Link>
       )}
-      {isEmpty(profile.linkedin) ? null : (
-        <Link variant="MuiLink" href={checkForHttp(profile.linkedin)}>
+      {isEmpty(user.linkedin) ? null : (
+        <Link variant="MuiLink" href={checkForHttp(user.linkedin)}>
           <IconButton>
             <LinkedInIcon className={classes.socialIcons} />
           </IconButton>
         </Link>
       )}
-      {isEmpty(profile.youtube) ? null : (
-        <Link variant="MuiLink" href={checkForHttp(profile.youtube)}>
+      {isEmpty(user.youtube) ? null : (
+        <Link variant="MuiLink" href={checkForHttp(user.youtube)}>
           <IconButton>
             <YouTubeIcon className={classes.socialIcons} />
           </IconButton>
         </Link>
       )}
-      {isEmpty(profile.instagram) ? null : (
-        <Link variant="MuiLink" href={checkForHttp(profile.instagram)}>
+      {isEmpty(user.instagram) ? null : (
+        <Link variant="MuiLink" href={checkForHttp(user.instagram)}>
           <IconButton>
             <InstagramIcon className={classes.socialIcons} />
           </IconButton>
         </Link>
       )}
-      {isEmpty(profile.soundcloud) ? null : (
-        <Link variant="MuiLink" href={checkForHttp(profile.soundcloud)}>
+      {isEmpty(user.soundcloud) ? null : (
+        <Link variant="MuiLink" href={checkForHttp(user.soundcloud)}>
           <IconButton>
             <CloudIcon className={classes.socialIcons} />
           </IconButton>
@@ -92,7 +92,7 @@ function ProfileDetailsSocials({ profile }) {
 }
 
 ProfileDetailsSocials.propTypes = {
-  profile: PropTypes.object
+  user: PropTypes.object
 }
 
 export default ProfileDetailsSocials

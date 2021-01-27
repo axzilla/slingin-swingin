@@ -14,7 +14,7 @@ export const authSlice = createSlice({
     token: cookies.get('jwtToken') || null,
     isAuthenticated: false,
     authModal: { isOpen: false, type: '' },
-    user: {}
+    currentUser: {}
   },
   reducers: {
     signInReducer: (state, action) => {
@@ -25,14 +25,14 @@ export const authSlice = createSlice({
 
       state.token = jwtToken
       state.isAuthenticated = true
-      state.user = decodedUser
+      state.currentUser = decodedUser
     },
     signOutReducer: state => {
       cookies.remove('jwtToken', { path: '/', domain: process.env.COOKIES_DOMAIN })
 
       state.token = null
       state.isAuthenticated = false
-      state.user = {}
+      state.currentUser = {}
     },
     authModalReducer: (state, action) => {
       const { isOpen, type } = action.payload

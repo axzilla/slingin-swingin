@@ -31,7 +31,7 @@ function CommentFeedItem({ comment, comments, setComments }) {
   const [commentData, setCommentData] = useState(comment)
   const [isEditMode, setIsEditMode] = useState(false)
   const [avatarOpen, setAvatarOpen] = useState(false)
-  const { isAuthenticated, user } = useSelector(state => state.auth)
+  const { isAuthenticated, currentUser } = useSelector(state => state.auth)
 
   const handleAvatarOpen = () => {
     setAvatarOpen(true)
@@ -85,7 +85,7 @@ function CommentFeedItem({ comment, comments, setComments }) {
         <Box m={2}>
           <Vote comment={commentData} />
         </Box>
-        {isAuthenticated && user.id === comment.user._id && (
+        {isAuthenticated && currentUser.id === comment.user._id && (
           <>
             <Divider />
             <CardActions disableSpacing>

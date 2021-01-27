@@ -1,8 +1,11 @@
 // Packages
 import PropTypes from 'prop-types'
 
+// Utils
+import objToQuery from '@utils/objToQuery'
+
 // Services
-import { getAllProfiles } from '@services/profile'
+import { getAllUsers } from '@services/user'
 
 // Layouts
 import { Main as MainLayout } from '@layouts'
@@ -10,18 +13,18 @@ import { Main as MainLayout } from '@layouts'
 // Views
 import { AllMembers as AllMembersView } from '@views'
 
-function AllMembers({ profiles }) {
+function AllMembers({ users }) {
   return (
     <MainLayout>
-      <AllMembersView profiles={profiles} />
+      <AllMembersView users={users} />
     </MainLayout>
   )
 }
 
-AllMembers.getInitialProps = async ctx => {
+AllMembers.getInitialProps = async ({ ctx, query }) => {
   try {
-    const { data } = await getAllProfiles()
-    return { profiles: data }
+    const { data } = await getAllUsers(objToQuery(query))
+    return { users: data }
   } catch (error) {
     if (error) {
       ctx.res.writeHead(302, { Location: '/not-found' })
@@ -31,7 +34,7 @@ AllMembers.getInitialProps = async ctx => {
 }
 
 AllMembers.propTypes = {
-  profiles: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired
 }
 
 export default AllMembers

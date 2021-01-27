@@ -13,22 +13,22 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 const useStyles = makeStyles(theme => ({
   toolbar: { marginBottom: theme.spacing(1) },
   wrapper: {
-    padding: '10.5px 14px',
-    borderRadius: '4px',
+    padding: '18.5px 14px',
+    borderRadius: '10px',
     border: ({ isDarkTheme }) =>
       isDarkTheme
         ? `1px solid ${fade(theme.palette.text.primary, 0.23)}`
-        : `1px solid ${fade(theme.palette.text.secondary, 0.23)}`,
+        : `1px solid ${fade(theme.palette.text.primary, 0.23)}`,
 
     '&:hover': {
       border: ({ isDarkTheme }) =>
         isDarkTheme
           ? `1px solid ${fade(theme.palette.text.primary, 0.87)}`
-          : `1px solid ${fade(theme.palette.text.secondary, 0.87)}`
+          : `1px solid ${fade(theme.palette.text.primary, 0.87)}`
     },
 
     '&:focus-within': {
-      border: `2px solid ${theme.palette.secondary.light} !important`,
+      border: `2px solid ${theme.palette.text.primary} !important`,
       margin: '-1px'
     },
 

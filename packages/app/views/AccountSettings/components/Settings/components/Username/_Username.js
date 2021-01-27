@@ -24,14 +24,14 @@ import Button from '@material-ui/core/Button'
 function Username() {
   const dispatch = useDispatch()
   const { setAlert } = useAlert()
-  const { user } = useSelector(state => state.auth)
+  const { currentUser } = useSelector(state => state.auth)
 
   const [errors, setErrors] = useState()
   const [username, setUsername] = useState('')
 
   useEffect(() => {
-    setUsername(user.username)
-  }, [user.username])
+    setUsername(currentUser.username)
+  }, [currentUser.username])
 
   function onChange(event) {
     setUsername(event.target.value)
@@ -42,7 +42,7 @@ function Username() {
       event.preventDefault()
 
       const emailData = {
-        id: user.id,
+        id: currentUser.id,
         username
       }
 

@@ -19,7 +19,7 @@ async function messageCreate(req, res) {
       createdMessage.save()
 
       const updatedConversation = await Conversation.findOne({ users: { $all: participants } })
-        .populate({ path: 'users', populate: { path: 'profile' } })
+        .populate('users', '-password')
         .populate('messages')
 
       global.io.in(updatedConversation._id).emit('update-conversation', updatedConversation)

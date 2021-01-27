@@ -10,10 +10,7 @@ async function createPlaceReview(req, res) {
     const data = { ...req.body, place: placeId, user: user._id }
 
     let createdPlaceReview = await PlaceReview.create(data)
-    createdPlaceReview = await PlaceReview.findById(createdPlaceReview._id).populate({
-      path: 'user',
-      populate: { path: 'profile' }
-    })
+    createdPlaceReview = await PlaceReview.findById(createdPlaceReview._id).populate('user')
 
     const placeReviewId = createdPlaceReview._id
     await User.findByIdAndUpdate(req.user._id, { $push: { placeReviews: placeReviewId } })

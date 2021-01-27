@@ -8,8 +8,8 @@ const PlaceSchema = new Schema({
   urlSlug: { type: String },
   mapBox: { type: Object },
   photo: { type: Object },
-  placeReviews: [{ type: Schema.Types.ObjectId, ref: 'placereview' }],
+  placeReviews: [{ type: Schema.Types.ObjectId, ref: 'PlaceReview' }],
   dateCreated: { type: Date, default: Date.now }
 })
 
-module.exports = mongoose.model('place', PlaceSchema)
+module.exports = mongoose.model('Place', PlaceSchema)

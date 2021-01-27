@@ -28,10 +28,11 @@ import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import IconButton from '@material-ui/core/IconButton'
-import MailIcon from '@material-ui/icons/Mail'
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
 import PublicIcon from '@material-ui/icons/Public'
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import GroupIcon from '@material-ui/icons/Group'
+import DescriptionIcon from '@material-ui/icons/Description'
 
 const useStyles = makeStyles(theme => ({
   appBar: { borderBottom: `1px solid ${fade(theme.palette.primary.contrastText, 0.2)}` },
@@ -87,7 +88,7 @@ function Topbar() {
   const { socket } = useSocket()
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
-  const { isAuthenticated, user } = useSelector(state => state.auth)
+  const { isAuthenticated, currentUser } = useSelector(state => state.auth)
   const { isDarkTheme } = useSelector(state => state.theme)
 
   const handleClick = event => {
@@ -132,22 +133,25 @@ function Topbar() {
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 {isAuthenticated ? (
                   <>
-                    <Hidden smDown>
+                    <Hidden>
                       <Box>
                         <Link href="/post-create">
-                          <IconButton color="secondary">
+                          <Button variant="contained" color="secondary">
                             <AddBoxIcon />
-                          </IconButton>
+                          </Button>
+                          {/* <IconButton color="secondary">
+                            <AddBoxIcon />
+                          </IconButton> */}
                         </Link>
                       </Box>
                     </Hidden>
-                    <Box>
+                    {/* <Box>
                       <Link href="/chats">
                         <IconButton>
                           <MailIcon />
                         </IconButton>
                       </Link>
-                    </Box>
+                    </Box> */}
                     <Box>
                       <IconButton onClick={handleChangeTheme}>
                         <InvertColorsIcon />
@@ -161,8 +165,22 @@ function Topbar() {
                       </Link>
                     </Box>
                     <Box>
+                      <Link href="/">
+                        <IconButton>
+                          <DescriptionIcon />
+                        </IconButton>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Link href="/all-members">
+                        <IconButton>
+                          <GroupIcon />
+                        </IconButton>
+                      </Link>
+                    </Box>
+                    <Box>
                       <Button aria-haspopup="true" onClick={handleClick}>
-                        <Avatar user={user} height={35} width={35} />
+                        <Avatar user={currentUser} height={35} width={35} />
                       </Button>
                       <Menu
                         PaperProps={{ style: { width: '25ch' } }}
@@ -178,7 +196,7 @@ function Topbar() {
                         <div />
                         {/* Hack ends */}
 
-                        <Link href={`/${user.username}`}>
+                        <Link href={`/${currentUser.username}`}>
                           <MenuItem>View profile</MenuItem>
                         </Link>
                         <Link href="/account-settings">
@@ -215,6 +233,13 @@ function Topbar() {
                       <Link href="/places">
                         <IconButton>
                           <PublicIcon />
+                        </IconButton>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Link href="/all-members">
+                        <IconButton>
+                          <GroupIcon />
                         </IconButton>
                       </Link>
                     </Box>

@@ -9,7 +9,7 @@ async function messageUpdate(req, res) {
     await Message.findByIdAndUpdate(_id, { isSeen: true, dateIsSeen: Date.now() }, { new: true })
 
     const updatedConversation = await Conversation.findOne({ users: { $all: participants } })
-      .populate({ path: 'users', populate: { path: 'profile' } })
+      .populate('users', '-password')
       .populate('messages')
 
     global.io.in(updatedConversation._id).emit('update-conversation', updatedConversation)

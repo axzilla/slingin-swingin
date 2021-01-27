@@ -28,7 +28,7 @@ function PlaceDetails({ place }) {
   const [peopleCurrent] = useState(place.peopleCurrent)
   const [peopleBeen] = useState(place.peopleBeen)
   const [peopleWant] = useState(place.peopleWant)
-  const { user, isAuthenticated } = useSelector(state => state.auth)
+  const { currentUser, isAuthenticated } = useSelector(state => state.auth)
   const [userReview, setUserReview] = useState(null)
   const [placeReview, setPlaceReview] = useState({ text: '', ratings: {}, costs: {} })
 
@@ -83,13 +83,13 @@ function PlaceDetails({ place }) {
 
   useEffect(() => {
     handleAlreadyReviewed()
-  }, [place, user, isAuthenticated])
+  }, [place, currentUser, isAuthenticated])
 
   function handleAlreadyReviewed() {
-    const hasAlreadyReviewed = placeReviews.map(review => review.user._id).includes(user.id)
+    const hasAlreadyReviewed = placeReviews.map(review => review.user._id).includes(currentUser.id)
 
     if (isAuthenticated && hasAlreadyReviewed) {
-      const index = placeReviews.map(review => review.user._id).indexOf(user.id)
+      const index = placeReviews.map(review => review.user._id).indexOf(currentUser.id)
       const review = placeReviews[index]
       setUserReview(review)
     }
@@ -99,7 +99,7 @@ function PlaceDetails({ place }) {
     const createdPlaceReview = await createPlaceReview({ ...placeReview, placeId: baseData._id })
     setPlaceReviews([...placeReviews, createdPlaceReview.data])
     setUserReview(createdPlaceReview.data)
-    setAlert({ message: 'Place Review successfully created', variant: 'success' })
+    setAlert({ message: 'Place Review successfully created.', variant: 'success' })
   }
 
   async function handleUpdatePlaceReview() {

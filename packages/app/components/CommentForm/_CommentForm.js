@@ -1,12 +1,21 @@
+// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+import { stateToHTML } from 'draft-js-export-html'
+import { stateToMarkdown } from 'draft-js-export-markdown'
 
+// Global Components
 import DraftJsEditor from '@components/DraftJsEditor'
+
+// Services
 import { commentCreate, commentUpdate } from '@services/comment'
+
+// Utils
 import rawToHtml from '@utils/rawToHtml'
 import htmlRemove from '@utils/htmlRemove'
 
+// MUI
 import { makeStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
@@ -27,7 +36,7 @@ function CommentForm({
   const classes = useStyles()
   const [editorState, setEditorState] = useState(
     comment
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(comment.content)))
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(comment.contentRaw)))
       : EditorState.createEmpty()
   )
 
@@ -35,9 +44,17 @@ function CommentForm({
     try {
       event.preventDefault()
 
+      const contentRaw = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+      const contentHtml = stateToHTML(editorState.getCurrentContent())
+      const contentText = editorState.getCurrentContent().getPlainText().replace(/\s+/g, ' ').trim()
+      const contentMarkdown = JSON.stringify(stateToMarkdown(editorState.getCurrentContent()))
+
       if (comment) {
         const commentData = {
-          content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+          contentRaw,
+          contentHtml,
+          contentText,
+          contentMarkdown,
           commentId: comment._id,
           post: comment.post
         }
@@ -47,7 +64,10 @@ function CommentForm({
         setCommentData(updatedComment.data)
       } else if (!comment) {
         const commentData = {
-          content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+          contentRaw,
+          contentHtml,
+          contentText,
+          contentMarkdown,
           postId
         }
 

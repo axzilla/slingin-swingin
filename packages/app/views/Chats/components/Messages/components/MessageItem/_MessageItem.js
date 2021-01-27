@@ -105,7 +105,9 @@ const MessageItem = ({ message, receiver }) => {
           >
             <CardContent style={{ padding: 10 }}>
               {!message.isDeleted ? (
-                <div dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(message.content)) }} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(message.contentRaw)) }}
+                />
               ) : (
                 <Typography variant="overline" color="secondary">
                   Message&nbsp;deleted

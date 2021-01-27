@@ -26,7 +26,7 @@ import Button from '@material-ui/core/Button'
 function Password() {
   const dispatch = useDispatch()
   const { setAlert } = useAlert()
-  const { user } = useSelector(state => state.auth)
+  const { currentUser } = useSelector(state => state.auth)
 
   const [errors, setErrors] = useState()
   const [passwords, setPasswords] = useState({
@@ -46,7 +46,7 @@ function Password() {
     try {
       event.preventDefault()
       const passwordData = {
-        id: user.id,
+        id: currentUser.id,
         oldPassword: passwords.oldPassword,
         newPassword: passwords.newPassword,
         newPassword2: passwords.newPassword2

@@ -8,16 +8,19 @@ const PostSchema = new Schema({
   isPinned: { type: Boolean, default: false },
   urlSlug: { type: String },
   views: { type: Number, default: 0 },
-  user: { type: Schema.Types.ObjectId, ref: 'user' },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
   titleImage: { type: Object },
   title: { type: String, required: true },
-  content: { type: String, required: true },
+  contentRaw: { type: String, required: true },
+  contentHtml: { type: String, required: true },
+  contentText: { type: String, required: true },
+  contentMarkdown: { type: String, required: true },
   tags: { type: Array },
-  likes: [{ type: Schema.Types.ObjectId, ref: 'user' }],
-  bookmarks: [{ type: Schema.Types.ObjectId, ref: 'user' }],
-  postComments: [{ type: Schema.Types.ObjectId, ref: 'postComment' }],
+  likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  bookmarks: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  postComments: [{ type: Schema.Types.ObjectId, ref: 'PostComment' }],
   dateCreated: { type: Date, default: Date.now },
   dateUpdated: { type: Date }
 })
 
-module.exports = mongoose.model('post', PostSchema)
+module.exports = mongoose.model('Post', PostSchema)

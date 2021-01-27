@@ -93,7 +93,7 @@ function Sidebar() {
             <ListItemText>Settings</ListItemText>
           </ListItem>
         </Link>
-        <Link href="/[handle]" as={`/${user.username}`}>
+        <Link href="/[username]" as={`/${user.username}`}>
           <ListItem button>
             <ListItemIcon>
               <AccountBox />
