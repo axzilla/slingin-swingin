@@ -88,7 +88,7 @@ function MyApp(props) {
     <Provider store={store}>
       <Head>
         <link rel="icon" href="/favicon.png" />
-        <title>The #1 Music Production Community</title>
+        <title>The #1 Digital Nomad Community</title>
         <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css" rel="stylesheet" />
       </Head>
 

@@ -1,6 +1,7 @@
 import { createSitemap, EnumChangefreq } from 'sitemap'
 import { getPosts, getPostsTags } from '@services/post'
 import { getAllUsers } from '@services/user'
+import { getAllPlaces } from '@services/place'
 
 export default async (req, res) => {
   const sitemap = createSitemap({
@@ -9,12 +10,14 @@ export default async (req, res) => {
 
   // Add any static entries here
   sitemap.add({ url: '/', changefreq: EnumChangefreq.DAILY })
+  sitemap.add({ url: '/places', changefreq: EnumChangefreq.DAILY })
+  sitemap.add({ url: '/users', changefreq: EnumChangefreq.DAILY })
 
   // Add dynamic entries
 
   // Posts
   const postsResponse = await getPosts()
-  const posts = postsResponse.data
+  const posts = postsResponse.data.result
   for (const post of posts) {
     sitemap.add({ url: `/post/${post.shortId}/${post.urlSlug}`, changefreq: EnumChangefreq.DAILY })
   }
@@ -26,11 +29,21 @@ export default async (req, res) => {
     sitemap.add({ url: `/posts/t/${tag._id}`, changefreq: EnumChangefreq.DAILY })
   }
 
-  // Profiles
+  // Users
   const userResponse = await getAllUsers()
-  const users = userResponse.data
+  const users = userResponse.data.result
   for (const user of users) {
     sitemap.add({ url: `/${user.username}`, changefreq: EnumChangefreq.DAILY })
+  }
+
+  // Places
+  const placeResponse = await getAllPlaces()
+  const places = placeResponse.data.result
+  for (const place of places) {
+    sitemap.add({
+      url: `/place/${place.shortId}/${place.urlSlug}`,
+      changefreq: EnumChangefreq.DAILY
+    })
   }
 
   res.setHeader('Content-Type', 'application/xml')

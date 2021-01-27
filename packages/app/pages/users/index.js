@@ -11,17 +11,17 @@ import { getAllUsers } from '@services/user'
 import { Main as MainLayout } from '@layouts'
 
 // Views
-import { AllMembers as AllMembersView } from '@views'
+import { Users as UsersView } from '@views'
 
-function AllMembers({ users }) {
+function Users({ users }) {
   return (
     <MainLayout>
-      <AllMembersView users={users} />
+      <UsersView users={users} />
     </MainLayout>
   )
 }
 
-AllMembers.getInitialProps = async ({ ctx, query }) => {
+Users.getInitialProps = async ({ ctx, query }) => {
   try {
     const { data } = await getAllUsers(objToQuery(query))
     return { users: data }
@@ -33,8 +33,8 @@ AllMembers.getInitialProps = async ({ ctx, query }) => {
   }
 }
 
-AllMembers.propTypes = {
+Users.propTypes = {
   users: PropTypes.array.isRequired
 }
 
-export default AllMembers
+export default Users
