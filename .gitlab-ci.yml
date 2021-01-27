@@ -38,6 +38,6 @@ api_production:
   image: ruby:latest
   script:
     - cd ./packages/api
-    - dpl --provider=heroku --app=digitalnomads-api --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=digitalnomads-api-production --api-key=$HEROKU_API_KEY
   only:
     - master
