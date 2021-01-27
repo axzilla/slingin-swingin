@@ -20,9 +20,9 @@ function Landing({ posts }) {
   return (
     <>
       <SeoMeta
-        title={'digitalnomads.dev - The #1 Music Production Community'}
+        title={'digitalnomads.dev - The #1 Digital Nomad Community'}
         desc={
-          'digitalnomads.dev (or just dino) is a platform where any kind of music producer write articles, take part in discussions, and build their professional profiles.'
+          'digitalnomads.dev (or just dino) is a platform where any kind of digital nomad write articles, take part in discussions, and build their professional profiles.'
         }
         canonical="https://www.digitalnomads.dev"
         ogImage={null}

@@ -172,7 +172,7 @@ function Topbar() {
                       </Link>
                     </Box>
                     <Box>
-                      <Link href="/all-members">
+                      <Link href="/users">
                         <IconButton>
                           <GroupIcon />
                         </IconButton>
@@ -240,7 +240,7 @@ function Topbar() {
                       </Link>
                     </Box>
                     <Box>
-                      <Link href="/all-members">
+                      <Link href="/users">
                         <IconButton>
                           <GroupIcon />
                         </IconButton>

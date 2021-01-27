@@ -16,7 +16,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import Pagination from '@material-ui/lab/Pagination'
 import SearchIcon from '@material-ui/icons/Search'
 
-function AllMembers({ users }) {
+function Users({ users }) {
   const router = useRouter()
   const [limit] = useState(20)
   const [q, setQ] = useState(router.query.q || '')
@@ -24,9 +24,9 @@ function AllMembers({ users }) {
   function handleSearchSubmit(e) {
     if (e.keyCode === 13) {
       if (q) {
-        router.push({ pathname: '/all-members', query: { q, limit, page: 1 } })
+        router.push({ pathname: '/users', query: { q, limit, page: 1 } })
       } else {
-        router.push({ pathname: '/all-members', query: { limit, page: 1 } })
+        router.push({ pathname: '/users', query: { limit, page: 1 } })
       }
     }
   }
@@ -37,7 +37,7 @@ function AllMembers({ users }) {
 
   function handlePaginationChange(page) {
     const { query } = router
-    router.push({ pathname: '/all-members', query: { ...query, page, limit } })
+    router.push({ pathname: '/users', query: { ...query, page, limit } })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -97,8 +97,8 @@ function AllMembers({ users }) {
   )
 }
 
-AllMembers.propTypes = {
+Users.propTypes = {
   users: PropTypes.array.isRequired
 }
 
-export default AllMembers
+export default Users
