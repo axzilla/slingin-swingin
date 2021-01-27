@@ -38,10 +38,10 @@ function PostDetails({ post }) {
   const dispatch = useDispatch()
   const [postData, setPostData] = useState(post)
   const [comments, setComments] = useState(post.postComments)
-  const { user, isAuthenticated } = useSelector(state => state.auth)
+  const { currentUser, isAuthenticated } = useSelector(state => state.auth)
 
-  // const isBookmarked = postData.bookmarks.includes(user.id)
-  const isLiked = postData.likes.includes(user.id)
+  // const isBookmarked = postData.bookmarks.includes(currentUser.id)
+  const isLiked = postData.likes.includes(currentUser.id)
 
   async function handleLikeClick() {
     try {
@@ -75,7 +75,7 @@ function PostDetails({ post }) {
         <Card variant="outlined">
           <CardHeader
             title={
-              <Link underlined href="/[handle]" as={`/${postData.user.username}`}>
+              <Link underlined href="/[username]" as={`/${postData.user.username}`}>
                 {postData.user.username}
               </Link>
             }
@@ -85,7 +85,7 @@ function PostDetails({ post }) {
               </small>
             }
             avatar={
-              <Link href="/[handle]" as={`/${postData.user.username}`}>
+              <Link href="/[username]" as={`/${postData.user.username}`}>
                 <UserAvatar user={postData.user} />
               </Link>
             }
@@ -125,7 +125,7 @@ function PostDetails({ post }) {
           </Box>
           <AuthActions
             post={postData}
-            user={user}
+            currentUser={currentUser}
             isAuthenticated={isAuthenticated}
             postDelete={postDelete}
           />

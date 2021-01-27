@@ -1,6 +1,6 @@
 import { createSitemap, EnumChangefreq } from 'sitemap'
 import { getPosts, getPostsTags } from '@services/post'
-import { getAllProfiles } from '@services/profile'
+import { getAllUsers } from '@services/user'
 
 export default async (req, res) => {
   const sitemap = createSitemap({
@@ -27,10 +27,10 @@ export default async (req, res) => {
   }
 
   // Profiles
-  const profileResponse = await getAllProfiles()
-  const profiles = profileResponse.data
-  for (const profile of profiles) {
-    sitemap.add({ url: `/${profile.handle}`, changefreq: EnumChangefreq.DAILY })
+  const userResponse = await getAllUsers()
+  const users = userResponse.data
+  for (const user of users) {
+    sitemap.add({ url: `/${user.username}`, changefreq: EnumChangefreq.DAILY })
   }
 
   res.setHeader('Content-Type', 'application/xml')

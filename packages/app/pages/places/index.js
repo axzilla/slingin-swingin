@@ -8,16 +8,16 @@ import { getAllPlaces } from '@services/place'
 import objToQuery from '@utils/objToQuery'
 
 // Layouts
-import { Place as PlaceLayout } from '@layouts'
+import { Main as MainLayout } from '@layouts'
 
 // Views
 import { PlaceFeed as PlaceFeedView } from '@views'
 
 function PlaceFeed({ places }) {
   return (
-    <PlaceLayout>
+    <MainLayout>
       <PlaceFeedView places={places} />
-    </PlaceLayout>
+    </MainLayout>
   )
 }
 

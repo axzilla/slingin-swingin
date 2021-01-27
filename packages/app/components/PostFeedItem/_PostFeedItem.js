@@ -42,12 +42,12 @@ function PostFeedItem({ post }) {
       <CardHeader
         className={classes.cardHeader}
         avatar={
-          <Link href="/[handle]" as={`/${post.user.username}`}>
+          <Link href="/[username]" as={`/${post.user.username}`}>
             <UserAvatar user={post.user} />
           </Link>
         }
         title={
-          <Link underlined href="/[handle]" as={`/${post.user.username}`}>
+          <Link underlined href="/[username]" as={`/${post.user.username}`}>
             {post.user.username}
           </Link>
         }

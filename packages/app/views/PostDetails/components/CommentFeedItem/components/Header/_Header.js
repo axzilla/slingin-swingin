@@ -14,12 +14,12 @@ function CommentFeedItemHeader({ comment }) {
   return (
     <CardHeader
       avatar={
-        <Link href="/[handle]" as={`/${comment.user.username}`}>
+        <Link href="/[username]" as={`/${comment.user.username}`}>
           <UserAvatar user={comment.user} />
         </Link>
       }
       title={
-        <Link href="/[handle]" as={`/${comment.user.username}`}>
+        <Link href="/[username]" as={`/${comment.user.username}`}>
           {comment.user.username}
         </Link>
       }

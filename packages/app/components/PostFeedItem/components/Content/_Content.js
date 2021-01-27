@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import htmlRemove from '@utils/htmlRemove'
-
-import rawToHtml from '@utils/rawToHtml'
-
 import Link from '@components/Link'
 import Chip from '@components/Chip'
 
@@ -13,7 +9,6 @@ import Typography from '@material-ui/core/Typography'
 
 function Content({ post }) {
   const limit = 250
-  const noHtmlContent = htmlRemove(rawToHtml(post.content)).substring(0, limit)
 
   return (
     <Grid container>
@@ -22,8 +17,8 @@ function Content({ post }) {
           {post.title}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {noHtmlContent}
-          {noHtmlContent.length > limit - 1 && ' ...'}
+          {post.contentText}
+          {post.contentText.length > limit - 1 && ' ...'}
         </Typography>
       </Link>
       <Grid container>

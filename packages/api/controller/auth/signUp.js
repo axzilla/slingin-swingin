@@ -12,7 +12,6 @@ const validateSignUp = require('../../validation/validateSignUp')
 
 // Models
 const User = require('../../models/User')
-const Profile = require('../../models/Profile')
 
 // Nodemailer
 const sendConfirmation = require('../../nodemailer/templates/sendConfirmation')
@@ -42,21 +41,13 @@ async function signUp(req, res) {
     const isActiveToken = crypto.randomBytes(16).toString('hex')
 
     const createdUser = await User.create({
+      name,
       email,
       username: slugify(name) + Math.floor(Math.random() * (9999 - 1000) + 1000),
       password: await hashPassword(password),
       isActiveToken,
       isActiveTokenExpires: Date.now() + 24 * 3600 * 1000
     })
-
-    const createdProfile = await Profile.create({
-      user: createdUser.id,
-      handle: createdUser.username,
-      name
-    })
-
-    createdUser.profile = await createdProfile._id
-    createdUser.save()
 
     sendConfirmation(transporter, createdUser, isActiveToken)
 

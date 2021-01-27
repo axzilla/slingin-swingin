@@ -2,7 +2,6 @@ const createJwtToken = require('../../utils/createJwtToken')
 const isEmpty = require('../../utils/isEmpty')
 const slugify = require('../../utils/slugify')
 const User = require('../../models/User')
-const Profile = require('../../models/Profile')
 const validateUsernameChange = require('../../validation/validateUsernameChange')
 
 async function usernameChange(req, res) {
@@ -24,10 +23,6 @@ async function usernameChange(req, res) {
     const foundUserById = await User.findById(req.body.id)
     foundUserById.username = slugify(req.body.username)
     const savedUser = await foundUserById.save()
-
-    const foundProfile = await Profile.findOne({ user: savedUser.id })
-    foundProfile.handle = savedUser.username
-    foundProfile.save()
 
     const payload = {
       id: savedUser.id,
