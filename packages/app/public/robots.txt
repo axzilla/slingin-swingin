@@ -15,5 +15,3 @@ Disallow: /post-create/
 Disallow: /post-create
 Disallow: /post-edit/
 Disallow: /post-edit
-Disallow: /search/
-Disallow: /search
