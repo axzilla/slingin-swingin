@@ -26,11 +26,11 @@ function Email() {
   const { setAlert } = useAlert()
   const [errors, setErrors] = useState('')
   const [email, setEmail] = useState('')
-  const { user } = useSelector(state => state.auth)
+  const { currentUser } = useSelector(state => state.auth)
 
   useEffect(() => {
-    setEmail(user.email)
-  }, [user.email])
+    setEmail(currentUser.email)
+  }, [currentUser.email])
 
   function onChange(event) {
     setEmail(event.target.value)
@@ -41,7 +41,7 @@ function Email() {
       event.preventDefault()
 
       const emailData = {
-        id: user.id,
+        id: currentUser.id,
         email
       }
 

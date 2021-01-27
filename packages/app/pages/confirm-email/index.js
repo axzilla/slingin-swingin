@@ -9,11 +9,15 @@ import { Landing as LandingView } from '@views'
 
 // Services
 import { activateAccount } from '@services/auth'
+import { getPosts } from '@services/post'
+
+// Utils
+import objToQuery from '@utils/objToQuery'
 
 // Global Components
 import { SeoMeta } from '@components'
 
-function ConfirmEmail({ message, variant, jwtToken }) {
+function ConfirmEmail({ message, variant, jwtToken, posts }) {
   return (
     <>
       <SeoMeta
@@ -25,7 +29,7 @@ function ConfirmEmail({ message, variant, jwtToken }) {
         ogImage={null}
       />
       <MainLayout>
-        <LandingView message={message} variant={variant} jwtToken={jwtToken} />
+        <LandingView message={message} variant={variant} jwtToken={jwtToken} posts={posts} />
       </MainLayout>
     </>
   )
@@ -33,16 +37,18 @@ function ConfirmEmail({ message, variant, jwtToken }) {
 
 ConfirmEmail.getInitialProps = async ({ query }) => {
   const { token } = query
-  const { data } = await activateAccount({ token })
-  const { message, variant, jwtToken } = data
+  const posts = await getPosts(objToQuery(query))
+  const activatedAccount = await activateAccount({ token })
+  const { message, variant, jwtToken } = activatedAccount.data
 
-  return { message, variant, jwtToken }
+  return { message, variant, jwtToken, posts: posts.data }
 }
 
 ConfirmEmail.propTypes = {
   message: PropTypes.string.isRequired,
   variant: PropTypes.string.isRequired,
-  jwtToken: PropTypes.string.isRequired
+  jwtToken: PropTypes.string.isRequired,
+  posts: PropTypes.object.isRequired
 }
 
 export default ConfirmEmail

@@ -12,7 +12,7 @@ async function updatePlaceReview(req, res) {
       placeReviewId,
       data,
       options
-    ).populate({ path: 'user', populate: { path: 'profile' } })
+    ).populate('user')
 
     res.json(updatedPlaceReview)
   } catch (error) {

@@ -127,24 +127,29 @@ function PlaceFeed({ places }) {
       <Grid container spacing={2}>
         {/* Search */}
         <Grid item xs={12}>
-          <Grid container justify="space-between" alignItems="center">
-            <TextField
-              value={searchText}
-              onChange={handleSearchTextChange}
-              onKeyDown={handleSearchSubmit}
-              margin="dense"
-              variant="outlined"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                )
-              }}
-            />
-            <IconButton onClick={handleClickOpen}>
-              <AddIcon />
-            </IconButton>
+          <Grid container spacing={2} justify="space-between" alignItems="center">
+            <Grid item xs>
+              <TextField
+                // fullWidth
+                value={searchText}
+                onChange={handleSearchTextChange}
+                onKeyDown={handleSearchSubmit}
+                margin="dense"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <IconButton onClick={handleClickOpen}>
+                <AddIcon />
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
         {/* Search END */}
@@ -159,7 +164,7 @@ function PlaceFeed({ places }) {
           // }
 
           return (
-            <Grid key={place._id} item xs={6} md={3}>
+            <Grid key={place._id} item xs={6}>
               <Link
                 href="/place/[shortId]/[urlSlug]"
                 as={`/place/${place.shortId}/${place.urlSlug}`}

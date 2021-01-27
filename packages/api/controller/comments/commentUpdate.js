@@ -2,11 +2,14 @@ const PostComment = require('../../models/PostComment')
 
 async function commentUpdate(req, res) {
   try {
-    const { commentId, content } = req.body
+    const { commentId, contentRaw, contentHtml, contentText, contentMarkdown } = req.body
 
     const updatedComment = await PostComment.findById(commentId).populate('user', '-password')
 
-    updatedComment.content = content
+    updatedComment.contentRaw = contentRaw
+    updatedComment.contentHtml = contentHtml
+    updatedComment.contentText = contentText
+    updatedComment.contentMarkdown = contentMarkdown
     updatedComment.dateUpdated = Date.now()
     updatedComment.save()
 

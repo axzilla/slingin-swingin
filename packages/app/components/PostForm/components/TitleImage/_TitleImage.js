@@ -13,7 +13,7 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles(theme => ({
-  media: { objectFit: 'cover', marginBottom: theme.spacing(2) },
+  media: { objectFit: 'cover', marginBottom: theme.spacing(2), borderRadius: '10px' },
   button: { margin: theme.spacing(0, 1, 1, 0) }
 }))
 
@@ -39,7 +39,7 @@ function PostCreate({ setTitleImage, titleImagePreview, setTitleImagePreview }) 
           component="img"
           alt="Post title"
           className={classes.media}
-          height="auto"
+          height="400"
           image={isEmpty(titleImagePreview) ? imagePlaceholder : titleImagePreview}
         />
       )}

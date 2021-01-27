@@ -11,6 +11,10 @@ import { authModalReducer } from '@slices/authSlice'
 
 // Services
 import { passwordResetValidation } from '@services/auth'
+import { getPosts } from '@services/post'
+
+// Utils
+import objToQuery from '@utils/objToQuery'
 
 // Layouts
 import { Main as MainLayout } from '@layouts'
@@ -21,7 +25,7 @@ import { Landing as LandingView } from '@views'
 // Global Components
 import { SeoMeta } from '@components'
 
-function PasswordReset({ resetPasswordToken }) {
+function PasswordReset({ resetPasswordToken, posts }) {
   const dispatch = useDispatch()
   const { setAlert } = useAlert()
 
@@ -48,7 +52,7 @@ function PasswordReset({ resetPasswordToken }) {
         ogImage={null}
       />
       <MainLayout>
-        <LandingView />
+        <LandingView posts={posts} />
       </MainLayout>
     </>
   )
@@ -56,13 +60,18 @@ function PasswordReset({ resetPasswordToken }) {
 
 PasswordReset.getInitialProps = async ({ query }) => {
   const { resetPasswordToken } = query
+  const posts = await getPosts(objToQuery(query))
   const { data } = await passwordResetValidation(resetPasswordToken)
 
-  return { resetPasswordToken: data.isResetPasswordTokenValid ? resetPasswordToken : null }
+  return {
+    resetPasswordToken: data.isResetPasswordTokenValid ? resetPasswordToken : null,
+    posts: posts.data
+  }
 }
 
 PasswordReset.propTypes = {
-  resetPasswordToken: PropTypes.string
+  resetPasswordToken: PropTypes.string,
+  posts: PropTypes.object.isRequired
 }
 
 export default PasswordReset

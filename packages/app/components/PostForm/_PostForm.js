@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+import { stateToHTML } from 'draft-js-export-html'
+import { stateToMarkdown } from 'draft-js-export-markdown'
 
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
@@ -28,7 +30,7 @@ function PostForm({ post }) {
   const [title, setTitle] = useState(post ? post.title : '')
   const [editorState, setEditorState] = useState(
     post
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(post.content)))
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(post.contentRaw)))
       : EditorState.createEmpty()
   )
 
@@ -38,11 +40,18 @@ function PostForm({ post }) {
   async function onSubmit() {
     try {
       setIsLoading(true)
+      const contentRaw = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+      const contentHtml = stateToHTML(editorState.getCurrentContent())
+      const contentText = editorState.getCurrentContent().getPlainText().replace(/\s+/g, ' ').trim()
+      const contentMarkdown = JSON.stringify(stateToMarkdown(editorState.getCurrentContent()))
 
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('content', JSON.stringify(convertToRaw(editorState.getCurrentContent())))
+      formData.append('contentRaw', contentRaw)
+      formData.append('contentHtml', contentHtml)
+      formData.append('contentText', contentText)
+      formData.append('contentMarkdown', contentMarkdown)
       formData.append('tags', tags)
 
       if (post) {

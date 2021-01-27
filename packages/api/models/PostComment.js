@@ -3,15 +3,18 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const PostCommentSchema = new Schema({
-  post: { type: Schema.Types.ObjectId, ref: 'post' },
-  user: { type: Schema.Types.ObjectId, ref: 'user' },
-  content: { type: String, required: true },
+  post: { type: Schema.Types.ObjectId, ref: 'Post' },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  contentRaw: { type: String, required: true },
+  contentHtml: { type: String, required: true },
+  contentText: { type: String, required: true },
+  contentMarkdown: { type: String, required: true },
   votes: {
-    downvotes: [{ user: { type: Schema.Types.ObjectId, ref: 'user' } }],
+    downvotes: [{ user: { type: Schema.Types.ObjectId, ref: 'User' } }],
     upvotes: [{ user: { type: Schema.Types.ObjectId, ref: 'user' } }]
   },
   dateCreated: { type: Date, default: Date.now },
   dateUpdated: { type: Date }
 })
 
-module.exports = mongoose.model('postComment', PostCommentSchema)
+module.exports = mongoose.model('PostComment', PostCommentSchema)

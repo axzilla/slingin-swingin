@@ -17,7 +17,7 @@ function PostDetails({ post, urlSlug }) {
         canonical={`https://www.noize.dev/post/${post.shortId}/${urlSlug}`}
         ogImage={(post.titleImage && post.titleImage.secure_url) || null}
         ogTitle={post.title}
-        ogDescription={htmlRemove(rawToHtml(post.content))}
+        ogDescription={htmlRemove(rawToHtml(post.contentRaw))}
       />
       <MainLayout>
         <PostDetailsView post={post} urlSlug={urlSlug} />

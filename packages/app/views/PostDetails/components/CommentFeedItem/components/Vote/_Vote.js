@@ -18,7 +18,7 @@ import MoodBadIcon from '@material-ui/icons/MoodBad'
 function CommentFeedItemVote({ comment }) {
   const dispatch = useDispatch()
   const [commentData, setCommentData] = useState(comment)
-  const { isAuthenticated, user } = useSelector(state => state.auth)
+  const { isAuthenticated, currentUser } = useSelector(state => state.auth)
 
   async function onUpvoteClick() {
     try {
@@ -49,8 +49,10 @@ function CommentFeedItemVote({ comment }) {
   const upvotes = commentData.votes.upvotes.length
   const downvotes = commentData.votes.downvotes.length
   const votes = upvotes - downvotes
-  const isDownvoted = commentData.votes.downvotes.map(downvote => downvote.user).includes(user.id)
-  const isUpvoted = commentData.votes.upvotes.map(upvote => upvote.user).includes(user.id)
+  const isDownvoted = commentData.votes.downvotes
+    .map(downvote => downvote.user)
+    .includes(currentUser.id)
+  const isUpvoted = commentData.votes.upvotes.map(upvote => upvote.user).includes(currentUser.id)
 
   return (
     <Grid container alignItems="center" justify="space-between" spacing={2}>

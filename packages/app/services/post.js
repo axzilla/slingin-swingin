@@ -26,8 +26,8 @@ export function getPostById(postId) {
   return axios.get(`${serverUrl}/get-post-by-id/${postId}`)
 }
 
-export function getPosts() {
-  return axios.get(`${serverUrl}/get-all-posts`)
+export function getPosts(query) {
+  return axios.get(`${serverUrl}/get-all-posts${query ? '?' + query : ''}`)
 }
 
 export function getPostByShortId(shortId) {

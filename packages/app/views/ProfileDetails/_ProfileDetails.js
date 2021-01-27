@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
@@ -9,76 +9,46 @@ import SendMessage from './components/SendMessage'
 import Tabs from './components/Tabs'
 import Map from './components/Map'
 
-// Services
-import { getPostsByUserId } from '@services/post'
-import { getProfileByHandle } from '@services/profile'
-import { getCommentsByUserId } from '@services/comment'
-
 // Utils
 import isEmpty from '@utils/isEmpty'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
 
-function ProfileDetails({ profile, posts, comments, handle }) {
-  const [profileData, setProfileData] = useState(profile)
-  const [postsData, setPostsData] = useState(posts)
-  const [commentsData, setCommentsData] = useState(comments)
-  const { user, isAuthenticated } = useSelector(state => state.auth)
-
-  useEffect(() => {
-    onHandleChange()
-  }, [handle])
-
-  async function onHandleChange() {
-    const profile = await getProfileByHandle(handle)
-    const posts = await getPostsByUserId(profile.data.user._id)
-    const comments = await getCommentsByUserId(profile.data.user._id)
-    setProfileData(profile.data)
-    setPostsData(posts.data)
-    setCommentsData(comments.data)
-  }
+function ProfileDetails({ user, posts, comments }) {
+  const { currentUser, isAuthenticated } = useSelector(state => state.auth)
 
   return (
     <Grid container spacing={2} direction="column">
       <Grid item xs={12}>
-        <Header profile={profileData} setProfile={setProfileData} />
+        <Header user={user} />
       </Grid>
-      {!isEmpty(profileData.locationCurrent) && (
+      {!isEmpty(user.locationCurrent) && (
         <Grid item xs={12}>
           <Map
-            lng={profileData.locationCurrent.mapBox.geometry.coordinates[0]}
-            lat={profileData.locationCurrent.mapBox.geometry.coordinates[1]}
+            lng={user.locationCurrent.mapBox.geometry.coordinates[0]}
+            lat={user.locationCurrent.mapBox.geometry.coordinates[1]}
           />
         </Grid>
       )}
-      {isAuthenticated && profileData.user._id !== user.id && (
+      {isAuthenticated && user._id !== currentUser.id && (
         <Grid item xs={12}>
           <Grid container justify="flex-end">
-            <SendMessage
-              receiverUsername={profileData.user.username}
-              receiver={profileData.user._id}
-            />
+            <SendMessage receiverUsername={user.username} receiver={user._id} />
           </Grid>
         </Grid>
       )}
       <Grid item xs={12}>
-        <Tabs
-          profile={profileData}
-          posts={postsData}
-          setPosts={setPostsData}
-          comments={commentsData}
-        />
+        <Tabs posts={posts} comments={comments} />
       </Grid>
     </Grid>
   )
 }
 
 ProfileDetails.propTypes = {
-  profile: PropTypes.object,
+  user: PropTypes.object,
   posts: PropTypes.array,
-  comments: PropTypes.array,
-  handle: PropTypes.string
+  comments: PropTypes.array
 }
 
 export default ProfileDetails

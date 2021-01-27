@@ -13,7 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 
-function PostDetailsAuthActions({ post, user, isAuthenticated }) {
+function PostDetailsAuthActions({ post, currentUser, isAuthenticated }) {
   const [avatarOpen, setAvatarOpen] = React.useState(false)
 
   const handleAvatarOpen = () => {
@@ -37,7 +37,8 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
     <React.Fragment>
       {isAuthenticated ? (
         <span>
-          {(post.user && post.user._id === user.id) || (user.roles && user.roles.isAdmin) ? (
+          {(post.user && post.user._id === currentUser.id) ||
+          (currentUser.roles && currentUser.roles.isAdmin) ? (
             <React.Fragment>
               <Divider />
               <CardActions>
@@ -80,7 +81,7 @@ function PostDetailsAuthActions({ post, user, isAuthenticated }) {
 
 PostDetailsAuthActions.propTypes = {
   post: PropTypes.object,
-  user: PropTypes.object,
+  currentUser: PropTypes.object,
   isAuthenticated: PropTypes.bool
 }
 
