@@ -47,11 +47,9 @@ function RouterLoading() {
   })
 
   return (
-    <>
-      {isLoading && (
-        <LinearProgress color="secondary" style={{ position: 'sticky', top: '0', zIndex: 9999 }} />
-      )}
-    </>
+    isLoading && (
+      <LinearProgress color="secondary" style={{ position: 'sticky', top: '0', zIndex: 9999 }} />
+    )
   )
 }
 
