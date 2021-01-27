@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import imagePlaceholder from './_placeholder.jpg'
-
 import isEmpty from '@utils/isEmpty'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -40,7 +38,7 @@ function PostCreate({ setTitleImage, titleImagePreview, setTitleImagePreview }) 
           alt="Post title"
           className={classes.media}
           height="400"
-          image={isEmpty(titleImagePreview) ? imagePlaceholder : titleImagePreview}
+          image={titleImagePreview}
         />
       )}
       <input

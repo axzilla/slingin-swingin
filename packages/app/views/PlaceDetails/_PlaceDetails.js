@@ -13,7 +13,7 @@ import { useAlert } from '@contexts/AlertContext'
 import { createPlaceReview, updatePlaceReview } from '@services/placeReview'
 
 // Global Components
-// import Map from '@components/Map'
+import Map from '@components/Map'
 
 // MUI
 import Card from '@material-ui/core/Card'
@@ -26,8 +26,8 @@ function PlaceDetails({ place }) {
   const [baseData] = useState(place.baseData)
   const [placeReviews, setPlaceReviews] = useState(place.placeReviews)
   const [peopleCurrent] = useState(place.peopleCurrent)
-  const [peopleBeen] = useState(place.peopleBeen)
-  const [peopleWant] = useState(place.peopleWant)
+  // const [peopleBeen] = useState(place.peopleBeen)
+  // const [peopleWant] = useState(place.peopleWant)
   const { currentUser, isAuthenticated } = useSelector(state => state.auth)
   const [userReview, setUserReview] = useState(null)
   const [placeReview, setPlaceReview] = useState({ text: '', ratings: {}, costs: {} })
@@ -160,23 +160,22 @@ function PlaceDetails({ place }) {
       <People type="current" baseData={baseData} peopleCurrent={peopleCurrent} />
       <StyledDivider />
 
-      <People type="been" baseData={baseData} peopleBeen={peopleBeen} />
+      {/* <People type="been" baseData={baseData} peopleBeen={peopleBeen} />
       <StyledDivider />
 
       <People type="want" baseData={baseData} peopleWant={peopleWant} />
-      <StyledDivider />
+      <StyledDivider /> */}
 
       <Typography variant="h6">
         <Box mb={4}>Where you will be</Box>
       </Typography>
       <Card>
-        Out commented
-        {/* <Map
+        <Map
           height="300px"
           width="100%"
-          lng={place.mapBox.geometry.coordinates[0]}
-          lat={place.mapBox.geometry.coordinates[1]}
-        /> */}
+          lng={place.baseData.mapBox.geometry.coordinates[0]}
+          lat={place.baseData.mapBox.geometry.coordinates[1]}
+        />
       </Card>
     </>
   )
