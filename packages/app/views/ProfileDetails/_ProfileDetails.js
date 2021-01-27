@@ -23,6 +23,15 @@ function ProfileDetails({ user, posts, comments }) {
       <Grid item xs={12}>
         <Header user={user} />
       </Grid>
+
+      {isAuthenticated && user._id !== currentUser.id && (
+        <Grid item xs={12}>
+          <Grid container justify="flex-end">
+            <SendMessage receiverUsername={user.username} receiver={user._id} />
+          </Grid>
+        </Grid>
+      )}
+
       {!isEmpty(user.locationCurrent) && (
         <Grid item xs={12}>
           <Map
@@ -31,13 +40,7 @@ function ProfileDetails({ user, posts, comments }) {
           />
         </Grid>
       )}
-      {isAuthenticated && user._id !== currentUser.id && (
-        <Grid item xs={12}>
-          <Grid container justify="flex-end">
-            <SendMessage receiverUsername={user.username} receiver={user._id} />
-          </Grid>
-        </Grid>
-      )}
+
       <Grid item xs={12}>
         <Tabs posts={posts} comments={comments} />
       </Grid>

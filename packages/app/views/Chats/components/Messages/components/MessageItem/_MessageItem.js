@@ -35,12 +35,12 @@ const useStyles = makeStyles({
 
 const MessageItem = ({ message, receiver }) => {
   const { isDarkTheme } = useSelector(state => state.theme)
-  const { user } = useSelector(state => state.auth)
+  const { currentUser } = useSelector(state => state.auth)
   const classes = useStyles()
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
   useEffect(() => {
-    if (!message.isSeen && message.receiver === user.id) {
+    if (!message.isSeen && message.receiver === currentUser.id) {
       handleUpdateMessage()
     }
   }, [])
@@ -105,9 +105,7 @@ const MessageItem = ({ message, receiver }) => {
           >
             <CardContent style={{ padding: 10 }}>
               {!message.isDeleted ? (
-                <div
-                  dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(message.contentRaw)) }}
-                />
+                <div dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(message.content)) }} />
               ) : (
                 <Typography variant="overline" color="secondary">
                   Message&nbsp;deleted

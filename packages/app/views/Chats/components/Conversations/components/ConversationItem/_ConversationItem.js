@@ -18,7 +18,7 @@ import Hidden from '@material-ui/core/Hidden'
 const ConversationItem = ({ conversation, handleSelectedConversation }) => {
   const { socket } = useSocket()
   const { selectedConversation } = useSelector(state => state.chats)
-  const sender = useSelector(state => state.auth.user)
+  const sender = useSelector(state => state.auth.currentUser)
   const receiver = conversation.users.filter(user => user._id !== sender.id)[0]
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const ConversationItem = ({ conversation, handleSelectedConversation }) => {
         <UserAvatar height={50} width={50} user={receiver} />
       </ListItemAvatar>
       <Hidden smDown>
-        <ListItemText primary={`@${receiver.username}`} secondary={receiver.profile.name || ''} />
+        <ListItemText primary={`@${receiver.username}`} secondary={receiver.name || ''} />
       </Hidden>
     </ListItem>
   )
