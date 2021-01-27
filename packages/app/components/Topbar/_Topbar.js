@@ -205,6 +205,9 @@ function Topbar() {
                         <Link href="/post-create">
                           <MenuItem>Create Post</MenuItem>
                         </Link>
+                        <Link href="/chats">
+                          <MenuItem>Messages</MenuItem>
+                        </Link>
                         <Box my={1}>
                           <Divider />
                         </Box>

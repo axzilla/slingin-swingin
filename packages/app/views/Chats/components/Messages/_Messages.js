@@ -28,7 +28,7 @@ const Messages = () => {
   const router = useRouter()
   const classes = useStyles()
   const { conversations, selectedConversation } = useSelector(state => state.chats)
-  const sender = useSelector(state => state.auth.user)
+  const sender = useSelector(state => state.auth.currentUser)
   const users = selectedConversation && selectedConversation.users
   const receiver = users && users.filter(user => user._id !== sender.id)[0]
 
@@ -43,7 +43,7 @@ const Messages = () => {
         }
         subheader={
           <Link underlined href={`/${receiver.username}`}>
-            {receiver.profile.name || ''}
+            {receiver.name || ''}
           </Link>
         }
         avatar={

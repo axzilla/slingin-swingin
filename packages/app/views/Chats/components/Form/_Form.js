@@ -25,7 +25,7 @@ const Form = () => {
   const classes = useStyles()
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const { conversations, selectedConversation } = useSelector(state => state.chats)
-  const sender = useSelector(state => state.auth.user)
+  const sender = useSelector(state => state.auth.currentUser)
   const users = selectedConversation && selectedConversation.users
   const receiver = users && users.filter(user => user._id !== sender.id)[0]
 
