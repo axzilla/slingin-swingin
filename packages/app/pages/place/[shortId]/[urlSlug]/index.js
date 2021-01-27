@@ -23,12 +23,12 @@ function PlaceDetails({ place }) {
   return (
     <>
       <SeoMeta
-      // title={`${post.title} - digitalnomads.dev`}
-      // desc={post.content}
-      // canonical={`https://www.digitalnomads.dev/post/${post.shortId}/${urlSlug}`}
-      // ogImage={(post.titleImage && post.titleImage.secure_url) || null}
-      // ogTitle={post.title}
-      // ogDescription={htmlRemove(rawToHtml(post.content))}
+        title={`${place.baseData.mapBox.place_name} - digitalnomads.dev`}
+        desc={place.baseData.content}
+        canonical={`https://www.digitalnomads.dev/place/${place.baseData.shortId}/${place.baseData.urlSlug}`}
+        ogImage={(place.baseData.photo && place.baseData.photo.secure_url) || null}
+        ogTitle={place.baseData.mapBox.place_name}
+        // ogDescription={htmlRemove(rawToHtml(place.baseData.content))}
       />
       <PlaceLayout>
         <PlaceDetailsView place={place} />

@@ -7,6 +7,9 @@ import { getAllPlaces } from '@services/place'
 // Utils
 import objToQuery from '@utils/objToQuery'
 
+// Global Components
+import { SeoMeta } from '@components'
+
 // Layouts
 import { Main as MainLayout } from '@layouts'
 
@@ -15,9 +18,17 @@ import { PlaceFeed as PlaceFeedView } from '@views'
 
 function PlaceFeed({ places }) {
   return (
-    <MainLayout>
-      <PlaceFeedView places={places} />
-    </MainLayout>
+    <>
+      <SeoMeta
+        title={`Best places for digital nomads - digitalnomads.dev`}
+        desc={`digitalnomads.dev - Best places for digital nomads`}
+        canonical={`https://www.digitalnomads.dev/places`}
+        ogImage={null}
+      />
+      <MainLayout>
+        <PlaceFeedView places={places} />
+      </MainLayout>
+    </>
   )
 }
 
