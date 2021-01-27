@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-import withGA from 'next-ga'
 import Router from 'next/router'
-import { withRouter } from 'next/router'
 import Cookies from 'universal-cookie'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import 'draft-js/dist/Draft.css'
@@ -114,4 +112,4 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired
 }
 
-export default withRouter(withGA(process.env.DIGITALNOMADS_APP_GOOGLE_ANALYTICS, Router)(MyApp))
+export default MyApp
