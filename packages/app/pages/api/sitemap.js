@@ -4,7 +4,7 @@ import { getAllUsers } from '@services/user'
 
 export default async (req, res) => {
   const sitemap = createSitemap({
-    hostname: 'http://www.noize.dev'
+    hostname: 'http://www.digitalnomads.dev'
   })
 
   // Add any static entries here

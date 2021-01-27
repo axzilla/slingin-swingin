@@ -116,4 +116,4 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired
 }
 
-export default withRouter(withGA(process.env.NOIZE_APP_GOOGLE_ANALYTICS, Router)(MyApp))
+export default withRouter(withGA(process.env.DIGITALNOMADS_APP_GOOGLE_ANALYTICS, Router)(MyApp))

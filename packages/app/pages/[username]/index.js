@@ -11,9 +11,9 @@ function ProfileDetails({ user, posts, comments, username }) {
   return (
     <>
       <SeoMeta
-        title={`${user.username} - noize.dev`}
+        title={`${user.username} - digitalnomads.dev`}
         desc={`This is the profile page of ${user.username}`}
-        canonical={`https://www.noize.dev/${user.username}`}
+        canonical={`https://www.digitalnomads.dev/${user.username}`}
         ogImage={(user.avatar && user.avatar.secure_url) || null}
       />
       <MainLayout>

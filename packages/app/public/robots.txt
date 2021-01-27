@@ -1,4 +1,4 @@
-Sitemap: http://www.noize.dev/api/sitemap
+Sitemap: http://www.digitalnomads.dev/api/sitemap
 
 User-agent: *
 Disallow: /confirm-email/

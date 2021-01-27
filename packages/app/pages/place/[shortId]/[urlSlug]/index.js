@@ -23,9 +23,9 @@ function PlaceDetails({ place }) {
   return (
     <>
       <SeoMeta
-      // title={`${post.title} - noize.dev`}
+      // title={`${post.title} - digitalnomads.dev`}
       // desc={post.content}
-      // canonical={`https://www.noize.dev/post/${post.shortId}/${urlSlug}`}
+      // canonical={`https://www.digitalnomads.dev/post/${post.shortId}/${urlSlug}`}
       // ogImage={(post.titleImage && post.titleImage.secure_url) || null}
       // ogTitle={post.title}
       // ogDescription={htmlRemove(rawToHtml(post.content))}

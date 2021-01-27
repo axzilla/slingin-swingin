@@ -1,18 +1,9 @@
 {
-  "name": "noize-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/badazzdev/noize-app.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/badazzdev/noize-app/issues"
-  },
-  "homepage": "https://github.com/badazzdev/noize-app#readme",
   "scripts": {
     "start": "cd packages/api && node index",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
