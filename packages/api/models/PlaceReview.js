@@ -48,9 +48,9 @@ const PlaceReviewSchema = new Schema({
     }
   },
   //
-  user: { type: Schema.Types.ObjectId, ref: 'user', required: true },
-  place: { type: Schema.Types.ObjectId, ref: 'place', required: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  place: { type: Schema.Types.ObjectId, ref: 'Place', required: true },
   dateCreated: { type: Date, default: Date.now }
 })
 
-module.exports = mongoose.model('placereview', PlaceReviewSchema)
+module.exports = mongoose.model('PlaceReview', PlaceReviewSchema)

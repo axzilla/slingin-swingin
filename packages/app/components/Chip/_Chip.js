@@ -7,7 +7,7 @@ import MuiChip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles(theme => ({
   chip: {
-    borderRadius: '4px',
+    borderRadius: '10px',
     border: `1px solid ${fade(theme.palette.text.primary, 0.23)}`,
     margin: theme.spacing(0, 0.5, 0.5, 0)
   },

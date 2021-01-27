@@ -32,13 +32,16 @@ async function postCreate(req, res) {
 }
 
 async function createPost(req) {
-  const { title, content, type, tags } = req.body
+  const { title, contentRaw, contentHtml, contentText, contentMarkdown, type, tags } = req.body
   const { user } = req
   return await Post.create({
     urlSlug: slugify(title),
     user: user.id,
     title,
-    content,
+    contentRaw,
+    contentHtml,
+    contentText,
+    contentMarkdown,
     type,
     tags: tags ? tags.split(',') : []
   })

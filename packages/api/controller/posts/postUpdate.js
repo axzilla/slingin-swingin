@@ -12,13 +12,25 @@ async function postUpdate(req, res) {
       return res.status(400).json(errors)
     }
 
-    const { titleImage, title, content, type, tags } = req.body
+    const {
+      titleImage,
+      title,
+      contentRaw,
+      contentHtml,
+      contentText,
+      contentMarkdown,
+      type,
+      tags
+    } = req.body
     const postFields = {}
 
     Object.assign(postFields, {
       urlSlug: slugify(title),
       title,
-      content,
+      contentRaw,
+      contentHtml,
+      contentText,
+      contentMarkdown,
       type,
       tags: tags ? tags.split(',') : [],
       dateUpdated: Date.now()

@@ -7,7 +7,7 @@ async function conversationsGetByUserId(req, res) {
     const foundConversations = await Conversation.find({
       users: { $in: userId }
     })
-      .populate({ path: 'users', populate: { path: 'profile' } })
+      .populate('users', '-password')
       .populate('messages')
 
     res.json(foundConversations)

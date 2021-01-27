@@ -6,18 +6,18 @@ import isEmpty from '@utils/isEmpty'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-function ProfileDetailsBio({ profile }) {
+function ProfileDetailsBio({ user }) {
   return (
     <Box mb={3}>
       <Typography variant="body1" gutterBottom>
-        {isEmpty(profile.bio) ? 'did not write anything in the bio...' : profile.bio}
+        {isEmpty(user.bio) ? 'did not write anything in the bio...' : user.bio}
       </Typography>
     </Box>
   )
 }
 
 ProfileDetailsBio.propTypes = {
-  profile: PropTypes.object
+  user: PropTypes.object
 }
 
 export default ProfileDetailsBio

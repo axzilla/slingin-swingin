@@ -17,7 +17,7 @@ async function messageDelete(req, res) {
     await updatedConversation.save()
 
     const foundConversation = await Conversation.findById(deletedMessage.conversation)
-      .populate({ path: 'users', populate: { path: 'profile' } })
+      .populate('users', '-password')
       .populate('messages')
 
     global.io.in(updatedConversation._id).emit('update-conversation', foundConversation)

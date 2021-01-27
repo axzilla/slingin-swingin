@@ -22,10 +22,18 @@ async function commentCreate(req, res) {
 }
 
 async function createComment(req) {
-  const { content, postId } = req.body
+  const { contentRaw, contentHtml, contentText, contentMarkdown, postId } = req.body
   const { id } = req.user
 
-  const createdPostComment = await PostComment.create({ content, post: postId, user: id })
+  const createdPostComment = await PostComment.create({
+    contentRaw,
+    contentHtml,
+    contentText,
+    contentMarkdown,
+    post: postId,
+    user: id
+  })
+
   const populatedPostComment = await PostComment.findById(createdPostComment._id).populate(
     'user',
     '-password'

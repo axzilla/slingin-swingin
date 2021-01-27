@@ -39,12 +39,12 @@ function ReviewFeedItem({ review }) {
       <CardHeader
         classes={{ root: classes.cardHeaderRoot }}
         avatar={
-          <Link href="/[handle]" as={`/${review.user.username}`}>
+          <Link href="/[username]" as={`/${review.user.username}`}>
             <UserAvatar height={56} width={56} user={review.user} />
           </Link>
         }
         title={
-          <Link underlined href="/[handle]" as={`/${review.user.username}`}>
+          <Link underlined href="/[username]" as={`/${review.user.username}`}>
             <Box fontWeight="bold">{review.user.username}</Box>
           </Link>
         }

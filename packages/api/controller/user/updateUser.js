@@ -2,7 +2,7 @@
 const Scraper = require('images-scraper')
 
 // Models
-const Profile = require('../../models/Profile')
+const User = require('../../models/User')
 const Place = require('../../models/Place')
 
 // Validation
@@ -13,7 +13,7 @@ const isEmpty = require('../../utils/isEmpty')
 const cloudinary = require('../../utils/cloudinary')
 const slugify = require('../../utils/slugify')
 
-async function profileUpdate(req, res) {
+async function updateUser(req, res) {
   try {
     const { locationFrom, locationCurrent } = req.body
     const { errors } = validateProfile(req.body)
@@ -82,17 +82,17 @@ async function profileUpdate(req, res) {
       }
     }
 
-    const updatedProfile = await Profile.findOneAndUpdate({ user: req.user.id }, profile, {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, profile, {
       new: true
     })
       .populate('locationFrom')
       .populate('locationCurrent')
 
-    res.json(updatedProfile)
+    res.json(updatedUser)
   } catch (error) {
     console.error(error) // eslint-disable-line
     return res.status(500).json({ other: 'Error, please try it again!' })
   }
 }
 
-module.exports = profileUpdate
+module.exports = updateUser

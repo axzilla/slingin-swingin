@@ -3,27 +3,30 @@ import PropTypes from 'prop-types'
 
 import Link from '@components/Link'
 
-import { makeStyles } from '@material-ui/styles'
+// import { makeStyles } from '@material-ui/styles'
 import CardMedia from '@material-ui/core/CardMedia'
+import Box from '@material-ui/core/Box'
 
-const useStyles = makeStyles({
-  media: { objectFit: 'cover' }
-})
+// const useStyles = makeStyles({
+//   media: { objectFit: 'cover' }
+// })
 
 function TitleImage({ post }) {
-  const classes = useStyles()
+  // const classes = useStyles()
 
   return (
     <>
       {post.titleImage && (
         <Link href="/post/[postId]/[urlSlug]" as={`/post/${post.shortId}/${post.urlSlug}`}>
           <CardMedia
-            component="img"
-            alt="Post title"
-            className={classes.media}
+            // component="img"
+            // alt="Post title"
+            // className={classes.media}
             height="140"
             image={post.titleImage.secure_url}
-          />
+          >
+            <Box height={200} />
+          </CardMedia>
         </Link>
       )}
     </>

@@ -24,7 +24,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 function Settings() {
   const dispatch = useDispatch()
   const { setAlert } = useAlert()
-  const { user } = useSelector(state => state.auth)
+  const { currentUser } = useSelector(state => state.auth)
 
   const [notifications, setNotifications] = useState({
     onNewPost: false,
@@ -35,12 +35,12 @@ function Settings() {
 
   useEffect(() => {
     setNotifications({
-      onNewPost: user.notifications && user.notifications.onNewPost,
-      onOwnPost: user.notifications && user.notifications.onOwnPost,
-      onBookmarkedPost: user.notifications && user.notifications.onBookmarkedPost,
-      onCommentedPost: user.notifications && user.notifications.onCommentedPost
+      onNewPost: currentUser.notifications && currentUser.notifications.onNewPost,
+      onOwnPost: currentUser.notifications && currentUser.notifications.onOwnPost,
+      onBookmarkedPost: currentUser.notifications && currentUser.notifications.onBookmarkedPost,
+      onCommentedPost: currentUser.notifications && currentUser.notifications.onCommentedPost
     })
-  }, [user.notifications])
+  }, [currentUser.notifications])
 
   function onChange(event) {
     setNotifications({

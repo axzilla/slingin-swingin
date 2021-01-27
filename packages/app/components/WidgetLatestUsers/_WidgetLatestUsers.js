@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Moment from 'react-moment'
 
 // Services
-import { getAllProfiles } from '@services/profile'
+import { getAllUsers } from '@services/user'
 
 // Global Components
 import Link from '@components/Link'
@@ -13,7 +13,7 @@ import UserAvatar from '@components/UserAvatar'
 import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
 import Card from '@material-ui/core/Card'
-import Typography from '@material-ui/core/Typography'
+// import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Grid from '@material-ui/core/Grid'
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 function WidgetLatestUsers() {
   const classes = useStyles()
-  const [profiles, setProfiles] = useState()
+  const [users, setUsers] = useState()
 
   useEffect(() => {
     getInitialData()
@@ -52,8 +52,8 @@ function WidgetLatestUsers() {
 
   async function getInitialData() {
     try {
-      const foundProfiles = await getAllProfiles()
-      setProfiles(foundProfiles.data)
+      const users = await getAllUsers()
+      setUsers(users.data)
     } catch (error) {
       if (error) throw error
     }
@@ -65,35 +65,35 @@ function WidgetLatestUsers() {
         title={
           <Grid container justify="space-between">
             <Grid item>New Members</Grid>
-            <Link href="/all-members" underlined>
+            {/* <Link href="/all-members" underlined>
               <Grid item>
-                <Typography>All Members</Typography>
+                <Typography>All</Typography>
               </Grid>
-            </Link>
+            </Link> */}
           </Grid>
         }
       />
       <CardContent>
         <div className={classes.scrollable}>
           <List className={classes.list} disablePadding dense>
-            {profiles &&
-              profiles.slice(0, 10).map(profile => {
+            {users &&
+              users.result.slice(0, 10).map(user => {
                 return (
-                  <ListItem key={profile._id} className={classes.listItem} disableGutters>
+                  <ListItem key={user._id} className={classes.listItem} disableGutters>
                     <ListItemAvatar>
-                      <Link href="/[handle]" as={`/${profile.handle}`}>
-                        <UserAvatar user={profile.user} />
+                      <Link href="/[username]" as={`/${user.username}`}>
+                        <UserAvatar user={user} />
                       </Link>
                     </ListItemAvatar>
                     <ListItemText
                       primary={
-                        <Link underlined href="/[handle]" as={`/${profile.handle}`}>
-                          <div className={classes.noWrap}>{profile.user.username}</div>
+                        <Link underlined href="/[username]" as={`/${user.username}`}>
+                          <div className={classes.noWrap}>{user.username}</div>
                         </Link>
                       }
                       secondary={
                         <small className={classes.noWrap}>
-                          <Moment fromNow>{profile.dateCreated}</Moment>
+                          <Moment fromNow>{user.dateCreated}</Moment>
                         </small>
                       }
                     />

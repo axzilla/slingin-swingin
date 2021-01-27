@@ -31,7 +31,7 @@ function ProfileEditAvatar() {
   const classes = useStyles()
   const [avatarOpen, setAvatarOpen] = React.useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { user } = useSelector(state => state.auth)
+  const { currentUser } = useSelector(state => state.auth)
 
   async function handleAvatarChange(event) {
     try {
@@ -78,11 +78,15 @@ function ProfileEditAvatar() {
       <Card variant="outlined">
         <Grid container direction="column" alignItems="center">
           <CardContent>
-            {user.avatar && user.avatar.secure_url ? (
-              <Avatar className={classes.avatar} alt={user.username} src={user.avatar.secure_url} />
+            {currentUser.avatar && currentUser.avatar.secure_url ? (
+              <Avatar
+                className={classes.avatar}
+                alt={currentUser.username}
+                src={currentUser.avatar.secure_url}
+              />
             ) : (
-              <Avatar className={classes.avatar} alt={user.username}>
-                {user.username && user.username.substring(0, 1)}
+              <Avatar className={classes.avatar} alt={currentUser.username}>
+                {currentUser.username && currentUser.username.substring(0, 1)}
               </Avatar>
             )}
             <input
@@ -96,7 +100,7 @@ function ProfileEditAvatar() {
           <CardContent>
             <Grid container>
               <label
-                style={{ display: !isEmpty(user.avatar) ? 'none' : 'inline', width: '100%' }}
+                style={{ display: !isEmpty(currentUser.avatar) ? 'none' : 'inline', width: '100%' }}
                 htmlFor="raised-button-file"
               >
                 <Button fullWidth component="span" disabled={isLoading}>
@@ -105,7 +109,7 @@ function ProfileEditAvatar() {
               </label>
               <Button
                 fullWidth
-                style={{ display: isEmpty(user.avatar) ? 'none' : 'inline' }}
+                style={{ display: isEmpty(currentUser.avatar) ? 'none' : 'inline' }}
                 onClick={handleAvatarOpen}
                 disabled={isLoading}
               >

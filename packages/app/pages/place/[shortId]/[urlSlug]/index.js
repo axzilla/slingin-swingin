@@ -11,10 +11,10 @@ import { PlaceDetails as PlaceDetailsView } from '@views'
 import { getPlaceByShortId } from '@services/place'
 import { getPlaceReviewsByPlaceId } from '@services/placeReview'
 import {
-  getPlaceCurrentProfilesByPlaceId
-  // getPlaceBeenProfilesByPlaceId,
-  // getPlaceWantProfilesByPlaceId
-} from '@services/profile'
+  getPlaceCurrentUsersByPlaceId
+  // getPlaceBeenUsersByPlaceId,
+  // getPlaceWantUsersByPlaceId
+} from '@services/user'
 
 // Global Components
 import { SeoMeta } from '@components'
@@ -43,9 +43,9 @@ PlaceDetails.getInitialProps = async ctx => {
 
     const place = await getPlaceByShortId(shortId)
     const placeReviews = await getPlaceReviewsByPlaceId(place.data._id)
-    const peopleCurrent = await getPlaceCurrentProfilesByPlaceId(place.data._id)
-    // const peopleBeen = await getPlaceBeenProfilesByPlaceId(place.data._id)
-    // const peopleWant = await getPlaceWantProfilesByPlaceId(place.data._id)
+    const peopleCurrent = await getPlaceCurrentUsersByPlaceId(place.data._id)
+    // const peopleBeen = await getPlaceBeenUsersByPlaceId(place.data._id)
+    // const peopleWant = await getPlaceWantUsersByPlaceId(place.data._id)
 
     const data = {
       baseData: place.data,

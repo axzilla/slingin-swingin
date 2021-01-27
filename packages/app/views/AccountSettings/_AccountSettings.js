@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useAlert } from '@contexts/AlertContext'
 
 // Services
-import { profileUpdate, getCurrentProfile } from '@services/profile'
+import { updateUser, getCurrentUser } from '@services/user'
 
 // Utils
 import isEmpty from '@utils/isEmpty'
@@ -35,7 +35,7 @@ function AccountSettings() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState('')
   const [locations, setLocations] = useState([])
-  const [profile, setProfile] = useState({
+  const [user, setUser] = useState({
     name: '',
     handle: '',
     locationFrom: null,
@@ -56,8 +56,8 @@ function AccountSettings() {
   async function getInitialData() {
     try {
       setIsLoading(true)
-      const foundProfile = await getCurrentProfile()
-      setProfile(foundProfile.data)
+      const user = await getCurrentUser()
+      setUser(user.data)
       setIsLoading(false)
     } catch (error) {
       if (error) throw error
@@ -67,8 +67,8 @@ function AccountSettings() {
   async function onSubmit(event) {
     try {
       event.preventDefault()
-      const updatedProfile = await profileUpdate(profile)
-      setProfile(updatedProfile.data)
+      const updatedUser = await updateUser(user)
+      setUser(updatedUser.data)
       setAlert({ message: 'Profile updated successfully.', variant: 'success' })
       setErrors('')
     } catch (error) {
@@ -82,7 +82,7 @@ function AccountSettings() {
   }
 
   function onChange(event) {
-    setProfile({ ...profile, [event.target.name]: event.target.value })
+    setUser({ ...user, [event.target.name]: event.target.value })
   }
 
   async function handleGetPlaces(event) {
@@ -129,7 +129,7 @@ function AccountSettings() {
                             <TextField
                               error={errors && errors.name}
                               name="name"
-                              value={profile.name}
+                              value={user.name}
                               onChange={onChange}
                             />
                           </Grid>
@@ -141,7 +141,7 @@ function AccountSettings() {
                               error={errors && errors.website}
                               placeholder="Website URL"
                               name="website"
-                              value={profile.website}
+                              value={user.website}
                               onChange={onChange}
                             />
                           </Grid>
@@ -153,7 +153,7 @@ function AccountSettings() {
                               error={errors && errors.twitter}
                               placeholder="Twitter URL"
                               name="twitter"
-                              value={profile.twitter}
+                              value={user.twitter}
                               onChange={onChange}
                             />
                           </Grid>
@@ -165,7 +165,7 @@ function AccountSettings() {
                               error={errors && errors.facebook}
                               placeholder="Facebook URL"
                               name="facebook"
-                              value={profile.facebook}
+                              value={user.facebook}
                               onChange={onChange}
                             />
                           </Grid>
@@ -177,7 +177,7 @@ function AccountSettings() {
                               error={errors && errors.instagram}
                               placeholder="Instagram URL"
                               name="instagram"
-                              value={profile.instagram}
+                              value={user.instagram}
                               onChange={onChange}
                             />
                           </Grid>
@@ -189,7 +189,7 @@ function AccountSettings() {
                               error={errors && errors.linkedin}
                               placeholder="LinkedIn URL"
                               name="linkedin"
-                              value={profile.linkedin}
+                              value={user.linkedin}
                               onChange={onChange}
                             />
                           </Grid>
@@ -201,7 +201,7 @@ function AccountSettings() {
                               error={errors && errors.youtube}
                               placeholder="Youtube URL"
                               name="youtube"
-                              value={profile.youtube}
+                              value={user.youtube}
                               onChange={onChange}
                             />
                           </Grid>
@@ -215,11 +215,9 @@ function AccountSettings() {
                               rows="4"
                               rowsMax="4"
                               name="bio"
-                              value={profile.bio}
+                              value={user.bio}
                               onChange={onChange}
-                              helperText={`${
-                                (profile.bio && profile.bio.length) || 0
-                              } / 160 characters`}
+                              helperText={`${(user.bio && user.bio.length) || 0} / 160 characters`}
                             />
                             {/* <FormHelperText>Hello</FormHelperText> */}
                           </Grid>
@@ -228,15 +226,14 @@ function AccountSettings() {
                               Where are you from
                             </Typography>
                             <Autocomplete
+                              disableClearable
                               freeSolo
-                              value={
-                                !isEmpty(profile.locationFrom) ? profile.locationFrom.mapBox : null
-                              }
+                              value={!isEmpty(user.locationFrom) ? user.locationFrom.mapBox : null}
                               onInputChange={_.debounce(handleGetPlaces, 1000)}
                               onChange={(event, location) => {
-                                setProfile({
-                                  ...profile,
-                                  locationFrom: { ...profile.locationFrom, mapBox: location }
+                                setUser({
+                                  ...user,
+                                  locationFrom: { ...user.locationFrom, mapBox: location }
                                 })
                               }}
                               options={locations}
@@ -246,7 +243,7 @@ function AccountSettings() {
                                   {...params}
                                   onChange={event => {
                                     if (event.target.value.length < 1) {
-                                      setProfile({ ...profile, locationFrom: null })
+                                      setUser({ ...user, locationFrom: null })
                                       setLocations([])
                                     }
                                   }}
@@ -261,17 +258,16 @@ function AccountSettings() {
                               Current location
                             </Typography>
                             <Autocomplete
+                              disableClearable
                               freeSolo
                               value={
-                                !isEmpty(profile.locationCurrent)
-                                  ? profile.locationCurrent.mapBox
-                                  : null
+                                !isEmpty(user.locationCurrent) ? user.locationCurrent.mapBox : null
                               }
                               onInputChange={_.debounce(handleGetPlaces, 1000)}
                               onChange={(event, location) => {
-                                setProfile({
-                                  ...profile,
-                                  locationCurrent: { ...profile.locationCurrent, mapBox: location }
+                                setUser({
+                                  ...user,
+                                  locationCurrent: { ...user.locationCurrent, mapBox: location }
                                 })
                               }}
                               options={locations}
@@ -281,7 +277,7 @@ function AccountSettings() {
                                   {...params}
                                   onChange={event => {
                                     if (event.target.value.length < 1) {
-                                      setProfile({ ...profile, locationCurrent: null })
+                                      setUser({ ...user, locationCurrent: null })
                                       setLocations([])
                                     }
                                   }}

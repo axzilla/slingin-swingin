@@ -73,7 +73,7 @@ function People({ peopleCurrent, peopleBeen, peopleWant, baseData, type }) {
             .map((item, index) => {
               return (
                 <Grid item key={index}>
-                  <Link href="/[handle]" as={`/${item.handle}`}>
+                  <Link href="/[username]" as={`/${item.username}`}>
                     <Card style={{ backgroundColor: 'transparent' }} variant="outlined">
                       <CardContent>
                         <Avatar
@@ -108,7 +108,7 @@ function People({ peopleCurrent, peopleBeen, peopleWant, baseData, type }) {
             {people.map((item, index) => {
               return (
                 <Grid item key={index}>
-                  <Link href="/[handle]" as={`/${item.handle}`}>
+                  <Link href="/[username]" as={`/${item.username}`}>
                     <Avatar src={item.user.avatar && item.user.avatar.secure_url} />
                   </Link>
                 </Grid>

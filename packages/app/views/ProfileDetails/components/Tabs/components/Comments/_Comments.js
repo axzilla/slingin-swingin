@@ -42,7 +42,7 @@ function Comments({ comments }) {
                   </div>
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: htmlRemove(rawToHtml(comment.content))
+                      __html: htmlRemove(rawToHtml(comment.contentRaw))
                     }}
                   />
                 </CardContent>

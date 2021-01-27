@@ -5,7 +5,7 @@ import rawToHtml from '@utils/rawToHtml'
 import htmlToMui from '@utils/htmlToMui'
 
 function CommentFeedItemtext({ comment }) {
-  return <div dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(comment.content)) }} />
+  return <div dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(comment.contentRaw)) }} />
 }
 
 CommentFeedItemtext.propTypes = {
