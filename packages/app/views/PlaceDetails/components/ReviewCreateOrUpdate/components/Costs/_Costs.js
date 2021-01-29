@@ -6,15 +6,17 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import NumberFormat from 'react-number-format'
 
 function Costs({ costs, placeReview, setPlaceReview }) {
   function handleFoodChange(event) {
     const { name, value } = event.target
+
     setPlaceReview({
       ...placeReview,
       costs: {
         ...placeReview.costs,
-        food: { ...placeReview.costs.food, [name]: parseInt(value.replace(/[^0-9]/g, '')) }
+        food: { ...placeReview.costs.food, [name]: parseFloat(value) }
       }
     })
   }
@@ -25,7 +27,7 @@ function Costs({ costs, placeReview, setPlaceReview }) {
       ...placeReview,
       costs: {
         ...placeReview.costs,
-        monthly: { ...placeReview.costs.monthly, [name]: parseInt(value.replace(/[^0-9]/g, '')) }
+        monthly: { ...placeReview.costs.monthly, [name]: parseFloat(value) }
       }
     })
   }
@@ -40,17 +42,18 @@ function Costs({ costs, placeReview, setPlaceReview }) {
           return (
             <Grid key={item.label} item xs={6} sm={3}>
               <Typography color="textSecondary">{item.label}</Typography>
-              <TextField
+              <NumberFormat
+                customInput={TextField}
+                decimalScale={2}
+                thousandSeparator
+                //
                 name={item.name}
                 fullWidth
                 color="primary"
                 margin="dense"
                 variant="outlined"
                 value={
-                  (placeReview.costs &&
-                    placeReview.costs.food &&
-                    placeReview.costs.food[item.name]) ||
-                  0
+                  placeReview.costs && placeReview.costs.food && placeReview.costs.food[item.name]
                 }
                 onChange={handleFoodChange}
                 InputProps={{
@@ -68,17 +71,20 @@ function Costs({ costs, placeReview, setPlaceReview }) {
           return (
             <Grid key={item.label} item xs={6} sm={3}>
               <Typography color="textSecondary">{item.label}</Typography>
-              <TextField
+              <NumberFormat
+                customInput={TextField}
+                decimalScale={2}
+                thousandSeparator
+                //
                 name={item.name}
                 fullWidth
                 color="primary"
                 margin="dense"
                 variant="outlined"
                 value={
-                  (placeReview.costs &&
-                    placeReview.costs.monthly &&
-                    placeReview.costs.monthly[item.name]) ||
-                  0
+                  placeReview.costs &&
+                  placeReview.costs.monthly &&
+                  placeReview.costs.monthly[item.name]
                 }
                 onChange={handleMonthlyChange}
                 InputProps={{
