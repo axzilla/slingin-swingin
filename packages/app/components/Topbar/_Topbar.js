@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => {
       position: 'fixed',
       bottom: 0,
       width: '100%',
-      zIndex: 9999,
+      zIndex: 1,
       borderTop: `1px solid ${fade(theme.palette.text.secondary, 0.2)}`
     }
   }
@@ -175,14 +175,12 @@ function Topbar() {
         <Toolbar>
           <Grid container alignItems="center" justify="space-between">
             <Grid item>
-              <Grid container>
+              <Grid container alignItems="center">
                 <Link href="/">
-                  <Grid container alignItems="center">
-                    <img
-                      src={isDarkTheme ? '/_logo_icon_light.svg' : '/_logo_icon_dark.svg'}
-                      className={classes.logo}
-                    />
-                  </Grid>
+                  <img
+                    src={isDarkTheme ? '/_logo_icon_light.svg' : '/_logo_icon_dark.svg'}
+                    className={classes.logo}
+                  />
                 </Link>
                 <Hidden smDown>
                   {navigation.map(item => {
@@ -279,6 +277,7 @@ function Topbar() {
           </Grid>
         </Toolbar>
       </AppBar>
+
       <Hidden mdUp>
         <BottomNavigation
           id="bottomNav"
