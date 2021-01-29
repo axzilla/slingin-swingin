@@ -46,7 +46,16 @@ function RouterLoading() {
 
   return (
     isLoading && (
-      <LinearProgress color="secondary" style={{ position: 'sticky', top: '0', zIndex: 9999 }} />
+      <>
+        <LinearProgress
+          color="secondary"
+          style={{ position: 'fixed', width: '100%', bottom: '0', zIndex: 9999999 }}
+        />
+        <LinearProgress
+          color="secondary"
+          style={{ position: 'fixed', width: '100%', top: '0', zIndex: 9999999 }}
+        />
+      </>
     )
   )
 }
@@ -95,8 +104,8 @@ function MyApp(props) {
       <SocketContextProvider>
         <AlertContextProvider>
           <CustomThemeProvider>
-            <CssBaseline />
             <RouterLoading />
+            <CssBaseline />
             <Component {...pageProps} />
             <Alert />
             <AuthModal />

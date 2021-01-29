@@ -27,6 +27,11 @@ global.io.on('connection', async socket => {
     socket.join(conversationId)
   })
 
+  socket.on('notifications', currentUserId => {
+    console.log(`Socket ${socket.id} joining notifications-${currentUserId}`) // eslint-disable-line no-console
+    socket.join(currentUserId)
+  })
+
   // const decodedUser =
   //   socket.handshake.headers.cookie && cookie.parse(socket.handshake.headers.cookie).jwtToken
   //     ? jwtDecode(cookie.parse(socket.handshake.headers.cookie).jwtToken)
