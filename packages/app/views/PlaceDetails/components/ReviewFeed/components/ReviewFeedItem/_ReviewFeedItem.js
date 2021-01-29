@@ -48,7 +48,7 @@ function ReviewFeedItem({ review }) {
             <Box fontWeight="bold">{review.user.username}</Box>
           </Link>
         }
-        subheader={<Moment fromNow>{Date.now()}</Moment>}
+        subheader={<Moment fromNow>{review.dateCreated}</Moment>}
       />
       <CardContent classes={{ root: classes.cardContentRoot }}>
         <Typography>
