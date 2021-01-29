@@ -13,7 +13,7 @@ export default {
   // },
   secondary: {
     // dark: colors.pink[700],
-    main: '#1876f2'
+    main: '#ff385c'
     // light: colors.pink[500]
   },
   error: {
