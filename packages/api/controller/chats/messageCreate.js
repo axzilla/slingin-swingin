@@ -23,6 +23,7 @@ async function messageCreate(req, res) {
         .populate('messages')
 
       global.io.in(updatedConversation._id).emit('update-conversation', updatedConversation)
+      global.io.in(receiver._id).emit('notifications', 'Hello')
       res.json('success')
     } else {
       const createdConversation = await Conversation.create({

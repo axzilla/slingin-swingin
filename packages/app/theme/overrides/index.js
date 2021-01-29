@@ -6,6 +6,7 @@ import MuiButton from './MuiButton'
 import MuiCardContent from './MuiCardContent'
 import MuiOutlinedInput from './MuiOutlinedInput'
 import MuiInputLabel from './MuiInputLabel'
+import MuiBottomNavigationAction from './MuiBottomNavigationAction'
 
 export default function overrides(globalTheme) {
   return {
@@ -16,6 +17,7 @@ export default function overrides(globalTheme) {
     MuiButton,
     MuiCardContent,
     MuiOutlinedInput: MuiOutlinedInput(globalTheme),
-    MuiInputLabel: MuiInputLabel(globalTheme)
+    MuiInputLabel: MuiInputLabel(globalTheme),
+    MuiBottomNavigationAction: MuiBottomNavigationAction(globalTheme)
   }
 }
