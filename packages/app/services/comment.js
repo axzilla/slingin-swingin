@@ -10,8 +10,8 @@ export function commentUpdate(commentData) {
   return axios.patch(`${serverUrl}/comment-update`, commentData)
 }
 
-export function commentDelete(commentId) {
-  return axios.delete(`${serverUrl}/comment-delete`, { data: { commentId } })
+export function commentDelete(commentIds, postId) {
+  return axios.delete(`${serverUrl}/comment-delete`, { data: { commentIds, postId } })
 }
 
 export function commentUpvote(commentId) {

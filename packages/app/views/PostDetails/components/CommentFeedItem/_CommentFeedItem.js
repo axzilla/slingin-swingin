@@ -1,10 +1,12 @@
 // Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 // Services
 import { commentDelete } from '@services/comment'
+
+// Contexts
+import { useAlert } from '@contexts/AlertContext'
 
 // Global Components
 import CommentForm from '@components/CommentForm'
@@ -15,13 +17,10 @@ import Content from './components/Content'
 import Vote from './components/Vote'
 
 // MUI
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardActions from '@material-ui/core/CardActions'
+import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -31,9 +30,10 @@ function CommentFeedItem({ comment, comments, setComments }) {
   const [commentData, setCommentData] = useState(comment)
   const [isEditMode, setIsEditMode] = useState(false)
   const [avatarOpen, setAvatarOpen] = useState(false)
-  const { isAuthenticated, currentUser } = useSelector(state => state.auth)
+  const [isCommentForm, setIsCommentForm] = useState(false)
+  const { setAlert } = useAlert()
 
-  const handleAvatarOpen = () => {
+  const handleDeleteDialog = () => {
     setAvatarOpen(true)
   }
 
@@ -46,57 +46,76 @@ function CommentFeedItem({ comment, comments, setComments }) {
   }
 
   async function handleDeleteClick() {
+    let commentIds = [comment._id]
+    const postId = comment.post
+
+    function getChildComments(arr) {
+      arr.map(item => {
+        commentIds.push(item._id)
+        if (item.children) {
+          return getChildComments(item.children)
+        }
+      })
+    }
+
     try {
-      const deletedComment = await commentDelete(comment._id)
+      await getChildComments(comment.children)
 
-      const index = comments.indexOf(
-        comments.filter(comment => {
-          return comment._id === deletedComment.data._id
-        })[0]
-      )
-
-      setComments([...comments.slice(0, index), ...comments.slice(index + 1)])
+      const deletedComments = await commentDelete(commentIds, postId)
+      setComments([...comments.filter(comment => !deletedComments.data.includes(comment._id))])
       handleAvatarClose()
+      setAlert({ message: `Comment deleted successfully.`, variant: 'success' })
     } catch (error) {
       if (error) throw error
     }
   }
 
+  function handleIsCommentForm() {
+    setIsCommentForm(!isCommentForm)
+  }
+
   return (
-    <>
-      <Card variant="outlined">
+    <Grid container spacing={1}>
+      <Grid item />
+
+      <Grid item xs>
         {!isEditMode ? (
           <>
-            <Header comment={comment} />
-            <CardContent>
+            <Header
+              comment={comment}
+              handleEditClick={handleEditClick}
+              handleDeleteDialog={handleDeleteDialog}
+            />
+            <Box my={1} />
+            <Box mb={2}>
               <Content comment={commentData} />
-            </CardContent>
+            </Box>
+
+            <Vote comment={commentData} handleIsCommentForm={handleIsCommentForm} />
+            <Box mt={1}>{!isCommentForm && <Divider />}</Box>
+
+            {isCommentForm && (
+              <CommentForm
+                handleIsCommentForm={handleIsCommentForm}
+                parentId={commentData._id}
+                postId={commentData.post}
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+                setCommentData={setCommentData}
+                comments={comments}
+                setComments={setComments}
+              />
+            )}
           </>
         ) : (
-          <CardContent>
-            <CommentForm
-              comment={commentData}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-              setCommentData={setCommentData}
-            />
-          </CardContent>
+          <CommentForm
+            comment={commentData}
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+            setCommentData={setCommentData}
+          />
         )}
-        <Box m={2}>
-          <Vote comment={commentData} />
-        </Box>
-        {isAuthenticated && currentUser.id === comment.user._id && (
-          <>
-            <Divider />
-            <CardActions disableSpacing>
-              <Grid container>
-                <Button onClick={handleEditClick}>Edit</Button>
-                <Button onClick={handleAvatarOpen}>Delete</Button>
-              </Grid>
-            </CardActions>
-          </>
-        )}
-      </Card>
+      </Grid>
 
       <Dialog
         open={avatarOpen}
@@ -119,7 +138,7 @@ function CommentFeedItem({ comment, comments, setComments }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Grid>
   )
 }
 

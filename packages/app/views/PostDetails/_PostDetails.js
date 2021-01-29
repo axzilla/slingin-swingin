@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authModalReducer } from '@slices/authSlice'
 
 // Services
-// import { postDelete, postToggleLikes, postToggleBookmarks } from '@services/post'
 import { postDelete, postToggleLikes } from '@services/post'
 
 // Global Components
@@ -29,18 +28,106 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 import CardHeader from '@material-ui/core/CardHeader'
 import Box from '@material-ui/core/Box'
-// import BookmarkIcon from '@material-ui/icons/Bookmark'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
-function PostDetails({ post }) {
+function Comment({ comment, comments, setComments, handleSetNestedComments }) {
+  const nestedComments = (comment.children || [])
+    .sort((a, b) => {
+      if (a.dateCreated < b.dateCreated) {
+        return 1
+      }
+
+      if (a.dateCreated > b.dateCreated) {
+        return -1
+      }
+
+      return 0
+    })
+    .map((comment, index) => {
+      return (
+        <Comment
+          key={comment._id + index}
+          comment={comment}
+          comments={comments}
+          setComments={setComments}
+          handleSetNestedComments={handleSetNestedComments}
+          type="child"
+        />
+      )
+    })
+
+  return (
+    <Grid item style={{ marginTop: '16px' }}>
+      <Grid container>
+        <Grid item>
+          <Grid container style={{ height: '100%' }} direction="column" alignItems="center">
+            <Grid item>
+              <Link href="/[username]" as={`/${comment.user.username}`}>
+                <UserAvatar height={30} width={30} user={comment.user} />
+              </Link>
+            </Grid>
+            <Grid item xs>
+              <Divider orientation="vertical" />
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs>
+          <CommentFeedItem
+            comment={comment}
+            comments={comments}
+            setComments={setComments}
+            handleSetNestedComments={handleSetNestedComments}
+          />
+          {nestedComments}
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
+Comment.propTypes = {
+  comment: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
+  setComments: PropTypes.func.isRequired,
+  handleSetNestedComments: PropTypes.func.isRequired
+}
+
+function PostDetails({ post, commentsData }) {
   const dispatch = useDispatch()
   const [postData, setPostData] = useState(post)
-  const [comments, setComments] = useState(post.postComments)
+  const [comments, setComments] = useState(commentsData)
+  const [nestedComments, setNestedComments] = useState([])
   const { currentUser, isAuthenticated } = useSelector(state => state.auth)
 
-  // const isBookmarked = postData.bookmarks.includes(currentUser.id)
+  useEffect(() => {
+    handleSetNestedComments()
+  }, [comments])
+
+  useEffect(() => {
+    handleSetNestedComments()
+  }, [])
+
+  function handleSetNestedComments() {
+    let index = comments.reduce((a, c) => {
+      let comment = Object.assign({}, c)
+      comment.children = []
+      a.set(c._id, comment)
+      return a
+    }, new Map())
+
+    Array.from(index.values()).forEach(comment => {
+      if (comment.parent) index.get(comment.parent).children.push(comment)
+    })
+
+    const res = Array.from(index.values()).filter(c => c.parent === null)
+
+    setNestedComments(res)
+  }
+
   const isLiked = postData.likes.includes(currentUser.id)
 
   async function handleLikeClick() {
@@ -55,19 +142,6 @@ function PostDetails({ post }) {
       if (error) throw error
     }
   }
-
-  // async function handleBookmarkClick() {
-  //   try {
-  //     if (!isAuthenticated) {
-  //       dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
-  //     } else {
-  //       const updatedPost = await postToggleBookmarks(postData._id)
-  //       setPostData(updatedPost.data)
-  //     }
-  //   } catch (error) {
-  //     if (error) throw error
-  //   }
-  // }
 
   return (
     <Grid container justify="center" spacing={2}>
@@ -113,12 +187,6 @@ function PostDetails({ post }) {
                       color={isLiked ? 'secondary' : 'disabled'}
                     />
                   </Grid>
-                  {/* <Grid item>
-                    <BookmarkIcon
-                      color={isBookmarked ? 'textPrimary' : 'disabled'}
-                      onClick={handleBookmarkClick}
-                    />
-                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>
@@ -132,12 +200,14 @@ function PostDetails({ post }) {
         </Card>
       </Grid>
       <Grid item xs={12}>
+        {/* main comment */}
         {isAuthenticated ? (
           <CommentForm
             postId={postData._id}
             postShortId={postData.shortId}
             comments={comments}
             setComments={setComments}
+            handleSetNestedComments={handleSetNestedComments}
           />
         ) : null}
       </Grid>
@@ -148,8 +218,8 @@ function PostDetails({ post }) {
               {comments.length} Comments
             </Typography>
           </Grid>
-          {comments &&
-            comments
+          {nestedComments &&
+            nestedComments
               .sort((a, b) => {
                 if (a.dateCreated < b.dateCreated) {
                   return 1
@@ -161,15 +231,15 @@ function PostDetails({ post }) {
 
                 return 0
               })
-              .map(comment => {
+              .map((comment, index) => {
                 return (
-                  <Grid key={comment._id} item>
-                    <CommentFeedItem
-                      comment={comment}
-                      comments={comments}
-                      setComments={setComments}
-                    />
-                  </Grid>
+                  <Comment
+                    key={comment._id + index}
+                    comment={comment}
+                    comments={comments}
+                    setComments={setComments}
+                    handleSetNestedComments={handleSetNestedComments}
+                  />
                 )
               })}
         </Grid>
@@ -179,7 +249,8 @@ function PostDetails({ post }) {
 }
 
 PostDetails.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.object.isRequired,
+  commentsData: PropTypes.array.isRequired
 }
 
 export default PostDetails
