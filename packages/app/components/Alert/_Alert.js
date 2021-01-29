@@ -106,7 +106,7 @@ function CustomizedSnackbars() {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open={open}
       autoHideDuration={10000}
       onClose={handleClose}
