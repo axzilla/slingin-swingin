@@ -13,7 +13,7 @@ async function commentCreate(req, res) {
     const createdPostComment = await createComment(req)
     await updateUser(req, createdPostComment)
     const updatedPost = await updatePost(req, createdPostComment)
-    await updateComment(req, createdPostComment)
+    // await updateComment(req, createdPostComment)
     await sendMails(updatedPost, createdPostComment)
     res.json(createdPostComment)
   } catch (error) {
@@ -22,7 +22,7 @@ async function commentCreate(req, res) {
 }
 
 async function createComment(req) {
-  const { contentRaw, contentHtml, contentText, contentMarkdown, postId } = req.body
+  const { contentRaw, contentHtml, contentText, contentMarkdown, postId, parentId } = req.body
   const { id } = req.user
 
   const createdPostComment = await PostComment.create({
@@ -31,7 +31,8 @@ async function createComment(req) {
     contentText,
     contentMarkdown,
     post: postId,
-    user: id
+    user: id,
+    parent: parentId || null
   })
 
   const populatedPostComment = await PostComment.findById(createdPostComment._id).populate(
@@ -64,15 +65,15 @@ async function updatePost(req, createdPostComment) {
   return updatedPost
 }
 
-async function updateComment(req, createdPostComment) {
-  if (req.body.commentId) {
-    await PostComment.findByIdAndUpdate(req.body.commentId, {
-      $push: { postComments: createdPostComment._id }
-    })
-  } else {
-    return
-  }
-}
+// async function updateComment(req, createdPostComment) {
+//   if (req.body.commentId) {
+//     await PostComment.findByIdAndUpdate(req.body.commentId, {
+//       $push: { postComments: createdPostComment._id }
+//     })
+//   } else {
+//     return
+//   }
+// }
 
 async function sendMails(updatedPost) {
   // For activities of your own post

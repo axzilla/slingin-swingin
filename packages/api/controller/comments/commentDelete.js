@@ -4,23 +4,24 @@ const User = require('../../models/User')
 
 async function commentDelete(req, res) {
   try {
-    const deletedComment = await PostComment.findByIdAndDelete(req.body.commentId)
+    const userId = req.user._id
+    const { commentIds, postId } = req.body
 
-    await updatePost(deletedComment)
-    await updateUser(req, deletedComment)
-
-    res.json(deletedComment)
+    await PostComment.deleteMany({ _id: commentIds })
+    await updatePost(commentIds, postId)
+    await updateUser(commentIds, userId)
+    res.json(commentIds)
   } catch (error) {
     if (error) throw error
   }
 }
 
-async function updatePost(deletedComment) {
-  await Post.findByIdAndUpdate(deletedComment.post, { $pull: { postComments: deletedComment._id } })
+async function updatePost(deletedComments, postId) {
+  await Post.findByIdAndUpdate(postId, { $pull: { postComments: { $in: deletedComments } } })
 }
 
-async function updateUser(req, deletedComment) {
-  await User.findByIdAndUpdate(req.user._id, { $pull: { postComments: deletedComment._id } })
+async function updateUser(deletedComments, userId) {
+  await User.findByIdAndUpdate(userId, { $pull: { postComments: { $in: deletedComments } } })
 }
 
 module.exports = commentDelete
