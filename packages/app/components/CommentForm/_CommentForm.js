@@ -5,6 +5,9 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import { stateToMarkdown } from 'draft-js-export-markdown'
 
+// Contexts
+import { useAlert } from '@contexts/AlertContext'
+
 // Global Components
 import DraftJsEditor from '@components/DraftJsEditor'
 
@@ -27,12 +30,14 @@ const useStyles = makeStyles(theme => ({
 function CommentForm({
   comment,
   postId,
-  toggleAnswerMode,
+  parentId,
   setComments,
   comments,
   setIsEditMode,
-  setCommentData
+  setCommentData,
+  handleIsCommentForm
 }) {
+  const { setAlert } = useAlert()
   const classes = useStyles()
   const [editorState, setEditorState] = useState(
     comment
@@ -49,20 +54,8 @@ function CommentForm({
       const contentText = editorState.getCurrentContent().getPlainText().replace(/\s+/g, ' ').trim()
       const contentMarkdown = JSON.stringify(stateToMarkdown(editorState.getCurrentContent()))
 
-      if (comment) {
-        const commentData = {
-          contentRaw,
-          contentHtml,
-          contentText,
-          contentMarkdown,
-          commentId: comment._id,
-          post: comment.post
-        }
-
-        setIsEditMode(false)
-        const updatedComment = await commentUpdate(commentData)
-        setCommentData(updatedComment.data)
-      } else if (!comment) {
+      // create main comment
+      if (postId && !parentId && !comment) {
         const commentData = {
           contentRaw,
           contentHtml,
@@ -73,11 +66,43 @@ function CommentForm({
 
         const createdComment = await commentCreate(commentData)
         await setComments([...comments, createdComment.data])
+        setAlert({ message: `Comment created successfully.`, variant: 'success' })
+      }
 
-        toggleAnswerMode && toggleAnswerMode()
+      // create child comment
+      if (parentId && !comment) {
+        const commentData = {
+          contentRaw,
+          contentHtml,
+          contentText,
+          contentMarkdown,
+          postId,
+          parentId
+        }
+
+        const createdComment = await commentCreate(commentData)
+        await setComments([...comments, createdComment.data])
+        setAlert({ message: `Comment created successfully.`, variant: 'success' })
+      }
+
+      // update comment
+      if (comment && !postId && !parentId) {
+        const commentData = {
+          contentRaw,
+          contentHtml,
+          contentText,
+          contentMarkdown,
+          commentId: comment._id
+        }
+
+        setIsEditMode(false)
+        const updatedComment = await commentUpdate(commentData)
+        setCommentData(updatedComment.data)
+        setAlert({ message: `Comment updated successfully.`, variant: 'success' })
       }
 
       setEditorState(EditorState.createEmpty())
+      handleIsCommentForm && handleIsCommentForm()
     } catch (error) {
       console.log(error.response.data) // eslint-disable-line no-console
     }
@@ -120,12 +145,13 @@ function CommentForm({
 
 CommentForm.propTypes = {
   postId: PropTypes.string,
-  toggleAnswerMode: PropTypes.bool,
+  parentId: PropTypes.string,
   comment: PropTypes.object,
   comments: PropTypes.array,
   setComments: PropTypes.func,
   setIsEditMode: PropTypes.func,
-  setCommentData: PropTypes.func
+  setCommentData: PropTypes.func,
+  handleIsCommentForm: PropTypes.func
 }
 
 export default CommentForm

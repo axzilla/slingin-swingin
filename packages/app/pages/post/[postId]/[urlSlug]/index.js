@@ -1,14 +1,17 @@
+// Packages
 import PropTypes from 'prop-types'
 
+// Utils
 import rawToHtml from '@utils/rawToHtml'
 import htmlRemove from '@utils/htmlRemove'
 
 import { Main as MainLayout } from '@layouts'
 import { PostDetails as PostDetailsView } from '@views'
 import { getPostByShortId } from '@services/post'
+import { getCommentsByPostRef } from '@services/comment'
 import { SeoMeta } from '@components'
 
-function PostDetails({ post, urlSlug }) {
+function PostDetails({ post, commentsData, urlSlug }) {
   return (
     <>
       <SeoMeta
@@ -20,7 +23,7 @@ function PostDetails({ post, urlSlug }) {
         ogDescription={htmlRemove(rawToHtml(post.contentRaw))}
       />
       <MainLayout>
-        <PostDetailsView post={post} urlSlug={urlSlug} />
+        <PostDetailsView post={post} commentsData={commentsData} urlSlug={urlSlug} />
       </MainLayout>
     </>
   )
@@ -30,8 +33,9 @@ PostDetails.getInitialProps = async ctx => {
   try {
     const { postId, urlSlug } = ctx.query
     const post = await getPostByShortId(postId)
+    const comments = await getCommentsByPostRef(post.data._id)
 
-    return { urlSlug, post: post.data }
+    return { urlSlug, post: post.data, commentsData: comments.data }
   } catch (error) {
     if (error) {
       ctx.res.writeHead(302, { Location: '/not-found' })
@@ -42,6 +46,7 @@ PostDetails.getInitialProps = async ctx => {
 
 PostDetails.propTypes = {
   post: PropTypes.object,
+  commentsData: PropTypes.array,
   urlSlug: PropTypes.string
 }
 

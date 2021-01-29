@@ -239,8 +239,8 @@ function PlaceFeed({ places }) {
             </Typography>
           </Box>
         </Grid>
+        {/* Pagination END*/}
       </Grid>
-      {/* Pagination END*/}
 
       {/* Dialog */}
       <Dialog disableBackdropClick maxWidth="sm" fullWidth onClose={handleClose} open={open}>
