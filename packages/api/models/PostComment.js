@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 const PostCommentSchema = new Schema({
   post: { type: Schema.Types.ObjectId, ref: 'Post' },
+  parent: { type: Schema.Types.ObjectId, ref: 'PostComment' },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   contentRaw: { type: String, required: true },
   contentHtml: { type: String, required: true },
