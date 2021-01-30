@@ -27,7 +27,7 @@ const Form = () => {
   const { conversations, selectedConversation } = useSelector(state => state.chats)
   const sender = useSelector(state => state.auth.currentUser)
   const users = selectedConversation && selectedConversation.users
-  const receiver = users && users.filter(user => user._id !== sender.id)[0]
+  const receiver = users && users.filter(user => user._id !== sender._id)[0]
 
   const hasText = editorState.getCurrentContent().hasText()
 

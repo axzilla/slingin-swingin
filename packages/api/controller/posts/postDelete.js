@@ -37,7 +37,7 @@ async function deletePostOnUser(req, deletedPost) {
 }
 
 async function deletePostCommentsOnUser(req, deletedPostComments) {
-  const deletedPostCommentsIds = deletedPostComments.map(item => item.id)
+  const deletedPostCommentsIds = deletedPostComments.map(item => item._id)
 
   await User.findByIdAndUpdate(req.user._id, {
     $pull: { postComments: { $in: deletedPostCommentsIds } }

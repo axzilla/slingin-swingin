@@ -57,7 +57,7 @@ mongoose
       if (decodedUser) {
         console.log(`${socket.id} -> ${decodedUser.username} -> connected`) // eslint-disable-line no-console
 
-        const user = await User.findById(decodedUser.id)
+        const user = await User.findById(decodedUser._id)
 
         if (!user.sockets.includes(socket.id)) {
           user.sockets.push(socket.id)
@@ -69,7 +69,7 @@ mongoose
         socket.on('disconnect', async () => {
           console.log(`${socket.id} -> ${decodedUser.username} -> disconnected`) // eslint-disable-line no-console
 
-          const user = await User.findById(decodedUser.id)
+          const user = await User.findById(decodedUser._id)
           const index = user.sockets.indexOf(socket.id)
           user.sockets.splice(index, 1)
 

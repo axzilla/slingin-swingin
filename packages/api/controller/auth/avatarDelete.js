@@ -10,7 +10,7 @@ async function avatarDelete(req, res) {
     await cloudinary.v2.uploader.destroy(req.user.avatar.public_id)
 
     const payload = {
-      id: savedUser.id,
+      _id: savedUser._id,
       email: savedUser.email,
       username: savedUser.username,
       avatar: savedUser.avatar,

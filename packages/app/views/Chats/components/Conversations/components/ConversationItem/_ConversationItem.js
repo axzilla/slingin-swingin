@@ -1,13 +1,9 @@
 // Packages
-import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 // Global Components
 import UserAvatar from '@components/UserAvatar'
-
-// Contexts
-import { useSocket } from '@contexts/SocketContext'
 
 // MUI
 import ListItem from '@material-ui/core/ListItem'
@@ -16,14 +12,9 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Hidden from '@material-ui/core/Hidden'
 
 const ConversationItem = ({ conversation, handleSelectedConversation }) => {
-  const { socket } = useSocket()
   const { selectedConversation } = useSelector(state => state.chats)
   const sender = useSelector(state => state.auth.currentUser)
-  const receiver = conversation.users.filter(user => user._id !== sender.id)[0]
-
-  useEffect(() => {
-    socket && socket.emit('join-room', conversation._id)
-  }, [socket])
+  const receiver = conversation.users.filter(user => user._id !== sender._id)[0]
 
   return (
     <ListItem

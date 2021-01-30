@@ -19,7 +19,7 @@ import Typography from '@material-ui/core/Typography'
 function Footer({ post }) {
   // const dispatch = useDispatch()
   // const { user, isAuthenticated } = useSelector(state => state.auth)
-  // const isBookmarked = post.bookmarks.includes(user.id)
+  // const isBookmarked = post.bookmarks.includes(user._id)
 
   // async function handleBookmarkClick() {
   //   try {

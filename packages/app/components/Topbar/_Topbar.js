@@ -1,12 +1,11 @@
 // Packages
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Redux
 import { signOutReducer, authModalReducer } from '@slices/authSlice'
 import { switchThemeReducer } from '@slices/themeSlice'
-import { setMessagesNotificationsReducer } from '@slices/notificationsSlice'
 
 // Contexts
 import { useSocket } from '@contexts/SocketContext'
@@ -112,39 +111,22 @@ function Topbar() {
     { name: 'People', icon: <PeopleIcon />, link: '/users' }
   ]
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.onscroll = () => {
-        if (
-          window.innerHeight + window.scrollY > document.body.clientHeight - 1 &&
-          document.getElementById('bottomNav')
-        ) {
-          document.getElementById('bottomNav').style.transition = 'all .3s'
-          document.getElementById('bottomNav').style.bottom = '-5rem'
-        } else if (document.getElementById('bottomNav')) {
-          document.getElementById('bottomNav').style.bottom = 0
-          document.getElementById('bottomNav').style.transition = 'all .3s'
-        }
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    console.log('socket, currentUser, isAuthenticated HAS CHANGED') // eslint-disable-line
-
-    if (socket && currentUser.id && isAuthenticated) {
-      socket.emit('notifications', currentUser.id)
-    }
-  }, [socket, currentUser, isAuthenticated])
-
-  useEffect(() => {
-    console.log('socket HAS CHANGED') // eslint-disable-line
-
-    socket &&
-      socket.on('notifications', () => {
-        dispatch(setMessagesNotificationsReducer(true))
-      })
-  }, [socket])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     window.onscroll = () => {
+  //       if (
+  //         window.innerHeight + window.scrollY > document.body.clientHeight - 1 &&
+  //         document.getElementById('bottomNav')
+  //       ) {
+  //         document.getElementById('bottomNav').style.transition = 'all .3s'
+  //         document.getElementById('bottomNav').style.bottom = '-5rem'
+  //       } else if (document.getElementById('bottomNav')) {
+  //         document.getElementById('bottomNav').style.bottom = 0
+  //         document.getElementById('bottomNav').style.transition = 'all .3s'
+  //       }
+  //     }
+  //   }
+  // }, [])
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget)

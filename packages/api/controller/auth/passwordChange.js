@@ -15,7 +15,7 @@ async function passwordChange(req, res) {
     const oldPassword = req.body.oldPassword
     const newPassword = req.body.newPassword
 
-    const foundUser = await User.findById(req.body.id)
+    const foundUser = await User.findById(req.body._id)
 
     if (!foundUser) {
       res.json('User not found')
@@ -34,7 +34,7 @@ async function passwordChange(req, res) {
               const savedUser = await foundUser.save()
 
               const payload = {
-                id: savedUser.id,
+                _id: savedUser._id,
                 email: savedUser.email,
                 username: savedUser.username,
                 avatar: savedUser.avatar,
