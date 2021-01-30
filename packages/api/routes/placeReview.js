@@ -8,6 +8,6 @@ const getPlaceReviewsByPlaceId = require('../controller/placeReview/getPlaceRevi
 
 router.post('/create-placereview', authenticate(), createPlaceReview)
 router.post('/update-placereview', authenticate(), updatePlaceReview)
-router.get('/get-place-reviews-by-place-id/:placeId', getPlaceReviewsByPlaceId)
+router.get('/get-place-reviews-by-place-_id/:placeId', getPlaceReviewsByPlaceId)
 
 module.exports = router

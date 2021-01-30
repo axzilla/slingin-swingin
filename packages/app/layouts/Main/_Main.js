@@ -1,13 +1,17 @@
-import React from 'react'
+// Packages
 import PropTypes from 'prop-types'
 
+// Global Components
 import Topbar from '@components/Topbar'
-import Footer from './components/Footer'
-
 import Container from '@components/Container'
 import WidgetLatestUsers from '@components/WidgetLatestUsers'
 import WidgetTopPostsTags from '@components/WidgetTopPostsTags'
+import BottomNavigationHack from '@components/BottomNavigationHack'
 
+// Local Components
+import Footer from './components/Footer'
+
+// MUI
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 
@@ -41,6 +45,7 @@ function Main({ children }) {
         </Grid>
       </Container>
       <Footer />
+      <BottomNavigationHack />
     </Grid>
   )
 }

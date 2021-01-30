@@ -128,7 +128,7 @@ function PostDetails({ post, commentsData }) {
     setNestedComments(res)
   }
 
-  const isLiked = postData.likes.includes(currentUser.id)
+  const isLiked = postData.likes.includes(currentUser._id)
 
   async function handleLikeClick() {
     try {

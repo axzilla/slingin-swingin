@@ -36,7 +36,7 @@ async function createPost(req) {
   const { user } = req
   return await Post.create({
     urlSlug: slugify(title),
-    user: user.id,
+    user: user._id,
     title,
     contentRaw,
     contentHtml,
@@ -53,7 +53,7 @@ async function uploadFile(req, res, createdPost) {
 
   const uploadedFile = await cloudinary.v2.uploader.upload(file, {
     folder: process.env.CLOUDINARY_PATH_POST_TITLE,
-    public_id: `post-title-image-${createdPost.id}`
+    public_id: `post-title-image-${createdPost._id}`
   })
 
   console.log('Titleimage uploaded') // eslint-disable-line no-console
