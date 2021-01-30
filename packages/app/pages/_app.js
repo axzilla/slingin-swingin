@@ -21,6 +21,7 @@ import { theme } from '../theme'
 // Components
 import Alert from '@components/Alert'
 import AuthModal from '@components/AuthModal'
+import Sockets from '@components/Sockets'
 
 // Contexts
 import { AlertContextProvider } from '@contexts/AlertContext'
@@ -70,7 +71,7 @@ function InitialAuthSetup() {
     if (jwtToken) {
       dispatch(signInReducer(jwtToken))
     }
-  })
+  }, [])
 
   return null
 }
@@ -107,6 +108,7 @@ function MyApp(props) {
             <RouterLoading />
             <CssBaseline />
             <Component {...pageProps} />
+            <Sockets />
             <Alert />
             <AuthModal />
           </CustomThemeProvider>

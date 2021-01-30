@@ -23,7 +23,7 @@ async function commentCreate(req, res) {
 
 async function createComment(req) {
   const { contentRaw, contentHtml, contentText, contentMarkdown, postId, parentId } = req.body
-  const { id } = req.user
+  const { _id } = req.user
 
   const createdPostComment = await PostComment.create({
     contentRaw,
@@ -31,7 +31,7 @@ async function createComment(req) {
     contentText,
     contentMarkdown,
     post: postId,
-    user: id,
+    user: _id,
     parent: parentId || null
   })
 
@@ -44,7 +44,7 @@ async function createComment(req) {
 }
 
 async function updateUser(req, createdPostComment) {
-  await User.findByIdAndUpdate(req.user.id, { $push: { postComments: createdPostComment._id } })
+  await User.findByIdAndUpdate(req.user._id, { $push: { postComments: createdPostComment._id } })
 }
 
 async function updatePost(req, createdPostComment) {
