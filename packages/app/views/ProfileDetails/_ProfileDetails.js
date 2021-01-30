@@ -24,7 +24,7 @@ function ProfileDetails({ user, posts, comments }) {
         <Header user={user} />
       </Grid>
 
-      {isAuthenticated && user._id !== currentUser.id && (
+      {isAuthenticated && user._id !== currentUser._id && (
         <Grid item xs={12}>
           <Grid container justify="flex-end">
             <SendMessage receiverUsername={user.username} receiver={user._id} />

@@ -54,8 +54,8 @@ function CommentFeedItemVote({ comment, handleIsCommentForm }) {
   const votes = upvotes - downvotes
   const isDownvoted = commentData.votes.downvotes
     .map(downvote => downvote.user)
-    .includes(currentUser.id)
-  const isUpvoted = commentData.votes.upvotes.map(upvote => upvote.user).includes(currentUser.id)
+    .includes(currentUser._id)
+  const isUpvoted = commentData.votes.upvotes.map(upvote => upvote.user).includes(currentUser._id)
 
   return (
     <Grid container alignItems="center" justify="space-between" spacing={1}>

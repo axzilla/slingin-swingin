@@ -1,7 +1,8 @@
 // Packages
-import React from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
+import { animateScroll } from 'react-scroll'
 
 // Local Components
 import MessageItem from './components/MessageItem'
@@ -30,7 +31,15 @@ const Messages = () => {
   const { conversations, selectedConversation } = useSelector(state => state.chats)
   const sender = useSelector(state => state.auth.currentUser)
   const users = selectedConversation && selectedConversation.users
-  const receiver = users && users.filter(user => user._id !== sender.id)[0]
+  const receiver = users && users.filter(user => user._id !== sender._id)[0]
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [conversations])
+
+  const scrollToBottom = () => {
+    animateScroll.scrollToBottom({ duration: 0, containerId: 'chatWindow' })
+  }
 
   return conversations.length > 0 ? (
     <>

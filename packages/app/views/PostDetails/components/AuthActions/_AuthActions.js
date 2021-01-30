@@ -37,7 +37,7 @@ function PostDetailsAuthActions({ post, currentUser, isAuthenticated }) {
     <React.Fragment>
       {isAuthenticated ? (
         <span>
-          {(post.user && post.user._id === currentUser.id) ||
+          {(post.user && post.user._id === currentUser._id) ||
           (currentUser.roles && currentUser.roles.isAdmin) ? (
             <React.Fragment>
               <Divider />

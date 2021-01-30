@@ -82,7 +82,7 @@ async function updateUser(req, res) {
       }
     }
 
-    const updatedUser = await User.findByIdAndUpdate(req.user.id, profile, {
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, profile, {
       new: true
     })
       .populate('locationFrom')

@@ -20,12 +20,12 @@ async function usernameChange(req, res) {
       return
     }
 
-    const foundUserById = await User.findById(req.body.id)
+    const foundUserById = await User.findById(req.body._id)
     foundUserById.username = slugify(req.body.username)
     const savedUser = await foundUserById.save()
 
     const payload = {
-      id: savedUser.id,
+      _id: savedUser._id,
       email: savedUser.email,
       username: savedUser.username,
       avatar: savedUser.avatar,

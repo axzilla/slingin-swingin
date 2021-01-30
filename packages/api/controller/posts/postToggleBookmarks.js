@@ -17,14 +17,14 @@ async function postToggleBookmarks(req, res) {
 }
 
 async function unBookmark(req, res, foundPost) {
-  const removeIndex = foundPost.bookmarks.indexOf(req.user.id)
+  const removeIndex = foundPost.bookmarks.indexOf(req.user._id)
   foundPost.bookmarks.splice(removeIndex, 1)
   const savedPost = await foundPost.save()
   res.json(savedPost)
 }
 
 async function bookmark(req, res, foundPost) {
-  await foundPost.bookmarks.unshift(req.user.id)
+  await foundPost.bookmarks.unshift(req.user._id)
   const savedPost = await foundPost.save()
   res.json(savedPost)
 }
