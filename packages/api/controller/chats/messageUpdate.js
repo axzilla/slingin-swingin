@@ -12,10 +12,7 @@ async function messageUpdate(req, res) {
       .populate('users', '-password')
       .populate('messages')
 
-    global.io
-      .to(`notifications-${receiver}`)
-      .to(`notifications-${sender}`)
-      .emit('chats', updatedConversation)
+    global.io.to(`chats-${receiver}`).to(`chats-${sender}`).emit('chats', updatedConversation)
 
     res.json('success')
   } catch (error) {

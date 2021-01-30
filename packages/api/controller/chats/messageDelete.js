@@ -20,7 +20,10 @@ async function messageDelete(req, res) {
       .populate('users', '-password')
       .populate('messages')
 
-    global.io.in(updatedConversation._id).emit('update-conversation', foundConversation)
+    global.io
+      .to(`chats-${deletedMessage.receiver}`)
+      .to(`chats-${deletedMessage.sender}`)
+      .emit('chats', foundConversation)
 
     res.json('success')
   } catch (error) {
