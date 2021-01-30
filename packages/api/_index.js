@@ -32,6 +32,10 @@ global.io.on('connection', async socket => {
     socket.join(`notifications-${currentUserId}`)
   })
 
+  socket.on('disconnect', async () => {
+    console.log(`${socket.id} -> disconnected`) // eslint-disable-line no-console
+  })
+
   // const decodedUser =
   //   socket.handshake.headers.cookie && cookie.parse(socket.handshake.headers.cookie).jwtToken
   //     ? jwtDecode(cookie.parse(socket.handshake.headers.cookie).jwtToken)
