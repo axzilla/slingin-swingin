@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const notificationsSlice = createSlice({
-  name: 'notifications',
+  name: 'chats',
   initialState: {
-    messages: true
+    messages: false
   },
   reducers: {
     setMessagesNotificationsReducer: (state, action) => {

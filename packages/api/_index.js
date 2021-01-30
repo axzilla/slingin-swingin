@@ -22,14 +22,14 @@ mongoose.connect(db, mongooseOptions, () => console.log('MongoDB Connected')) //
 global.io.on('connection', async socket => {
   global.socket = socket
 
-  socket.on('join-room', conversationId => {
-    console.log(`Socket ${socket.id} joining room-${conversationId}`) // eslint-disable-line no-console
-    socket.join(conversationId)
+  socket.on('chats', currentUserId => {
+    console.log(`Socket ${socket.id} joining chats-${currentUserId}`) // eslint-disable-line no-console
+    socket.join(`chats-${currentUserId}`)
   })
 
   socket.on('notifications', currentUserId => {
     console.log(`Socket ${socket.id} joining notifications-${currentUserId}`) // eslint-disable-line no-console
-    socket.join(currentUserId)
+    socket.join(`notifications-${currentUserId}`)
   })
 
   // const decodedUser =
@@ -40,7 +40,7 @@ global.io.on('connection', async socket => {
   // if (decodedUser) {
   //   console.log(`${socket.id} -> ${decodedUser.username} -> connected`) // eslint-disable-line no-console
 
-  //   const user = await User.findById(decodedUser.id)
+  //   const user = await User.findById(decodedUser._id)
 
   //   if (!user.sockets.includes(socket.id)) {
   //     user.sockets.push(socket.id)
@@ -52,7 +52,7 @@ global.io.on('connection', async socket => {
   //   socket.on('disconnect', async () => {
   //     console.log(`${socket.id} -> ${decodedUser.username} -> disconnected`) // eslint-disable-line no-console
 
-  //     const user = await User.findById(decodedUser.id)
+  //     const user = await User.findById(decodedUser._id)
   //     const index = user.sockets.indexOf(socket.id)
   //     user.sockets.splice(index, 1)
 

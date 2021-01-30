@@ -13,7 +13,7 @@ async function emailChange(req, res) {
     }
 
     const foundUserByEmail = await User.findOne({ email: req.body.email })
-    const foundUserById = await User.findById(req.body.id)
+    const foundUserById = await User.findById(req.body._id)
 
     if (domains.includes(req.body.email.split('@')[1])) {
       errors.email = 'This email address is not allowed'
@@ -31,7 +31,7 @@ async function emailChange(req, res) {
     const savedUser = await foundUserById.save()
 
     const payload = {
-      id: savedUser.id,
+      _id: savedUser._id,
       email: savedUser.email,
       username: savedUser.username,
       avatar: savedUser.avatar,

@@ -24,6 +24,8 @@ function Place({ children }) {
         </Grid>
       </Container>
       <Footer />
+      {/* BottomNavigation hack */}
+      <div style={{ height: '56px' }} />
     </Grid>
   )
 }

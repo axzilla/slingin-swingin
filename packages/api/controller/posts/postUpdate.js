@@ -36,7 +36,7 @@ async function postUpdate(req, res) {
       dateUpdated: Date.now()
     })
 
-    const foundPost = await Post.findByIdAndUpdate(req.body.id, postFields).populate('bookmarks', [
+    const foundPost = await Post.findByIdAndUpdate(req.body._id, postFields).populate('bookmarks', [
       'email',
       'username'
     ])
@@ -46,7 +46,7 @@ async function postUpdate(req, res) {
       const file = `data:${mimetype};base64,${buffer.toString('base64')}`
       const uploadedFile = await cloudinary.v2.uploader.upload(file, {
         folder: process.env.CLOUDINARY_PATH_POST_TITLE,
-        public_id: `post-title-image-${foundPost.id}`
+        public_id: `post-title-image-${foundPost._id}`
       })
 
       foundPost.titleImage = uploadedFile // eslint-disable-line

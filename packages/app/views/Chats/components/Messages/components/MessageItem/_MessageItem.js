@@ -40,7 +40,7 @@ const MessageItem = ({ message, receiver }) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
   useEffect(() => {
-    if (!message.isSeen && message.receiver === currentUser.id) {
+    if (!message.isSeen && message.receiver === currentUser._id) {
       handleUpdateMessage()
     }
   }, [])

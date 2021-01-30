@@ -86,10 +86,10 @@ function PlaceDetails({ place }) {
   }, [place, currentUser, isAuthenticated])
 
   function handleAlreadyReviewed() {
-    const hasAlreadyReviewed = placeReviews.map(review => review.user._id).includes(currentUser.id)
+    const hasAlreadyReviewed = placeReviews.map(review => review.user._id).includes(currentUser._id)
 
     if (isAuthenticated && hasAlreadyReviewed) {
-      const index = placeReviews.map(review => review.user._id).indexOf(currentUser.id)
+      const index = placeReviews.map(review => review.user._id).indexOf(currentUser._id)
       const review = placeReviews[index]
       setUserReview(review)
     }

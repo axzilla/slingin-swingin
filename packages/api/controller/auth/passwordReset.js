@@ -37,7 +37,7 @@ async function passwordReset(req, res) {
     user.save()
 
     const payload = {
-      id: user.id,
+      _id: user._id,
       isActive: user.isActive,
       email: user.email,
       username: user.username,

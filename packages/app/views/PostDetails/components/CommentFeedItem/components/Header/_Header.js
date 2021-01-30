@@ -38,7 +38,7 @@ function CommentFeedItemHeader({ comment, handleEditClick, handleDeleteDialog })
           <Moment fromNow>{comment.dateCreated}</Moment>
         </Typography>
       </Grid>
-      {isAuthenticated && currentUser.id === comment.user._id && (
+      {isAuthenticated && currentUser._id === comment.user._id && (
         <Grid item>
           <IconButton size="small" onClick={handleClick}>
             <MoreVertIcon />

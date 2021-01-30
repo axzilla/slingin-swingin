@@ -46,7 +46,7 @@ function Password() {
     try {
       event.preventDefault()
       const passwordData = {
-        id: currentUser.id,
+        _id: currentUser._id,
         oldPassword: passwords.oldPassword,
         newPassword: passwords.newPassword,
         newPassword2: passwords.newPassword2
