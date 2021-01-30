@@ -42,7 +42,7 @@ function Username() {
       event.preventDefault()
 
       const emailData = {
-        id: currentUser.id,
+        _id: currentUser._id,
         username
       }
 

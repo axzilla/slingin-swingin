@@ -11,7 +11,7 @@ async function settingsChange(req, res) {
     const savedUser = await foundUser.save()
 
     const payload = {
-      id: savedUser.id,
+      _id: savedUser._id,
       email: savedUser.email,
       username: savedUser.username,
       avatar: savedUser.avatar,

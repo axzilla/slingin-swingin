@@ -36,7 +36,7 @@ async function signIn(req, res) {
     }
 
     const payload = {
-      id: foundUser.id,
+      _id: foundUser._id,
       email: foundUser.email,
       username: foundUser.username,
       avatar: foundUser.avatar,

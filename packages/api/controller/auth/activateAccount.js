@@ -19,7 +19,7 @@ async function activateAccount(req, res) {
 
     if (user) {
       const payload = {
-        id: user.id,
+        _id: user._id,
         email: user.email,
         username: user.username,
         avatar: user.avatar,

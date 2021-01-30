@@ -4,7 +4,7 @@ const Message = require('../../models/Message')
 async function messageCreate(req, res) {
   try {
     const { receiver, content } = req.body
-    const sender = req.user.id
+    const sender = req.user._id
     const participants = [receiver, sender]
 
     const foundConversation = await Conversation.findOne({ users: { $all: participants } })
@@ -22,8 +22,11 @@ async function messageCreate(req, res) {
         .populate('users', '-password')
         .populate('messages')
 
-      global.io.in(updatedConversation._id).emit('update-conversation', updatedConversation)
-      global.io.in(receiver._id).emit('notifications', 'Hello')
+      global.io
+        .to(`notifications-${receiver._id}`)
+        .to(`notifications-${sender}`)
+        .emit('chats', updatedConversation)
+
       res.json('success')
     } else {
       const createdConversation = await Conversation.create({
