@@ -52,8 +52,8 @@ function Sockets() {
   }, [socket])
 
   useEffect(() => {
-    handleGetConversationsByUserId()
-  }, [])
+    if (isAuthenticated) handleGetConversationsByUserId()
+  }, [isAuthenticated])
 
   useEffect(() => {
     const hasUnreadMessages = conversations.some(conversation => {

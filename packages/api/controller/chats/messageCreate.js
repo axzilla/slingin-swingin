@@ -22,10 +22,7 @@ async function messageCreate(req, res) {
         .populate('users', '-password')
         .populate('messages')
 
-      global.io
-        .to(`notifications-${receiver._id}`)
-        .to(`notifications-${sender}`)
-        .emit('chats', updatedConversation)
+      global.io.to(`chats-${receiver._id}`).to(`chats-${sender}`).emit('chats', updatedConversation)
 
       res.json('success')
     } else {
