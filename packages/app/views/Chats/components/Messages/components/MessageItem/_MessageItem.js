@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 })
 
 const MessageItem = ({ message, receiver }) => {
-  const { isDarkTheme } = useSelector(state => state.theme)
+  // const { isDarkTheme } = useSelector(state => state.theme)
   const { currentUser } = useSelector(state => state.auth)
   const classes = useStyles()
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
@@ -91,17 +91,17 @@ const MessageItem = ({ message, receiver }) => {
       <Grid item>
         <Tooltip arrow title={<Moment format="MMM D, Y, HH:mm a">{message.dateCreated}</Moment>}>
           <Card
-            style={{
-              background:
-                message.sender !== receiver._id
-                  ? isDarkTheme
-                    ? '#303030'
-                    : '#bdbdbd'
-                  : isDarkTheme
-                  ? '#606060'
-                  : '#ebebeb',
-              boxShadow: 'none'
-            }}
+          // style={{
+          //   background:
+          //     message.sender !== receiver._id
+          //       ? isDarkTheme
+          //         ? '#303030'
+          //         : '#bdbdbd'
+          //       : isDarkTheme
+          //       ? '#606060'
+          //       : '#ebebeb',
+          //   boxShadow: 'none'
+          // }}
           >
             <CardContent style={{ padding: 10 }}>
               {!message.isDeleted ? (
