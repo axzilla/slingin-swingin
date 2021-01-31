@@ -28,7 +28,7 @@ class PlaceUtils {
       // if there is no rating average is 'NaN'
       return { count, average: average !== 'NaN' ? average : 0 }
     } catch (error) {
-      console.error(error) // eslint-disable-line
+      // console.error(error) // eslint-disable-line
       return { count: 0, average: 0 }
     }
   }
@@ -45,7 +45,7 @@ class PlaceUtils {
 
       return { count, average }
     } catch (error) {
-      console.error(error) // eslint-disable-line
+      // console.error(error) // eslint-disable-line
       return { count: 0, average: 0 }
     }
   }
@@ -73,7 +73,7 @@ class PlaceUtils {
       const average = (summary / this.placeReviews.length).toFixed(0)
       return { count, average }
     } catch (error) {
-      console.error(error) // eslint-disable-line
+      // console.error(error) // eslint-disable-line
       return { count: 0, average: 0 }
     }
   }
@@ -90,7 +90,7 @@ class PlaceUtils {
 
       return { count, average }
     } catch (error) {
-      console.error(error) // eslint-disable-line
+      // console.error(error) // eslint-disable-line
       return { count: 0, average: 0 }
     }
   }

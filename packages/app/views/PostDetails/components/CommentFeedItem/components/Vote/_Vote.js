@@ -61,14 +61,11 @@ function CommentFeedItemVote({ comment, handleIsCommentForm }) {
     <Grid container alignItems="center" justify="space-between" spacing={1}>
       <Grid item>
         <Grid container spacing={1} alignItems="center">
-          <IconButton size="small">
-            <ThumbDownIcon
-              onClick={onDownvoteClick}
-              color={isDownvoted ? 'secondary' : 'disabled'}
-            />
+          <IconButton size="small" onClick={onDownvoteClick}>
+            <ThumbDownIcon color={isDownvoted ? 'secondary' : 'disabled'} />
           </IconButton>
-          <IconButton size="small">
-            <ThumbUpIcon onClick={onUpvoteClick} color={isUpvoted ? 'secondary' : 'disabled'} />
+          <IconButton size="small" onClick={onUpvoteClick}>
+            <ThumbUpIcon color={isUpvoted ? 'secondary' : 'disabled'} />
           </IconButton>
           <Typography variant="subtitle2" color="textSecondary">
             <Box ml={2}>{votes}</Box>
