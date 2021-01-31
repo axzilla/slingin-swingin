@@ -61,13 +61,16 @@ const Form = () => {
               placement="top"
               title="Press enter to send. Press the Shift and Enter keys to add a new paragraph."
             >
-              <IconButton
-                type="submit"
-                disabled={!hasText}
-                onClick={() => handleSubmit(editorState)}
-              >
-                <SendIcon />
-              </IconButton>
+              {/* span is needed because of MUI Tooltip warning */}
+              <span>
+                <IconButton
+                  type="submit"
+                  disabled={!hasText}
+                  onClick={() => handleSubmit(editorState)}
+                >
+                  <SendIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           </div>
         </div>

@@ -98,7 +98,7 @@ function Users({ users }) {
 }
 
 Users.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.object.isRequired
 }
 
 export default Users

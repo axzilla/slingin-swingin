@@ -45,7 +45,7 @@ Users.getInitialProps = async ({ ctx, query }) => {
 }
 
 Users.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.object.isRequired
 }
 
 export default Users
