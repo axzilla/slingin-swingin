@@ -12,7 +12,12 @@ export function SocketContextProvider({ children }) {
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
-    setSocket(io(process.env.NEXT_PUBLIC_SERVER_URL))
+    const socketIo = io(process.env.NEXT_PUBLIC_SERVER_URL)
+    setSocket(socketIo)
+
+    setTimeout(() => {
+      console.log(`Client: ${socketIo.id} -> connected`) // eslint-disable-line no-console
+    }, 5000)
   }, [])
 
   const defaultContext = { socket }
