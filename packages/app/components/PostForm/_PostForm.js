@@ -55,7 +55,7 @@ function PostForm({ post }) {
       formData.append('tags', tags)
 
       if (post) {
-        formData.append('id', post._id)
+        formData.append('_id', post._id)
       }
 
       if (post) {
