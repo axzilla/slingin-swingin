@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 import { useSelector } from 'react-redux'
 
-const Editor = dynamic(() => import('draft-js-plugins-editor'), {
+const Editor = dynamic(() => import('@draft-js-plugins/editor'), {
   ssr: false
 })
 
