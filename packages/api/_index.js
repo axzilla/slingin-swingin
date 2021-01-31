@@ -1,12 +1,8 @@
 const io = require('./_socketio')
 global.io = io
+
 // Packages
 const mongoose = require('mongoose')
-// const cookie = require('cookie')
-// const jwtDecode = require('jwt-decode')
-
-// // Models
-// const User = require('./models/User')
 
 const db = process.env.MONGO_URI
 
@@ -19,8 +15,8 @@ const mongooseOptions = {
 
 mongoose.connect(db, mongooseOptions, () => console.log('MongoDB Connected')) // eslint-disable-line no-console
 
-global.io.on('connection', async socket => {
-  global.socket = socket
+io.sockets.on('connection', socket => {
+  console.log(`${socket.id} -> connected`) // eslint-disable-line no-console
 
   socket.on('chats', currentUserId => {
     console.log(`Socket ${socket.id} joining chats-${currentUserId}`) // eslint-disable-line no-console

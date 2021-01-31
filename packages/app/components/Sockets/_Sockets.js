@@ -37,11 +37,9 @@ function Sockets() {
       socket.on('chats', updatedConversation => {
         dispatch(updateConversationsReducer(updatedConversation))
         dispatch(selectedConversationReducer(updatedConversation))
-
         const hasUnreadMessages = updatedConversation.messages.some(message => {
           return !message.isSeen && message.receiver === currentUser._id
         })
-
         if (hasUnreadMessages) {
           dispatch(setMessagesNotificationsReducer(true))
         } else {
