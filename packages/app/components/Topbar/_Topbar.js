@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => {
       position: 'fixed',
       bottom: 0,
       width: '100%',
-      zIndex: 1,
+      zIndex: 3,
       borderTop: `1px solid ${fade(theme.palette.text.secondary, 0.2)}`
     }
   }

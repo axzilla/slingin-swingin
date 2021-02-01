@@ -16,34 +16,38 @@ const mongooseOptions = {
 mongoose.connect(db, mongooseOptions, () => console.log('MongoDB Connected')) // eslint-disable-line no-console
 global.userSocketIdMap = new Map()
 
-// https://medium.com/@albanero/socket-io-track-online-users-d8ed1df2cb88
-function addClientToMap(userId, socketId) {
-  if (!global.userSocketIdMap.has(userId)) {
-    // when user is joining first time
-    global.userSocketIdMap.set(userId, new Set([socketId]))
-    console.log(global.userSocketIdMap) // eslint-disable-line
-  } else {
-    // user had already joined from one client and now joining using another client
-    global.userSocketIdMap.get(userId).add(socketId)
-    console.log(global.userSocketIdMap) // eslint-disable-line
-  }
-}
-
-function removeClientFromMap(userId, socketId) {
-  if (global.userSocketIdMap.has(userId)) {
-    let userSocketIdSet = global.userSocketIdMap.get(userId)
-    userSocketIdSet.delete(socketId)
-    console.log(global.userSocketIdMap) // eslint-disable-line
-
-    // if there are no clients for a user, remove that user from online list(map)
-    if (userSocketIdSet.size == 0) {
-      global.userSocketIdMap.delete(userId)
+global.io.on('connection', socket => {
+  // https://medium.com/@albanero/socket-io-track-online-users-d8ed1df2cb88
+  async function addClientToMap(userId, socketId) {
+    if (!global.userSocketIdMap.has(userId)) {
+      // when user is joining first time
+      global.userSocketIdMap.set(userId, new Set([socketId]))
       console.log(global.userSocketIdMap) // eslint-disable-line
+      global.io.emit('online', Array.from(global.userSocketIdMap.keys()))
+    } else {
+      // user had already joined from one client and now joining using another client
+      global.userSocketIdMap.get(userId).add(socketId)
+      console.log(global.userSocketIdMap) // eslint-disable-line
+      global.io.emit('online', Array.from(global.userSocketIdMap.keys()))
     }
   }
-}
 
-global.io.on('connection', socket => {
+  function removeClientFromMap(userId, socketId) {
+    if (global.userSocketIdMap.has(userId)) {
+      let userSocketIdSet = global.userSocketIdMap.get(userId)
+      userSocketIdSet.delete(socketId)
+      console.log(global.userSocketIdMap) // eslint-disable-line
+      global.io.emit('online', Array.from(global.userSocketIdMap.keys()))
+
+      // if there are no clients for a user, remove that user from online list(map)
+      if (userSocketIdSet.size == 0) {
+        global.userSocketIdMap.delete(userId)
+        console.log(global.userSocketIdMap) // eslint-disable-line
+        global.io.emit('online', Array.from(global.userSocketIdMap.keys()))
+      }
+    }
+  }
+
   const { userId } = socket.handshake.query
 
   socket.on('connected', () => {
