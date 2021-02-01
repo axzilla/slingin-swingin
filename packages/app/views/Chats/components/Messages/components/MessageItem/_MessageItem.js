@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 // Global Components
 import UserAvatar from '@components/UserAvatar'
@@ -13,6 +13,9 @@ import DeleteDialog from './components/DeleteDialog'
 // Utils
 import rawToHtml from '@utils/rawToHtml'
 import htmlToMui from '@utils/htmlToMui'
+
+// Redux
+import { updateConversationsReducer, selectedConversationReducer } from '@slices/chatsSlice'
 
 // Services
 import { messageDelete, messageUpdate } from '@services/chats'
@@ -34,7 +37,7 @@ const useStyles = makeStyles({
 })
 
 const MessageItem = ({ message, receiver }) => {
-  // const { isDarkTheme } = useSelector(state => state.theme)
+  const dispatch = useDispatch()
   const { currentUser } = useSelector(state => state.auth)
   const classes = useStyles()
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
@@ -45,13 +48,17 @@ const MessageItem = ({ message, receiver }) => {
     }
   }, [])
 
-  const handleDeleteMessage = messageId => {
+  async function handleDeleteMessage(messageId) {
     setOpenDeleteDialog(false)
-    messageDelete({ messageId })
+    const updatedConversation = await messageDelete({ messageId })
+    dispatch(updateConversationsReducer(updatedConversation.data))
+    dispatch(selectedConversationReducer(updatedConversation.data))
   }
 
-  const handleUpdateMessage = () => {
-    messageUpdate({ message })
+  async function handleUpdateMessage() {
+    const updatedConversation = await messageUpdate({ message })
+    dispatch(updateConversationsReducer(updatedConversation.data))
+    dispatch(selectedConversationReducer(updatedConversation.data))
   }
 
   return (

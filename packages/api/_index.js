@@ -14,60 +14,43 @@ const mongooseOptions = {
 }
 
 mongoose.connect(db, mongooseOptions, () => console.log('MongoDB Connected')) // eslint-disable-line no-console
+global.userSocketIdMap = new Map()
 
-io.sockets.on('connection', socket => {
-  console.log(`${socket.id} -> connected`) // eslint-disable-line no-console
+// https://medium.com/@albanero/socket-io-track-online-users-d8ed1df2cb88
+function addClientToMap(userId, socketId) {
+  if (!global.userSocketIdMap.has(userId)) {
+    // when user is joining first time
+    global.userSocketIdMap.set(userId, new Set([socketId]))
+    console.log(global.userSocketIdMap) // eslint-disable-line
+  } else {
+    // user had already joined from one client and now joining using another client
+    global.userSocketIdMap.get(userId).add(socketId)
+    console.log(global.userSocketIdMap) // eslint-disable-line
+  }
+}
 
-  socket.on('chats', currentUserId => {
-    console.log(`Socket ${socket.id} joining chats-${currentUserId}`) // eslint-disable-line no-console
-    socket.join(`chats-${currentUserId}`)
+function removeClientFromMap(userId, socketId) {
+  if (global.userSocketIdMap.has(userId)) {
+    let userSocketIdSet = global.userSocketIdMap.get(userId)
+    userSocketIdSet.delete(socketId)
+    console.log(global.userSocketIdMap) // eslint-disable-line
+
+    // if there are no clients for a user, remove that user from online list(map)
+    if (userSocketIdSet.size == 0) {
+      global.userSocketIdMap.delete(userId)
+      console.log(global.userSocketIdMap) // eslint-disable-line
+    }
+  }
+}
+
+global.io.on('connection', socket => {
+  const { userId } = socket.handshake.query
+
+  socket.on('connected', () => {
+    addClientToMap(userId, socket.id)
   })
 
-  socket.on('notifications', currentUserId => {
-    console.log(`Socket ${socket.id} joining notifications-${currentUserId}`) // eslint-disable-line no-console
-    socket.join(`notifications-${currentUserId}`)
+  socket.on('disconnect', () => {
+    removeClientFromMap(userId, socket.id)
   })
-
-  socket.on('disconnect', async () => {
-    console.log(`${socket.id} -> disconnected`) // eslint-disable-line no-console
-  })
-
-  // const decodedUser =
-  //   socket.handshake.headers.cookie && cookie.parse(socket.handshake.headers.cookie).jwtToken
-  //     ? jwtDecode(cookie.parse(socket.handshake.headers.cookie).jwtToken)
-  //     : null
-
-  // if (decodedUser) {
-  //   console.log(`${socket.id} -> ${decodedUser.username} -> connected`) // eslint-disable-line no-console
-
-  //   const user = await User.findById(decodedUser._id)
-
-  //   if (!user.sockets.includes(socket.id)) {
-  //     user.sockets.push(socket.id)
-  //     user.dateOnline = Date.now()
-  //     user.isOnline = true
-  //     user.save()
-  //   }
-
-  //   socket.on('disconnect', async () => {
-  //     console.log(`${socket.id} -> ${decodedUser.username} -> disconnected`) // eslint-disable-line no-console
-
-  //     const user = await User.findById(decodedUser._id)
-  //     const index = user.sockets.indexOf(socket.id)
-  //     user.sockets.splice(index, 1)
-
-  //     if (user.sockets.length < 1) {
-  //       user.isOnline = false
-  //       user.dateOffline = Date.now()
-  //     }
-
-  //     user.save()
-  //   })
-  // } else {
-  //   console.log(`${socket.id} -> GUEST -> connected`) // eslint-disable-line no-console
-
-  //   socket.on('disconnect', async () => {
-  //     console.log(`${socket.id} -> GUEST -> disconnected`) // eslint-disable-line no-console
-  //   })
-  // }
 })

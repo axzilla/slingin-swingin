@@ -16,7 +16,7 @@ const ConversationItem = ({ conversation, handleSelectedConversation }) => {
   const sender = useSelector(state => state.auth.currentUser)
   const receiver = conversation.users.filter(user => user._id !== sender._id)[0]
 
-  return (
+  return selectedConversation && conversation ? (
     <ListItem
       key={conversation._id}
       button
@@ -30,7 +30,7 @@ const ConversationItem = ({ conversation, handleSelectedConversation }) => {
         <ListItemText primary={`@${receiver.username}`} secondary={receiver.name || ''} />
       </Hidden>
     </ListItem>
-  )
+  ) : null
 }
 
 ConversationItem.propTypes = {

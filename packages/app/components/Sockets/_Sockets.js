@@ -23,23 +23,16 @@ function Sockets() {
   const { isAuthenticated, currentUser } = useSelector(state => state.auth)
   const { conversations } = useSelector(state => state.chats)
 
-  // ***** CHATS *****
-  // socket.emit
-  useEffect(() => {
-    if (socket && currentUser._id && isAuthenticated) {
-      socket.emit('chats', currentUser._id)
-    }
-  }, [socket, currentUser, isAuthenticated])
-
-  // socket.on
   useEffect(() => {
     if (socket) {
       socket.on('chats', updatedConversation => {
         dispatch(updateConversationsReducer(updatedConversation))
         dispatch(selectedConversationReducer(updatedConversation))
+
         const hasUnreadMessages = updatedConversation.messages.some(message => {
           return !message.isSeen && message.receiver === currentUser._id
         })
+
         if (hasUnreadMessages) {
           dispatch(setMessagesNotificationsReducer(true))
         } else {
@@ -87,34 +80,6 @@ function Sockets() {
   const handleSelectedConversation = async data => {
     await dispatch(selectedConversationReducer(data))
   }
-  // ***** CHATS END *****
-
-  // ***** NOTIFICATIONS *****
-  // socket.emit
-  useEffect(() => {
-    if (socket && currentUser._id && isAuthenticated) {
-      socket.emit('notifications', currentUser._id)
-    }
-  }, [socket, currentUser, isAuthenticated])
-
-  // socket.on
-  useEffect(() => {
-    // if (socket) {
-    //   socket.on('chats', updatedConversation => {
-    //     dispatch(updateConversationsReducer(updatedConversation))
-    //     dispatch(selectedConversationReducer(updatedConversation))
-    //     const hasUnreadMessages = updatedConversation.messages.some(message => {
-    //       return !message.isSeen && message.receiver === currentUser._id
-    //     })
-    //     if (hasUnreadMessages) {
-    //       dispatch(setMessagesNotificationsReducer(true))
-    //     } else {
-    //       dispatch(setMessagesNotificationsReducer(false))
-    //     }
-    //   })
-    // }
-  }, [socket])
-  // ***** NOTIFICATIONS END *****
 
   return null
 }

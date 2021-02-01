@@ -20,12 +20,14 @@ async function messageDelete(req, res) {
       .populate('users', '-password')
       .populate('messages')
 
-    global.io
-      .to(`chats-${deletedMessage.receiver}`)
-      .to(`chats-${deletedMessage.sender}`)
-      .emit('chats', foundConversation)
+    let receiverSockets = global.userSocketIdMap.get(deletedMessage.receiver.toString())
+    if (receiverSockets) {
+      for (let socketId of receiverSockets) {
+        global.io.to(socketId).emit('chats', foundConversation)
+      }
+    }
 
-    res.json('success')
+    res.json(foundConversation)
   } catch (error) {
     if (error) throw error
   }
