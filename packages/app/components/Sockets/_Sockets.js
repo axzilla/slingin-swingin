@@ -7,6 +7,7 @@ import { updateConversationsReducer, selectedConversationReducer } from '@slices
 import { conversationsByUserIdReducer } from '@slices/chatsSlice'
 import { setMessagesNotificationsReducer } from '@slices/notificationsSlice'
 import { isLoadingReducer } from '@slices/loadingSlice'
+import { setOnlineUsersReducer } from '@slices/onlineUsersSlice'
 
 // Contexts
 import { useSocket } from '@contexts/SocketContext'
@@ -38,6 +39,11 @@ function Sockets() {
         } else {
           dispatch(setMessagesNotificationsReducer(false))
         }
+      })
+
+      socket.on('online', users => {
+        dispatch(setOnlineUsersReducer(users))
+        console.log(users) // eslint-disable-line
       })
     }
   }, [socket])
