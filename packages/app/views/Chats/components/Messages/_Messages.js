@@ -34,14 +34,16 @@ const Messages = () => {
   const receiver = users && users.filter(user => user._id !== sender._id)[0]
 
   useEffect(() => {
-    scrollToBottom()
+    setTimeout(() => {
+      scrollToBottom()
+    }, 0)
   }, [conversations])
 
   const scrollToBottom = () => {
     animateScroll.scrollToBottom({ duration: 0, containerId: 'chatWindow' })
   }
 
-  return conversations.length > 0 ? (
+  return conversations.length > 0 && sender && users && receiver ? (
     <>
       <CardHeader
         className={classes.cardHeader}

@@ -7,9 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signOutReducer, authModalReducer } from '@slices/authSlice'
 import { switchThemeReducer } from '@slices/themeSlice'
 
-// Contexts
-import { useSocket } from '@contexts/SocketContext'
-
 // Global Components
 import Link from '@components/Link'
 import Avatar from '@components/UserAvatar'
@@ -98,7 +95,6 @@ const useStyles = makeStyles(theme => {
 function Topbar() {
   const router = useRouter()
   const dispatch = useDispatch()
-  const { socket } = useSocket()
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
   const { isAuthenticated, currentUser } = useSelector(state => state.auth)
@@ -111,23 +107,6 @@ function Topbar() {
     { name: 'People', icon: <PeopleIcon />, link: '/users' }
   ]
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     window.onscroll = () => {
-  //       if (
-  //         window.innerHeight + window.scrollY > document.body.clientHeight - 1 &&
-  //         document.getElementById('bottomNav')
-  //       ) {
-  //         document.getElementById('bottomNav').style.transition = 'all .3s'
-  //         document.getElementById('bottomNav').style.bottom = '-5rem'
-  //       } else if (document.getElementById('bottomNav')) {
-  //         document.getElementById('bottomNav').style.bottom = 0
-  //         document.getElementById('bottomNav').style.transition = 'all .3s'
-  //       }
-  //     }
-  //   }
-  // }, [])
-
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
@@ -138,8 +117,6 @@ function Topbar() {
 
   async function handleLogout() {
     dispatch(signOutReducer())
-    socket.close() // Close User Socket
-    socket.open() // Open Guest Socket
     router.push('/')
   }
 
@@ -261,12 +238,7 @@ function Topbar() {
       </AppBar>
 
       <Hidden mdUp>
-        <BottomNavigation
-          id="bottomNav"
-          value={router.pathname}
-          className={classes.bottomNavigation}
-          showLabels
-        >
+        <BottomNavigation value={router.pathname} className={classes.bottomNavigation} showLabels>
           {navigation.map(item => {
             return (
               <BottomNavigationAction

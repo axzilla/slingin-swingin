@@ -2,12 +2,16 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { EditorState, convertToRaw } from 'draft-js'
+import { useDispatch } from 'react-redux'
 
 // Global Components
 import DraftJsEditor from '@components/DraftJsEditor'
 
 // Services
 import { messageCreate } from '@services/chats'
+
+// Redux
+import { updateConversationsReducer, selectedConversationReducer } from '@slices/chatsSlice'
 
 // MUI
 import { makeStyles } from '@material-ui/styles'
@@ -22,6 +26,7 @@ const useStyles = makeStyles({
 })
 
 const Form = () => {
+  const dispatch = useDispatch()
   const classes = useStyles()
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const { conversations, selectedConversation } = useSelector(state => state.chats)
@@ -31,12 +36,16 @@ const Form = () => {
 
   const hasText = editorState.getCurrentContent().hasText()
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     try {
-      await messageCreate({
-        receiver: receiver,
+      const updatedConversation = await messageCreate({
+        receiver: receiver._id,
+        sender: sender._id,
         content: JSON.stringify(convertToRaw(editorState.getCurrentContent()))
       })
+
+      dispatch(updateConversationsReducer(updatedConversation.data))
+      dispatch(selectedConversationReducer(updatedConversation.data))
 
       setEditorState(EditorState.createEmpty())
     } catch (error) {

@@ -12,9 +12,12 @@ async function messageUpdate(req, res) {
       .populate('users', '-password')
       .populate('messages')
 
-    global.io.to(`chats-${receiver}`).to(`chats-${sender}`).emit('chats', updatedConversation)
+    let receiverSockets = global.userSocketIdMap.get(sender)
+    for (let socketId of receiverSockets) {
+      global.io.to(socketId).emit('chats', updatedConversation)
+    }
 
-    res.json('success')
+    res.json(updatedConversation)
   } catch (error) {
     if (error) throw error
   }

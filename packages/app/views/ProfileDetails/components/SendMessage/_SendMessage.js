@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { EditorState, convertToRaw } from 'draft-js'
+import { useDispatch } from 'react-redux'
 
 // Services
 import { messageCreate } from '@services/chats'
@@ -12,6 +13,9 @@ import { useAlert } from '@contexts/AlertContext'
 // Global Components
 import DraftJsEditor from '@components/DraftJsEditor'
 
+// Redux
+import { updateConversationsReducer, selectedConversationReducer } from '@slices/chatsSlice'
+
 // MUI
 import Button from '@material-ui/core/Button'
 import MailIcon from '@material-ui/icons/Mail'
@@ -21,6 +25,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 function SendMessage({ receiverUsername, receiver }) {
+  const dispatch = useDispatch()
   const { setAlert } = useAlert()
   const [open, setOpen] = useState(false)
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
@@ -33,16 +38,19 @@ function SendMessage({ receiverUsername, receiver }) {
     setOpen(false)
   }
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     try {
       handleClose()
       setAlert({ message: `Message to @${receiverUsername} sent successfully`, variant: 'success' })
       setEditorState(EditorState.createEmpty())
 
-      messageCreate({
+      const updatedConversation = await messageCreate({
         receiver,
         content: JSON.stringify(convertToRaw(editorState.getCurrentContent()))
       })
+
+      dispatch(updateConversationsReducer(updatedConversation.data))
+      dispatch(selectedConversationReducer(updatedConversation.data))
     } catch (error) {
       if (error) throw error
     }

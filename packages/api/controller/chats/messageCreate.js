@@ -4,7 +4,7 @@ const Message = require('../../models/Message')
 async function messageCreate(req, res) {
   try {
     const { receiver, content } = req.body
-    const sender = req.user._id
+    const sender = req.user._id.toString()
     const participants = [receiver, sender]
 
     const foundConversation = await Conversation.findOne({ users: { $all: participants } })
@@ -22,9 +22,14 @@ async function messageCreate(req, res) {
         .populate('users', '-password')
         .populate('messages')
 
-      global.io.to(`chats-${receiver._id}`).to(`chats-${sender}`).emit('chats', updatedConversation)
+      let receiverSockets = global.userSocketIdMap.get(receiver)
+      if (receiverSockets) {
+        for (let socketId of receiverSockets) {
+          global.io.to(socketId).emit('chats', updatedConversation)
+        }
+      }
 
-      res.json('success')
+      res.json(updatedConversation)
     } else {
       const createdConversation = await Conversation.create({
         messages: createdMessage,
@@ -33,6 +38,19 @@ async function messageCreate(req, res) {
 
       createdMessage.conversation = createdConversation._id
       createdMessage.save()
+
+      const populatedConversation = await Conversation.findById(createdConversation._id)
+        .populate('users', '-password')
+        .populate('messages')
+
+      let receiverSockets = global.userSocketIdMap.get(receiver)
+      if (receiverSockets) {
+        for (let socketId of receiverSockets) {
+          global.io.to(socketId).emit('chats', populatedConversation)
+        }
+      }
+
+      res.json(populatedConversation)
     }
   } catch (error) {
     if (error) throw error

@@ -14,8 +14,7 @@ import sortConversations from '@utils/sortConversations'
 import { conversationsGetByUserId } from '@services/chats'
 
 // Reducers
-import { conversationsByUserIdReducer } from '@slices/chatsSlice'
-import { selectedConversationReducer } from '@slices/chatsSlice'
+import { selectedConversationReducer, conversationsByUserIdReducer } from '@slices/chatsSlice'
 import { isLoadingReducer } from '@slices/loadingSlice'
 
 // MUI
@@ -46,7 +45,6 @@ const useStyles = makeStyles(theme => ({
 
 const Chats = () => {
   const classes = useStyles()
-
   const dispatch = useDispatch()
   const { isLoading } = useSelector(state => state.loading)
 
@@ -88,7 +86,10 @@ const Chats = () => {
           <div className={classes.rootGridMessages}>
             <Messages />
             <Divider />
-            <Form />
+            <Form
+              handleSetConversations={handleSetConversations}
+              handleSelectedConversation={handleSelectedConversation}
+            />
           </div>
         </Grid>
       </Grid>
