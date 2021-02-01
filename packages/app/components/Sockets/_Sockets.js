@@ -50,6 +50,10 @@ function Sockets() {
 
   useEffect(() => {
     if (isAuthenticated) handleGetConversationsByUserId()
+
+    if (!isAuthenticated && socket) {
+      socket.disconnect()
+    }
   }, [isAuthenticated])
 
   useEffect(() => {
