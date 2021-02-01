@@ -5,6 +5,7 @@ import authReducer from '@slices/authSlice'
 import themeReducer from '@slices/themeSlice'
 import loadingReducer from '@slices/loadingSlice'
 import notificationsReducer from '@slices/notificationsSlice'
+import onlineUsersReducer from '@slices/onlineUsersSlice'
 
 export default configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export default configureStore({
     auth: authReducer,
     theme: themeReducer,
     loading: loadingReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    onlineUsers: onlineUsersReducer
   }
 })
