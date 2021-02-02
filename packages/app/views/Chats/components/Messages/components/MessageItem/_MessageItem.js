@@ -73,7 +73,7 @@ const MessageItem = ({ message, receiver }) => {
     >
       {message.sender === receiver._id && (
         <Grid item>
-          <UserAvatar user={receiver} height={28} width={28} />
+          <UserAvatar hideOnlineStatus user={receiver} height={28} width={28} />
         </Grid>
       )}
       <Grid item>

@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   avatar: { height: ({ height }) => `${height}px`, width: ({ width }) => `${width}px` }
 })
 
-function UserAvatar({ user, height, width, showOnlineStatus }) {
+function UserAvatar({ user, height, width, hideOnlineStatus }) {
   const classes = useStyles({ height, width })
   const { users } = useSelector(state => state.onlineUsers)
   const { isAuthenticated } = useSelector(state => state.auth)
@@ -43,7 +43,7 @@ function UserAvatar({ user, height, width, showOnlineStatus }) {
         horizontal: 'right'
       }}
       variant="dot"
-      invisible={!isAuthenticated || showOnlineStatus} // Implement this prop later
+      invisible={!isAuthenticated || hideOnlineStatus} // Implement this prop later
     >
       <Avatar
         className={classes.avatar}
@@ -58,7 +58,7 @@ UserAvatar.propTypes = {
   user: PropTypes.object.isRequired,
   height: PropTypes.number,
   width: PropTypes.number,
-  showOnlineStatus: PropTypes.bool
+  hideOnlineStatus: PropTypes.bool
 }
 
 export default UserAvatar
