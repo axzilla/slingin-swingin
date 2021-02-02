@@ -43,7 +43,6 @@ function Sockets() {
 
       socket.on('online', users => {
         dispatch(setOnlineUsersReducer(users))
-        console.log(users) // eslint-disable-line
       })
     }
   }, [socket])
