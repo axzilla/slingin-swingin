@@ -179,7 +179,7 @@ function Topbar() {
                     </Grid>
                     <Grid item>
                       <Button aria-haspopup="true" onClick={handleClick}>
-                        <Avatar user={currentUser} height={35} width={35} />
+                        <Avatar hideOnlineStatus user={currentUser} height={35} width={35} />
                       </Button>
                       <Menu
                         PaperProps={{ style: { width: '25ch' } }}
