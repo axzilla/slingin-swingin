@@ -1,6 +1,7 @@
 // Packages
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Redux
@@ -42,7 +43,6 @@ const useStyles = makeStyles(theme => {
       height: theme.spacing(5)
     },
     logo: {
-      height: '40px',
       marginRight: theme.spacing(2)
     },
     menuButton: { marginLeft: -12, marginRight: 20 },
@@ -136,8 +136,11 @@ function Topbar() {
             <Grid item>
               <Grid container alignItems="center">
                 <Link href="/">
-                  <img
+                  <Image
                     src={isDarkTheme ? '/_logo_icon_light.svg' : '/_logo_icon_dark.svg'}
+                    alt="logo"
+                    width={40}
+                    height={40}
                     className={classes.logo}
                   />
                 </Link>
@@ -145,7 +148,7 @@ function Topbar() {
                   {navigation.map(item => {
                     return (
                       <Link key={item.name} href={item.link}>
-                        <Button variant="h6">{item.name} </Button>
+                        <Button>{item.name} </Button>
                       </Link>
                     )
                   })}
