@@ -4,7 +4,7 @@ async function getPostById(req, res) {
   try {
     const foundPost = await Post.findById(req.params.postId)
       .populate('user', '-password')
-      .populate('location')
+      .populate('place')
 
     if (!foundPost) {
       return res.status(404).json('404')

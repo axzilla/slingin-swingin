@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Link from '@components/Link'
-import Chip from '@components/Chip'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -15,15 +14,6 @@ function Content({ post }) {
           {post.title}
         </Typography>
       </Link>
-      <Grid container>
-        {post.tags.map(tag => {
-          return (
-            <Link key={tag} href="/posts/t/[tag]" as={`/posts/t/${tag}`}>
-              <Chip clickable label={tag} variant="outlined" />
-            </Link>
-          )
-        })}
-      </Grid>
     </Grid>
   )
 }

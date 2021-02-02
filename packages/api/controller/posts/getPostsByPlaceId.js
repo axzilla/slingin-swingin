@@ -1,9 +1,8 @@
 const Post = require('../../models/Post')
 
-async function getPostsByUserId(req, res) {
+async function getPostsByPlaceId(req, res) {
   try {
-    const foundPosts = await Post.find({ bookmarks: req.params.userId })
-      .sort({ dateCreated: -1 })
+    const foundPosts = await Post.find({ place: req.params.placeId })
       .populate('user', '-password')
       .populate('place')
 
@@ -13,4 +12,4 @@ async function getPostsByUserId(req, res) {
   }
 }
 
-module.exports = getPostsByUserId
+module.exports = getPostsByPlaceId
