@@ -10,6 +10,7 @@ import { PlaceDetails as PlaceDetailsView } from '@views'
 // Services
 import { getPlaceByShortId } from '@services/place'
 import { getPlaceReviewsByPlaceId } from '@services/placeReview'
+import { getPostsByPlaceId } from '@services/post'
 import {
   getPlaceCurrentUsersByPlaceId
   // getPlaceBeenUsersByPlaceId,
@@ -44,6 +45,7 @@ PlaceDetails.getInitialProps = async ctx => {
     const place = await getPlaceByShortId(shortId)
     const placeReviews = await getPlaceReviewsByPlaceId(place.data._id)
     const peopleCurrent = await getPlaceCurrentUsersByPlaceId(place.data._id)
+    const posts = await getPostsByPlaceId(place.data._id)
     // const peopleBeen = await getPlaceBeenUsersByPlaceId(place.data._id)
     // const peopleWant = await getPlaceWantUsersByPlaceId(place.data._id)
 
@@ -52,7 +54,8 @@ PlaceDetails.getInitialProps = async ctx => {
       placeReviews: placeReviews.data,
       peopleCurrent: peopleCurrent.data,
       peopleBeen: [],
-      peopleWant: []
+      peopleWant: [],
+      posts: posts.data
       // peopleBeen: peopleBeen.data,
       // peopleWant: peopleWant.data
     }

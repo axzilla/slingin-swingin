@@ -41,8 +41,8 @@ function PostForm({ post }) {
     post && post.titleImage ? post.titleImage.secure_url : null
   )
   const [title, setTitle] = useState(post ? post.title : '')
-  const [locations, setLocations] = useState([])
-  const [location, setLocation] = useState((post && post.location) || {})
+  const [places, setPlaces] = useState([])
+  const [place, setPlace] = useState((post && post.place) || {})
 
   const [editorState, setEditorState] = useState(
     post
@@ -64,7 +64,7 @@ function PostForm({ post }) {
           `${basePath}/${searchTerm}.json?types=${types}&access_token=${token}`
         )
 
-        setLocations(data.features)
+        setPlaces(data.features)
       }
     } catch (error) {
       if (error) throw error
@@ -82,7 +82,7 @@ function PostForm({ post }) {
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
-      formData.append('location', JSON.stringify(location))
+      formData.append('place', JSON.stringify(place))
       formData.append('contentRaw', contentRaw)
       formData.append('contentHtml', contentHtml)
       formData.append('contentText', contentText)
@@ -143,22 +143,22 @@ function PostForm({ post }) {
               fullWidth
               disableClearable
               freeSolo
-              value={post && post.location ? post.location.mapBox : null}
+              value={post && post.place ? post.place.mapBox : null}
               onInputChange={_.debounce(handleGetPlaces, 1000)}
-              onChange={(event, location) => {
-                setLocation({
-                  mapBox: location
+              onChange={(event, place) => {
+                setPlace({
+                  mapBox: place
                 })
               }}
-              options={locations}
+              options={places}
               getOptionLabel={option => option.place_name}
               renderInput={params => (
                 <MuiTextField
                   {...params}
                   onChange={event => {
                     if (event.target.value.length < 1) {
-                      setLocation(null)
-                      setLocations([])
+                      setPlace(null)
+                      setPlaces([])
                     }
                   }}
                   color="secondary"

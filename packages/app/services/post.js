@@ -34,6 +34,10 @@ export function getPostByShortId(shortId) {
   return axios.get(`${serverUrl}/get-post-by-short-id/${shortId}`)
 }
 
+export function getPostsByPlaceId(placeId) {
+  return axios.get(`${serverUrl}/get-posts-by-place-id/${placeId}`)
+}
+
 export function getPostsByUserId(id) {
   return axios.get(`${serverUrl}/get-posts-by-user-id/${id}`)
 }

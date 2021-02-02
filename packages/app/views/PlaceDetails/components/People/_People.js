@@ -69,24 +69,25 @@ function People({ peopleCurrent, peopleBeen, peopleWant, baseData, type }) {
           wrap="nowrap"
           style={{ overflowX: 'scroll', scrollbarWidth: 'none' }}
         >
-          {people
-            .map((item, index) => {
-              return (
-                <Grid item key={index}>
-                  <Link href="/[username]" as={`/${item.username}`}>
-                    <Card style={{ backgroundColor: 'transparent' }} variant="outlined">
-                      <CardContent>
-                        <Avatar
-                          src={item.user.avatar && item.user.avatar.secure_url}
-                          style={{ height: '50px', width: '50px' }}
-                        />
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </Grid>
-              )
-            })
-            .slice(0, limit)}
+          {people &&
+            people
+              .map((user, index) => {
+                return (
+                  <Grid item key={index}>
+                    <Link href="/[username]" as={`/${user.username}`}>
+                      <Card style={{ backgroundColor: 'transparent' }} variant="outlined">
+                        <CardContent>
+                          <Avatar
+                            src={user.avatar && user.avatar.secure_url}
+                            style={{ height: '50px', width: '50px' }}
+                          />
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </Grid>
+                )
+              })
+              .slice(0, limit)}
         </Grid>
       </Box>
 
@@ -105,11 +106,11 @@ function People({ peopleCurrent, peopleBeen, peopleWant, baseData, type }) {
         <DialogTitle id="responsive-dialog-title">{title}</DialogTitle>
         <DialogContent>
           <Grid spacing={2} container>
-            {people.map((item, index) => {
+            {people.map((user, index) => {
               return (
                 <Grid item key={index}>
-                  <Link href="/[username]" as={`/${item.username}`}>
-                    <Avatar src={item.user.avatar && item.user.avatar.secure_url} />
+                  <Link href="/[username]" as={`/${user.username}`}>
+                    <Avatar src={user.avatar && user.avatar.secure_url} />
                   </Link>
                 </Grid>
               )
