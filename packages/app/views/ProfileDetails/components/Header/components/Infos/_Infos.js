@@ -41,7 +41,7 @@ function ProfileDetailsInfos({ user }) {
       <Grid container alignItems="center">
         <PersonAddIcon color="action" className={classes.infoIcons} />
         <Typography variant="body1">
-          Joined <Moment fromNow>{user.dateCreated}</Moment>
+          Joined <Moment fromNow>{user.dateActivated}</Moment>
         </Typography>
       </Grid>
     </Box>

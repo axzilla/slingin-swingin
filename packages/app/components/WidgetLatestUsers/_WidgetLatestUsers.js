@@ -93,7 +93,7 @@ function WidgetLatestUsers() {
                       }
                       secondary={
                         <small className={classes.noWrap}>
-                          <Moment fromNow>{user.dateCreated}</Moment>
+                          <Moment fromNow>{user.dateActivated}</Moment>
                         </small>
                       }
                     />

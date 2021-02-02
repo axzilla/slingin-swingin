@@ -1,4 +1,8 @@
+// Models
 const User = require('../../models/User')
+
+// Utils
+const isEmpty = require('../../utils/isEmpty')
 
 async function getAllUsers(req, res) {
   try {
@@ -6,26 +10,27 @@ async function getAllUsers(req, res) {
     const limit = parseInt(req.query.limit) || 20
     const { q } = req.query
 
+    const condition = []
+
+    q &&
+      condition.push(
+        { name: { $regex: q, $options: 'i' } },
+        { username: { $regex: q, $options: 'i' } }
+        // { isActive: true }
+      )
+
     if (limit <= 100) {
       const result = await User.find(
-        // IS ACTIVE IS MISSING
-        q && {
-          $or: [{ name: { $regex: q, $options: 'i' } }, { username: { $regex: q, $options: 'i' } }]
-        }
+        !isEmpty(q) ? { $or: condition, $and: [{ isActive: true }] } : { isActive: true }
       )
         .select('-password')
         .populate('locationCurrent')
         .populate('locationFrom')
         .sort({ dateCreated: -1 })
 
-      const total = q
-        ? await User.countDocuments({
-            $or: [
-              { name: { $regex: q, $options: 'i' } },
-              { username: { $regex: q, $options: 'i' } }
-            ]
-          })
-        : await User.estimatedDocumentCount()
+      const total = await User.countDocuments(
+        !isEmpty(q) ? { $or: condition, $and: [{ isActive: true }] } : { isActive: true }
+      )
 
       const pages = Math.ceil(total / limit) || 1
       const size = result.length

@@ -12,10 +12,10 @@ const useStyles = makeStyles({
   avatar: { height: ({ height }) => `${height}px`, width: ({ width }) => `${width}px` }
 })
 
-function UserAvatar({ user, height, width }) {
+function UserAvatar({ user, height, width, showOnlineStatus }) {
   const classes = useStyles({ height, width })
   const { users } = useSelector(state => state.onlineUsers)
-  // const { currentUser } = useSelector(state => state.auth)
+  const { isAuthenticated } = useSelector(state => state.auth)
 
   const StyledBadge = withStyles(theme => ({
     badge: {
@@ -43,7 +43,7 @@ function UserAvatar({ user, height, width }) {
         horizontal: 'right'
       }}
       variant="dot"
-      // invisible={user._id === currentUser._id} // Implement this prop later
+      invisible={!isAuthenticated || showOnlineStatus} // Implement this prop later
     >
       <Avatar
         className={classes.avatar}
@@ -57,7 +57,8 @@ function UserAvatar({ user, height, width }) {
 UserAvatar.propTypes = {
   user: PropTypes.object.isRequired,
   height: PropTypes.number,
-  width: PropTypes.number
+  width: PropTypes.number,
+  showOnlineStatus: PropTypes.bool
 }
 
 export default UserAvatar
