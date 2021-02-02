@@ -9,10 +9,10 @@ const useStyles = makeStyles(theme => ({
   chip: {
     borderRadius: '10px',
     border: `1px solid ${fade(theme.palette.text.primary, 0.23)}`,
-    margin: theme.spacing(0, 0.5, 0.5, 0)
-  },
-  label: { padding: theme.spacing(0.5) },
-  root: { padding: theme.spacing(0.25, 0.5), height: 'auto' }
+    margin: theme.spacing(0, 0.5, 0.5, 0),
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
+  }
 }))
 
 function Chip({ icon, label, onClick, onDelete, color, deleteIcon, variant, href, clickable }) {

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 
 function PostDetailsTitle({ post }) {
   return (
-    <Typography variant="h4" component="h1" gutterBottom>
+    <Typography variant="h6" component="h1" gutterBottom>
       {post.title}
     </Typography>
   )

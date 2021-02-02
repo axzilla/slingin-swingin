@@ -1,7 +1,12 @@
+// Packages
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Global Components
 import TextField from '@components/TextField'
+
+// MUI
+import Typography from '@material-ui/core/Typography'
 
 function Title({ errors, title, setTitle }) {
   function handleTitleChange(event) {
@@ -10,9 +15,11 @@ function Title({ errors, title, setTitle }) {
 
   return (
     <>
+      <Typography color="textSecondary" gutterBottom>
+        Title
+      </Typography>
       <TextField
         error={errors && errors.title}
-        placeholder="Title"
         name="title"
         value={title}
         onChange={handleTitleChange}

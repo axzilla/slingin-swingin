@@ -1,24 +1,36 @@
+// Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import axios from 'axios'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import { stateToMarkdown } from 'draft-js-export-markdown'
+import _ from 'lodash'
 
+// Local Components
 import Title from './components/Title'
 import TitleImage from './components/TitleImage'
 import Tags from './components/Tags'
 
+// Global Components
 import DraftJsEditor from '@components/DraftJsEditor'
 
+// Services
 import { postCreate, postUpdate } from '@services/post'
+
+// Utils
 import rawToHtml from '@utils/rawToHtml'
 import htmlRemove from '@utils/htmlRemove'
 
+// MUI
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import { TextField as MuiTextField } from '@material-ui/core'
 
 function PostForm({ post }) {
   const [errors, setErrors] = useState()
@@ -28,6 +40,9 @@ function PostForm({ post }) {
     post && post.titleImage ? post.titleImage.secure_url : null
   )
   const [title, setTitle] = useState(post ? post.title : '')
+  const [locations, setLocations] = useState([])
+  const [location, setLocation] = useState((post && post.location) || {})
+
   const [editorState, setEditorState] = useState(
     post
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(post.contentRaw)))
@@ -36,6 +51,24 @@ function PostForm({ post }) {
 
   const [tags, setTags] = useState(post ? post.tags : [])
   const [tagsInput, setTagsInput] = useState('')
+
+  async function handleGetPlaces(event) {
+    try {
+      if (event && event.target.value.length > 3) {
+        const searchTerm = event.target.value
+        const basePath = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
+        const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+        const types = 'region,place,locality'
+        const { data } = await axios.get(
+          `${basePath}/${searchTerm}.json?types=${types}&access_token=${token}`
+        )
+
+        setLocations(data.features)
+      }
+    } catch (error) {
+      if (error) throw error
+    }
+  }
 
   async function onSubmit() {
     try {
@@ -48,6 +81,7 @@ function PostForm({ post }) {
       const formData = new FormData()
       formData.append('titleImage', titleImage)
       formData.append('title', title)
+      formData.append('location', JSON.stringify(location))
       formData.append('contentRaw', contentRaw)
       formData.append('contentHtml', contentHtml)
       formData.append('contentText', contentText)
@@ -90,15 +124,52 @@ function PostForm({ post }) {
             <Title title={title} setTitle={setTitle} errors={errors} />
           </Grid>
           <Grid item>
+            <Typography color="textSecondary" gutterBottom>
+              Content
+            </Typography>
             <DraftJsEditor
               height={200}
               editorState={editorState}
               setEditorState={setEditorState}
               error={errors && errors.content}
-              placeholder="Write your story or question"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color="textSecondary" gutterBottom>
+              Location
+            </Typography>
+            <Autocomplete
+              fullWidth
+              disableClearable
+              freeSolo
+              value={post && post.location ? post.location.mapBox : null}
+              onInputChange={_.debounce(handleGetPlaces, 1000)}
+              onChange={(event, location) => {
+                setLocation({
+                  mapBox: location
+                })
+              }}
+              options={locations}
+              getOptionLabel={option => option.place_name}
+              renderInput={params => (
+                <MuiTextField
+                  {...params}
+                  onChange={event => {
+                    if (event.target.value.length < 1) {
+                      setLocation(null)
+                      setLocations([])
+                    }
+                  }}
+                  color="secondary"
+                  variant="outlined"
+                />
+              )}
             />
           </Grid>
           <Grid item>
+            <Typography color="textSecondary" gutterBottom>
+              Tags
+            </Typography>
             <Tags
               tags={tags}
               setTags={setTags}
