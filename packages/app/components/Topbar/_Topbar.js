@@ -42,9 +42,6 @@ const useStyles = makeStyles(theme => {
       width: theme.spacing(5),
       height: theme.spacing(5)
     },
-    logo: {
-      marginRight: theme.spacing(2)
-    },
     menuButton: { marginLeft: -12, marginRight: 20 },
     menuContainer: {
       display: 'flex',
@@ -136,13 +133,15 @@ function Topbar() {
             <Grid item>
               <Grid container alignItems="center">
                 <Link href="/">
-                  <Image
-                    src={isDarkTheme ? '/_logo_icon_light.svg' : '/_logo_icon_dark.svg'}
-                    alt="logo"
-                    width={40}
-                    height={40}
-                    className={classes.logo}
-                  />
+                  <Box mr={2}>
+                    <Image
+                      src={isDarkTheme ? '/_logo_icon_light.svg' : '/_logo_icon_dark.svg'}
+                      alt="logo"
+                      width={40}
+                      height={40}
+                      className={classes.logo}
+                    />
+                  </Box>
                 </Link>
                 <Hidden smDown>
                   {navigation.map(item => {
