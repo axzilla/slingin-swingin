@@ -12,6 +12,8 @@ import List from '@material-ui/core/List'
 import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
 import Hidden from '@material-ui/core/Hidden'
+import Box from '@material-ui/core/Box'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   list: { width: '100' },
@@ -24,7 +26,16 @@ const Conversations = ({ handleSelectedConversation }) => {
 
   return (
     <>
-      <CardHeader className={classes.cardHeader} title={<Hidden smDown>Chats</Hidden>} />
+      <CardHeader
+        className={classes.cardHeader}
+        title={
+          <Hidden smDown>
+            <Typography variant="subtitle1">
+              <Box fontWeight="bold">Conversations</Box>
+            </Typography>
+          </Hidden>
+        }
+      />
       <Divider />
       <List className={classes.list}>
         {[...conversations].map(conversation => {
