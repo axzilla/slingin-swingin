@@ -29,6 +29,7 @@ import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { TextField as MuiTextField } from '@material-ui/core'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 function AccountSettings() {
   const { setAlert } = useAlert()
@@ -66,12 +67,15 @@ function AccountSettings() {
 
   async function onSubmit(event) {
     try {
+      setIsLoading(true)
       event.preventDefault()
       const updatedUser = await updateUser(user)
       setUser(updatedUser.data)
       setAlert({ message: 'Profile updated successfully.', variant: 'success' })
       setErrors('')
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       setErrors(error.response.data)
 
       // if something is wrong with create place
@@ -105,206 +109,206 @@ function AccountSettings() {
 
   return (
     <>
-      {isLoading ? (
-        '...Loading'
-      ) : (
-        <>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <Avatar />
+        </Grid>
+        <Grid item xs={12} md={8}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <Avatar />
+            <Grid item>
+              <Card variant="outlined">
+                <form onSubmit={onSubmit}>
+                  <CardHeader title="Personal info" />
+                  <Divider />
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Name
+                        </Typography>
+                        <TextField
+                          error={errors && errors.name}
+                          name="name"
+                          value={user.name}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Website
+                        </Typography>
+                        <TextField
+                          error={errors && errors.website}
+                          placeholder="Website URL"
+                          name="website"
+                          value={user.website}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Twitter
+                        </Typography>
+                        <TextField
+                          error={errors && errors.twitter}
+                          placeholder="Twitter URL"
+                          name="twitter"
+                          value={user.twitter}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Facebook
+                        </Typography>
+                        <TextField
+                          error={errors && errors.facebook}
+                          placeholder="Facebook URL"
+                          name="facebook"
+                          value={user.facebook}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Instagram
+                        </Typography>
+                        <TextField
+                          error={errors && errors.instagram}
+                          placeholder="Instagram URL"
+                          name="instagram"
+                          value={user.instagram}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          LinkedIn
+                        </Typography>
+                        <TextField
+                          error={errors && errors.linkedin}
+                          placeholder="LinkedIn URL"
+                          name="linkedin"
+                          value={user.linkedin}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Youtube
+                        </Typography>
+                        <TextField
+                          error={errors && errors.youtube}
+                          placeholder="Youtube URL"
+                          name="youtube"
+                          value={user.youtube}
+                          onChange={onChange}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          About you
+                        </Typography>
+                        <TextField
+                          inputProps={{ maxLength: 160 }}
+                          multiline
+                          rows="4"
+                          rowsMax="4"
+                          name="bio"
+                          value={user.bio}
+                          onChange={onChange}
+                          helperText={`${(user.bio && user.bio.length) || 0} / 160 characters`}
+                        />
+                        {/* <FormHelperText>Hello</FormHelperText> */}
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Where are you from
+                        </Typography>
+                        <Autocomplete
+                          disableClearable
+                          freeSolo
+                          value={!isEmpty(user.locationFrom) ? user.locationFrom.mapBox : null}
+                          onInputChange={_.debounce(handleGetPlaces, 1000)}
+                          onChange={(event, location) => {
+                            setUser({
+                              ...user,
+                              locationFrom: { ...user.locationFrom, mapBox: location }
+                            })
+                          }}
+                          options={locations}
+                          getOptionLabel={option => option.place_name}
+                          renderInput={params => (
+                            <MuiTextField
+                              {...params}
+                              onChange={event => {
+                                if (event.target.value.length < 1) {
+                                  setUser({ ...user, locationFrom: null })
+                                  setLocations([])
+                                }
+                              }}
+                              color="secondary"
+                              variant="outlined"
+                            />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        <Typography color="textSecondary" gutterBottom>
+                          Current location
+                        </Typography>
+                        <Autocomplete
+                          disableClearable
+                          freeSolo
+                          value={
+                            !isEmpty(user.locationCurrent) ? user.locationCurrent.mapBox : null
+                          }
+                          onInputChange={_.debounce(handleGetPlaces, 1000)}
+                          onChange={(event, location) => {
+                            setUser({
+                              ...user,
+                              locationCurrent: { ...user.locationCurrent, mapBox: location }
+                            })
+                          }}
+                          options={locations}
+                          getOptionLabel={option => option.place_name}
+                          renderInput={params => (
+                            <MuiTextField
+                              {...params}
+                              onChange={event => {
+                                if (event.target.value.length < 1) {
+                                  setUser({ ...user, locationCurrent: null })
+                                  setLocations([])
+                                }
+                              }}
+                              color="secondary"
+                              variant="outlined"
+                            />
+                          )}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardContent>
+                    <Button
+                      disabled={isLoading}
+                      type="submit"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Save
+                    </Button>
+                  </CardContent>
+                </form>
+                {isLoading && <LinearProgress color="secondary" />}
+              </Card>
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Grid container spacing={2}>
-                <Grid item>
-                  <Card variant="outlined">
-                    <form onSubmit={onSubmit}>
-                      <CardHeader title="Personal info" />
-                      <Divider />
-                      <CardContent>
-                        <Grid container spacing={2}>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Name
-                            </Typography>
-                            <TextField
-                              error={errors && errors.name}
-                              name="name"
-                              value={user.name}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Website
-                            </Typography>
-                            <TextField
-                              error={errors && errors.website}
-                              placeholder="Website URL"
-                              name="website"
-                              value={user.website}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Twitter
-                            </Typography>
-                            <TextField
-                              error={errors && errors.twitter}
-                              placeholder="Twitter URL"
-                              name="twitter"
-                              value={user.twitter}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Facebook
-                            </Typography>
-                            <TextField
-                              error={errors && errors.facebook}
-                              placeholder="Facebook URL"
-                              name="facebook"
-                              value={user.facebook}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Instagram
-                            </Typography>
-                            <TextField
-                              error={errors && errors.instagram}
-                              placeholder="Instagram URL"
-                              name="instagram"
-                              value={user.instagram}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              LinkedIn
-                            </Typography>
-                            <TextField
-                              error={errors && errors.linkedin}
-                              placeholder="LinkedIn URL"
-                              name="linkedin"
-                              value={user.linkedin}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Youtube
-                            </Typography>
-                            <TextField
-                              error={errors && errors.youtube}
-                              placeholder="Youtube URL"
-                              name="youtube"
-                              value={user.youtube}
-                              onChange={onChange}
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              About you
-                            </Typography>
-                            <TextField
-                              inputProps={{ maxLength: 160 }}
-                              multiline
-                              rows="4"
-                              rowsMax="4"
-                              name="bio"
-                              value={user.bio}
-                              onChange={onChange}
-                              helperText={`${(user.bio && user.bio.length) || 0} / 160 characters`}
-                            />
-                            {/* <FormHelperText>Hello</FormHelperText> */}
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Where are you from
-                            </Typography>
-                            <Autocomplete
-                              disableClearable
-                              freeSolo
-                              value={!isEmpty(user.locationFrom) ? user.locationFrom.mapBox : null}
-                              onInputChange={_.debounce(handleGetPlaces, 1000)}
-                              onChange={(event, location) => {
-                                setUser({
-                                  ...user,
-                                  locationFrom: { ...user.locationFrom, mapBox: location }
-                                })
-                              }}
-                              options={locations}
-                              getOptionLabel={option => option.place_name}
-                              renderInput={params => (
-                                <MuiTextField
-                                  {...params}
-                                  onChange={event => {
-                                    if (event.target.value.length < 1) {
-                                      setUser({ ...user, locationFrom: null })
-                                      setLocations([])
-                                    }
-                                  }}
-                                  color="secondary"
-                                  variant="outlined"
-                                />
-                              )}
-                            />
-                          </Grid>
-                          <Grid item md={6} xs={12}>
-                            <Typography color="textSecondary" gutterBottom>
-                              Current location
-                            </Typography>
-                            <Autocomplete
-                              disableClearable
-                              freeSolo
-                              value={
-                                !isEmpty(user.locationCurrent) ? user.locationCurrent.mapBox : null
-                              }
-                              onInputChange={_.debounce(handleGetPlaces, 1000)}
-                              onChange={(event, location) => {
-                                setUser({
-                                  ...user,
-                                  locationCurrent: { ...user.locationCurrent, mapBox: location }
-                                })
-                              }}
-                              options={locations}
-                              getOptionLabel={option => option.place_name}
-                              renderInput={params => (
-                                <MuiTextField
-                                  {...params}
-                                  onChange={event => {
-                                    if (event.target.value.length < 1) {
-                                      setUser({ ...user, locationCurrent: null })
-                                      setLocations([])
-                                    }
-                                  }}
-                                  color="secondary"
-                                  variant="outlined"
-                                />
-                              )}
-                            />
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                      <CardContent>
-                        <Button type="submit" variant="contained" color="secondary">
-                          Save
-                        </Button>
-                      </CardContent>
-                    </form>
-                  </Card>
-                </Grid>
-                <Grid item>
-                  <Settings />
-                </Grid>
-              </Grid>
+            <Grid item>
+              <Settings />
             </Grid>
           </Grid>
-        </>
-      )}
+        </Grid>
+      </Grid>
     </>
   )
 }

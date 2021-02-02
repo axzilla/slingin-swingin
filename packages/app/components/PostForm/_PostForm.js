@@ -31,6 +31,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import { TextField as MuiTextField } from '@material-ui/core'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 function PostForm({ post }) {
   const [errors, setErrors] = useState()
@@ -105,8 +106,8 @@ function PostForm({ post }) {
       }
     } catch (error) {
       setErrors(error.response.data)
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
@@ -191,11 +192,13 @@ function PostForm({ post }) {
                   .length < 1
               }
             >
+              {/* {isLoading ? <CircularProgress /> : 'Save'} */}
               Save
             </Button>
           </Grid>
         </Grid>
       </CardContent>
+      {isLoading && <LinearProgress color="secondary" />}
     </Card>
   )
 }

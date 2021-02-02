@@ -5,7 +5,6 @@ const crypto = require('crypto')
 // Utils
 const hashPassword = require('../../utils/hashPassword')
 const isEmpty = require('../../utils/isEmpty')
-const slugify = require('../../utils/slugify')
 
 // Validation
 const validateSignUp = require('../../validation/validateSignUp')
@@ -19,17 +18,23 @@ const transporter = require('../../nodemailer/transporter')
 
 async function signUp(req, res) {
   try {
-    const { name, email, password } = req.body
+    const { name, username, email, password } = req.body
     const { errors } = validateSignUp(req.body)
 
     if (!isEmpty(errors)) {
       return res.status(400).json(errors)
     }
 
-    const foundEmail = await User.findOne({ email: req.body.email })
+    const foundEmail = await User.findOne({ email })
+    const foundUsername = await User.findOne({ username })
 
     if (foundEmail) {
       errors.email = 'Email address is already in use'
+      return res.status(400).json(errors)
+    }
+
+    if (foundUsername) {
+      errors.username = 'Username is already in use'
       return res.status(400).json(errors)
     }
 
@@ -43,7 +48,7 @@ async function signUp(req, res) {
     const createdUser = await User.create({
       name,
       email,
-      username: slugify(name) + Math.floor(Math.random() * (9999 - 1000) + 1000),
+      username,
       password: await hashPassword(password),
       isActiveToken,
       isActiveTokenExpires: Date.now() + 24 * 3600 * 1000
