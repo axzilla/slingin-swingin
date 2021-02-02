@@ -5,7 +5,7 @@ async function getPostsByTag(req, res) {
     const foundPost = await Post.find({ tags: req.params.tag })
       .sort({ dateCreated: -1 })
       .populate('user', '-password')
-      .populate('location')
+      .populate('place')
 
     res.json(foundPost)
   } catch (error) {

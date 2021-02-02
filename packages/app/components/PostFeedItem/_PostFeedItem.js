@@ -36,13 +36,13 @@ const useStyles = makeStyles(theme => ({
   media: { objectFit: 'cover' }
 }))
 
-function PostFeedItem({ post }) {
+function PostFeedItem({ post, style, hideImage, hideFooter, hidePlace }) {
   const classes = useStyles()
   const [postData, setPostData] = useState(post)
 
   return (
-    <Card variant="outlined">
-      <TitleImage post={postData} />
+    <Card variant="outlined" style={style}>
+      {!hideImage && <TitleImage post={postData} />}
 
       <CardHeader
         className={classes.cardHeader}
@@ -64,7 +64,7 @@ function PostFeedItem({ post }) {
       />
 
       <CardContent classes={{ root: classes.cardContentRoot }}>
-        {post.location && (
+        {post.place && !hidePlace && (
           <Grid container>
             <Box display="inline">
               <LocationOnIcon color="secondary" />
@@ -72,23 +72,27 @@ function PostFeedItem({ post }) {
             <Link
               underlined
               href="/place/[shortId]/[urlSlug]"
-              as={`/place/${post.location.shortId}/${post.location.urlSlug}`}
+              as={`/place/${post.place.shortId}/${post.place.urlSlug}`}
             >
               <Typography color="textSecondary" display="inline" gutterBottom>
-                {post.location.mapBox.place_name}
+                {post.place.mapBox.place_name}
               </Typography>
             </Link>
           </Grid>
         )}
         <Content post={postData} />
-        <Footer post={postData} setPostData={setPostData} />
+        {!hideFooter && <Footer post={postData} setPostData={setPostData} />}
       </CardContent>
     </Card>
   )
 }
 
 PostFeedItem.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.object,
+  style: PropTypes.object,
+  hideImage: PropTypes.bool,
+  hideFooter: PropTypes.bool,
+  hidePlace: PropTypes.bool
 }
 
 export default PostFeedItem

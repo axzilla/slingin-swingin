@@ -14,8 +14,10 @@ import { createPlaceReview, updatePlaceReview } from '@services/placeReview'
 
 // Global Components
 import Map from '@components/Map'
+import PostFeedItem from '@components/PostFeedItem'
 
 // MUI
+import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import Divider from '@material-ui/core/Divider'
 import Box from '@material-ui/core/Box'
@@ -158,6 +160,36 @@ function PlaceDetails({ place }) {
       <StyledDivider />
 
       <People type="current" baseData={baseData} peopleCurrent={peopleCurrent} />
+      <StyledDivider />
+
+      <Typography variant="h6">
+        <Box mb={4}>Posts</Box>
+      </Typography>
+      <Grid
+        spacing={2}
+        container
+        justify="stretch"
+        wrap="nowrap"
+        style={{ overflowX: 'scroll', scrollbarWidth: 'none' }}
+      >
+        {place.posts.map(post => {
+          return (
+            <Grid item xs={12} key={post._id}>
+              <PostFeedItem
+                hideImage
+                hideFooter
+                hidePlace
+                post={post}
+                style={{
+                  width: place.posts.length > 1 ? '80vw' : '100%',
+                  maxWidth: '400px',
+                  height: '100%'
+                }}
+              />
+            </Grid>
+          )
+        })}
+      </Grid>
       <StyledDivider />
 
       {/* <People type="been" baseData={baseData} peopleBeen={peopleBeen} />

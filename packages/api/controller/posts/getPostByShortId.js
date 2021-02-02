@@ -4,7 +4,7 @@ async function getPostByShortId(req, res) {
   try {
     const foundPost = await Post.findOne({ shortId: req.params.shortId })
       .populate('user', '-password')
-      .populate('location')
+      .populate('place')
       .populate({
         path: 'postComments',
         populate: { path: 'user' }

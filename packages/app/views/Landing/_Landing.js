@@ -79,11 +79,6 @@ function Landing({ posts, message, variant, jwtToken }) {
               }}
             />
           </Grid>
-          {/* <Grid item>
-            <IconButton onClick={handleClickOpen}>
-              <AddIcon />
-            </IconButton>
-          </Grid> */}
         </Grid>
       </Grid>
       {posts &&
