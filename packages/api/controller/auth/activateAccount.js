@@ -36,6 +36,7 @@ async function activateAccount(req, res) {
         res.json({ message: 'Email address already confirmed.', variant: 'success', jwtToken })
       } else {
         user.isActive = true
+        user.dateActivated = Date.now()
         user.save()
 
         sendWelcome(transporter, user)

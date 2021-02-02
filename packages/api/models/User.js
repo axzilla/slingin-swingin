@@ -39,7 +39,8 @@ const UserSchema = new Schema({
   resetPasswordToken: { type: String },
   resetPasswordTokenExpires: { type: Date },
   //
-  dateCreated: { type: Date, default: Date.now }
+  dateCreated: { type: Date, default: Date.now },
+  dateActivated: { type: Date }
   // dateOnline: { type: Date },
   // dateOffline: { type: Date },
   // isOnline: { type: Boolean },
