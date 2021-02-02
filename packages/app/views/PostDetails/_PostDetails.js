@@ -167,7 +167,7 @@ function PostDetails({ post, commentsData }) {
           />
           {postData.titleImage && <TitleImage post={postData} />}
           <CardContent>
-            {post.location && (
+            {post.place && (
               <Grid container>
                 <Box display="inline">
                   <LocationOnIcon color="secondary" />
@@ -175,10 +175,10 @@ function PostDetails({ post, commentsData }) {
                 <Link
                   underlined
                   href="/place/[shortId]/[urlSlug]"
-                  as={`/place/${post.location.shortId}/${post.location.urlSlug}`}
+                  as={`/place/${post.place.shortId}/${post.place.urlSlug}`}
                 >
                   <Typography color="textSecondary" display="inline" gutterBottom>
-                    {post.location.mapBox.place_name}
+                    {post.place.mapBox.place_name}
                   </Typography>
                 </Link>
               </Grid>
