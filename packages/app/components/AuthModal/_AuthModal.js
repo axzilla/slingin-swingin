@@ -32,15 +32,27 @@ function AuthModal() {
   const dispatch = useDispatch()
   const { setAlert } = useAlert()
   const { authModal } = useSelector(state => state.auth)
-  const [errors, setErrors] = useState({ email: '', name: '', password: '', password2: '' })
-  const [authData, setAuthData] = useState({ email: '', name: '', password: '', password2: '' })
+  const [errors, setErrors] = useState({
+    email: '',
+    name: '',
+    username: '',
+    password: '',
+    password2: ''
+  })
+  const [authData, setAuthData] = useState({
+    email: '',
+    name: '',
+    username: '',
+    password: '',
+    password2: ''
+  })
 
   function resetAuthData() {
-    setAuthData({ email: '', name: '', password: '', password2: '' })
+    setAuthData({ email: '', name: '', username: '', password: '', password2: '' })
   }
 
   function resetErrors() {
-    setErrors({ email: '', name: '', password: '', password2: '' })
+    setErrors({ email: '', name: '', username: '', password: '', password2: '' })
   }
 
   function handleClose() {
@@ -60,8 +72,8 @@ function AuthModal() {
   async function handleSignUp(event) {
     try {
       event.preventDefault()
-      const { email, name, password } = authData
-      const signedUpUser = await signUp({ email, name, password })
+      const { email, name, username, password } = authData
+      const signedUpUser = await signUp({ email, name, username, password })
       resetAuthData()
       setAuthData({ ...authData, email: signedUpUser.data.email })
       handleSetType('SignUpFinished')

@@ -7,6 +7,10 @@ function validateSignUp(data) {
     errors.name = '2 - 30 characters'
   }
 
+  if (!Validator.isLength(data.username, { min: 2, max: 30 })) {
+    errors.username = '2 - 30 characters'
+  }
+
   if (!Validator.isEmail(data.email)) {
     errors.email = 'No valid email'
   }

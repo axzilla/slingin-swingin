@@ -24,12 +24,21 @@ const SignUp = ({ handleChange, handleSignUp, errors, authData, handleSetType })
       <form noValidate onSubmit={handleSignUp}>
         <Box mb={2}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <Typography gutterBottom>Name</Typography>
               <TextField
                 error={errors && errors.name}
                 name="name"
                 value={authData.name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography gutterBottom>Username</Typography>
+              <TextField
+                error={errors && errors.username}
+                name="username"
+                value={authData.username}
                 onChange={handleChange}
               />
             </Grid>
