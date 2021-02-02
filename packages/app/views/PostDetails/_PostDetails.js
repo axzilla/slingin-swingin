@@ -32,6 +32,7 @@ import Divider from '@material-ui/core/Divider'
 import CardHeader from '@material-ui/core/CardHeader'
 import Box from '@material-ui/core/Box'
 import FavoriteIcon from '@material-ui/icons/Favorite'
+import LocationOnIcon from '@material-ui/icons/LocationOn'
 
 function Comment({ comment, comments, setComments, handleSetNestedComments }) {
   const nestedComments = (comment.children || [])
@@ -166,6 +167,22 @@ function PostDetails({ post, commentsData }) {
           />
           {postData.titleImage && <TitleImage post={postData} />}
           <CardContent>
+            {post.location && (
+              <Grid container>
+                <Box display="inline">
+                  <LocationOnIcon color="secondary" />
+                </Box>
+                <Link
+                  underlined
+                  href="/place/[shortId]/[urlSlug]"
+                  as={`/place/${post.location.shortId}/${post.location.urlSlug}`}
+                >
+                  <Typography color="textSecondary" display="inline" gutterBottom>
+                    {post.location.mapBox.place_name}
+                  </Typography>
+                </Link>
+              </Grid>
+            )}
             <Title post={postData} />
             <Box mb={1}>
               <Content post={postData} />

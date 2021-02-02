@@ -17,6 +17,7 @@ async function getAllPosts(req, res) {
         }
       )
         .populate('user', '-password')
+        .populate('location')
         .sort({ isPinned: -1 })
         .sort({ dateCreated: -1 })
 

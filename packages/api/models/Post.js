@@ -15,6 +15,7 @@ const PostSchema = new Schema({
   contentHtml: { type: String, required: true },
   contentText: { type: String, required: true },
   contentMarkdown: { type: String, required: true },
+  location: { type: Schema.Types.ObjectId, ref: 'Place' },
   tags: { type: Array },
   likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   bookmarks: [{ type: Schema.Types.ObjectId, ref: 'User' }],

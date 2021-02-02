@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 
 import slugify from '@utils/slugify'
 import TextField from '@components/TextField'
+import Chip from '@components/Chip'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import Chip from '@material-ui/core/Chip'
+import Box from '@material-ui/core/Box'
+
+// import Chip from '@material-ui/core/Chip'
 
 const useStyles = makeStyles(theme => ({
   chip: { margin: theme.spacing(0.5) },
@@ -37,15 +40,16 @@ function Tags({ tags, setTags, tagsInput, setTagsInput, errors }) {
 
   return (
     <>
-      <TextField
-        error={errors && errors.tags}
-        type="tags"
-        placeholder="Tags"
-        name="tags"
-        value={tagsInput}
-        onChange={handleTagsInputChange}
-        onKeyDown={handleTagsKeyPress}
-      />
+      <Box mb={2}>
+        <TextField
+          error={errors && errors.tags}
+          type="tags"
+          name="tags"
+          value={tagsInput}
+          onChange={handleTagsInputChange}
+          onKeyDown={handleTagsKeyPress}
+        />
+      </Box>
       <Grid>
         {tags &&
           tags.map((tag, i) => {

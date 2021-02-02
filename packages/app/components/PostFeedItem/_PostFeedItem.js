@@ -15,9 +15,13 @@ import Link from '@components/Link'
 // MUI
 import { makeStyles } from '@material-ui/styles'
 import { grey } from '@material-ui/core/colors'
+import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
+import LocationOnIcon from '@material-ui/icons/LocationOn'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -39,6 +43,7 @@ function PostFeedItem({ post }) {
   return (
     <Card variant="outlined">
       <TitleImage post={postData} />
+
       <CardHeader
         className={classes.cardHeader}
         avatar={
@@ -57,7 +62,24 @@ function PostFeedItem({ post }) {
           </small>
         }
       />
+
       <CardContent classes={{ root: classes.cardContentRoot }}>
+        {post.location && (
+          <Grid container>
+            <Box display="inline">
+              <LocationOnIcon color="secondary" />
+            </Box>
+            <Link
+              underlined
+              href="/place/[shortId]/[urlSlug]"
+              as={`/place/${post.location.shortId}/${post.location.urlSlug}`}
+            >
+              <Typography color="textSecondary" display="inline" gutterBottom>
+                {post.location.mapBox.place_name}
+              </Typography>
+            </Link>
+          </Grid>
+        )}
         <Content post={postData} />
         <Footer post={postData} setPostData={setPostData} />
       </CardContent>
