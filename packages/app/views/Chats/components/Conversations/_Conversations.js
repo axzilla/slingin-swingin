@@ -24,7 +24,7 @@ const Conversations = ({ handleSelectedConversation }) => {
 
   return (
     <>
-      <CardHeader className={classes.cardHeader} title={<Hidden smDown>Conversations</Hidden>} />
+      <CardHeader className={classes.cardHeader} title={<Hidden smDown>Chats</Hidden>} />
       <Divider />
       <List className={classes.list}>
         {[...conversations].map(conversation => {

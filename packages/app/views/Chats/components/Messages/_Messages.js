@@ -1,6 +1,5 @@
 // Packages
 import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { animateScroll } from 'react-scroll'
 
@@ -16,9 +15,6 @@ import { makeStyles } from '@material-ui/styles'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
   chatWindow: { height: '100%', maxHeight: '100%', overflowY: 'scroll' },
@@ -26,7 +22,6 @@ const useStyles = makeStyles({
 })
 
 const Messages = () => {
-  const router = useRouter()
   const classes = useStyles()
   const { conversations, selectedConversation } = useSelector(state => state.chats)
   const sender = useSelector(state => state.auth.currentUser)
@@ -43,7 +38,7 @@ const Messages = () => {
     animateScroll.scrollToBottom({ duration: 0, containerId: 'chatWindow' })
   }
 
-  return conversations.length > 0 && sender && users && receiver ? (
+  return (
     <>
       <CardHeader
         className={classes.cardHeader}
@@ -82,28 +77,6 @@ const Messages = () => {
           })}
       </CardContent>
     </>
-  ) : (
-    <CardContent className={classes.chatWindow}>
-      <Grid container justify="center" spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h3" align="center">
-            You don&rsquo;t have any conversations yet.
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" align="center">
-            Go to a profile and send a message to start your first conversion.
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container justify="center">
-            <Button onClick={() => router.back()} variant="contained" color="secondary">
-              Back
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </CardContent>
   )
 }
 
