@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const places = require('../controller/_admin/places')
+const getMapboxPlaces = require('../controller/_admin/getMapboxPlaces')
+const getPlaceImages = require('../controller/_admin/getPlaceImages')
 
-router.get('/places/:search', places)
+router.get('/get-mapbox-places/:search', getMapboxPlaces)
+router.get('/get-place-images/:search', getPlaceImages)
 
 module.exports = router
