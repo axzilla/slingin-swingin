@@ -67,6 +67,7 @@ function Admin() {
 
   async function handleSubmit() {
     try {
+      setIsLoading(true)
       const data = { photo: selectedImage.url, mapBox: place }
       const createdPlace = await axios.post('http://localhost:5000/_admin/create-place', data)
       const baseUrl =
@@ -75,8 +76,10 @@ function Admin() {
           : 'https://www.digitalnomads.dev'
 
       alert(`${baseUrl}/place/${createdPlace.data.shortId}/${createdPlace.data.urlSlug}`)
+      setIsLoading(false)
     } catch (error) {
       alert(error.response.data)
+      setIsLoading(false)
     }
   }
 
