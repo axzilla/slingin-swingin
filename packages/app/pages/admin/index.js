@@ -3,6 +3,9 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import axios from 'axios'
 
+// Utils
+import isEmpty from '@utils/isEmpty'
+
 // Global Components
 import { Link } from '@components'
 
@@ -62,8 +65,23 @@ function Admin() {
     }
   }
 
+  async function handleSubmit() {
+    try {
+      const data = { photo: selectedImage.url, mapBox: place }
+      const createdPlace = await axios.post('http://localhost:5000/_admin/create-place', data)
+      const baseUrl =
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000'
+          : 'https://www.digitalnomads.dev'
+
+      alert(`${baseUrl}/place/${createdPlace.data.shortId}/${createdPlace.data.urlSlug}`)
+    } catch (error) {
+      alert(error.response.data)
+    }
+  }
+
   return (
-    <Box py={5}>
+    <Box py={5} height="100vh">
       <Container maxWidth="md">
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -76,6 +94,7 @@ function Admin() {
               onChange={async (event, place) => {
                 setPlace(place)
                 handleGetPlaceImages(place)
+                setSelectedImage({})
                 setImages([])
               }}
               options={places}
@@ -94,6 +113,20 @@ function Admin() {
                 />
               )}
             />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent="flex-end" my={2}>
+              <Button
+                onClick={handleSubmit}
+                disabled={isLoading || !place || isEmpty(selectedImage)}
+                size="large"
+                variant="outlined"
+                color="secondary"
+              >
+                Create
+              </Button>
+            </Box>
           </Grid>
 
           {isLoading && (

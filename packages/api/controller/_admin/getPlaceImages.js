@@ -8,6 +8,9 @@ async function getPlaceImages(req, res) {
     const google = new Scraper({
       puppeteer: { headless: true, args: ['--no-sandbox'] },
       tbs: { isz: 'l' }
+      // itp:  // options: clipart, face, lineart, news, photo
+      // ic:   // options: color, gray, trans
+      // sur:  // options: fmc (commercial reuse with modification), fc (commercial reuse), fm (noncommercial reuse with modification), f (noncommercial reuse)
     })
 
     const limit = 12
