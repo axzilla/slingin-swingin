@@ -30,17 +30,19 @@ function Admin() {
   const [place, setPlace] = useState(null) // eslint-disable-line
   const [places, setPlaces] = useState([])
 
-  const baseUrl =
+  const clientUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
       : 'https://www.digitalnomads.dev'
+
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL
 
   async function handleGetMapboxPlaces(event) {
     try {
       if (event.target.value) {
         setIsLoading(true)
         const foundPlaces = await axios.get(
-          `${baseUrl}/_admin/get-mapbox-places/${event.target.value}`
+          `${serverUrl}/_admin/get-mapbox-places/${event.target.value}`
         )
 
         await setPlaces(foundPlaces.data)
@@ -57,7 +59,9 @@ function Admin() {
     try {
       setIsLoading(true)
 
-      const foundImages = await axios.get(`${baseUrl}/_admin/get-place-images/${place.place_name}`)
+      const foundImages = await axios.get(
+        `${serverUrl}/_admin/get-place-images/${place.place_name}`
+      )
 
       await setImages(foundImages.data)
       setIsLoading(false)
@@ -72,9 +76,9 @@ function Admin() {
     try {
       setIsLoading(true)
       const data = { photo: selectedImage.url, mapBox: place }
-      const createdPlace = await axios.post(`${baseUrl}/_admin/create-place`, data)
+      const createdPlace = await axios.post(`${serverUrl}/_admin/create-place`, data)
 
-      alert(`${baseUrl}/place/${createdPlace.data.shortId}/${createdPlace.data.urlSlug}`)
+      alert(`${clientUrl}/place/${createdPlace.data.shortId}/${createdPlace.data.urlSlug}`)
       setIsLoading(false)
     } catch (error) {
       alert(error.response.data)
