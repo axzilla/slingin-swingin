@@ -12,7 +12,7 @@ async function getMapboxPlaces(req, res) {
     const types = 'country,region,place,locality'
     const mapbox = await axios.get(
       `${basePath}/${search}.json?types=${types}&access_token=${token}&limit=${limit}&language=en`
-      // `${basePath}/${search}.json?&access_token=${token}&limit=${limit}&language=en&fuzzyMatch=true`
+      // `${basePath}/${search}.json?&access_token=${token}&limit=${limit}&language=en`
     )
 
     res.json(mapbox.data.features)

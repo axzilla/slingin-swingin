@@ -7,7 +7,28 @@ const slugify = require('../../utils/slugify')
 
 async function createPlace(req, res) {
   try {
-    const { mapBox, photo } = req.body
+    const {
+      // required
+      mapBox,
+      longitude,
+      latitude,
+      name,
+      continent,
+      continentCode,
+      country,
+      countryCode,
+      //
+      region,
+      postcode,
+      district,
+      place,
+      locality,
+      neighborhood,
+      address,
+      poi,
+      //
+      photo
+    } = req.body
     const foundPlace = await Place.findOne({ 'mapBox.id': mapBox.id })
 
     if (foundPlace) {
@@ -20,12 +41,31 @@ async function createPlace(req, res) {
     })
 
     const createdPlace = await Place.create({
+      // required
       mapBox,
+      longitude,
+      latitude,
+      name,
+      continent,
+      continentCode,
+      country,
+      countryCode,
+      //
+      region,
+      postcode,
+      district,
+      place,
+      locality,
+      neighborhood,
+      address,
+      poi,
+      //
+      photo: uploadedPhoto,
       urlSlug: slugify(mapBox.place_name)
     })
 
-    createdPlace.photo = uploadedPhoto
-    createdPlace.save()
+    // createdPlace.photo = uploadedPhoto
+    // createdPlace.save()
 
     res.json(createdPlace)
   } catch (error) {
