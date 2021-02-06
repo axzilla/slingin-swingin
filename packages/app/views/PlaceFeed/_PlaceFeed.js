@@ -169,7 +169,7 @@ function PlaceFeed({ places }) {
                     <CardMedia image={place.photo.secure_url}>
                       <Box height={200}>
                         <Box p={1.5}>
-                          <Card style={{ width: 'max-content', borderRadius: 5 }}>
+                          <Card style={{ maxWidth: 'max-content', borderRadius: 5 }}>
                             <Box py={0.3} px={1}>
                               <Typography variant="subtitle2">
                                 {place.name.toUpperCase()}
