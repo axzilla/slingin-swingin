@@ -157,11 +157,6 @@ function PlaceFeed({ places }) {
         {/* Feed */}
         {places.result.map(place => {
           const placeUtils = new PlaceUtils(place.placeReviews)
-          // function hasReviews() {
-          //   const number = 5
-          //   const random = Math.floor(Math.random() * number)
-          //   return random > 1
-          // }
 
           return (
             <Grid key={place._id} item xs={6}>
@@ -172,7 +167,17 @@ function PlaceFeed({ places }) {
                 <Box mb={2}>
                   <Card>
                     <CardMedia image={place.photo.secure_url}>
-                      <Box height={200} />
+                      <Box height={200}>
+                        <Box p={1.5}>
+                          <Card style={{ width: 'max-content', borderRadius: 5 }}>
+                            <Box py={0.3} px={1}>
+                              <Typography variant="subtitle2">
+                                {place.name.toUpperCase()}
+                              </Typography>
+                            </Box>
+                          </Card>
+                        </Box>
+                      </Box>
                     </CardMedia>
                   </Card>
                 </Box>
@@ -202,7 +207,9 @@ function PlaceFeed({ places }) {
                     flex={1}
                     textOverflow="ellipsis"
                   >
-                    {place.mapBox.place_name}
+                    {place.mapBox.context
+                      ? place.mapBox.context.map(item => item.text).join(', ')
+                      : place.mapBox.text}
                   </Box>
                 </Typography>
                 <Typography variant="subtitle1">
