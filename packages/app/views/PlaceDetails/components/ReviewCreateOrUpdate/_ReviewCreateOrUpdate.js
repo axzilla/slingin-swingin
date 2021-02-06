@@ -1,9 +1,13 @@
 // Packages
 import { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
 
 // Local Components
 import { Text, Ratings, Costs } from './components'
+
+// Redux
+import { authModalReducer } from '@slices/authSlice'
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles'
@@ -35,15 +39,22 @@ function ReviewCreateOrUpdate({
   baseData
 }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [open, setOpen] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
   const [skipped, setSkipped] = useState(new Set())
+  const { isAuthenticated } = useSelector(state => state.auth)
+
   const steps = getSteps()
 
   const handleClickOpen = () => {
-    setOpen(true)
+    if (isAuthenticated) {
+      setOpen(true)
+    } else {
+      dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
+    }
   }
 
   const handleClose = () => {
