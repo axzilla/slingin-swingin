@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import PropTypes from 'prop-types'
-import logo from './_ogLogo.png'
+import logo from './_ogLogo.jpg'
 
 function seoMeta({ title, desc, canonical, ogImage, ogTitle, ogDescription }) {
   return (
