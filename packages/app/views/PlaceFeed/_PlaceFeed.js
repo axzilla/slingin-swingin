@@ -207,9 +207,14 @@ function PlaceFeed({ places }) {
                     flex={1}
                     textOverflow="ellipsis"
                   >
-                    {place.mapBox.context
+                    {/* {place.mapBox.context
                       ? place.mapBox.context.map(item => item.text).join(', ')
-                      : place.mapBox.text}
+                      : place.mapBox.text} */}
+                    {place.continent}{' '}
+                    <Typography display="inline" color="textSecondary">
+                      &gt;{' '}
+                    </Typography>
+                    {place.country}
                   </Box>
                 </Typography>
                 <Typography variant="subtitle1">
