@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import axios from 'axios'
+import countryList from 'countries-list'
 
 // Utils
 import isEmpty from '@utils/isEmpty'
@@ -21,14 +22,16 @@ import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Typography } from '@material-ui/core'
 
 function Admin() {
   const [images, setImages] = useState([])
   const [selectedImage, setSelectedImage] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false) // eslint-disable-line
-  const [place, setPlace] = useState(null) // eslint-disable-line
-  const [places, setPlaces] = useState([])
+  const [mapboxPlace, setMapboxPlace] = useState(null) // eslint-disable-line
+  const [maboxPlaces, setMapboxPlaces] = useState([])
+  const [continent, setContinent] = useState('')
 
   const clientUrl =
     process.env.NODE_ENV === 'development'
@@ -45,7 +48,7 @@ function Admin() {
           `${serverUrl}/_admin/get-mapbox-places/${event.target.value}`
         )
 
-        await setPlaces(foundPlaces.data)
+        await setMapboxPlaces(foundPlaces.data)
         setIsLoading(false)
       }
     } catch (error) {
@@ -75,15 +78,105 @@ function Admin() {
   async function handleSubmit() {
     try {
       setIsLoading(true)
-      const data = { photo: selectedImage.url, mapBox: place }
+      const photo = selectedImage.url
+      const mapBox = mapboxPlace
+      //
+      const longitude = mapboxPlace.center[0]
+      const latitude = mapboxPlace.center[1]
+      const name = mapboxPlace.text
+      const countryCode = mapboxPlace.context
+        ? mapboxPlace.context[mapboxPlace.context.length - 1].short_code.toUpperCase()
+        : mapboxPlace.properties.short_code.toUpperCase()
+      const continentCode = countryList.countries[countryCode].continent
+      const continent = countryList.continents[continentCode]
+      //
+      const country = mapboxPlace.context
+        ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'country')[0].text
+        : mapboxPlace.text
+      const region =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'region')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'region')[0].text
+          : null
+      const postcode =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'postcode')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'postcode')[0].text
+          : null
+      const district =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'district')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'district')[0].text
+          : null
+      const place =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'place')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'place')[0].text
+          : null
+      const locality =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'locality')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'locality')[0].text
+          : null
+      const neighborhood =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'neighborhood')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'neighborhood')[0].text
+          : null
+      const address =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'address')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'address')[0].text
+          : null
+      const poi =
+        mapboxPlace.context &&
+        mapboxPlace.context.filter(item => item.id.split('.')[0] === 'poi')[0]
+          ? mapboxPlace.context.filter(item => item.id.split('.')[0] === 'poi')[0].text
+          : null
+
+      const data = {
+        // required
+        mapBox,
+        longitude,
+        latitude,
+        name,
+        continent,
+        continentCode,
+        country,
+        countryCode,
+        //
+        region,
+        postcode,
+        district,
+        place,
+        locality,
+        neighborhood,
+        address,
+        poi,
+        //
+        photo
+      }
+
+      console.log(data) // eslint-disable-line
       const createdPlace = await axios.post(`${serverUrl}/_admin/create-place`, data)
 
       alert(`${clientUrl}/place/${createdPlace.data.shortId}/${createdPlace.data.urlSlug}`)
       setIsLoading(false)
     } catch (error) {
+      console.log(error) // eslint-disable-line
       alert(error.response.data)
       setIsLoading(false)
     }
+  }
+
+  function handleSetContinent(place) {
+    const countryCode = place.context
+      ? place.context[place.context.length - 1].short_code.toUpperCase()
+      : place.properties.short_code.toUpperCase()
+
+    const continentCode = countryList.countries[countryCode].continent
+    const continent = countryList.continents[continentCode]
+    setContinent(continent)
   }
 
   return (
@@ -98,12 +191,13 @@ function Admin() {
               freeSolo
               onInputChange={_.debounce(handleGetMapboxPlaces, 1000)}
               onChange={async (event, place) => {
-                setPlace(place)
+                handleSetContinent(place)
+                setMapboxPlace(place)
                 handleGetPlaceImages(place)
                 setSelectedImage({})
                 setImages([])
               }}
-              options={places}
+              options={maboxPlaces}
               getOptionLabel={option => option.place_name}
               renderInput={params => (
                 <TextField
@@ -111,7 +205,7 @@ function Admin() {
                   {...params}
                   onChange={event => {
                     if (event.target.value.length < 1) {
-                      setPlaces([])
+                      setMapboxPlaces([])
                     }
                   }}
                   color="secondary"
@@ -122,10 +216,24 @@ function Admin() {
           </Grid>
 
           <Grid item xs={12}>
+            {continent && mapboxPlace && (
+              <Typography>
+                {continent && continent} {'> '}
+                {mapboxPlace &&
+                  mapboxPlace.place_name
+                    .split(',')
+                    .map(item => item.trim())
+                    .reverse()
+                    .join(' > ')}
+              </Typography>
+            )}
+          </Grid>
+
+          <Grid item xs={12}>
             <Box display="flex" justifyContent="flex-end" my={2}>
               <Button
                 onClick={handleSubmit}
-                disabled={isLoading || !place || isEmpty(selectedImage)}
+                disabled={isLoading || !mapboxPlace || isEmpty(selectedImage)}
                 size="large"
                 variant="outlined"
                 color="secondary"
