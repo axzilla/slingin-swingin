@@ -1,13 +1,13 @@
 // Packages
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
-import axios from 'axios'
 
 // Contexts
 import { useAlert } from '@contexts/AlertContext'
 
 // Services
 import { updateUser, getCurrentUser } from '@services/user'
+import { getPlacesBySearchTerm } from '@services/place'
 
 // Utils
 import isEmpty from '@utils/isEmpty'
@@ -67,9 +67,9 @@ function AccountSettings() {
 
   async function onSubmit(event) {
     try {
-      setIsLoading(true)
       event.preventDefault()
-      const updatedUser = await updateUser(user)
+      setIsLoading(true)
+      const updatedUser = await updateUser({ ...user, locationFrom: user.locationFrom._id })
       setUser(updatedUser.data)
       setAlert({ message: 'Profile updated successfully.', variant: 'success' })
       setErrors('')
@@ -77,11 +77,6 @@ function AccountSettings() {
     } catch (error) {
       setIsLoading(false)
       setErrors(error.response.data)
-
-      // if something is wrong with create place
-      if (error.response.data.other) {
-        setAlert({ message: error.response.data.other, variant: 'error' })
-      }
     }
   }
 
@@ -91,16 +86,10 @@ function AccountSettings() {
 
   async function handleGetPlaces(event) {
     try {
-      if (event && event.target.value.length > 3) {
+      if (event && event.target.value.length > 0) {
         const searchTerm = event.target.value
-        const basePath = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
-        const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-        const types = 'region,place,locality'
-        const { data } = await axios.get(
-          `${basePath}/${searchTerm}.json?types=${types}&access_token=${token}`
-        )
-
-        setLocations(data.features)
+        const foundPlaces = await getPlacesBySearchTerm({ searchTerm })
+        setLocations(foundPlaces.data)
       }
     } catch (error) {
       if (error) throw error
@@ -219,7 +208,6 @@ function AccountSettings() {
                           onChange={onChange}
                           helperText={`${(user.bio && user.bio.length) || 0} / 160 characters`}
                         />
-                        {/* <FormHelperText>Hello</FormHelperText> */}
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <Typography color="textSecondary" gutterBottom>
@@ -228,16 +216,16 @@ function AccountSettings() {
                         <Autocomplete
                           disableClearable
                           freeSolo
-                          value={!isEmpty(user.locationFrom) ? user.locationFrom.mapBox : null}
+                          value={!isEmpty(user.locationFrom) ? user.locationFrom : null}
                           onInputChange={_.debounce(handleGetPlaces, 1000)}
                           onChange={(event, location) => {
                             setUser({
                               ...user,
-                              locationFrom: { ...user.locationFrom, mapBox: location }
+                              locationFrom: location
                             })
                           }}
                           options={locations}
-                          getOptionLabel={option => option.place_name}
+                          getOptionLabel={option => option.mapBox.place_name}
                           renderInput={params => (
                             <MuiTextField
                               {...params}
@@ -260,18 +248,16 @@ function AccountSettings() {
                         <Autocomplete
                           disableClearable
                           freeSolo
-                          value={
-                            !isEmpty(user.locationCurrent) ? user.locationCurrent.mapBox : null
-                          }
+                          value={!isEmpty(user.locationCurrent) ? user.locationCurrent : null}
                           onInputChange={_.debounce(handleGetPlaces, 1000)}
                           onChange={(event, location) => {
                             setUser({
                               ...user,
-                              locationCurrent: { ...user.locationCurrent, mapBox: location }
+                              locationCurrent: location
                             })
                           }}
                           options={locations}
-                          getOptionLabel={option => option.place_name}
+                          getOptionLabel={option => option.mapBox.place_name}
                           renderInput={params => (
                             <MuiTextField
                               {...params}
