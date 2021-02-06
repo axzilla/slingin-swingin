@@ -79,8 +79,8 @@ function Users({ users }) {
         <Box my={5}>
           <Grid container alignItems="center" justify="center">
             <Pagination
+              siblingCount={0}
               page={users.page}
-              size="large"
               count={users.pages}
               onChange={(e, page) => handlePaginationChange(page)}
             />
