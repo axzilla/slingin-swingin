@@ -14,6 +14,10 @@ export function getPlacePhotos(data) {
   return axios.get(`${serverUrl}/get-place-photos/${data}`)
 }
 
+export function getPlacesBySearchTerm(data) {
+  return axios.post(`${serverUrl}/get-places-by-search-term`, data)
+}
+
 export function placeCreate(data) {
   return axios.post(`${serverUrl}/place-create`, data)
 }

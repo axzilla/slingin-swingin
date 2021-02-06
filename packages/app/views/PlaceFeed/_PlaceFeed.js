@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
 
 // Services
 import { placeCreate } from '@services/place'
 
 // Reduxe
-import { authModalReducer } from '@slices/authSlice'
+// import { authModalReducer } from '@slices/authSlice'
 
 // Utils
 import PlaceUtils from '@utils/placeUtils'
@@ -22,7 +22,7 @@ import Link from '@components/Link'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
-import IconButton from '@material-ui/core/IconButton'
+// import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
@@ -35,7 +35,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
-import AddIcon from '@material-ui/icons/Add'
+// import AddIcon from '@material-ui/icons/Add'
 import Pagination from '@material-ui/lab/Pagination'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import SearchIcon from '@material-ui/icons/Search'
@@ -43,7 +43,7 @@ import StarRateIcon from '@material-ui/icons/StarRate'
 
 function PlaceFeed({ places }) {
   const router = useRouter()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [error, setError] = useState('')
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -51,7 +51,7 @@ function PlaceFeed({ places }) {
   const [searchText, setSearchText] = useState(router.query.searchText || '')
   const [location, setLocation] = useState(null)
   const [locations, setLocations] = useState([])
-  const { isAuthenticated } = useSelector(state => state.auth)
+  // const { isAuthenticated } = useSelector(state => state.auth)
 
   function handlePaginationChange(page) {
     const { query } = router
@@ -73,13 +73,13 @@ function PlaceFeed({ places }) {
     setSearchText(e.target.value)
   }
 
-  function handleClickOpen() {
-    if (isAuthenticated) {
-      setOpen(true)
-    } else {
-      dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
-    }
-  }
+  // function handleClickOpen() {
+  //   if (isAuthenticated) {
+  //     setOpen(true)
+  //   } else {
+  //     dispatch(authModalReducer({ isOpen: true, type: 'SignUp' }))
+  //   }
+  // }
 
   function handleClose() {
     setOpen(false)
@@ -145,11 +145,11 @@ function PlaceFeed({ places }) {
                 }}
               />
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <IconButton onClick={handleClickOpen}>
                 <AddIcon />
               </IconButton>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
         {/* Search END */}
