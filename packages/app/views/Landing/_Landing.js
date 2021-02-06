@@ -92,8 +92,8 @@ function Landing({ posts, message, variant, jwtToken }) {
         <Box my={5}>
           <Grid container alignItems="center" justify="center">
             <Pagination
+              siblingCount={0}
               page={posts.page}
-              size="large"
               count={posts.pages}
               onChange={(e, page) => handlePaginationChange(page)}
             />

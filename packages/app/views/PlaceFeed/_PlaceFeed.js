@@ -238,8 +238,8 @@ function PlaceFeed({ places }) {
           <Box my={5}>
             <Grid container alignItems="center" justify="center">
               <Pagination
+                siblingCount={0}
                 page={places.page}
-                size="large"
                 count={places.pages}
                 onChange={(e, page) => handlePaginationChange(page)}
               />
