@@ -27,6 +27,7 @@ import { Typography } from '@material-ui/core'
 function Admin() {
   const [images, setImages] = useState([])
   const [selectedImage, setSelectedImage] = useState({})
+  const [imageUrl, setImageUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false) // eslint-disable-line
   const [mapboxPlace, setMapboxPlace] = useState(null) // eslint-disable-line
@@ -78,7 +79,7 @@ function Admin() {
   async function handleSubmit() {
     try {
       setIsLoading(true)
-      const photo = selectedImage.url
+      const photo = imageUrl || selectedImage.url
       const mapBox = mapboxPlace
       //
       const longitude = mapboxPlace.center[0]
@@ -215,6 +216,19 @@ function Admin() {
             />
           </Grid>
 
+          {mapboxPlace && (
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                value={imageUrl}
+                onChange={e => setImageUrl(e.target.value)}
+                label="Image URL"
+                color="secondary"
+                variant="outlined"
+              />
+            </Grid>
+          )}
+
           <Grid item xs={12}>
             {continent && mapboxPlace && (
               <Typography>
@@ -233,7 +247,7 @@ function Admin() {
             <Box display="flex" justifyContent="flex-end" my={2}>
               <Button
                 onClick={handleSubmit}
-                disabled={isLoading || !mapboxPlace || isEmpty(selectedImage)}
+                disabled={isLoading || !mapboxPlace || (isEmpty(selectedImage) && !imageUrl)}
                 size="large"
                 variant="outlined"
                 color="secondary"
@@ -252,46 +266,74 @@ function Admin() {
           )}
         </Grid>
 
+        {imageUrl && (
+          <Grid item xs={12}>
+            <Card>
+              <Grid container height="100%">
+                <div
+                  style={{
+                    height: '500px',
+                    background: `url(${imageUrl})`,
+                    backgroundSize: 'cover',
+                    width: '100%',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                >
+                  <CardContent>
+                    <Link href={imageUrl} variant="MuiLink">
+                      <IconButton size="small">
+                        <VisibilityIcon />
+                      </IconButton>
+                    </Link>
+                  </CardContent>
+                </div>
+              </Grid>
+            </Card>
+          </Grid>
+        )}
+
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            {images.map(image => {
-              return (
-                <Grid item xs={3} key={image.url}>
-                  <Card>
-                    <Grid container height="100%">
-                      <div
-                        style={{
-                          height: '250px',
-                          background: `url(${image.url})`,
-                          backgroundSize: 'cover',
-                          width: '100%',
-                          backgroundPosition: 'center'
-                        }}
-                      >
-                        <CardContent>
-                          <Link href={image.url} variant="MuiLink">
-                            <IconButton size="small">
-                              <VisibilityIcon />
-                            </IconButton>
-                          </Link>
-                        </CardContent>
-                      </div>
-                      <Grid item xs={12}>
-                        <CardContent>
-                          <Button
-                            fullWidth
-                            variant={image.url === selectedImage.url ? 'contained' : 'outlined'}
-                            onClick={() => setSelectedImage(image)}
-                          >
-                            {image.url === selectedImage.url ? 'Selected' : 'Select'}
-                          </Button>
-                        </CardContent>
+            {!imageUrl &&
+              images.map(image => {
+                return (
+                  <Grid item xs={3} key={image.url}>
+                    <Card>
+                      <Grid container height="100%">
+                        <div
+                          style={{
+                            height: '250px',
+                            background: `url(${image.url})`,
+                            backgroundSize: 'cover',
+                            width: '100%',
+                            backgroundPosition: 'center'
+                          }}
+                        >
+                          <CardContent>
+                            <Link href={image.url} variant="MuiLink">
+                              <IconButton size="small">
+                                <VisibilityIcon />
+                              </IconButton>
+                            </Link>
+                          </CardContent>
+                        </div>
+                        <Grid item xs={12}>
+                          <CardContent>
+                            <Button
+                              fullWidth
+                              variant={image.url === selectedImage.url ? 'contained' : 'outlined'}
+                              onClick={() => setSelectedImage(image)}
+                            >
+                              {image.url === selectedImage.url ? 'Selected' : 'Select'}
+                            </Button>
+                          </CardContent>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              )
-            })}
+                    </Card>
+                  </Grid>
+                )
+              })}
           </Grid>
         </Grid>
       </Container>
