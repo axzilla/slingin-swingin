@@ -10,22 +10,21 @@ async function getAllPosts(req, res) {
       const result = await Post.find(
         searchText && {
           $or: [
-            { title: { $regex: searchText, $options: 'i' } },
-            { content: { $regex: searchText, $options: 'i' } },
+            { contentRaw: { $regex: searchText, $options: 'i' } },
             { tags: { $regex: searchText, $options: 'i' } }
           ]
         }
       )
         .populate('user', '-password')
         .populate('place')
+        .populate('mediaFiles')
         .sort({ isPinned: -1 })
         .sort({ dateCreated: -1 })
 
       const total = searchText
         ? await Post.countDocuments({
             $or: [
-              { title: { $regex: searchText, $options: 'i' } },
-              { content: { $regex: searchText, $options: 'i' } },
+              { contentRaw: { $regex: searchText, $options: 'i' } },
               { tags: { $regex: searchText, $options: 'i' } }
             ]
           })

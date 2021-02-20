@@ -11,8 +11,7 @@
     "client": "npm run dev --prefix packages/app",
     "install-packages": "npm i && npm i --prefix packages/app && npm i --prefix packages/api",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix packages/app && npm install --prefix packages/api && npm run build --prefix packages/app",
-    "test": "eslint \"**/*.js\"",
-    "reinstall": "bash reinstall-packages.sh"
+    "test": "eslint \"**/*.js\""
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",

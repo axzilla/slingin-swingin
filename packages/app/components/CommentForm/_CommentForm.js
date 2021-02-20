@@ -1,9 +1,7 @@
 // Packages
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
-import { stateToHTML } from 'draft-js-export-html'
-import { stateToMarkdown } from 'draft-js-export-markdown'
+import { EditorState, convertToRaw, convertFromRaw, CompositeDecorator } from 'draft-js'
 
 // Contexts
 import { useAlert } from '@contexts/AlertContext'
@@ -17,6 +15,18 @@ import { commentCreate, commentUpdate } from '@services/comment'
 // Utils
 import rawToHtml from '@utils/rawToHtml'
 import htmlRemove from '@utils/htmlRemove'
+
+// DraftJs Utils
+import {
+  trimFirstAndLastBlock,
+  removeEmptyBlocks,
+  createLinkEntities,
+  getEntities
+} from '@components/DraftJsEditor/utils'
+
+// DraftJs Plugins
+import hashtagDecoratorPlugin from '../DraftJsEditor/plugins/hashtagDecoratorPlugin'
+import linkDecoratorPlugin from '../DraftJsEditor/plugins/linkDecoratorPlugin'
 
 // MUI
 import { makeStyles } from '@material-ui/styles'
@@ -39,30 +49,34 @@ function CommentForm({
 }) {
   const { setAlert } = useAlert()
   const classes = useStyles()
+
+  const plugins = [linkDecoratorPlugin, hashtagDecoratorPlugin]
+  const decorators = new CompositeDecorator(plugins)
   const [editorState, setEditorState] = useState(
     comment
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(comment.contentRaw)))
-      : EditorState.createEmpty()
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(comment.contentRaw)), decorators)
+      : EditorState.createEmpty(decorators)
   )
 
   async function onSubmit(event) {
     try {
       event.preventDefault()
 
-      const contentRaw = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-      const contentHtml = stateToHTML(editorState.getCurrentContent())
-      const contentText = editorState.getCurrentContent().getPlainText().replace(/\s+/g, ' ').trim()
-      const contentMarkdown = JSON.stringify(stateToMarkdown(editorState.getCurrentContent()))
+      const newEditorState = createLinkEntities(
+        trimFirstAndLastBlock(removeEmptyBlocks(editorState))
+      )
+
+      const hashtags = getEntities(newEditorState, 'HASHTAG').map(hashtag => hashtag.data.hashtag)
+      const contentRaw = JSON.stringify(convertToRaw(newEditorState.getCurrentContent()))
+      const contentText = newEditorState
+        .getCurrentContent()
+        .getPlainText()
+        .replace(/\s+/g, ' ')
+        .trim()
 
       // create main comment
       if (postId && !parentId && !comment) {
-        const commentData = {
-          contentRaw,
-          contentHtml,
-          contentText,
-          contentMarkdown,
-          postId
-        }
+        const commentData = { contentRaw, contentText, postId, hashtags }
 
         const createdComment = await commentCreate(commentData)
         await setComments([...comments, createdComment.data])
@@ -71,14 +85,7 @@ function CommentForm({
 
       // create child comment
       if (parentId && !comment) {
-        const commentData = {
-          contentRaw,
-          contentHtml,
-          contentText,
-          contentMarkdown,
-          postId,
-          parentId
-        }
+        const commentData = { contentRaw, contentText, postId, parentId, hashtags }
 
         const createdComment = await commentCreate(commentData)
         await setComments([...comments, createdComment.data])
@@ -87,13 +94,7 @@ function CommentForm({
 
       // update comment
       if (comment && !postId && !parentId) {
-        const commentData = {
-          contentRaw,
-          contentHtml,
-          contentText,
-          contentMarkdown,
-          commentId: comment._id
-        }
+        const commentData = { contentRaw, contentText, commentId: comment._id, hashtags }
 
         setIsEditMode(false)
         const updatedComment = await commentUpdate(commentData)
@@ -101,7 +102,7 @@ function CommentForm({
         setAlert({ message: `Comment updated successfully.`, variant: 'success' })
       }
 
-      setEditorState(EditorState.createEmpty())
+      setEditorState(EditorState.createEmpty(decorators))
       handleIsCommentForm && handleIsCommentForm()
     } catch (error) {
       console.log(error.response.data) // eslint-disable-line no-console

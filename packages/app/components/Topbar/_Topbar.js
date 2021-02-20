@@ -11,6 +11,7 @@ import { switchThemeReducer } from '@slices/themeSlice'
 // Global Components
 import Link from '@components/Link'
 import Avatar from '@components/UserAvatar'
+import PostForm from '@components/PostForm'
 
 // MUI
 import { makeStyles } from '@material-ui/styles'
@@ -93,6 +94,7 @@ function Topbar() {
   const router = useRouter()
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
+  const [createPostOpen, setCreatePostOpen] = useState(false)
   const classes = useStyles()
   const { isAuthenticated, currentUser } = useSelector(state => state.auth)
   const { messages } = useSelector(state => state.notifications)
@@ -103,6 +105,14 @@ function Topbar() {
     { name: 'Posts', icon: <AllInboxIcon />, link: '/' },
     { name: 'People', icon: <PeopleIcon />, link: '/users' }
   ]
+
+  const handleCreatePostOpen = () => {
+    setCreatePostOpen(true)
+  }
+
+  const handleCreatePostClose = () => {
+    setCreatePostOpen(false)
+  }
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
@@ -159,11 +169,11 @@ function Topbar() {
                 {isAuthenticated ? (
                   <>
                     <Grid item>
-                      <Link href="/post-create">
-                        <Button variant="contained" color="secondary">
-                          <AddBoxIcon />
-                        </Button>
-                      </Link>
+                      {/* <Link href="/post-create"> */}
+                      <Button onClick={handleCreatePostOpen} variant="contained" color="secondary">
+                        <AddBoxIcon />
+                      </Button>
+                      {/* </Link> */}
                     </Grid>
                     <Grid item>
                       <IconButton onClick={handleChangeTheme}>
@@ -254,6 +264,8 @@ function Topbar() {
           })}
         </BottomNavigation>
       </Hidden>
+
+      {createPostOpen && <PostForm open={createPostOpen} handleClose={handleCreatePostClose} />}
     </>
   )
 }

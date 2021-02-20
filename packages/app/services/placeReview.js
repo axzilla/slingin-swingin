@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/placeReview`
+const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/placereview`
 
 export function createPlaceReview(data) {
   return axios.post(`${serverUrl}/create-placereview`, data)

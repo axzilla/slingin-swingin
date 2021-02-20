@@ -1,21 +1,38 @@
-import React from 'react'
+//  Packages
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { convertFromRaw, EditorState, CompositeDecorator } from 'draft-js'
 
-import Link from '@components/Link'
+// DraftJs Plugins
+import hashtagDecoratorPlugin from '@components/DraftJsEditor/plugins/hashtagDecoratorPlugin'
+import hashtagEntityPlugin from '@components/DraftJsEditor/plugins/hashtagEntityPlugin'
+import linkDecoratorPlugin from '@components/DraftJsEditor/plugins/linkDecoratorPlugin'
+import linkEntityPlugin from '@components/DraftJsEditor/plugins/linkEntityPlugin'
 
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
+// Global Component
+import DraftJsEditor from '@components/DraftJsEditor'
 
 function Content({ post }) {
-  return (
-    <Grid container>
-      <Link underlined href="/post/[postId]/[urlSlug]" as={`/post/${post.shortId}/${post.urlSlug}`}>
-        <Typography gutterBottom color="textPrimary" variant="h6" component="h2">
-          {post.title}
-        </Typography>
-      </Link>
-    </Grid>
+  const plugins = [
+    linkEntityPlugin,
+    hashtagEntityPlugin,
+    linkDecoratorPlugin,
+    hashtagDecoratorPlugin
+  ]
+
+  const decorators = new CompositeDecorator(plugins)
+
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(convertFromRaw(JSON.parse(post.contentRaw)), decorators)
   )
+
+  useEffect(() => {
+    setEditorState(
+      EditorState.createWithContent(convertFromRaw(JSON.parse(post.contentRaw)), decorators)
+    )
+  }, [post])
+
+  return <DraftJsEditor readOnly editorState={editorState} setEditorState={setEditorState} />
 }
 
 Content.propTypes = {

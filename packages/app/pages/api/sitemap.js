@@ -19,7 +19,7 @@ export default async (req, res) => {
   const postsResponse = await getPosts()
   const posts = postsResponse.data.result
   for (const post of posts) {
-    sitemap.add({ url: `/post/${post.shortId}/${post.urlSlug}`, changefreq: EnumChangefreq.DAILY })
+    sitemap.add({ url: `/post/${post._id}`, changefreq: EnumChangefreq.DAILY })
   }
 
   // Posts Tags

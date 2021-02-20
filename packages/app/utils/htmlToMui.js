@@ -2,7 +2,7 @@ function htmlToMui(content) {
   const replacedContent = content
     .replace(
       /<a /g,
-      '<a class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-159 MuiTypography-colorPrimary"'
+      '<a target="_blank" class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-159 MuiTypography-colorTextPrimary"'
     )
     .replace(
       /<p>/g,

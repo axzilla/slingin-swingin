@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
 const authenticate = require('../utils/authenticate')
-const upload = multer()
 
 const postCreate = require('../controller/posts/postCreate')
 const postUpdate = require('../controller/posts/postUpdate')
@@ -16,10 +14,9 @@ const getPostsByTag = require('../controller/posts/getPostsByTag')
 const getPostsByPlaceId = require('../controller/posts/getPostsByPlaceId')
 const getAllPostsTags = require('../controller/posts/getAllPostsTags')
 const getPostById = require('../controller/posts/getPostById')
-const getPostByShortId = require('../controller/posts/getPostByShortId')
 
-router.post('/post-create', authenticate(), upload.single('titleImage'), postCreate)
-router.patch('/post-update', authenticate(), upload.single('titleImage'), postUpdate)
+router.post('/post-create', authenticate(), postCreate)
+router.patch('/post-update', authenticate(), postUpdate)
 router.delete('/post-delete', authenticate(), postDelete)
 router.post('/post-toggle-likes', authenticate(), postToggleLikes)
 router.post('/post-toggle-bookmarks', authenticate(), postToggleBookmarks)
@@ -30,6 +27,5 @@ router.get('/get-posts-by-bookmarked-user/:userId', getPostsByBookmarkedUser)
 router.get('/get-posts-by-tag/:tag', getPostsByTag)
 router.get('/get-all-posts-tags', getAllPostsTags)
 router.get('/get-post-by-id/:postId', getPostById)
-router.get('/get-post-by-short-id/:shortId', getPostByShortId)
 
 module.exports = router

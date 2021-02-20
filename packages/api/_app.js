@@ -22,7 +22,8 @@ app.use('/comments', require('./routes/comments'))
 app.use('/user', require('./routes/user'))
 app.use('/chats', require('./routes/chats'))
 app.use('/place', require('./routes/place'))
-app.use('/placeReview', require('./routes/placeReview'))
+app.use('/placereview', require('./routes/placeReview'))
+app.use('/mediafile', require('./routes/mediaFile'))
 
 require('./utils/passport')(passport)
 

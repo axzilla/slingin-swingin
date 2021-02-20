@@ -4,5 +4,8 @@ const withImages = require('next-images')
 dotenv.config()
 
 module.exports = withImages({
-  reactStrictMode: false
+  reactStrictMode: false,
+  images: {
+    domains: ['res.cloudinary.com']
+  }
 })
