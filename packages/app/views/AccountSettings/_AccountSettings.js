@@ -69,7 +69,11 @@ function AccountSettings() {
     try {
       event.preventDefault()
       setIsLoading(true)
-      const updatedUser = await updateUser({ ...user, locationFrom: user.locationFrom._id })
+      const updatedUser = await updateUser({
+        ...user,
+        locationFrom: user.locationFrom._id,
+        locationCurrent: user.locationCurrent._id
+      })
       setUser(updatedUser.data)
       setAlert({ message: 'Profile updated successfully.', variant: 'success' })
       setErrors('')

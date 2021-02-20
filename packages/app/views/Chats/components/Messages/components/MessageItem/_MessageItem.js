@@ -3,16 +3,20 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { useSelector, useDispatch } from 'react-redux'
+import { convertFromRaw, EditorState, CompositeDecorator } from 'draft-js'
 
-// Global Components
+// DraftJs Plugins
+import hashtagDecoratorPlugin from '@components/DraftJsEditor/plugins/hashtagDecoratorPlugin'
+import hashtagEntityPlugin from '@components/DraftJsEditor/plugins/hashtagEntityPlugin'
+import linkDecoratorPlugin from '@components/DraftJsEditor/plugins/linkDecoratorPlugin'
+import linkEntityPlugin from '@components/DraftJsEditor/plugins/linkEntityPlugin'
+
+// Global Component
+import DraftJsEditor from '@components/DraftJsEditor'
 import UserAvatar from '@components/UserAvatar'
 
 // Local Components
 import DeleteDialog from './components/DeleteDialog'
-
-// Utils
-import rawToHtml from '@utils/rawToHtml'
-import htmlToMui from '@utils/htmlToMui'
 
 // Redux
 import { updateConversationsReducer, selectedConversationReducer } from '@slices/chatsSlice'
@@ -22,7 +26,6 @@ import { messageDelete, messageUpdate } from '@services/chats'
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -41,6 +44,25 @@ const MessageItem = ({ message, receiver }) => {
   const { currentUser } = useSelector(state => state.auth)
   const classes = useStyles()
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+
+  const plugins = [
+    linkEntityPlugin,
+    hashtagEntityPlugin,
+    linkDecoratorPlugin,
+    hashtagDecoratorPlugin
+  ]
+
+  const decorators = new CompositeDecorator(plugins)
+
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(convertFromRaw(JSON.parse(message.contentRaw)), decorators)
+  )
+
+  useEffect(() => {
+    setEditorState(
+      EditorState.createWithContent(convertFromRaw(JSON.parse(message.contentRaw)), decorators)
+    )
+  }, [message])
 
   useEffect(() => {
     if (!message.isSeen && message.receiver === currentUser._id) {
@@ -111,13 +133,7 @@ const MessageItem = ({ message, receiver }) => {
           // }}
           >
             <CardContent style={{ padding: 10 }}>
-              {!message.isDeleted ? (
-                <div dangerouslySetInnerHTML={{ __html: htmlToMui(rawToHtml(message.content)) }} />
-              ) : (
-                <Typography variant="overline" color="secondary">
-                  Message&nbsp;deleted
-                </Typography>
-              )}
+              <DraftJsEditor readOnly editorState={editorState} setEditorState={setEditorState} />
             </CardContent>
           </Card>
         </Tooltip>

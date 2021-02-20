@@ -2,7 +2,10 @@ const Post = require('../../models/Post')
 
 async function postToggleLikes(req, res) {
   try {
-    const foundPost = await Post.findById(req.body.postId).populate('user', '-password')
+    const foundPost = await Post.findById(req.body.postId)
+      .populate('user', '-password')
+      .populate('place')
+      .populate('mediaFiles')
 
     const isLiked = foundPost.likes.includes(req.user._id)
 

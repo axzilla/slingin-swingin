@@ -1,120 +1,40 @@
-// Packages// Packages
-const Scraper = require('images-scraper')
-
 // Models
 const Post = require('../../models/Post')
-const User = require('../../models/User')
-const Place = require('../../models/Place')
-
-// Validation
-const validatePost = require('../../validation/validatePost')
-
-// Utils
-const slugify = require('../../utils/slugify')
-const isEmpty = require('../../utils/isEmpty')
-const cloudinary = require('../../utils/cloudinary')
-
-// Nodemailer
-const sendPostCreate = require('../../nodemailer/templates/sendPostCreate')
-
-const transporter = require('../../nodemailer/transporter')
 
 async function postCreate(req, res) {
   try {
-    const { errors } = await validatePost(req.body)
+    const { contentRaw, contentText, hashtags, mediaFiles, gif, _id, place } = req.body
 
-    if (!isEmpty(errors)) {
-      return res.status(400).json(errors)
-    }
+    const createdPost = await Post.create({
+      _id,
+      user: req.user._id,
+      contentRaw,
+      contentText,
+      hashtags,
+      mediaFiles,
+      gif,
+      place
+    })
 
-    const createdPost = await createPost(req)
-
-    if (req.file) {
-      await uploadFile(req, res, createdPost)
-    } else {
-      res.json(createdPost)
-    }
-
-    await updateUser(req, createdPost)
-    await sendMails(createdPost)
+    // await updateUser(req, createdPost)
+    // await sendMails(createdPost)
+    res.json(createdPost)
   } catch (error) {
     if (error) throw error
   }
 }
 
-async function createPost(req) {
-  const { title, contentRaw, contentHtml, contentText, contentMarkdown, type, tags } = req.body
-  let place = !isEmpty(JSON.parse(req.body.place)) ? JSON.parse(req.body.place) : null
-  const { user } = req
+// async function updateUser(req, createdPost) {
+//   await User.findByIdAndUpdate(req.user._id, { $push: { posts: createdPost._id } })
+// }
 
-  if (!isEmpty(place)) {
-    const foundPlace = await Place.findOne({ 'mapBox.id': place.mapBox.id })
-    if (!foundPlace) {
-      const google = new Scraper({
-        puppeteer: { headless: true, args: ['--no-sandbox'] },
-        tbs: { isz: 'l' }
-      })
+// async function sendMails(createdPost) {
+//   // Send Mail to User - New POST - If onNewPost
+//   const foundUsers = await User.find()
 
-      const photoResults = await google.scrape(place.mapBox.place_name, 2)
-
-      const uploadedPhoto = await cloudinary.v2.uploader.upload(photoResults[0].url, {
-        folder: process.env.CLOUDINARY_PATH_PLACE_PHOTO,
-        public_id: `${slugify(place.mapBox.place_name)}`
-      })
-
-      const createdPlace = await Place.create({
-        mapBox: place.mapBox,
-        urlSlug: slugify(place.mapBox.place_name)
-      })
-
-      createdPlace.photo = uploadedPhoto
-      createdPlace.save()
-      place = createdPlace._id
-    } else {
-      place = foundPlace._id
-    }
-  }
-
-  return await Post.create({
-    urlSlug: slugify(title),
-    user: user._id,
-    title,
-    contentRaw,
-    contentHtml,
-    contentText,
-    contentMarkdown,
-    type,
-    tags: tags ? tags.split(',') : [],
-    place
-  })
-}
-
-async function uploadFile(req, res, createdPost) {
-  const { mimetype, buffer } = req.file
-  const file = `data:${mimetype};base64,${buffer.toString('base64')}`
-
-  const uploadedFile = await cloudinary.v2.uploader.upload(file, {
-    folder: process.env.CLOUDINARY_PATH_POST_TITLE,
-    public_id: `post-title-image-${createdPost._id}`
-  })
-
-  console.log('Titleimage uploaded') // eslint-disable-line no-console
-  createdPost.titleImage = uploadedFile // eslint-disable-line
-  const savedPost = await createdPost.save()
-  res.json(savedPost)
-}
-
-async function updateUser(req, createdPost) {
-  await User.findByIdAndUpdate(req.user._id, { $push: { posts: createdPost._id } })
-}
-
-async function sendMails(createdPost) {
-  // Send Mail to User - New POST - If onNewPost
-  const foundUsers = await User.find()
-
-  foundUsers
-    .filter(user => user.notifications.onNewPost)
-    .map(user => sendPostCreate(transporter, createdPost, user))
-}
+//   foundUsers
+//     .filter(user => user.notifications.onNewPost)
+//     .map(user => sendPostCreate(transporter, createdPost, user))
+// }
 
 module.exports = postCreate

@@ -3,12 +3,18 @@ const Message = require('../../models/Message')
 
 async function messageCreate(req, res) {
   try {
-    const { receiver, content } = req.body
+    const { receiver, contentRaw, contentText, hashtags } = req.body
     const sender = req.user._id.toString()
     const participants = [receiver, sender]
 
     const foundConversation = await Conversation.findOne({ users: { $all: participants } })
-    const createdMessage = await Message.create({ content, sender, receiver })
+    const createdMessage = await Message.create({
+      contentRaw,
+      contentText,
+      hashtags,
+      sender,
+      receiver
+    })
 
     if (foundConversation) {
       foundConversation.messages.push(createdMessage._id)

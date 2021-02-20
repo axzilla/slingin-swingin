@@ -9,6 +9,7 @@ import Link from '@components/Link'
 
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import CardActionArea from '@material-ui/core/CardActionArea'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 
@@ -18,36 +19,36 @@ function Comments({ comments }) {
       {comments
         .sort((a, b) => a.dateCreated < b.dateCreated)
         .map(comment => {
-          const { shortId, urlSlug } = comment.post
-
           return (
-            <Grid key={comment._id} item xs={12}>
-              <Card variant="outlined">
-                <CardContent>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '10px'
-                    }}
-                  >
-                    <div>
-                      <Link href="post/[postId]/[urlSlug]" as={`post/${shortId}/${urlSlug}`}>
-                        <Typography variant="h6">{comment.post.title}</Typography>
-                      </Link>
-                      <Typography variant="caption" style={{ fontWeight: '300' }}>
-                        <Moment fromNow>{comment.dateCreated}</Moment>
-                      </Typography>
-                    </div>
-                  </div>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: htmlRemove(rawToHtml(comment.contentRaw))
-                    }}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
+            <Link key={comment._id} href="post/[postId]" as={`post/${comment.post._id}`}>
+              <Grid item xs={12}>
+                <Card variant="outlined">
+                  <CardActionArea>
+                    <CardContent>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginBottom: '10px'
+                        }}
+                      >
+                        <div>
+                          {/* <Typography variant="h6">{comment.post.title}</Typography> */}
+                          <Typography variant="caption" style={{ fontWeight: '300' }}>
+                            <Moment fromNow>{comment.dateCreated}</Moment>
+                          </Typography>
+                        </div>
+                      </div>
+                      <Typography
+                        dangerouslySetInnerHTML={{
+                          __html: htmlRemove(rawToHtml(comment.contentRaw))
+                        }}
+                      />
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            </Link>
           )
         })}
     </Grid>

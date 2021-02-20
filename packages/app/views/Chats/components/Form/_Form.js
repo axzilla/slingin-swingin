@@ -1,7 +1,7 @@
 // Packages
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { EditorState, convertToRaw } from 'draft-js'
+import { EditorState, convertToRaw, CompositeDecorator } from 'draft-js'
 import { useDispatch } from 'react-redux'
 
 // Global Components
@@ -12,6 +12,18 @@ import { messageCreate } from '@services/chats'
 
 // Redux
 import { updateConversationsReducer, selectedConversationReducer } from '@slices/chatsSlice'
+
+// DraftJs Utils
+import {
+  trimFirstAndLastBlock,
+  removeEmptyBlocks,
+  createLinkEntities,
+  getEntities
+} from '@components/DraftJsEditor/utils'
+
+// DraftJs Plugins
+import hashtagDecoratorPlugin from '@components/DraftJsEditor/plugins/hashtagDecoratorPlugin'
+import linkDecoratorPlugin from '@components/DraftJsEditor/plugins/linkDecoratorPlugin'
 
 // MUI
 import { makeStyles } from '@material-ui/styles'
@@ -28,26 +40,43 @@ const useStyles = makeStyles({
 const Form = () => {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const { conversations, selectedConversation } = useSelector(state => state.chats)
   const sender = useSelector(state => state.auth.currentUser)
   const users = selectedConversation && selectedConversation.users
   const receiver = users && users.filter(user => user._id !== sender._id)[0]
 
+  const plugins = [linkDecoratorPlugin, hashtagDecoratorPlugin]
+  const decorators = new CompositeDecorator(plugins)
+  const [editorState, setEditorState] = useState(EditorState.createEmpty(decorators))
+
   const hasText = editorState.getCurrentContent().hasText()
 
   async function handleSubmit() {
     try {
+      const newEditorState = createLinkEntities(
+        trimFirstAndLastBlock(removeEmptyBlocks(editorState))
+      )
+
+      const hashtags = getEntities(newEditorState, 'HASHTAG').map(hashtag => hashtag.data.hashtag)
+      const contentRaw = JSON.stringify(convertToRaw(newEditorState.getCurrentContent()))
+      const contentText = newEditorState
+        .getCurrentContent()
+        .getPlainText()
+        .replace(/\s+/g, ' ')
+        .trim()
+
       const updatedConversation = await messageCreate({
         receiver: receiver._id,
         sender: sender._id,
-        content: JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+        contentRaw,
+        contentText,
+        hashtags
       })
 
       dispatch(updateConversationsReducer(updatedConversation.data))
       dispatch(selectedConversationReducer(updatedConversation.data))
 
-      setEditorState(EditorState.createEmpty())
+      setEditorState(EditorState.createEmpty(decorators))
     } catch (error) {
       if (error) throw error
     }
