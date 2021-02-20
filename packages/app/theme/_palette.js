@@ -6,11 +6,11 @@ const black = '#000000'
 export default {
   white,
   black,
-  // primary: {
-  //   dark: colors.grey[900],
-  //   main: colors.grey[800],
-  //   light: colors.grey[700]
-  // },
+  primary: {
+    dark: colors.grey[900],
+    main: '#1da1f2',
+    light: colors.grey[700]
+  },
   secondary: {
     // dark: colors.pink[700],
     main: '#ff385c'

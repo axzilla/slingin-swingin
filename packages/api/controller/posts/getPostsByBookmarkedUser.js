@@ -6,6 +6,7 @@ async function getPostsByUserId(req, res) {
       .sort({ dateCreated: -1 })
       .populate('user', '-password')
       .populate('place')
+      .populate('mediaFiles')
 
     res.json(foundPosts)
   } catch (error) {

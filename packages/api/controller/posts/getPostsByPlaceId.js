@@ -5,6 +5,7 @@ async function getPostsByPlaceId(req, res) {
     const foundPosts = await Post.find({ place: req.params.placeId })
       .populate('user', '-password')
       .populate('place')
+      .populate('mediaFiles')
 
     res.json(foundPosts)
   } catch (error) {

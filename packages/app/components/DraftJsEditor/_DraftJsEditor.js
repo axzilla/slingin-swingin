@@ -1,78 +1,72 @@
+// Packages
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import dynamic from 'next/dynamic'
 import { useSelector } from 'react-redux'
+import { EditorBlock, Editor } from 'draft-js'
 
-const Editor = dynamic(() => import('@draft-js-plugins/editor'), {
-  ssr: false
-})
+// Styles
+import useStyles from './styles'
 
-import { makeStyles } from '@material-ui/styles'
-import { fade } from '@material-ui/core/styles/colorManipulator'
+// MUI
+import Typography from '@material-ui/core/Typography'
 
-const useStyles = makeStyles(theme => ({
-  toolbar: { marginBottom: theme.spacing(1) },
-  wrapper: {
-    padding: '18.5px 14px',
-    borderRadius: '10px',
-    border: ({ isDarkTheme }) =>
-      isDarkTheme
-        ? `1px solid ${fade(theme.palette.text.primary, 0.23)}`
-        : `1px solid ${fade(theme.palette.text.primary, 0.23)}`,
-
-    '&:hover': {
-      border: ({ isDarkTheme }) =>
-        isDarkTheme
-          ? `1px solid ${fade(theme.palette.text.primary, 0.87)}`
-          : `1px solid ${fade(theme.palette.text.primary, 0.87)}`
-    },
-
-    '&:focus-within': {
-      border: `2px solid ${theme.palette.text.primary} !important`,
-      margin: '-1px'
-    },
-
-    '& .DraftEditor-root': {
-      fontSize: '1rem',
-      fontFamily: 'Ubuntu',
-      fontWeight: 400,
-      lineHeight: '18px',
-      letterSpacing: '-0.04px'
-    },
-
-    '& .public-DraftEditorPlaceholder-inner': {
-      color: ({ isDarkTheme }) =>
-        isDarkTheme
-          ? fade(theme.palette.text.primary, 0.3)
-          : fade(theme.palette.text.secondary, 0.3)
-    },
-
-    '& .public-DraftEditor-content': {
-      height: ({ height }) => height,
-      minHeight: ({ minHeight }) => minHeight,
-      maxHeight: ({ maxHeight }) => maxHeight,
-      overflow: 'scroll'
-    },
-    '& .public-DraftEditorPlaceholder-root': { position: 'absolute' }
-  },
-  error: { lineHeight: '20px', margin: '0', color: theme.palette.error.dark }
-}))
-
-function DraftJsEditor({ editorState, setEditorState, placeholder, minHeight, maxHeight, height }) {
+function DraftJsEditor({
+  readOnly,
+  editorState,
+  setEditorState,
+  placeholder,
+  minHeight,
+  maxHeight,
+  height
+}) {
+  const editorRef = useRef(null)
   const { isDarkTheme } = useSelector(state => state.theme.isDarkTheme)
   const classes = useStyles({ minHeight, maxHeight, height, isDarkTheme })
 
-  function onChange(editorState) {
+  function handleChange(editorState) {
     setEditorState(editorState)
   }
 
+  useEffect(() => {
+    editorRef.current.focus()
+  }, [])
+
+  function myBlockRenderer(contentBlock) {
+    const type = contentBlock.getType()
+
+    if (type === 'unstyled') {
+      return {
+        component: Custom
+      }
+    }
+  }
+
+  const Custom = props => {
+    // https://codesandbox.io/s/3ozykkmy6?file=/index.js:1507-1681
+    return (
+      <Typography gutterBottom>
+        <EditorBlock {...props} />
+      </Typography>
+    )
+  }
+
   return (
-    <div className={classes.wrapper}>
-      <Editor editorState={editorState} onChange={onChange} placeholder={placeholder} />
+    <div className={!readOnly && classes.wrapper}>
+      <Editor
+        ref={editorRef}
+        stripPastedStyles
+        readOnly={readOnly}
+        editorState={editorState}
+        onChange={handleChange}
+        placeholder={placeholder}
+        blockRendererFn={myBlockRenderer}
+      />
     </div>
   )
 }
 
 DraftJsEditor.propTypes = {
+  readOnly: PropTypes.bool,
   editorState: PropTypes.object,
   setEditorState: PropTypes.func,
   minHeight: PropTypes.number,

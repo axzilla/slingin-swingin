@@ -11,9 +11,10 @@ import PropTypes from 'prop-types'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 // import BookmarkIcon from '@material-ui/icons/Bookmark'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 
 // function Footer({ post, setPostData }) {
 function Footer({ post }) {
@@ -35,21 +36,29 @@ function Footer({ post }) {
   // }
 
   return (
-    <Grid container alignItems="center" justify="space-between">
-      <Grid>
-        <Grid container alignItems="center">
-          <Box mr={2}>
-            <Typography color="textSecondary">{post.likes.length} likes</Typography>
-          </Box>
-          <Box mr={2}>
-            <Typography color="textSecondary">{post.postComments.length} replies</Typography>
-          </Box>
-          <Typography color="textSecondary">{post.views} views</Typography>
-        </Grid>
+    <Grid container alignItems="center" spacing={2}>
+      <Grid item>
+        <Typography color="textSecondary">
+          <Grid container spacing={1}>
+            <Grid item>
+              {/* <IconButton size="small"> */}
+              <FavoriteBorderIcon color="secondary" />
+              {/* </IconButton> */}
+            </Grid>
+            <Grid item>{post.likes.length}</Grid>
+          </Grid>
+        </Typography>
       </Grid>
-      {/* <Grid item>
-        <BookmarkIcon onClick={handleBookmarkClick} color={isBookmarked ? 'inherit' : 'disabled'} />
-      </Grid> */}
+      <Grid item>
+        <Typography color="textSecondary">
+          <Grid container spacing={1}>
+            <Grid item>
+              <ChatBubbleOutlineIcon color="primary" />
+            </Grid>
+            <Grid item>{post.postComments.length}</Grid>
+          </Grid>
+        </Typography>
+      </Grid>
     </Grid>
   )
 }

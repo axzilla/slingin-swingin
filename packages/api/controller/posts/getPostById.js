@@ -5,13 +5,11 @@ async function getPostById(req, res) {
     const foundPost = await Post.findById(req.params.postId)
       .populate('user', '-password')
       .populate('place')
+      .populate('mediaFiles')
 
     if (!foundPost) {
       return res.status(404).json('404')
     }
-
-    foundPost.views = foundPost.views + 1
-    foundPost.save()
 
     res.json(foundPost)
   } catch (error) {

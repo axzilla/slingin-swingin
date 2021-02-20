@@ -7,7 +7,7 @@ async function sendCommentCreateIfPostOwner(transporter, post, user) {
       html: `
         <p>Hello ${user.name},</p>
         <p>There are new activities on your post. Have a look again.</p>
-        <p><a href="${process.env.CLIENT_URL}/post/${post.shortId}/${post.urlSlug}">${process.env.CLIENT_URL}/post/${post.shortId}/${post.urlSlug}<a/></p>
+        <p><a href="${process.env.CLIENT_URL}/post/${post._id}">${process.env.CLIENT_URL}/post/${post._id}<a/></p>
         <p>Thanks!<br>Your digitalnomads.dev-Team</p>
         <p><a href="${process.env.CLIENT_URL}/account-settings">You don't want to receive any more emails or change your email settings?</a></p>
       `

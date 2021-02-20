@@ -22,17 +22,16 @@ async function commentCreate(req, res) {
 }
 
 async function createComment(req) {
-  const { contentRaw, contentHtml, contentText, contentMarkdown, postId, parentId } = req.body
+  const { contentRaw, contentText, postId, parentId, hashtags } = req.body
   const { _id } = req.user
 
   const createdPostComment = await PostComment.create({
     contentRaw,
-    contentHtml,
     contentText,
-    contentMarkdown,
     post: postId,
     user: _id,
-    parent: parentId || null
+    parent: parentId || null,
+    hashtags
   })
 
   const populatedPostComment = await PostComment.findById(createdPostComment._id).populate(
@@ -62,6 +61,7 @@ async function updatePost(req, createdPostComment) {
       path: 'postComments',
       populate: { path: 'user' }
     })
+
   return updatedPost
 }
 

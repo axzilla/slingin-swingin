@@ -1,47 +1,33 @@
+// Models
 const Post = require('../../models/Post')
-const User = require('../../models/User')
 const PostComment = require('../../models/PostComment')
+const MediaFile = require('../../models/MediaFile')
+
+// Utils
 const cloudinary = require('../../utils/cloudinary')
 
 async function postDelete(req, res) {
   try {
-    const deletedPost = await deletePost(req)
-    const deletedPostComments = await deletePostComments(deletedPost)
+    // delete post
+    const deletedPost = await Post.findByIdAndDelete(req.body.postId)
 
-    await deletePostOnUser(req, deletedPost)
-    await deletePostCommentsOnUser(req, deletedPostComments)
+    // delete post comments
+    await PostComment.deleteMany({ post: deletedPost._id })
+
+    // delete post mediafiles
+    const foundMediaFiles = await MediaFile.find({ _id: { $in: deletedPost.mediaFiles } })
+    await Promise.all(
+      foundMediaFiles.map(async mediaFile => {
+        await cloudinary.v2.uploader.destroy(mediaFile.cloudinary.public_id)
+        const deletedMediaFile = await MediaFile.findByIdAndDelete(mediaFile._id)
+        return deletedMediaFile
+      })
+    )
+
     res.json({ success: true })
   } catch (error) {
     if (error) throw error
   }
-}
-
-async function deletePost(req) {
-  const deletedPost = await Post.findByIdAndDelete(req.body.postId)
-
-  if (deletedPost.titleImage) {
-    cloudinary.v2.uploader.destroy(deletedPost.titleImage.public_id)
-  }
-
-  return deletedPost
-}
-
-async function deletePostComments(deletedPost) {
-  const foundPostComments = await PostComment.find({ post: deletedPost._id })
-  await PostComment.deleteMany({ post: deletedPost._id })
-  return foundPostComments
-}
-
-async function deletePostOnUser(req, deletedPost) {
-  await User.findByIdAndUpdate(req.user._id, { $pull: { posts: deletedPost._id } })
-}
-
-async function deletePostCommentsOnUser(req, deletedPostComments) {
-  const deletedPostCommentsIds = deletedPostComments.map(item => item._id)
-
-  await User.findByIdAndUpdate(req.user._id, {
-    $pull: { postComments: { $in: deletedPostCommentsIds } }
-  })
 }
 
 module.exports = postDelete

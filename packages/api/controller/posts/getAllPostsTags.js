@@ -5,8 +5,8 @@ async function getAllPostsTags(req, res) {
     await Post.distinct('tags')
 
     const foundPostTags = await Post.aggregate([
-      { $unwind: '$tags' },
-      { $group: { _id: '$tags', count: { $sum: 1 } } }
+      { $unwind: '$hashtags' },
+      { $group: { _id: '$hashtags', count: { $sum: 1 } } }
     ]).sort({ count: -1 })
 
     res.json(foundPostTags)
