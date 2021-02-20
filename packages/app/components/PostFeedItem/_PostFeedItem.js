@@ -1,11 +1,13 @@
 // Packages
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
+import { useRouter } from 'next/router'
+import { Gif } from '@giphy/react-components'
+import ResizeObserver from 'react-resize-observer'
 
 // Local Components
 import Content from './components/Content'
-import TitleImage from './components/TitleImage'
 import Footer from './components/Footer'
 
 // Global Components
@@ -13,75 +15,131 @@ import UserAvatar from '@components/UserAvatar'
 import Link from '@components/Link'
 
 // MUI
-import { makeStyles } from '@material-ui/styles'
-import { grey } from '@material-ui/core/colors'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import CardActionArea from '@material-ui/core/CardActionArea'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 
-const useStyles = makeStyles(theme => ({
-  avatar: {
-    border: `1px solid ${grey[900]}`
-  },
-  cardHeader: { paddingBottom: 0 },
-  cardContentRoot: {
-    '&:last-child': {
-      paddingBottom: theme.spacing(1)
-    }
-  },
-  media: { objectFit: 'cover' }
-}))
+import ScrollContext from '@contexts/ScrollContext'
 
-function PostFeedItem({ post, style, hideImage, hideFooter, hidePlace }) {
-  const classes = useStyles()
+function PostFeedItem({ post, style }) {
+  const { scrollRef } = useContext(ScrollContext)
+  const router = useRouter()
   const [postData, setPostData] = useState(post)
+  const [width, setWidth] = useState()
+
+  React.useEffect(() => {
+    //called when the component has been mounted, sets the scroll to the currently stored scroll position
+    window.scrollTo(0, scrollRef.current.scrollPos)
+
+    const handleScrollPos = () => {
+      //every time the window is scrolled, update the reference. This will not cause a re-render, meaning smooth uninterrupted scrolling.
+      scrollRef.current.scrollPos = window.scrollY
+    }
+
+    window.addEventListener('scroll', handleScrollPos)
+
+    return () => {
+      //remove event listener on unmount
+      window.removeEventListener('scroll', handleScrollPos)
+    }
+  })
 
   return (
     <Card variant="outlined" style={style}>
-      {!hideImage && <TitleImage post={postData} />}
-
       <CardHeader
-        className={classes.cardHeader}
         avatar={
           <Link href="/[username]" as={`/${post.user.username}`}>
             <UserAvatar user={post.user} />
           </Link>
         }
         title={
-          <Link underlined href="/[username]" as={`/${post.user.username}`}>
-            {post.user.username}
+          <Link color="textPrimary" underlined href="/[username]" as={`/${post.user.username}`}>
+            <Typography display="inline">
+              <Box display="inline" fontWeight="bold">
+                {post.user.name}{' '}
+              </Box>
+              <Box color="text.secondary" display="inline">
+                @{post.user.username}
+              </Box>
+            </Typography>
           </Link>
         }
-        subheader={
-          <small>
-            <Moment fromNow>{post.dateCreated}</Moment>
-          </small>
-        }
+        subheader={<Moment fromNow>{post.dateCreated}</Moment>}
       />
 
-      <CardContent classes={{ root: classes.cardContentRoot }}>
-        {post.place && !hidePlace && (
-          <Grid container>
-            <Box display="inline">
-              <LocationOnIcon color="secondary" />
-            </Box>
-            <Link
-              underlined
-              href="/place/[shortId]/[urlSlug]"
-              as={`/place/${post.place.shortId}/${post.place.urlSlug}`}
-            >
-              <Typography color="textSecondary" display="inline" gutterBottom>
-                {post.place.mapBox.place_name}
-              </Typography>
-            </Link>
-          </Grid>
+      <CardActionArea
+        onClick={() => router.push(`/post/${post._id}`).then(() => window.scrollTo(0, 0))}
+      >
+        {post.place && (
+          <CardContent>
+            <Grid container>
+              <Box display="inline">
+                <LocationOnIcon color="secondary" />
+              </Box>
+              <Link
+                underlined
+                href="/place/[shortId]/[urlSlug]"
+                as={`/place/${post.place.shortId}/${post.place.urlSlug}`}
+              >
+                <Typography color="textSecondary" display="inline" gutterBottom>
+                  {post.place.mapBox.place_name}
+                </Typography>
+              </Link>
+            </Grid>
+          </CardContent>
         )}
-        <Content post={postData} />
-        {!hideFooter && <Footer post={postData} setPostData={setPostData} />}
+
+        {postData.contentRaw && (
+          <CardContent>
+            <Content post={postData} />
+          </CardContent>
+        )}
+
+        {postData.gif && (
+          <CardContent>
+            <Card>
+              <ResizeObserver
+                onResize={({ width }) => {
+                  setWidth(width)
+                }}
+              />
+
+              <Gif
+                hideAttribution
+                onGifClick={(gif, e) => e.preventDefault()}
+                gif={postData.gif}
+                width={width}
+              />
+            </Card>
+          </CardContent>
+        )}
+
+        {postData.mediaFiles && (
+          <CardContent>
+            <Grid container spacing={1}>
+              {postData.mediaFiles.map(mediaFile => {
+                return (
+                  <Grid item xs={6} key={mediaFile.cloudinary.secure_url}>
+                    <Card>
+                      <CardMedia image={mediaFile.cloudinary.secure_url}>
+                        <Box height={125} />
+                      </CardMedia>
+                    </Card>
+                  </Grid>
+                )
+              })}
+            </Grid>
+          </CardContent>
+        )}
+      </CardActionArea>
+      <CardContent>
+        <Footer post={postData} setPostData={setPostData} />
       </CardContent>
     </Card>
   )
@@ -89,10 +147,7 @@ function PostFeedItem({ post, style, hideImage, hideFooter, hidePlace }) {
 
 PostFeedItem.propTypes = {
   post: PropTypes.object,
-  style: PropTypes.object,
-  hideImage: PropTypes.bool,
-  hideFooter: PropTypes.bool,
-  hidePlace: PropTypes.bool
+  style: PropTypes.object
 }
 
 export default PostFeedItem

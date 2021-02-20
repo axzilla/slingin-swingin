@@ -4,10 +4,10 @@ import { convertFromRaw } from 'draft-js'
 let options = {
   entityStyleFn: entity => {
     const entityType = entity.get('type').toLowerCase()
-    if (entityType === 'image') {
+    if (entityType === 'hashtag') {
       const data = entity.getData()
       return {
-        element: 'img',
+        element: 'h1',
         attributes: {
           src: data.src
         },

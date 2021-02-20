@@ -17,7 +17,6 @@ function PostFeedByTag({ tag }) {
   async function getInitialData() {
     try {
       const foundPostsByTag = await getPostsByTag(tag)
-
       setPosts(foundPostsByTag.data)
     } catch (error) {
       if (error) throw error
@@ -30,7 +29,14 @@ function PostFeedByTag({ tag }) {
         <Header tag={tag} />
       </Grid>
       <Grid item xs={12}>
-        {posts && posts.map(post => <PostFeedItem key={post._id} post={post} />)}
+        <Grid container spacing={2}>
+          {posts &&
+            posts.map(post => (
+              <Grid key={post._id} item xs={12}>
+                <PostFeedItem post={post} />
+              </Grid>
+            ))}
+        </Grid>
       </Grid>
     </Grid>
   )

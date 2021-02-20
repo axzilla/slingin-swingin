@@ -2,10 +2,11 @@ const Post = require('../../models/Post')
 
 async function getPostsByTag(req, res) {
   try {
-    const foundPost = await Post.find({ tags: req.params.tag })
+    const foundPost = await Post.find({ hashtags: req.params.tag })
       .sort({ dateCreated: -1 })
       .populate('user', '-password')
       .populate('place')
+      .populate('mediaFiles')
 
     res.json(foundPost)
   } catch (error) {

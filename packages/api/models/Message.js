@@ -3,7 +3,9 @@ const Schema = mongoose.Schema
 
 const MessageSchema = new Schema({
   conversation: { type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' },
-  content: { type: String, required: true },
+  contentRaw: { type: String },
+  contentText: { type: String },
+  hashtags: { type: Array },
   sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   isSeen: { type: Boolean, default: false },

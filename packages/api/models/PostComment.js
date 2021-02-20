@@ -7,9 +7,8 @@ const PostCommentSchema = new Schema({
   parent: { type: Schema.Types.ObjectId, ref: 'PostComment' },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   contentRaw: { type: String, required: true },
-  contentHtml: { type: String, required: true },
   contentText: { type: String, required: true },
-  contentMarkdown: { type: String, required: true },
+  hashtags: { type: Array },
   votes: {
     downvotes: [{ user: { type: Schema.Types.ObjectId, ref: 'User' } }],
     upvotes: [{ user: { type: Schema.Types.ObjectId, ref: 'user' } }]

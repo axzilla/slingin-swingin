@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -26,6 +26,7 @@ import Sockets from '@components/Sockets'
 // Contexts
 import { AlertContextProvider } from '@contexts/AlertContext'
 import { SocketContextProvider } from '@contexts/SocketContext'
+import ScrollContext from '@contexts/ScrollContext'
 
 // Redux Store
 import store from '../store'
@@ -92,6 +93,10 @@ function MyApp(props) {
 
   const { Component, pageProps } = props
 
+  const scrollRef = useRef({
+    scrollPos: 0
+  })
+
   return (
     <Provider store={store}>
       <Head>
@@ -107,7 +112,9 @@ function MyApp(props) {
           <CustomThemeProvider>
             <RouterLoading />
             <CssBaseline />
-            <Component {...pageProps} />
+            <ScrollContext.Provider value={{ scrollRef: scrollRef }}>
+              <Component {...pageProps} />
+            </ScrollContext.Provider>
             <Sockets />
             <Alert />
             <AuthModal />
