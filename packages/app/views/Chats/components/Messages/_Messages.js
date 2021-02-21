@@ -43,12 +43,12 @@ const Messages = () => {
       <CardHeader
         className={classes.cardHeader}
         title={
-          <Link underlined href={`/${receiver.username}`}>
+          <Link color="textPrimary" underlined href={`/${receiver.username}`}>
             @{receiver.username}
           </Link>
         }
         subheader={
-          <Link underlined href={`/${receiver.username}`}>
+          <Link color="textPrimary" underlined href={`/${receiver.username}`}>
             {receiver.name || ''}
           </Link>
         }

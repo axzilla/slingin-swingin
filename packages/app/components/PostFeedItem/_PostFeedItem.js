@@ -83,6 +83,7 @@ function PostFeedItem({ post, style }) {
                 <LocationOnIcon color="secondary" />
               </Box>
               <Link
+                color="textPrimary"
                 underlined
                 href="/place/[shortId]/[urlSlug]"
                 as={`/place/${post.place.shortId}/${post.place.urlSlug}`}

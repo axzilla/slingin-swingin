@@ -19,13 +19,13 @@ function ProfilesFeedItem({ user }) {
     <Card variant="outlined">
       <CardHeader
         title={
-          <Link underlined href="/[username]" as={`/${user.username}`}>
+          <Link color="textPrimary" underlined href="/[username]" as={`/${user.username}`}>
             <Typography variant="h5">{user.name}</Typography>
           </Link>
         }
         subheader={
           <>
-            <Link underlined href="/[username]" as={`/${user.username}`}>
+            <Link color="textPrimary" underlined href="/[username]" as={`/${user.username}`}>
               <Typography gutterBottom color="textSecondary">
                 @{user.username}
               </Typography>
