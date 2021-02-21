@@ -308,6 +308,7 @@ function PostDetails({ post, commentsData }) {
                     <LocationOnIcon color="secondary" />
                   </Box>
                   <Link
+                    color="textPrimary"
                     underlined
                     href="/place/[shortId]/[urlSlug]"
                     as={`/place/${postData.place.shortId}/${postData.place.urlSlug}`}

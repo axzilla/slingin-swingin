@@ -87,7 +87,12 @@ function WidgetLatestUsers() {
                     </ListItemAvatar>
                     <ListItemText
                       primary={
-                        <Link underlined href="/[username]" as={`/${user.username}`}>
+                        <Link
+                          color="textPrimary"
+                          underlined
+                          href="/[username]"
+                          as={`/${user.username}`}
+                        >
                           <div className={classes.noWrap}>{user.username}</div>
                         </Link>
                       }
