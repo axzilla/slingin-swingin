@@ -161,6 +161,7 @@ function PlaceFeed({ places }) {
           return (
             <Grid key={place._id} item xs={6}>
               <Link
+                color="textPrimary"
                 href="/place/[shortId]/[urlSlug]"
                 as={`/place/${place.shortId}/${place.urlSlug}`}
               >
