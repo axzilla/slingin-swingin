@@ -159,9 +159,15 @@ function PostForm({ post, setPostData, open, handleClose }) {
         hashtags = getEntities(newEditorState, 'HASHTAG').map(hashtag => hashtag.data.hashtag)
         contentRaw = JSON.stringify(convertToRaw(newEditorState.getCurrentContent()))
         contentText = newEditorState.getCurrentContent().getPlainText().replace(/\s+/g, ' ').trim()
-        data = { contentRaw, contentText, hashtags, gif, place: place._id || null }
+        data = { contentRaw, contentText, hashtags, gif, place: (place && place._id) || null }
       } else {
-        data = { contentRaw: '', contentText: '', hashtags: [], gif, place: place._id || null }
+        data = {
+          contentRaw: '',
+          contentText: '',
+          hashtags: [],
+          gif,
+          place: (place && place._id) || null
+        }
       }
 
       if (mediaFilesToDelete.length > 0) {
