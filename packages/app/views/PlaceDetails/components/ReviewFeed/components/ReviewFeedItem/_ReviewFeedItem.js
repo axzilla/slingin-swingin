@@ -44,8 +44,8 @@ function ReviewFeedItem({ review }) {
           </Link>
         }
         title={
-          <Link underlined href="/[username]" as={`/${review.user.username}`}>
-            <Box fontWeight="bold">{review.user.username}</Box>
+          <Link color="textPrimary" underlined href="/[username]" as={`/${review.user.username}`}>
+            <Box fontWeight="bold">@{review.user.username}</Box>
           </Link>
         }
         subheader={<Moment fromNow>{review.dateCreated}</Moment>}
