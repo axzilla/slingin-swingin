@@ -71,8 +71,8 @@ function AccountSettings() {
       setIsLoading(true)
       const updatedUser = await updateUser({
         ...user,
-        locationFrom: user.locationFrom._id,
-        locationCurrent: user.locationCurrent._id
+        locationFrom: (user.locationFrom && user.locationFrom._id) || null,
+        locationCurrent: (user.locationCurrent && user.locationCurrent._id) || null
       })
       setUser(updatedUser.data)
       setAlert({ message: 'Profile updated successfully.', variant: 'success' })
