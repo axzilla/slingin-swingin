@@ -38,7 +38,10 @@ async function signUp(req, res) {
       return res.status(400).json(errors)
     }
 
-    if (domains.includes(req.body.email.split('@')[1])) {
+    if (
+      domains.includes(req.body.email.split('@')[1]) ||
+      req.body.email.split('@')[1] === 'earlynameuser.com'
+    ) {
       errors.email = 'This email address is not allowed'
       return res.status(400).json(errors)
     }
