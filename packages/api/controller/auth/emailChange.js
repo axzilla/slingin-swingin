@@ -15,10 +15,7 @@ async function emailChange(req, res) {
     const foundUserByEmail = await User.findOne({ email: req.body.email })
     const foundUserById = await User.findById(req.body._id)
 
-    if (
-      domains.includes(req.body.email.split('@')[1]) ||
-      req.body.email.split('@')[1] === 'earlynameuser.com'
-    ) {
+    if (domains.includes(req.body.email.split('@')[1])) {
       errors.email = 'This email address is not allowed'
       return res.status(400).json(errors)
     }
