@@ -20,8 +20,8 @@ function Comments({ comments }) {
         .sort((a, b) => a.dateCreated < b.dateCreated)
         .map(comment => {
           return (
-            <Link key={comment._id} href="post/[postId]" as={`post/${comment.post._id}`}>
-              <Grid item xs={12}>
+            <Grid key={comment._id} item xs={12}>
+              <Link href="post/[postId]" as={`post/${comment.post._id}`}>
                 <Card variant="outlined">
                   <CardActionArea>
                     <CardContent>
@@ -47,8 +47,8 @@ function Comments({ comments }) {
                     </CardContent>
                   </CardActionArea>
                 </Card>
-              </Grid>
-            </Link>
+              </Link>
+            </Grid>
           )
         })}
     </Grid>
