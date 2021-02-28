@@ -11,9 +11,16 @@ import BottomNavigationHack from '@components/BottomNavigationHack'
 // Local Components
 import Footer from './components/Footer'
 
+// Global Components
+import Link from '@components/Link'
+
 // MUI
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import Divider from '@material-ui/core/Divider'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 function Main({ children }) {
   return (
@@ -23,7 +30,43 @@ function Main({ children }) {
         <Grid container direction="row" justify="center" alignItems="flex-start" spacing={2}>
           <Box clone order={{ xs: 2, md: 1 }}>
             <Grid item xs={12} md={3}>
-              <WidgetTopPostsTags />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <WidgetTopPostsTags />
+                </Grid>
+                <Grid item xs={12}>
+                  <Link variant="MuiLink" href="https://www.fakeflighttickets.dev">
+                    <Card>
+                      {/* <CardHeader title="Fake Flight Tickets" /> */}
+                      <Box
+                        height={200}
+                        style={{
+                          background: `url(./fakeflighttickets.png)`,
+                          backgroundSize: 'cover',
+                          width: '100%',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        }}
+                      >
+                        <Grid
+                          container
+                          justify="center"
+                          alignItems="center"
+                          style={{ height: '100%' }}
+                        >
+                          <Typography align="center" variant="h3"></Typography>
+                        </Grid>
+                      </Box>
+                      <Divider />
+                      <CardContent>
+                        <Typography variant="h6" align="center" color="primary">
+                          Get Fake Flight Ticket $0
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </Grid>
+              </Grid>
             </Grid>
           </Box>
 
