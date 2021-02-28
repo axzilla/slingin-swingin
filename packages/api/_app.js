@@ -4,9 +4,27 @@ require('dotenv').config()
 const express = require('express')
 const passport = require('passport')
 const cors = require('cors')
+const { ApolloServer, gql } = require('apollo-server-express')
 
 // App
 const app = express()
+
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!'
+  }
+}
+
+const server = new ApolloServer({ typeDefs, resolvers })
+server.applyMiddleware({ app })
 
 // App Settings
 app.use(cors())
