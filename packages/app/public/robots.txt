@@ -5,8 +5,6 @@ Disallow: /account-settings/
 Disallow: /account-settings
 Disallow: /admin/
 Disallow: /admin
-Disallow: /api/
-Disallow: /api
 Disallow: /chats/
 Disallow: /chats
 Disallow: /confirm-email/
