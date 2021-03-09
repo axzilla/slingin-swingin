@@ -1,4 +1,4 @@
-Sitemap: http://www.digitalnomads.dev/api/sitemap
+Sitemap: https://www.digitalnomads.dev/api/sitemap
 
 User-agent: *
 Disallow: /account-settings/
