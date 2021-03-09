@@ -42,6 +42,7 @@ app.use('/chats', require('./routes/chats'))
 app.use('/place', require('./routes/place'))
 app.use('/placereview', require('./routes/placeReview'))
 app.use('/mediafile', require('./routes/mediaFile'))
+app.use('/sitemap', require('./routes/sitemap'))
 
 require('./utils/passport')(passport)
 

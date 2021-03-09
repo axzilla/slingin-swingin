@@ -1,11 +1,10 @@
 import { createSitemap, EnumChangefreq } from 'sitemap'
-import { getPosts, getPostsTags } from '@services/post'
-import { getAllUsers } from '@services/user'
-import { getAllPlaces } from '@services/place'
+import { getPostsTags } from '@services/post'
+import { getAllPlaces, getAllPosts, getAllUsers } from '@services/sitemap'
 
 export default async (req, res) => {
   const sitemap = createSitemap({
-    hostname: 'http://www.digitalnomads.dev'
+    hostname: 'https://www.digitalnomads.dev'
   })
 
   // Add any static entries here
@@ -16,13 +15,12 @@ export default async (req, res) => {
   // Add dynamic entries
 
   // Posts
-  const postsResponse = await getPosts()
-  const posts = postsResponse.data.result
+  const { data: posts } = await getAllPosts()
   for (const post of posts) {
     sitemap.add({ url: `/post/${post._id}`, changefreq: EnumChangefreq.DAILY })
   }
 
-  // Posts Tags
+  // // Posts Tags
   const tagsResponse = await getPostsTags()
   const tags = tagsResponse.data
   for (const tag of tags) {
@@ -30,15 +28,13 @@ export default async (req, res) => {
   }
 
   // Users
-  const userResponse = await getAllUsers()
-  const users = userResponse.data.result
+  const { data: users } = await getAllUsers()
   for (const user of users) {
     sitemap.add({ url: `/${user.username}`, changefreq: EnumChangefreq.DAILY })
   }
 
   // Places
-  const placeResponse = await getAllPlaces()
-  const places = placeResponse.data.result
+  const { data: places } = await getAllPlaces()
   for (const place of places) {
     sitemap.add({
       url: `/place/${place.shortId}/${place.urlSlug}`,
