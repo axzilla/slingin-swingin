@@ -7,8 +7,13 @@ async function avatarUpload(req, res) {
     const { mimetype, buffer } = req.file
     const file = `data:${mimetype};base64,${buffer.toString('base64')}`
 
+    const folder =
+      process.env.NODE_ENV === 'development'
+        ? 'digitalnomads/development/user/avatar'
+        : 'digitalnomads/production/user/avatar'
+
     const uploadedFile = await cloudinary.v2.uploader.upload(file, {
-      folder: process.env.CLOUDINARY_PATH_USER_AVATAR,
+      folder,
       public_id: `avatar-${req.user._id}`
     })
 

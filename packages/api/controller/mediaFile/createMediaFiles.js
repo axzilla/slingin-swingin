@@ -6,14 +6,13 @@ const cloudinary = require('../../utils/cloudinary')
 
 async function createMediaFiles(req, res) {
   try {
-    const { referenceType, postId } = req.body
+    const { postId } = req.body
     const { _id: user } = req.user
 
-    let folder
-
-    if (referenceType === 'post') {
-      folder = process.env.CLOUDINARY_PATH_POST_MEDIAFILES
-    }
+    const folder =
+      process.env.NODE_ENV === 'development'
+        ? 'digitalnomads/development/post/mediafiles'
+        : 'digitalnomads/production/post/mediafiles'
 
     const createdMediaFiles = await Promise.all(
       req.files.map(async mediaFile => {

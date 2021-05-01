@@ -12,7 +12,7 @@ async function conversationsGetByUserId(req, res) {
 
     res.json(foundConversations)
   } catch (error) {
-    if (error) throw error
+    res.status(400).json(error)
   }
 }
 
