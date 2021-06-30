@@ -32,7 +32,6 @@ import IconButton from '@material-ui/core/IconButton'
 import InvertColorsIcon from '@material-ui/icons/InvertColors'
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import MailIcon from '@material-ui/icons/Mail'
-import PlaceIcon from '@material-ui/icons/Place'
 import AllInboxIcon from '@material-ui/icons/AllInbox'
 import PeopleIcon from '@material-ui/icons/People'
 
@@ -101,7 +100,6 @@ function Topbar() {
   const { isDarkTheme } = useSelector(state => state.theme)
 
   const navigation = [
-    { name: 'Places', icon: <PlaceIcon />, link: '/places' },
     { name: 'Posts', icon: <AllInboxIcon />, link: '/' },
     { name: 'People', icon: <PeopleIcon />, link: '/users' }
   ]
