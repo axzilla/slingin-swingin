@@ -16,7 +16,6 @@ async function getAllPosts(req, res) {
         }
       )
         .populate('user', '-password')
-        .populate('place')
         .populate('mediaFiles')
         .sort({ isPinned: -1 })
         .sort({ dateCreated: -1 })

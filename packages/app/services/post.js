@@ -30,10 +30,6 @@ export function getPosts(query) {
   return axios.get(`${serverUrl}/get-all-posts${query ? '?' + query : ''}`)
 }
 
-export function getPostsByPlaceId(placeId) {
-  return axios.get(`${serverUrl}/get-posts-by-place-id/${placeId}`)
-}
-
 export function getPostsByUserId(id) {
   return axios.get(`${serverUrl}/get-posts-by-user-id/${id}`)
 }
