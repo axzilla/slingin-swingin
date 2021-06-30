@@ -20,9 +20,11 @@ function ProfileDetails({ user, posts, comments }) {
       <Grid item xs={12}>
         <Header user={user} />
       </Grid>
-      <Grid item xs={12}>
-        <Map lng={user.location.center[0]} lat={user.location.center[1]} />
-      </Grid>
+      {user.location && (
+        <Grid item xs={12}>
+          <Map lng={user.location.center[0]} lat={user.location.center[1]} />
+        </Grid>
+      )}
       {isAuthenticated && user._id !== currentUser._id && (
         <Grid item xs={12}>
           <Grid container justify="flex-end">
