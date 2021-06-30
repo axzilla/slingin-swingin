@@ -11,8 +11,8 @@ async function createMediaFiles(req, res) {
 
     const folder =
       process.env.NODE_ENV === 'development'
-        ? 'digitalnomads/development/post/mediafiles'
-        : 'digitalnomads/production/post/mediafiles'
+        ? 'treasure_hunting/development/post/mediafiles'
+        : 'treasure_hunting/production/post/mediafiles'
 
     const createdMediaFiles = await Promise.all(
       req.files.map(async mediaFile => {

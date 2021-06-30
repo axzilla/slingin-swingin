@@ -9,8 +9,8 @@ async function avatarUpload(req, res) {
 
     const folder =
       process.env.NODE_ENV === 'development'
-        ? 'digitalnomads/development/user/avatar'
-        : 'digitalnomads/production/user/avatar'
+        ? 'treasure_hunting/development/user/avatar'
+        : 'treasure_hunting/production/user/avatar'
 
     const uploadedFile = await cloudinary.v2.uploader.upload(file, {
       folder,
