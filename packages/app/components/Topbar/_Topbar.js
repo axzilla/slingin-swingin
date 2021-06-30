@@ -211,10 +211,6 @@ function Topbar() {
                         <Link href="/account-settings">
                           <MenuItem>Account</MenuItem>
                         </Link>
-                        <Link href="/post-create">
-                          <MenuItem>Create Post</MenuItem>
-                        </Link>
-
                         <Box my={1}>
                           <Divider />
                         </Box>
