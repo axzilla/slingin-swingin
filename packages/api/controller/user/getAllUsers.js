@@ -24,8 +24,6 @@ async function getAllUsers(req, res) {
         !isEmpty(q) ? { $or: condition, $and: [{ isActive: true }] } : { isActive: true }
       )
         .select('-password')
-        .populate('locationCurrent')
-        .populate('locationFrom')
         .sort({ dateCreated: -1 })
 
       const total = await User.countDocuments(

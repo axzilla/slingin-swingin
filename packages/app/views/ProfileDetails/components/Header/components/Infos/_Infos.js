@@ -9,7 +9,6 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-import LocationOnIcon from '@material-ui/icons/LocationOn'
 import LocationCityIcon from '@material-ui/icons/LocationCity'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
 
@@ -24,18 +23,10 @@ function ProfileDetailsInfos({ user }) {
 
   return (
     <Box mb={2}>
-      {isEmpty(user.locationFrom) ? null : (
+      {isEmpty(user.location) ? null : (
         <Grid container alignItems="center">
           <LocationCityIcon color="action" className={classes.infoIcons} />
-          <Typography variant="body1">From {user.locationFrom.mapBox.place_name}</Typography>
-        </Grid>
-      )}
-      {isEmpty(user.locationCurrent) ? null : (
-        <Grid container alignItems="center">
-          <LocationOnIcon color="action" className={classes.infoIcons} />
-          <Typography variant="body1">
-            Currently in {user.locationCurrent.mapBox.place_name}
-          </Typography>
+          <Typography variant="body1">From {user.location.place_name}</Typography>
         </Grid>
       )}
       <Grid container alignItems="center">

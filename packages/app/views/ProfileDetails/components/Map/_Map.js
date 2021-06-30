@@ -10,7 +10,6 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
 const Map = ({ lat, lng }) => {
   const mapContainerRef = useRef(null)
-
   // initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({

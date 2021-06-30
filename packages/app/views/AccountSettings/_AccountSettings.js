@@ -39,8 +39,7 @@ function AccountSettings() {
   const [user, setUser] = useState({
     name: '',
     handle: '',
-    locationFrom: null,
-    locationCurrent: null,
+    location: null,
     bio: '',
     website: '',
     twitter: '',
@@ -70,9 +69,8 @@ function AccountSettings() {
       event.preventDefault()
       setIsLoading(true)
       const updatedUser = await updateUser({
-        ...user,
-        locationFrom: (user.locationFrom && user.locationFrom._id) || null,
-        locationCurrent: (user.locationCurrent && user.locationCurrent._id) || null
+        ...user
+        // location: (user.location && user.location._id) || null
       })
       setUser(updatedUser.data)
       setAlert({ message: 'Profile updated successfully.', variant: 'success' })
@@ -220,54 +218,19 @@ function AccountSettings() {
                         <Autocomplete
                           disableClearable
                           freeSolo
-                          value={!isEmpty(user.locationFrom) ? user.locationFrom : null}
+                          value={!isEmpty(user.location) ? user.location : null}
                           onInputChange={_.debounce(handleGetPlaces, 1000)}
                           onChange={(event, location) => {
-                            setUser({
-                              ...user,
-                              locationFrom: location
-                            })
+                            setUser({ ...user, location })
                           }}
                           options={locations}
-                          getOptionLabel={option => option.mapBox.place_name}
+                          getOptionLabel={option => option.place_name}
                           renderInput={params => (
                             <MuiTextField
                               {...params}
                               onChange={event => {
                                 if (event.target.value.length < 1) {
-                                  setUser({ ...user, locationFrom: null })
-                                  setLocations([])
-                                }
-                              }}
-                              color="secondary"
-                              variant="outlined"
-                            />
-                          )}
-                        />
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        <Typography color="textSecondary" gutterBottom>
-                          Current location
-                        </Typography>
-                        <Autocomplete
-                          disableClearable
-                          freeSolo
-                          value={!isEmpty(user.locationCurrent) ? user.locationCurrent : null}
-                          onInputChange={_.debounce(handleGetPlaces, 1000)}
-                          onChange={(event, location) => {
-                            setUser({
-                              ...user,
-                              locationCurrent: location
-                            })
-                          }}
-                          options={locations}
-                          getOptionLabel={option => option.mapBox.place_name}
-                          renderInput={params => (
-                            <MuiTextField
-                              {...params}
-                              onChange={event => {
-                                if (event.target.value.length < 1) {
-                                  setUser({ ...user, locationCurrent: null })
+                                  setUser({ ...user, location: null })
                                   setLocations([])
                                 }
                               }}

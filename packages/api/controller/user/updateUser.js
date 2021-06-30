@@ -16,13 +16,7 @@ async function updateUser(req, res) {
     }
 
     const profile = { ...req.body }
-
-    const updatedUser = await User.findByIdAndUpdate(req.user._id, profile, {
-      new: true
-    })
-      .populate('locationFrom')
-      .populate('locationCurrent')
-
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, profile, { new: true })
     res.json(updatedUser)
   } catch (error) {
     console.error(error) // eslint-disable-line

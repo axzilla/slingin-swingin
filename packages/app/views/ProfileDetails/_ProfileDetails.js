@@ -9,9 +9,6 @@ import SendMessage from './components/SendMessage'
 import Tabs from './components/Tabs'
 import Map from './components/Map'
 
-// Utils
-import isEmpty from '@utils/isEmpty'
-
 // MUI
 import Grid from '@material-ui/core/Grid'
 
@@ -23,21 +20,14 @@ function ProfileDetails({ user, posts, comments }) {
       <Grid item xs={12}>
         <Header user={user} />
       </Grid>
-
+      <Grid item xs={12}>
+        <Map lng={user.location.center[0]} lat={user.location.center[1]} />
+      </Grid>
       {isAuthenticated && user._id !== currentUser._id && (
         <Grid item xs={12}>
           <Grid container justify="flex-end">
             <SendMessage receiverUsername={user.username} receiver={user._id} />
           </Grid>
-        </Grid>
-      )}
-
-      {!isEmpty(user.locationCurrent) && (
-        <Grid item xs={12}>
-          <Map
-            lng={user.locationCurrent.mapBox.geometry.coordinates[0]}
-            lat={user.locationCurrent.mapBox.geometry.coordinates[1]}
-          />
         </Grid>
       )}
 

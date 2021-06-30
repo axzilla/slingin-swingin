@@ -13,7 +13,6 @@ async function getAllPlaces(req, res) {
         // .sort({ dateCreated: -1 })
         .limit(limit)
         .skip(page > 0 ? (page - 1) * limit : 0)
-        .populate('placeReviews')
 
       const total = searchText
         ? await Place.countDocuments({ urlSlug: { $regex: searchText, $options: 'i' } })
