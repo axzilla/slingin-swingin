@@ -20,11 +20,11 @@ function Landing({ posts }) {
   return (
     <>
       <SeoMeta
-        title={'digitalnomads.dev - The #1 Digital Nomad Community'}
+        title={'Sevier Dirt Slingin and Swingin - The #1 Treasure Hunting Community'}
         desc={
-          'digitalnomads.dev (or just dino) is a platform where any kind of digital nomad write articles, take part in discussions, and build their professional profiles.'
+          'Sevier Dirt Slingin and Swingin is a platform where any kind of treasure hunter write articles, take part in discussions, and build their professional profiles'
         }
-        canonical="https://www.digitalnomads.dev"
+        canonical="https://sevier-dirt-slingin-and-swingin.vercel.app"
         ogImage={null}
       />
       <MainLayout>

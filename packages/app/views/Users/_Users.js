@@ -88,7 +88,7 @@ function Users({ users }) {
         </Box>
         <Box>
           <Typography component="h3" variant="subtitle1" align="center">
-            {users.from} – {users.to} of {users.total} digital nomads
+            {users.from} – {users.to} of {users.total} treasure hunters
           </Typography>
         </Box>
       </Grid>

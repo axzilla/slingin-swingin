@@ -106,7 +106,7 @@ function Landing({ posts, message, variant, jwtToken }) {
         </Box>
         <Box>
           <Typography component="h3" variant="subtitle1" align="center">
-            {posts.from} – {posts.to} of {posts.total} posts for digital nomads
+            {posts.from} – {posts.to} of {posts.total} posts for treasure hunters
           </Typography>
         </Box>
       </Grid>

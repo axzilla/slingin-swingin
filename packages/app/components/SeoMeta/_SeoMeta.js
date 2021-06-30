@@ -12,7 +12,14 @@ function seoMeta({ title, desc, canonical, ogImage, ogTitle, ogDescription }) {
       <meta property="og:title" content={ogTitle} />
       <meta property="og:description" content={ogDescription} />
       <meta property="og:url" content={canonical} />
-      <meta property="og:image" content={ogImage || `https://www.digitalnomads.dev${logo}`} />
+      <meta
+        property="og:image"
+        content={
+          ogImage ||
+          `https://sevier-dirt-slingin-and-swingin.vercel.app
+${logo}`
+        }
+      />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
     </Head>
