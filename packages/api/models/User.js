@@ -10,8 +10,7 @@ const UserSchema = new Schema({
   //
   avatar: { type: Object },
   name: { type: String, required: true },
-  locationFrom: { type: Schema.Types.ObjectId, ref: 'Place' },
-  locationCurrent: { type: Schema.Types.ObjectId, ref: 'Place' },
+  location: { type: Object },
   bio: { type: String },
   website: { type: String },
   youtube: { type: String },
@@ -23,7 +22,6 @@ const UserSchema = new Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   postComments: [{ type: Schema.Types.ObjectId, ref: 'PostComment' }],
   conversations: [{ type: Schema.Types.ObjectId, ref: 'Conversation' }],
-  placeReviews: [{ type: Schema.Types.ObjectId, ref: 'PlaceReview' }],
   //
   notifications: {
     onNewPost: { type: Boolean, default: true },

@@ -27,7 +27,6 @@ const PlaceSchema = new Schema({
   //
   photo: { type: Object, required: true },
   //
-  placeReviews: [{ type: Schema.Types.ObjectId, ref: 'PlaceReview' }],
   dateCreated: { type: Date, default: Date.now }
 })
 

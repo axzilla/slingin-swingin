@@ -12,7 +12,6 @@ import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import Typography from '@material-ui/core/Typography'
 import HomeIcon from '@material-ui/icons/Home'
-import RoomIcon from '@material-ui/icons/Room'
 
 function ProfilesFeedItem({ user }) {
   return (
@@ -30,25 +29,13 @@ function ProfilesFeedItem({ user }) {
                 @{user.username}
               </Typography>
             </Link>
-            {user.locationFrom && (
+            {user.location && (
               <Grid spacing={1} container wrap="nowrap">
                 <Grid item>
                   <HomeIcon />
                 </Grid>
                 <Grid item>
-                  <Typography color="textPrimary">{user.locationFrom.mapBox.place_name}</Typography>
-                </Grid>
-              </Grid>
-            )}
-            {user.locationCurrent && (
-              <Grid spacing={1} container wrap="nowrap">
-                <Grid item>
-                  <RoomIcon />
-                </Grid>
-                <Grid item>
-                  <Typography color="textPrimary">
-                    {user.locationCurrent.mapBox.place_name}
-                  </Typography>
+                  <Typography color="textPrimary">{user.location.place_name}</Typography>
                 </Grid>
               </Grid>
             )}
