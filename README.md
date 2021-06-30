@@ -1,5 +1,5 @@
-# digitalnomads - The #1 Digital Nomad Community
+# Sevier Dirt Slingin' and Swingin' - The #1 Treasure Hunting Community
 
-digitalnomads (or just dino) is a platform where any kind of digital nomad write articles, take part in discussions, and build their professional profiles
+Sevier Dirt Slingin' and Swingin' is a platform where any kind of treasure hunter write articles, take part in discussions, and build their professional profiles
 
-https://digitalnomads.vercel.app
+https://sevier-dirt-slingin-and-swingin.vercel.app

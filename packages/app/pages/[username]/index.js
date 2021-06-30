@@ -5,17 +5,17 @@ import { getUserByUsername } from '@services/user'
 import { getCommentsByUserId } from '@services/comment'
 import { Main as MainLayout } from '@layouts'
 import { ProfileDetails as ProfileDetailsView } from '@views'
-import SeoMeta from '@components/SeoMeta'
+// import SeoMeta from '@components/SeoMeta'
 
 function ProfileDetails({ user, posts, comments, username }) {
   return (
     <>
-      <SeoMeta
+      {/* <SeoMeta
         title={`${user.username} - digitalnomads.dev`}
         desc={`This is the profile page of ${user.username}`}
         canonical={`https://www.digitalnomads.dev/${user.username}`}
         ogImage={(user.avatar && user.avatar.secure_url) || null}
-      />
+      /> */}
       <MainLayout>
         <ProfileDetailsView user={user} posts={posts} comments={comments} username={username} />
       </MainLayout>

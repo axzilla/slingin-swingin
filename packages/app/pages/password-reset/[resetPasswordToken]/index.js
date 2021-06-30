@@ -23,7 +23,7 @@ import { Main as MainLayout } from '@layouts'
 import { Landing as LandingView } from '@views'
 
 // Global Components
-import { SeoMeta } from '@components'
+// import { SeoMeta } from '@components'
 
 function PasswordReset({ resetPasswordToken, posts }) {
   const dispatch = useDispatch()
@@ -43,14 +43,14 @@ function PasswordReset({ resetPasswordToken, posts }) {
 
   return (
     <>
-      <SeoMeta
+      {/* <SeoMeta
         title={'digitalnomads.dev - The #1 Digital Nomad Community'}
         desc={
           'digitalnomads.dev (or just dino) is a platform where any kind of digital nomad write articles, take part in discussions, and build their professional profiles.'
         }
         canonical="https://www.digitalnomads.dev"
         ogImage={null}
-      />
+      /> */}
       <MainLayout>
         <LandingView posts={posts} />
       </MainLayout>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import objToQuery from '@utils/objToQuery'
 
 // Global Components
-import { SeoMeta } from '@components'
+// import { SeoMeta } from '@components'
 
 // Services
 import { getAllUsers } from '@services/user'
@@ -19,12 +19,12 @@ import { Users as UsersView } from '@views'
 function Users({ users }) {
   return (
     <>
-      <SeoMeta
+      {/* <SeoMeta
         title={`Make new friends around the world - digitalnomads.dev`}
         desc={`digitalnomads.dev - Make new friends around the world`}
         canonical={`https://www.digitalnomads.dev/users`}
         ogImage={null}
-      />
+      /> */}
       <MainLayout>
         <UsersView users={users} />
       </MainLayout>
