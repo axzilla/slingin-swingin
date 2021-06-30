@@ -1,6 +1,0 @@
-export { default as Costs } from './Costs'
-export { default as Header } from './Header'
-export { default as People } from './People'
-export { default as Ratings } from './Ratings'
-export { default as ReviewFeed } from './ReviewFeed'
-export { default as ReviewCreateOrUpdate } from './ReviewCreateOrUpdate'

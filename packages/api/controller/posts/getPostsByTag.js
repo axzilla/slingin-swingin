@@ -5,7 +5,6 @@ async function getPostsByTag(req, res) {
     const foundPost = await Post.find({ hashtags: req.params.tag })
       .sort({ dateCreated: -1 })
       .populate('user', '-password')
-      .populate('place')
       .populate('mediaFiles')
 
     res.json(foundPost)

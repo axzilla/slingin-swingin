@@ -17,15 +17,3 @@ export function getUserByUsername(username) {
 export function updateUser(userData) {
   return axios.post(`${serverUrl}/update-user`, userData)
 }
-
-export function getPlaceCurrentUsersByPlaceId(placeId) {
-  return axios.get(`${serverUrl}/get-place-current-users-by-place-id/${placeId}`)
-}
-
-export function getPlaceBeenUsersByPlaceId(placeId) {
-  return axios.get(`${serverUrl}/get-place-been-users-by-place-id/${placeId}`)
-}
-
-export function getPlaceWantUsersByPlaceId(placeId) {
-  return axios.get(`${serverUrl}/get-place-want-users-by-place-id/${placeId}`)
-}

@@ -5,7 +5,6 @@ async function getPostsByUserId(req, res) {
     const foundPosts = await Post.find({ bookmarks: req.params.userId })
       .sort({ dateCreated: -1 })
       .populate('user', '-password')
-      .populate('place')
       .populate('mediaFiles')
 
     res.json(foundPosts)

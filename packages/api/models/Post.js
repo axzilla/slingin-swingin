@@ -9,7 +9,7 @@ const PostSchema = new Schema({
   contentRaw: { type: String },
   contentText: { type: String },
   mediaFiles: [{ type: Schema.Types.ObjectId, ref: 'MediaFile' }],
-  place: { type: Schema.Types.ObjectId, ref: 'Place' },
+  // place: { type: Schema.Types.ObjectId, ref: 'Place' },
   hashtags: { type: Array },
   likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   bookmarks: [{ type: Schema.Types.ObjectId, ref: 'User' }],

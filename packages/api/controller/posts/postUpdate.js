@@ -52,7 +52,6 @@ async function postUpdate(req, res) {
       .populate('bookmarks', ['email', 'username'])
       .populate('user')
       .populate('mediaFiles')
-      .populate('place')
 
     res.json(updatedPost)
   } catch (error) {

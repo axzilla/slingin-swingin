@@ -1,5 +1,6 @@
 // Packages
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import _ from 'lodash'
 
 // Contexts
@@ -7,7 +8,7 @@ import { useAlert } from '@contexts/AlertContext'
 
 // Services
 import { updateUser, getCurrentUser } from '@services/user'
-import { getPlacesBySearchTerm } from '@services/place'
+// import { getPlacesBySearchTerm } from '@services/place'
 
 // Utils
 import isEmpty from '@utils/isEmpty'
@@ -90,8 +91,20 @@ function AccountSettings() {
     try {
       if (event && event.target.value.length > 0) {
         const searchTerm = event.target.value
-        const foundPlaces = await getPlacesBySearchTerm({ searchTerm })
-        setLocations(foundPlaces.data)
+        // const foundPlaces = await getPlacesBySearchTerm({ searchTerm })
+
+        const basePath = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
+        const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+        const limit = '10'
+        const types = 'region,place,locality,neighborhood'
+        // const types = 'country,region,place,locality'
+        const mapbox = await axios.get(
+          `${basePath}/${searchTerm}.json?types=${types}&access_token=${token}&limit=${limit}&language=en`
+          // `${basePath}/${search}.json?&access_token=${token}&limit=${limit}&language=en`
+        )
+
+        // res.json(mapbox.data.features)
+        setLocations(mapbox.data.features)
       }
     } catch (error) {
       if (error) throw error

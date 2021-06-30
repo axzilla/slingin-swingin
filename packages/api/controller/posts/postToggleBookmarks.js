@@ -4,7 +4,6 @@ async function postToggleBookmarks(req, res) {
   try {
     const foundPost = await Post.findById(req.body.postId)
       .populate('user', '-password')
-      .populate('place')
       .populate('mediaFiles')
 
     const isBookmarked = foundPost.bookmarks.includes(req.user._id)

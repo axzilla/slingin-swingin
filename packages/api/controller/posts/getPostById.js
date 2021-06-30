@@ -4,7 +4,6 @@ async function getPostById(req, res) {
   try {
     const foundPost = await Post.findById(req.params.postId)
       .populate('user', '-password')
-      .populate('place')
       .populate('mediaFiles')
 
     if (!foundPost) {

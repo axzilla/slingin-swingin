@@ -12,7 +12,8 @@ import ObjectID from 'bson-objectid'
 // import _ from 'lodash'
 
 // Local Components
-import { MediaFiles, GifDialog, PlaceDialog } from './components'
+// import { MediaFiles, GifDialog, PlaceDialog } from './components'
+import { MediaFiles, GifDialog } from './components'
 
 // DraftJs Utils
 import {
@@ -46,7 +47,7 @@ import Divider from '@material-ui/core/Divider'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GifIcon from '@material-ui/icons/Gif'
 import ImageIcon from '@material-ui/icons/Image'
-import LocationOnIcon from '@material-ui/icons/LocationOn'
+// import LocationOnIcon from '@material-ui/icons/LocationOn'
 import CloseIcon from '@material-ui/icons/Close'
 import { DialogContent } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
@@ -62,10 +63,10 @@ function PostForm({ post, setPostData, open, handleClose }) {
   const { currentUser } = useSelector(state => state.auth)
   const [isLoading, setIsLoading] = useState(false)
   const [gif, setGif] = useState((post && post.gif) || null)
-  const [place, setPlace] = useState((post && post.place) || null)
-  const [places, setPlaces] = useState([])
+  // const [place, setPlace] = useState((post && post.place) || null)
+  // const [places, setPlaces] = useState([])
   const [isGifDialogOpen, setIsGifDialogOpen] = useState(false)
-  const [isPlaceDialogOpen, setIsPlaceDialogOpen] = useState(false)
+  // const [isPlaceDialogOpen, setIsPlaceDialogOpen] = useState(false)
   const [mediaFilesPreview, setMediaFilesPreview] = useState([])
   const [mediaFilesUploaded, setMediaFilesUploaded] = useState([])
   const [mediaFilesToDelete, setMediaFilesToDelete] = useState([])
@@ -159,14 +160,15 @@ function PostForm({ post, setPostData, open, handleClose }) {
         hashtags = getEntities(newEditorState, 'HASHTAG').map(hashtag => hashtag.data.hashtag)
         contentRaw = JSON.stringify(convertToRaw(newEditorState.getCurrentContent()))
         contentText = newEditorState.getCurrentContent().getPlainText().replace(/\s+/g, ' ').trim()
-        data = { contentRaw, contentText, hashtags, gif, place: (place && place._id) || null }
+        // data = { contentRaw, contentText, hashtags, gif, place: (place && place._id) || null }
+        data = { contentRaw, contentText, hashtags, gif }
       } else {
         data = {
           contentRaw: '',
           contentText: '',
           hashtags: [],
-          gif,
-          place: (place && place._id) || null
+          gif
+          // place: (place && place._id) || null
         }
       }
 
@@ -399,7 +401,7 @@ function PostForm({ post, setPostData, open, handleClose }) {
                       <GifIcon />
                     </IconButton>
                   </Grid>
-                  <Grid item>
+                  {/* <Grid item>
                     <IconButton
                       disabled={isLoading}
                       color="primary"
@@ -409,7 +411,7 @@ function PostForm({ post, setPostData, open, handleClose }) {
                     >
                       <LocationOnIcon />
                     </IconButton>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
 
@@ -445,7 +447,7 @@ function PostForm({ post, setPostData, open, handleClose }) {
         />
       )}
 
-      {isPlaceDialogOpen && (
+      {/* {isPlaceDialogOpen && (
         <PlaceDialog
           isPlaceDialogOpen={isPlaceDialogOpen}
           setIsPlaceDialogOpen={setIsPlaceDialogOpen}
@@ -454,7 +456,7 @@ function PostForm({ post, setPostData, open, handleClose }) {
           places={places}
           setPlaces={setPlaces}
         />
-      )}
+      )} */}
     </>
   )
 }
