@@ -15,7 +15,6 @@ app.use(express.json({ limit: '10mb', extended: true }))
 app.use(passport.initialize())
 
 // App Routes
-app.use('/_admin', require('./routes/_admin'))
 app.use('/auth', require('./routes/auth'))
 app.use('/posts', require('./routes/posts'))
 app.use('/comments', require('./routes/comments'))
