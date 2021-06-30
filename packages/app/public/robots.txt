@@ -3,8 +3,6 @@ Sitemap: https://www.digitalnomads.dev/api/sitemap
 User-agent: *
 Disallow: /account-settings/
 Disallow: /account-settings
-Disallow: /admin/
-Disallow: /admin
 Disallow: /api/
 Disallow: /api
 Disallow: /chats/
