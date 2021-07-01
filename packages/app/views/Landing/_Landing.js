@@ -83,15 +83,11 @@ function Landing({ posts, message, variant, jwtToken }) {
         </Grid>
       </Grid>
       {posts &&
-        posts.result
-          .sort((a, b) => {
-            return new Date(b.dateCreated) - new Date(a.dateCreated)
-          })
-          .map(post => (
-            <Grid key={post._id} item xs={12}>
-              <PostFeedItem post={post} />
-            </Grid>
-          ))}
+        posts.result.map(post => (
+          <Grid key={post._id} item xs={12}>
+            <PostFeedItem post={post} />
+          </Grid>
+        ))}
       {/* Pagination */}
       <Grid item xs={12}>
         <Box my={5}>
