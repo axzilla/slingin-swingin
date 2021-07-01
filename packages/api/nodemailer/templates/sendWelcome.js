@@ -6,7 +6,7 @@ async function sendConfirmation(transporter, user) {
       subject: 'Welcome to Sevier Dirt Slingin and Swingin',
       html: `
         <p>Hello ${user.name},</p>
-        <p>you are now part of a community that brings travelers all over the world in contact with other travelers. Discover new places, make new friends or share your questions or articles.</p>
+        <p>you are now part of a community that brings treasure hunters all over the world in contact with other treasure hunters. Discover new places, make new friends or share your questions or articles.</p>
         <p>Thanks!<br>Your Sevier Dirt Slingin and Swingin-Team</p>
       `
     })
