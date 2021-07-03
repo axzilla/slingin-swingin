@@ -34,6 +34,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox'
 import MailIcon from '@material-ui/icons/Mail'
 import AllInboxIcon from '@material-ui/icons/AllInbox'
 import PeopleIcon from '@material-ui/icons/People'
+import MuseumIcon from '@material-ui/icons/Museum'
 
 const useStyles = makeStyles(theme => {
   return {
@@ -101,7 +102,8 @@ function Topbar() {
 
   const navigation = [
     { name: 'Posts', icon: <AllInboxIcon />, link: '/' },
-    { name: 'People', icon: <PeopleIcon />, link: '/users' }
+    { name: 'People', icon: <PeopleIcon />, link: '/users' },
+    { name: 'Treasury', icon: <MuseumIcon />, link: '/treasury' }
   ]
 
   const handleCreatePostOpen = () => {
